@@ -50,7 +50,7 @@ class GeneratorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "jobs.csv"
             started = time.monotonic()
-            GEN.main(
+            code = GEN.main(
                 [
                     "--arrival-dist",
                     "fixed",
@@ -66,6 +66,7 @@ class GeneratorTests(unittest.TestCase):
                     str(out),
                 ]
             )
+            self.assertEqual(code, 0)
             self.assertLess(time.monotonic() - started, 2.0)
             self.assertEqual(out.read_text(encoding="utf-8").splitlines(), [HEADER])
 
@@ -73,7 +74,7 @@ class GeneratorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             out = Path(tmp) / "jobs.csv"
             started = time.monotonic()
-            GEN.main(
+            code = GEN.main(
                 [
                     "--arrival-dist",
                     "fixed",
@@ -91,11 +92,14 @@ class GeneratorTests(unittest.TestCase):
                     str(out),
                 ]
             )
+            self.assertEqual(code, 0)
             self.assertLess(time.monotonic() - started, 2.0)
-            self.assertEqual(len(list(iter_jobs(out.read_text(encoding="utf-8").splitlines()))), 1)
+            jobs = list(iter_jobs(out.read_text(encoding="utf-8").splitlines()))
+            self.assertEqual([job.job_id for job in jobs], ["j0"])
+            self.assertEqual([task.wait_seconds for task in jobs[0].tasks], [0.1])
 
     def test_missing_uniform_bounds_fail(self) -> None:
-        with self.assertRaises(SystemExit):
+        with self.assertRaises(SystemExit) as raised:
             GEN.main(
                 [
                     "--arrival-dist",
@@ -108,6 +112,7 @@ class GeneratorTests(unittest.TestCase):
                     "1",
                 ]
             )
+        self.assertIn("arrival-low", str(raised.exception))
 
     def test_normal_draw_is_clamped_at_zero(self) -> None:
         class NegativeGauss(random.Random):

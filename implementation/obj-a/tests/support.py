@@ -44,6 +44,16 @@ def load_script(path: Path, name: str):
     return module
 
 
+def log_bodies(text: str) -> list[str]:
+    """Return the message field from each course-style log line."""
+    bodies: list[str] = []
+    for line in text.splitlines():
+        pieces = line.split(" - ")
+        if len(pieces) >= 4:
+            bodies.append(" - ".join(pieces[3:]))
+    return bodies
+
+
 def event_kinds(messages: list[str]) -> list[str]:
     """Return Lab 0 kinds, with ERROR combined with its reason."""
     kinds: list[str] = []

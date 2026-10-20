@@ -8,7 +8,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from support import ROOT
+from support import ROOT, event_kinds, log_bodies
 
 from lib.job import iter_jobs
 
@@ -90,15 +90,25 @@ class SmokeTests(unittest.TestCase):
                 ]
             )
 
-            q_text = queue_log.read_text(encoding="utf-8")
-            sf_text = server_log.read_text(encoding="utf-8")
-            for kind in ("ARRIVE-VIA", "DEPART-VIA", "metric-q-size"):
-                self.assertIn(kind, q_text)
-            for kind in ("ENTERS-SERVER", "TASK-START", "TASK-END", "EXITS-SERVER", "DEPART-VIA"):
-                self.assertIn(kind, sf_text)
+            q_messages = log_bodies(queue_log.read_text(encoding="utf-8"))
+            sf_messages = log_bodies(server_log.read_text(encoding="utf-8"))
+            q_kinds = event_kinds(q_messages)
+            sf_kinds = event_kinds(sf_messages)
+            self.assertEqual(q_kinds.count("ARRIVE-VIA"), 2)
+            self.assertEqual(q_kinds.count("DEPART-VIA"), 2)
+            self.assertNotIn("ERROR QUEUE-FULL", q_kinds)
+            self.assertGreaterEqual(sum(message.startswith("metric-q-size ") for message in q_messages), 1)
+            self.assertEqual(sf_kinds.count("ENTERS-SERVER"), 2)
+            self.assertEqual(sf_kinds.count("TASK-START"), 2)
+            self.assertEqual(sf_kinds.count("TASK-END"), 2)
+            self.assertEqual(sf_kinds.count("EXITS-SERVER"), 2)
+            self.assertEqual(sf_kinds.count("DEPART-VIA"), 2)
+            self.assertTrue(all("IN q0 " in message for message in q_messages if " IN " in message))
+            self.assertTrue(all("ENTERS-SERVER 0" in message for message in sf_messages if "ENTERS-SERVER" in message))
 
             generated = list(iter_jobs(jobs.read_text(encoding="utf-8").splitlines()))
             delivered = list(iter_jobs(sink.read_text(encoding="utf-8").splitlines()))
+            self.assertEqual([job.job_id for job in generated], ["j0", "j1"])
             self.assertEqual([job.job_id for job in delivered], [job.job_id for job in generated])
             self.assertEqual([job.raw_line for job in delivered], [job.raw_line for job in generated])
 

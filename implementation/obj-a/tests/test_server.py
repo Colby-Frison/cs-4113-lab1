@@ -9,6 +9,7 @@ from pathlib import Path
 
 from support import ROOT, capture_logger, event_kinds, load_script
 
+from lib.grpc_spec import parse_dial
 from lib.job import Task, format_job_line, iter_jobs, parse_job_line
 from lib.server import serve_job
 
@@ -70,10 +71,51 @@ class ServeJobTests(unittest.TestCase):
         serve_job(job, [], "q0", 0, log, state=state, sleep_fn=lambda _seconds: None)
         self.assertEqual(state, {"j0": 2})
 
-    def test_grpc_flag_is_rejected(self) -> None:
+    def test_file_and_grpc_input_together_are_rejected(self) -> None:
         with self.assertRaises(SystemExit) as raised:
-            STATELESS.main(["--ingrpc", "0.0.0.0,1", "-i", "in.csv"])
-        self.assertIn("not implemented", str(raised.exception).lower())
+            STATELESS.main(["--ingrpc", "0.0.0.0:50052,1", "-i", "in.csv"])
+        self.assertIn("not both", str(raised.exception).lower())
+
+    def test_grpc_edge_logs_depart_when_the_peer_accepts(self) -> None:
+        job = parse_job_line(format_job_line("j0", 1.0, (Task(0, 0.0),)))
+        edge = parse_dial("127.0.0.1:50051,1", caller="server")
+        log, messages = capture_logger("serve-grpc-ok")
+        chosen = serve_job(
+            job,
+            [],
+            "q0",
+            0,
+            log,
+            sleep_fn=lambda _seconds: None,
+            grpc_edges=[edge],
+            submit_fn=lambda _edge, _job, _qid: "accepted",
+        )
+        self.assertEqual(chosen, "127.0.0.1:50051")
+        self.assertEqual(
+            event_kinds(messages),
+            ["ENTERS-SERVER", "TASK-START", "TASK-END", "EXITS-SERVER", "DEPART-VIA"],
+        )
+        self.assertIn("DEPART-VIA 127.0.0.1:50051", messages[-1])
+
+    def test_grpc_transport_failure_does_not_log_depart(self) -> None:
+        job = parse_job_line(format_job_line("j0", 1.0, (Task(0, 0.0),)))
+        edge = parse_dial("127.0.0.1:50051,1", caller="server")
+        log, messages = capture_logger("serve-grpc-fail")
+        chosen = serve_job(
+            job,
+            [],
+            "q0",
+            0,
+            log,
+            sleep_fn=lambda _seconds: None,
+            grpc_edges=[edge],
+            submit_fn=lambda _edge, _job, _qid: "failed",
+        )
+        self.assertIsNone(chosen)
+        self.assertEqual(
+            event_kinds(messages),
+            ["ENTERS-SERVER", "TASK-START", "TASK-END", "EXITS-SERVER"],
+        )
 
 
 if __name__ == "__main__":
