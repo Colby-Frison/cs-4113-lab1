@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+// Shared job record for every Objective A edge.
+// raw_line is the CSV row the file/FIFO path already uses. Structured fields
+// are filled too, so a peer can rebuild the row if raw_line is empty.
+
+message Task {
+  int32 tid = 1;
+  double wait_seconds = 2;
+}
+
+message Job {
+  string job_id = 1;
+  double arrival_time = 2;
+  repeated Task tasks = 3;
+  string raw_line = 4;
+}
+
+message SubmitJobRequest {
+  Job job = 1;
+  // Edge label the receiver writes in ARRIVE-VIA (queue id or host:port).
+  string source_edge = 2;
+}
+
+message SubmitJobResponse {
+  // False means the queue dropped the job and logged ERROR QUEUE-FULL.
+  // A server function always accepts; it has no buffer of its own.
+  bool accepted = 1;
+}
