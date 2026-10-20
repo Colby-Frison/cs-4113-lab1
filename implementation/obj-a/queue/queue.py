@@ -1,18 +1,24 @@
 #!/usr/bin/env python3
-"""Bounded job buffer between workload files (or FIFOs) and server functions.
+"""Bounded job buffer between workload sources and the next edge.
 
-Producers read wait-task CSV rows. A job that fits is logged ``ARRIVE-VIA``
-and queued. A job that does not fit is logged ``ERROR QUEUE-FULL`` and
-dropped; the producer does not block. Consumers write the original line to an
-outfile and log ``DEPART-VIA``. One consumer thread competes per outfile, the
-same arrangement as the course example.
+Inputs are files/FIFOs (``--infile``) and, optionally, gRPC listen ports
+(``--ingrpc``). Outputs are files/FIFOs (``--outfile``) and, optionally, gRPC
+peers (``--outgrpc``). At least one input and one output are required. The two
+kinds can be mixed on the same process.
 
-``metric-q-size`` is the number of jobs sitting in this buffer. A job leaves
-the sample once a consumer takes it, so the sample is not in-service time.
-The server function logs the visit.
+How a run proceeds: the sidecar thread samples ``qsize`` every 0.1s. Outfiles
+are opened before any producer starts, so a FIFO blocks in ``open`` until the
+reader exists instead of filling the buffer first. File producers then parse
+each data row and ``put_nowait``. ``queue.Full`` logs ``ERROR QUEUE-FULL`` and
+drops that job; the producer does not block. File consumers and gRPC sender
+threads compete on the same buffer. Each winner either appends ``raw_line`` or
+calls ``Submit``. After file inputs hit EOF, a listen port keeps the process
+up until Ctrl-C. The main thread then puts one ``None`` stop marker. Every
+consumer requeues that marker and exits, so one marker wakes all of them.
+``metric-q-size`` counts jobs still in the buffer. A job leaves that sample
+when a consumer takes it, before the server function logs the visit.
 
 Adapted from example_code/02_producer_and_consumer_instrumented.py.
-gRPC flags are accepted only so a mistaken command fails clearly.
 """
 
 from __future__ import annotations
@@ -54,8 +60,9 @@ Queue = _stdlib_queue.Queue
 sys.path.insert(0, str(_SCRIPT_DIR.parent))
 
 from lib.events import arrive_via, depart_via, error_queue_full
+from lib.grpc_spec import DialSpec, ListenSpec, parse_dial, parse_listen
 from lib.job import Job, JobParseError, is_header, parse_job_line
-from lib.logsetup import configure_logging, reject_unimplemented_grpc
+from lib.logsetup import configure_logging
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +110,7 @@ def worker_producer(
     filename: str,
     qid: str,
 ) -> None:
-    """Read one infile. The first producer publishes the stop marker."""
+    """Read one infile. The main thread publishes the stop marker later."""
     logger.info("Producer %s running", identifier)
     try:
         with open(filename, encoding="utf-8") as handle:
@@ -119,11 +126,29 @@ def worker_producer(
                 time.sleep(YIELD_SEC)
     finally:
         # Every producer reaches the barrier, including after a read error,
-        # so a failed infile cannot leave the consumers waiting forever.
+        # so a failed infile cannot leave the others waiting forever.
         barrier.wait()
-        if identifier == 0:
-            buffer.put(None)
     logger.info("Producer %s done", identifier)
+
+
+def worker_grpc_sender(
+    buffer: Queue[Job | None],
+    dial: DialSpec,
+    qid: str,
+    submit,
+) -> None:
+    """Pull jobs and submit them to one gRPC peer until the stop marker."""
+    logger.info("gRPC sender %s running", dial.address)
+    while True:
+        item = buffer.get()
+        if item is None:
+            buffer.put(item)
+            break
+        outcome = submit(dial, item, qid, logger=logger)
+        if outcome != "failed":
+            logger.info("%s", depart_via(item.job_id, qid, dial.address))
+        time.sleep(YIELD_SEC)
+    logger.info("gRPC sender %s done", dial.address)
 
 
 def worker_consumer(
@@ -152,8 +177,8 @@ def build_parser() -> argparse.ArgumentParser:
         prog="queue",
         description="Queue wait-task jobs from inputs to server-function outputs.",
     )
-    parser.add_argument("-i", "--infile", action="append", required=True)
-    parser.add_argument("-o", "--outfile", action="append", required=True)
+    parser.add_argument("-i", "--infile", action="append", help="Job CSV or FIFO. Repeatable. Optional if --ingrpc is set.")
+    parser.add_argument("-o", "--outfile", action="append", help="Destination file or FIFO. Repeatable. Optional if --outgrpc is set.")
     parser.add_argument("--logfile", help="Log path (default: stderr)")
     parser.add_argument("--qid", default="q0", help="Queue id written in events (default: q0)")
     parser.add_argument(
@@ -165,12 +190,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--ingrpc",
         action="append",
-        help="Not implemented. interface,num_workers",
+        help="Listen for jobs: interface:port,workers (example 0.0.0.0:50051,4)",
     )
     parser.add_argument(
         "--outgrpc",
         action="append",
-        help="Not implemented. host:port,num_workers",
+        help="Send jobs: host:port,workers[,server|queue]. Default role is server.",
     )
     return parser
 
@@ -178,11 +203,19 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    reject_unimplemented_grpc(args.ingrpc, args.outgrpc)
     if args.qsize is not None and args.qsize < 1:
         raise SystemExit("--qsize must be >= 1")
     if not args.qid:
         raise SystemExit("--qid must be non-empty")
+
+    input_files = list(args.infile or [])
+    output_files = list(args.outfile or [])
+    listens = [parse_listen(item) for item in (args.ingrpc or [])]
+    dials = [parse_dial(item, caller="queue") for item in (args.outgrpc or [])]
+    if not input_files and not listens:
+        raise SystemExit("need at least one --infile or --ingrpc")
+    if not output_files and not dials:
+        raise SystemExit("need at least one --outfile or --outgrpc")
 
     configure_logging(args.logfile, "Q")
     logger.info("Started")
@@ -195,11 +228,20 @@ def main(argv: list[str] | None = None) -> int:
         logger.info("max-q-size %s", args.qsize)
         buffer = Queue(maxsize=args.qsize)
 
-    input_files: list[str] = args.infile
-    output_files: list[str] = args.outfile
-    producer_barrier = Barrier(len(input_files))
-    sidecar_barrier = Barrier(2)
+    submit = None
+    start_queue_server = None
+    if listens or dials:
+        try:
+            from lib.grpc_runtime import start_queue_server as start_queue_server
+            from lib.grpc_runtime import submit_job as submit
+        except ImportError as exc:
+            raise SystemExit(
+                "gRPC edges need grpcio and protobuf. "
+                "pip install -r implementation/obj-a/requirements.txt"
+            ) from exc
 
+    producer_barrier = Barrier(len(input_files)) if input_files else None
+    sidecar_barrier = Barrier(2)
     sidecar = Thread(
         target=worker_sidecar,
         args=(buffer, sidecar_barrier),
@@ -208,9 +250,8 @@ def main(argv: list[str] | None = None) -> int:
     )
     sidecar.start()
 
-    # Open outputs before producers run. A FIFO blocks here until the server
-    # function is already reading, so a full buffer cannot drop jobs during
-    # that wait.
+    # Open file outputs before producers run. A FIFO blocks here until the
+    # reader exists, so a full buffer cannot drop jobs during that wait.
     with ExitStack() as stack:
         handles = [
             stack.enter_context(open(path, "a", encoding="utf-8", newline="\n"))
@@ -223,20 +264,26 @@ def main(argv: list[str] | None = None) -> int:
             )
             for index in range(len(output_files))
         ]
+        for dial in dials:
+            for _ in range(dial.workers):
+                consumers.append(Thread(target=worker_grpc_sender, args=(buffer, dial, args.qid, submit)))
         for consumer in consumers:
             consumer.start()
 
-        producers = [
-            Thread(
-                target=worker_producer,
-                args=(producer_barrier, buffer, index, input_files[index], args.qid),
-            )
-            for index in range(len(input_files))
-        ]
-        for producer in producers:
-            producer.start()
-        for producer in producers:
-            producer.join()
+        servers = _start_listeners(listens, buffer, args.qid, start_queue_server)
+        producers = []
+        if producer_barrier is not None:
+            producers = [
+                Thread(
+                    target=worker_producer,
+                    args=(producer_barrier, buffer, index, input_files[index], args.qid),
+                )
+                for index in range(len(input_files))
+            ]
+            for producer in producers:
+                producer.start()
+        _wait_for_inputs(producers, servers)
+        buffer.put(None)
         for consumer in consumers:
             consumer.join()
 
@@ -244,6 +291,38 @@ def main(argv: list[str] | None = None) -> int:
     sidecar.join()
     logger.info("Finished")
     return 0
+
+
+def _start_listeners(listens: list[ListenSpec], buffer: Queue[Job | None], qid: str, start_queue_server):
+    servers = []
+    if not listens:
+        return servers
+
+    def admit(job: Job, source: str) -> bool:
+        return admit_job(buffer, job, qid, source, logger)
+
+    for listen in listens:
+        server, port = start_queue_server(listen, admit)
+        logger.info("gRPC listen %s:%s workers %s", listen.host, port, listen.workers)
+        servers.append(server)
+    return servers
+
+
+def _wait_for_inputs(producers: list[Thread], servers: list) -> None:
+    """Wait until file inputs hit EOF, and until Ctrl-C if a gRPC port is open."""
+    try:
+        for producer in producers:
+            producer.join()
+        if not servers:
+            return
+        logger.info("gRPC listen is running; Ctrl-C to stop")
+        while True:
+            time.sleep(0.2)
+    except KeyboardInterrupt:
+        logger.info("stopping gRPC listen")
+    finally:
+        for server in servers:
+            server.stop(1)
 
 
 if __name__ == "__main__":

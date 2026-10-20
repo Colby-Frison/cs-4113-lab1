@@ -1,4 +1,11 @@
-"""Process logging in the same shape as the course examples."""
+"""Process logging in the same shape as the course examples.
+
+``configure_logging`` calls ``logging.basicConfig`` once. With no ``--logfile``
+the handler is stderr. With a path, the handler is that file. The format string
+embeds the pid and hostname so two queues on one machine can be told apart.
+Child loggers propagate to this root handler, which is how ``queue.py`` and
+``server_func.py`` both land in the file they were given.
+"""
 
 from __future__ import annotations
 
@@ -21,11 +28,3 @@ def configure_logging(logfile: str | None, component: str) -> None:
         logging.basicConfig(level=logging.INFO, format=log_format)
     else:
         logging.basicConfig(filename=logfile, level=logging.INFO, format=log_format)
-
-
-def reject_unimplemented_grpc(in_grpc: object, out_grpc: object) -> None:
-    """gRPC edges are a later task. Fail instead of ignoring the flags."""
-    if in_grpc or out_grpc:
-        raise SystemExit(
-            "gRPC inputs and outputs are not implemented. Use --infile and --outfile."
-        )
