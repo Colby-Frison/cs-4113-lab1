@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 """Stream synthetic wait-task jobs until halted, or until a limit is reached.
 
-``--arrival-dist`` is the seconds to sleep before each job, including the
-first, so the rate does not start with a free job. ``--wait-dist`` is the
-seconds each task sleeps inside a server function. ``--tasks`` is how many
-waits each job carries (default 1).
+The loop writes the CSV header and flushes, then repeats: draw an arrival
+delay, sleep it, draw one wait per task, write one row, flush. The sleep
+happens before every job, including the first, so the rate does not start
+with a free job. ``--arrival-dist`` supplies that delay. ``--wait-dist`` is
+drawn once per task and becomes the ``W`` seconds a server function will
+sleep. ``--tasks`` is how many waits each job carries (default 1).
 
 ``fixed``, ``uniform``, and ``normal`` are fractional seconds. ``normal`` is
-clamped at 0. ``geometric`` and ``poisson`` return a non-negative integer, and
-that integer is the number of seconds.
+clamped at 0 with ``max(0, gauss(...))``. ``geometric`` counts failures before
+the first success, so 0 seconds is possible. ``poisson`` is Knuth's sampler.
+Both integer draws are used as whole seconds.
 
-With neither ``--count`` nor ``--duration``, generation runs until Ctrl-C.
-If both limits are set, the first one reached stops the stream.
+With neither ``--count`` nor ``--duration``, the loop runs until Ctrl-C,
+which is caught and turned into exit code 0 after the file is closed. If both
+limits are set, the check at the top of the loop stops on count, and a
+duration that runs out during the arrival sleep returns before the row is
+written.
 """
 
 from __future__ import annotations

@@ -3,6 +3,14 @@
 A job is one CSV row with the Lab 0 columns ``Job Id``, ``arrival time``, and
 ``Tasks``. Each task is a wait in seconds, written ``<tid>: W <seconds>``.
 ``W`` is a sleep duration, not a discrete simulator work unit.
+
+``format_job_line`` builds the row with the csv module so the Tasks JSON is
+wrapped in doubled quotes, matching Lab 0. ``parse_job_line`` reverses that:
+csv splits the three columns, json loads the task list, and a regex checks
+each ``tid: W seconds`` token. ``iter_jobs`` skips a blank line and the header
+before parsing, which is how the queue and server functions ignore the
+generator's first row. ``raw_line`` is the stripped input, and that string is
+what a server function writes downstream so the next hop sees the same tasks.
 """
 
 from __future__ import annotations

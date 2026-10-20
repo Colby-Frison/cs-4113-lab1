@@ -2,11 +2,13 @@
 """Stateful wait-task server function.
 
 Same wait-and-forward visit as the stateless server. This process also keeps
-a visit count per job id. The count is logged as ``state-visits`` when the
-input reaches EOF. It is not written on the outgoing edge, so the next queue
-still receives the original job line.
+a visit count per job id, incremented when the job enters. The count is
+logged as ``state-visits`` after the file hits EOF, or after Ctrl-C stops an
+``--ingrpc`` listen. It is not written on the outgoing edge, so the next
+queue still receives the original job line.
 
-The dictionary lives only in this process.
+The dictionary lives only in this process. Concurrent gRPC handlers share it
+under a lock.
 """
 
 from __future__ import annotations

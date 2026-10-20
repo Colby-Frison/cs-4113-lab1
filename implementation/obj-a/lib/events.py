@@ -4,10 +4,17 @@ The message body matches the simulator log::
 
     {time} {job_id} IN {qid} {KIND} {detail}
 
-``time`` is wall-clock seconds with three decimal places (one token). The
-process logger still adds its own prefix; later tools strip that prefix.
+``time`` is wall-clock seconds with three decimal places (one token), taken
+from ``time.time()`` at the moment the helper is called. Callers log that
+string with ``logger.info``. The process logger still adds its own prefix
+(``asctime - component_pid@host - level - message``); later tools strip that
+prefix and keep the body. ``edge_label`` keeps only the filename for a path,
+so ``ARRIVE-VIA`` and ``DEPART-VIA`` stay short. A host:port has no slash, so
+it is left unchanged.
 
-Task completion uses Lab 0's name ``TASK-END``.
+Task completion uses Lab 0's name ``TASK-END``. The quoted wait token uses the
+same six-decimal ``W`` text as the CSV task, so a log line and a job row name
+the same sleep.
 """
 
 from __future__ import annotations

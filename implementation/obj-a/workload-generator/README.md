@@ -1,6 +1,19 @@
 # Workload generator
 
-Streams wait-task jobs as a Lab 0-shaped CSV. Each task is a sleep in seconds (`W`), not a discrete simulator step.
+Streams wait-task jobs as a Lab 0-shaped CSV. Each task is a sleep in seconds (`W`), not a discrete simulator step. This program only writes rows. It does not log Lab 0 events and it does not open a gRPC port. The queue is what reads the file.
+
+Part of the [Objective A framework](../README.md).
+
+## How a run proceeds
+
+1. Parse the two distributions and the stop limits. A missing statistic exits before any row is written.
+2. Write `Job Id,arrival time,Tasks` and flush, so a FIFO reader sees the header immediately.
+3. Draw an arrival delay and sleep it. This happens before every job, including the first. If `--duration` runs out during that sleep, the loop stops and does not write a partial row.
+4. Draw `--tasks` waits (default 1) from `--wait-dist`. Task ids are `0, 1, ...` in that order.
+5. Write one CSV row whose arrival column is `time.time()` at the moment of the write, then flush.
+6. Repeat until `--count` jobs have been written, `--duration` has elapsed, or the process receives Ctrl-C. Ctrl-C closes the file and exits 0. If both limits are set, whichever is reached first wins. The count is checked at the top of the loop, so the process does not sleep an extra arrival after the last job.
+
+`fixed`, `uniform`, and `normal` are fractional seconds. A normal draw below 0 is clamped to 0. `geometric` counts failures before the first success, so 0 seconds is possible, and that integer is the sleep. `poisson` is Knuth's sampler and is used the same way. One `random.Random` serves both distributions, so `--seed` fixes the whole stream.
 
 ```bash
 python workload_generator.py
