@@ -44,6 +44,14 @@ The body is `{wall-clock seconds} {job id} IN {qid} {KIND} ...`. The time token 
 | Stateless server function | Sleeps the waits and forwards the row. | [server-func-stateless/README.md](server-func-stateless/README.md) |
 | Stateful server function | Same visit, plus an in-process visit count. | [server-func-stateful/README.md](server-func-stateful/README.md) |
 | Optional gRPC | Protos, flags, startup order, backpressure. | [proto/README.md](proto/README.md) |
+| `filter-by-queue` | Keep one queue's metric rows. | [filter-by-queue/README.md](filter-by-queue/README.md) |
+| `filter-by-job` | Keep one job's event lines. | [filter-by-job/README.md](filter-by-job/README.md) |
+| `compute-use` / `plot-use` | Utilization, saturation, errors. | [compute-use/README.md](compute-use/README.md) |
+| `derive-sys-metrics` / `plot-sys-metrics` | Throughput and end-to-end latency. | [derive-sys-metrics/README.md](derive-sys-metrics/README.md) |
+| `derive-event-metrics` / `plot-derive-event-metrics` | Per-visit response. | [derive-event-metrics/README.md](derive-event-metrics/README.md) |
+| `create-event-trace` | Gantt of job lifelines. | [create-event-trace/README.md](create-event-trace/README.md) |
+| `pretty-print-job-trace` | Readable job timeline. | [pretty-print-job-trace/README.md](pretty-print-job-trace/README.md) |
+| Large-model mock-ups | Three queues, both server functions, gRPC and FIFO. | [mockups/large-model/README.md](mockups/large-model/README.md) |
 
 Python dependencies for an RPC edge are listed in [requirements.txt](requirements.txt). The file-only path does not import them.
 

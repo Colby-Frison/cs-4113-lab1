@@ -96,32 +96,38 @@ def _series(df: pd.DataFrame, column: str) -> pd.Series:
 
 
 def compute_use(qmet: pd.DataFrame, server_counts: dict[str, int]) -> pd.DataFrame:
-    """One row per qmet row, windows filled from that queue's own history."""
-    rows: list[dict] = []
+    """One row per qmet row, windows filled from that queue's own history.
+
+    Each window is the mean (or sum, for errors) of the last ``size`` samples
+    of that queue, including the current one. A short history uses every
+    sample it has. The rolling sums match that definition and stay linear in
+    the number of samples, which matters once a run has tens of thousands of jobs.
+    """
+    frames: list[pd.DataFrame] = []
     grouped = qmet.groupby(qmet["queue-sys-id"].map(normalize_qid), sort=False)
     for qid, frame in grouped:
         if qid not in server_counts:
             raise ValueError(f"queue {qid} is in qmet.csv but not in the config")
-        frame = frame.copy()
-        frame["_time"] = _series(frame, "time-step")
-        frame = frame.sort_values("_time", kind="mergesort")
-        busy = _series(frame, "num-jobs-in-service") / server_counts[qid]
-        waiting = _series(frame, "num-jobs-in-queue")
-        drops = _series(frame, "num-of-errors")
-        for index in range(len(frame)):
-            row = {
-                "time-step": int(frame["_time"].iloc[index]),
-                "queue-sys-id": qid,
-            }
-            for size in WINDOWS:
-                start = max(0, index - size + 1)
-                row[f"Utilization({size})"] = round(float(busy.iloc[start : index + 1].mean()), 6)
-                row[f"Saturation({size})"] = round(float(waiting.iloc[start : index + 1].mean()), 6)
-                row[f"Errors({size})"] = int(drops.iloc[start : index + 1].sum())
-            rows.append(row)
-    out = pd.DataFrame(rows, columns=list(OUT_COLUMNS))
-    if out.empty:
-        return out
+        ordered = frame.copy()
+        ordered["_time"] = _series(ordered, "time-step")
+        ordered = ordered.sort_values("_time", kind="mergesort")
+        busy = (
+            _series(ordered, "num-jobs-in-service") / server_counts[qid]
+        ).reset_index(drop=True)
+        waiting = _series(ordered, "num-jobs-in-queue").reset_index(drop=True)
+        drops = _series(ordered, "num-of-errors").reset_index(drop=True)
+        built: dict[str, object] = {
+            "time-step": ordered["_time"].astype(int).reset_index(drop=True),
+            "queue-sys-id": qid,
+        }
+        for size in WINDOWS:
+            built[f"Utilization({size})"] = busy.rolling(size, min_periods=1).mean().round(6)
+            built[f"Saturation({size})"] = waiting.rolling(size, min_periods=1).mean().round(6)
+            built[f"Errors({size})"] = drops.rolling(size, min_periods=1).sum().astype(int)
+        frames.append(pd.DataFrame(built))
+    if not frames:
+        return pd.DataFrame(columns=list(OUT_COLUMNS))
+    out = pd.concat(frames, ignore_index=True)
     order = out["queue-sys-id"].astype(int)
     return (
         out.assign(_order=order)
