@@ -20,5 +20,7 @@ Six plots per scenario, in `results/<scenario>/`:
 - `latency.png`, `throughput.png`
 - `longest-jobs.png` (three longest jobs)
 
-Each `results/<scenario>/tools/` directory holds the accessory-tool outputs.
+Each `results/<scenario>/tools/` directory holds the accessory figures
+(`use.png`, `resplot.png`, the response plots, `etrace.png`).
+Logs and CSVs are written there on a re-run and are gitignored.
 `etrace.png` is the first 40 jobs. `longest-jobs.png` is the long-job trace the rubric asks for.

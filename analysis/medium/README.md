@@ -88,7 +88,7 @@ Each `results/<scenario>/` has the six rubric plots:
 
 `q0` is drawn darker. The other 99 queues are the lighter lines. Time on the axes is milliseconds from the first event of that run.
 
-`analyze_run.py` runs the shared tools on the merged log. Their files are in `results/<scenario>/tools/`.
+`analyze_run.py` runs the shared tools on the merged log. The figures below are checked in under `results/<scenario>/tools/`. The logs and CSVs are written beside them on a re-run and are gitignored.
 
 | Tool | File |
 | --- | --- |
@@ -112,4 +112,4 @@ Each `results/<scenario>/` has the six rubric plots:
 - The hundred queues do not talk to each other. This checks that the framework still admits, serves, logs, and plots at medium width. It does not check a network of edges.
 - `qmet.csv` records a queue when its waiting or in-service count changes, plus a zero row at step 0. Repeating all 100 queues at every event would multiply the file by 100 and not change the count.
 - `etrace.png` is the first 40 jobs so the lifelines stay readable. The long-job requirement is `longest-jobs.png`.
-- Process logs in `runs/` are gitignored.
+- Process logs in `runs/`, and the result logs and CSVs, are gitignored. Re-running the script rewrites them.

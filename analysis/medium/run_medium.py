@@ -508,7 +508,9 @@ def write_summary(rows: list[dict], results: Path) -> None:
             "- `latency.png`, `throughput.png`",
             "- `longest-jobs.png` (three longest jobs)",
             "",
-            "Each `results/<scenario>/tools/` directory holds the accessory-tool outputs.",
+            "Each `results/<scenario>/tools/` directory holds the accessory figures",
+            "(`use.png`, `resplot.png`, the response plots, `etrace.png`).",
+            "Logs and CSVs are written there on a re-run and are gitignored.",
             f"`etrace.png` is the first {TRACE_LIMIT} jobs. `longest-jobs.png` is the long-job trace the rubric asks for.",
             "",
         ]
