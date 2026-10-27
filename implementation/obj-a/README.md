@@ -52,6 +52,7 @@ The body is `{wall-clock seconds} {job id} IN {qid} {KIND} ...`. The time token 
 | `create-event-trace` | Gantt of job lifelines. | [create-event-trace/README.md](create-event-trace/README.md) |
 | `pretty-print-job-trace` | Readable job timeline. | [pretty-print-job-trace/README.md](pretty-print-job-trace/README.md) |
 | Large-model mock-ups | Three queues, both server functions, gRPC and FIFO. | [mockups/large-model/README.md](mockups/large-model/README.md) |
+| Sanity check | Medium wait-job scale study: 100 queues, seven server sets, figures. | [sanity-check/README.md](sanity-check/README.md) |
 
 Python dependencies for an RPC edge are listed in [requirements.txt](requirements.txt). The file-only path does not import them.
 

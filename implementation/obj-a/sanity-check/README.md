@@ -1,8 +1,8 @@
-# Medium study: wait-job sanity check (100 queues)
+# Objective A sanity check (medium, 100 queues)
 
-Objective A medium is a sanity check of the shared framework, not a domain model. The lab slide asks for on the order of 100 queues and 10,000–100,000 wait jobs, then the same questions as the small study: mapping, metrics, configuration, workload, and how ± servers change throughput and latency.
+This is the Objective A wait-job sanity check at medium scale. The lab slide asks for on the order of 100 queues and 10,000–100,000 wait jobs, then the same questions as the small study: mapping, metrics, configuration, workload, and how ± servers change throughput and latency.
 
-This directory is that run. Live process logs stay in `runs/` and are gitignored. Notes and plots are under `results/`. Regenerate with `python analysis/medium/run_medium.py`.
+This directory is that run. Live process logs stay in `runs/` and are gitignored. Notes and plots are under `results/`. Regenerate with `python implementation/obj-a/sanity-check/run_medium.py`.
 
 ## 1. What the system is
 
