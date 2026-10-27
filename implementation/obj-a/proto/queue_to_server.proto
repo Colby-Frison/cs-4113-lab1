@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+import "job.proto";
+
+// Queue process is the client. Server function is the server.
+// Implemented by server_func.py when it is started with --ingrpc.
+service QueueToServer {
+  rpc Submit(SubmitJobRequest) returns (SubmitJobResponse);
+}
