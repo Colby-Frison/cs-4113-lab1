@@ -24,6 +24,16 @@ flowchart LR
 
 File and FIFO edges are the default. `--ingrpc` and `--outgrpc` add an RPC edge. A queue may mix files and RPC on the same process. A server function has one input, either `--infile` or `--ingrpc`.
 
+## Topology
+
+A running process takes its edges from the flags on its command line. A queue needs at least one `--infile` or `--ingrpc`, and at least one `--outfile` or `--outgrpc`. A server function has one input and forwards the original row on an output. One queue in a scale count is that queue process plus the server function that drains it. The `workers` count on a gRPC flag is the thread pool inside the process.
+
+An application that chains several of these systems writes the chain in its own topology file. The matchmaking baseline is [../obj-b.matchmaking/topology/baseline.json](../obj-b.matchmaking/topology/baseline.json). Order in the `pipeline` array is the edge for a stage that leaves the destination blank, so validate sends to the next queue, rating to the one after that, and search to ready. A stage that branches names the destination. Route maps a region token to a queue id. Ready names `pass`, `retry`, and `fail`. Allocate names a sink. The [orchestrator](../obj-b.matchmaking/orchestration/README.md) reads that file and writes one command per container, including host names and ports. The processes still see only flags.
+
+`qconf.csv` is the analysis table for those same queues. [compute-use](compute-use/README.md) reads `Num. Servers` from it. The columns are Sys ID, queue max size, server count, server function, rate, source, sink, edges in, and edges out. The [medium sanity check](sanity-check/README.md) writes one for the wait-job model. An application study writes one from its topology so utilization for a set is in-service time divided by that set's server count.
+
+The file a person edits stays the pattern. Matchmaking grows by copying the search stage across the tokens already stored in the job id: 4 regions, 2 modes, and 5 skill bands, which is $4 \times 2 \times 5 = 40$ search queues, plus the shared stages in front of them. A replica count on a stage carries that pattern into the larger bands. A generator stamps the expanded topology, the process commands, and `qconf.csv` from that description. One container per queue is the shape of the six-queue baseline and of a few dozen search queues. The 1,000–10,000 band runs the generated `qconf` with many queues inside one process, the same way a multi-queue simulator consumes that table.
+
 ## How logs are shaped
 
 Each process uses the course prefix, then a Lab 0 body:
