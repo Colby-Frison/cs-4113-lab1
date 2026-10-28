@@ -1,12 +1,14 @@
 """Wait-task visit shared by the stateless and stateful server functions.
 
-``serve_job`` is one visit. It logs ``ENTERS-SERVER``, then for each task logs
-``TASK-START``, calls the sleep function, and logs ``TASK-END``, then logs
-``EXITS-SERVER``. It then picks one outgoing edge uniformly. A file edge
-appends ``raw_line`` and flushes. A gRPC edge calls ``Submit`` and logs
-``DEPART-VIA`` when the peer answers, including a rejection. A transport
-failure logs an error and does not log ``DEPART-VIA``. No edges at all logs
-``ERROR NO-OUT-EDGE``.
+``serve_job`` is one visit. It logs ``ENTERS-SERVER``, then for each selected
+task logs ``TASK-START``, calls the sleep function, and logs ``TASK-END``,
+then logs ``EXITS-SERVER``. With no ``only_tids``, every task is selected.
+It then picks one outgoing edge. The default pick is uniform. ``edge_chooser``,
+when passed, returns the outfile path or the ``host:port`` to use instead.
+A file edge appends ``raw_line`` and flushes. A gRPC edge calls ``Submit``
+and logs ``DEPART-VIA`` when the peer answers, including a rejection. A
+transport failure logs an error and does not log ``DEPART-VIA``. No edges
+at all, or a chooser that declines, logs ``ERROR NO-OUT-EDGE``.
 
 ``serve_stream`` is the file path: open every outfile up front, skip the CSV
 header, and call ``serve_job`` per row on this thread. ``run_cli`` uses that
@@ -40,6 +42,9 @@ from lib.logsetup import configure_logging
 
 SleepFn = Callable[[float], None]
 SubmitFn = Callable[[DialSpec, Job, str], str]
+AdmitFn = Callable[[Job], bool]
+# Return an outfile path or a dial address (host:port). None declines the edge.
+EdgeChooser = Callable[[Job, list[str], list[DialSpec], random.Random], str | None]
 
 
 def serve_job(
@@ -56,25 +61,42 @@ def serve_job(
     grpc_edges: list[DialSpec] | None = None,
     submit_fn: SubmitFn | None = None,
     state_lock: threading.Lock | None = None,
+    only_tids: set[int] | None = None,
+    edge_chooser: EdgeChooser | None = None,
 ) -> str | None:
     """Run one visit. Return the edge label used, or None when the job stays here.
 
-    File edges and gRPC edges are one pool. The visit picks one at random.
+    File edges and gRPC edges are one pool. The visit picks one at random
+    unless ``edge_chooser`` returns a path or ``host:port``. ``only_tids``
+    limits which waits are slept; the forwarded row is still ``raw_line``.
     ``writers``, when passed, must match ``outfiles``; the caller owns them.
     ``state_lock`` guards the visit count when several gRPC workers run at once.
     """
     chooser = rng or random.Random()
+    selected = None if only_tids is None else set(only_tids)
     logger.info("%s", enters_server(job.job_id, qid, server_id))
     if state is not None:
         _count_visit(state, job.job_id, state_lock)
 
     for task in job.tasks:
+        if selected is not None and task.tid not in selected:
+            continue
         logger.info("%s", task_start(job.job_id, qid, task.tid, task.wait_seconds))
         sleep_fn(task.wait_seconds)
         logger.info("%s", task_end(job.job_id, qid, task.tid, task.wait_seconds))
 
     logger.info("%s", exits_server(job.job_id, qid, server_id))
-    return _forward(job, outfiles, writers, grpc_edges or [], qid, logger, chooser, submit_fn)
+    return _forward(
+        job,
+        outfiles,
+        writers,
+        grpc_edges or [],
+        qid,
+        logger,
+        chooser,
+        submit_fn,
+        edge_chooser,
+    )
 
 
 def serve_stream(
@@ -89,6 +111,8 @@ def serve_stream(
     rng: random.Random | None = None,
     grpc_edges: list[DialSpec] | None = None,
     submit_fn: SubmitFn | None = None,
+    only_tids: set[int] | None = None,
+    edge_chooser: EdgeChooser | None = None,
 ) -> None:
     """Read ``infile`` until EOF, sleeping through every wait-task job."""
     chooser = rng or random.Random()
@@ -118,6 +142,8 @@ def serve_stream(
                 writers=handles,
                 grpc_edges=edges,
                 submit_fn=submit_fn,
+                only_tids=only_tids,
+                edge_chooser=edge_chooser,
             )
 
 
@@ -210,7 +236,7 @@ def run_cli(argv: list[str] | None = None, *, stateful: bool) -> int:
         )
     else:
         listen = parse_listen(args.ingrpc)
-        _serve_grpc(listen, outfiles, dials, args.qid, args.server_id, log, state)
+        serve_until_interrupt(listen, outfiles, dials, args.qid, args.server_id, log, state)
     if state is not None:
         for job_id, visits in sorted(state.items()):
             log.info("state-visits %s %s", job_id, visits)
@@ -218,7 +244,7 @@ def run_cli(argv: list[str] | None = None, *, stateful: bool) -> int:
     return 0
 
 
-def _serve_grpc(
+def serve_until_interrupt(
     listen,
     outfiles: list[str],
     dials: list[DialSpec],
@@ -226,8 +252,17 @@ def _serve_grpc(
     server_id: int,
     logger: logging.Logger,
     state: dict[str, int] | None,
+    *,
+    only_tids: set[int] | None = None,
+    edge_chooser: EdgeChooser | None = None,
+    rng: random.Random | None = None,
+    admit: AdmitFn | None = None,
 ) -> None:
-    """Block until Ctrl-C. Each Submit runs one visit on a server thread."""
+    """Block until Ctrl-C. Each Submit runs one visit on a server thread.
+
+    ``admit`` returning false skips the visit. The handler still accepts the
+    RPC. The default admits every job.
+    """
     try:
         from lib.grpc_runtime import start_server_func_server
     except ImportError as exc:
@@ -241,6 +276,8 @@ def _serve_grpc(
         ]
 
         def visit(job: Job) -> None:
+            if admit is not None and not admit(job):
+                return
             serve_job(
                 job,
                 outfiles,
@@ -251,6 +288,9 @@ def _serve_grpc(
                 writers=handles,
                 grpc_edges=dials,
                 state_lock=state_lock,
+                only_tids=only_tids,
+                edge_chooser=edge_chooser,
+                rng=rng,
             )
 
         server, port = start_server_func_server(listen, visit)
@@ -281,6 +321,7 @@ def _forward(
     logger: logging.Logger,
     chooser: random.Random,
     submit_fn: SubmitFn | None,
+    edge_chooser: EdgeChooser | None = None,
 ) -> str | None:
     file_writers: list[TextIO | None]
     if writers is None:
@@ -296,7 +337,11 @@ def _forward(
         logger.info("%s", error_no_out_edge(job.job_id, qid))
         return None
 
-    kind, payload = slots[chooser.randrange(len(slots))]
+    picked = _pick_slot(job, outfiles, grpc_edges, slots, chooser, edge_chooser, logger)
+    if picked is None:
+        logger.info("%s", error_no_out_edge(job.job_id, qid))
+        return None
+    kind, payload = picked
     if kind == "file":
         index = int(payload)
         dest = outfiles[index]
@@ -312,6 +357,31 @@ def _forward(
         return None
     logger.info("%s", depart_via(job.job_id, qid, edge.address))
     return edge.address
+
+
+def _pick_slot(
+    job: Job,
+    outfiles: list[str],
+    grpc_edges: list[DialSpec],
+    slots: list[tuple[str, int | DialSpec]],
+    chooser: random.Random,
+    edge_chooser: EdgeChooser | None,
+    logger: logging.Logger,
+) -> tuple[str, int | DialSpec] | None:
+    """Choose one open edge. None means the visit has nowhere to send the job."""
+    if edge_chooser is None:
+        return slots[chooser.randrange(len(slots))]
+    dest = edge_chooser(job, outfiles, grpc_edges, chooser)
+    if dest is None:
+        return None
+    for index, path in enumerate(outfiles):
+        if path == dest:
+            return ("file", index)
+    for edge in grpc_edges:
+        if edge.address == dest:
+            return ("grpc", edge)
+    logger.error("edge chooser returned %s, which is not an open edge", dest)
+    return None
 
 
 def _submit(
