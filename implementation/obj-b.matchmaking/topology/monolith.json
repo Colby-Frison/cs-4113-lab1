@@ -1,0 +1,14 @@
+{
+  "name": "ranked-5v5-monolith",
+  "generator": {
+    "region": "na",
+    "mode": "ranked",
+    "count": 8,
+    "seed": 7,
+    "time_scale": 0.02,
+    "arrival_mean": 14.0
+  },
+  "queue": {"id": "q-match", "qsize": 32, "workers": 1},
+  "server": {"qid": "q-match", "server_id": 0, "workers": 4},
+  "sink": "matched.csv"
+}

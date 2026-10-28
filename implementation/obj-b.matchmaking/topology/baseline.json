@@ -1,0 +1,60 @@
+{
+  "name": "ranked-5v5-baseline",
+  "ready_fail_p": 0.2,
+  "max_ready_visits": 2,
+  "sinks": {
+    "matched": "matched.csv",
+    "failed": "failed.csv"
+  },
+  "generator": {
+    "region": "na",
+    "mode": "ranked",
+    "count": 8,
+    "seed": 7,
+    "time_scale": 0.02,
+    "arrival_mean": 14.0
+  },
+  "pipeline": [
+    {
+      "queue": {"id": "q-admit", "qsize": 16, "workers": 1},
+      "server": {"stage": "validate", "server_id": 0, "workers": 1}
+    },
+    {
+      "queue": {"id": "q-rating", "qsize": 16, "workers": 1},
+      "server": {"stage": "rating", "server_id": 0, "workers": 1}
+    },
+    {
+      "queue": {"id": "q-route", "qsize": 16, "workers": 1},
+      "server": {
+        "stage": "route",
+        "server_id": 0,
+        "workers": 1,
+        "routes": {"na": "q-search"}
+      }
+    },
+    {
+      "queue": {"id": "q-search", "qsize": 32, "workers": 4},
+      "server": {"stage": "search", "server_id": 0, "workers": 4}
+    },
+    {
+      "queue": {"id": "q-ready", "qsize": 16, "workers": 1},
+      "server": {
+        "stage": "ready",
+        "server_id": 0,
+        "workers": 1,
+        "pass": "q-allocate",
+        "retry": "q-search",
+        "fail": "failed"
+      }
+    },
+    {
+      "queue": {"id": "q-allocate", "qsize": 16, "workers": 4},
+      "server": {
+        "stage": "allocate",
+        "server_id": 0,
+        "workers": 4,
+        "sink": "matched"
+      }
+    }
+  ]
+}
