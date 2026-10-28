@@ -1,0 +1,475 @@
+# Generated from the matchmaking topology for fifo edges.
+# Rebuild with orchestration/run.py --write-only.
+name: matchmaking-fifo
+x-image: &image
+  image: matchmaking:local
+  pull_policy: never
+services:
+  fifo-hold:
+    <<: *image
+    build:
+      context: ../../..
+      dockerfile: obj-b.matchmaking/orchestration/Dockerfile
+    command:
+      - "python"
+      - "-c"
+      - "import time; time.sleep(10**9)"
+    environment:
+      CLEAR_FILES: "/fifos/admit.ready"
+      HEALTH_EXIST: "/fifos/jobs,/fifos/q-admit-to-s-validate,/fifos/s-validate-to-q-rating,/fifos/q-rating-to-s-rating,/fifos/s-rating-to-q-route,/fifos/q-route-to-s-route,/fifos/s-route-to-q-search,/fifos/q-search-to-s-search,/fifos/s-search-to-q-ready,/fifos/q-ready-to-s-ready,/fifos/s-ready-to-q-allocate,/fifos/s-ready-to-q-search,/fifos/q-allocate-to-s-allocate"
+      HOLD_FIFOS: "/fifos/jobs,/fifos/q-admit-to-s-validate,/fifos/s-validate-to-q-rating,/fifos/q-rating-to-s-rating,/fifos/s-rating-to-q-route,/fifos/q-route-to-s-route,/fifos/s-route-to-q-search,/fifos/q-search-to-s-search,/fifos/s-search-to-q-ready,/fifos/q-ready-to-s-ready,/fifos/s-ready-to-q-allocate,/fifos/s-ready-to-q-search,/fifos/q-allocate-to-s-allocate"
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-admit:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-admit"
+      - "--qsize"
+      - "16"
+      - "-i"
+      - "/fifos/jobs"
+      - "-o"
+      - "/fifos/q-admit-to-s-validate"
+    environment:
+      HEALTH_READY: "/fifos/admit.ready"
+      READY_FILE: "/fifos/admit.ready"
+      SIGNAL_FIFO: "/fifos/jobs"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-validate:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "validate"
+      - "--qid"
+      - "q-admit"
+      - "--server-id"
+      - "0"
+      - "--infile"
+      - "/fifos/q-admit-to-s-validate"
+      - "--outfile"
+      - "/fifos/s-validate-to-q-rating"
+    environment:
+      HEALTH_NEEDLE: "server_func.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-rating:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-rating"
+      - "--qsize"
+      - "16"
+      - "-i"
+      - "/fifos/s-validate-to-q-rating"
+      - "-o"
+      - "/fifos/q-rating-to-s-rating"
+    environment:
+      HEALTH_NEEDLE: "queue.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-rating:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "rating"
+      - "--qid"
+      - "q-rating"
+      - "--server-id"
+      - "0"
+      - "--infile"
+      - "/fifos/q-rating-to-s-rating"
+      - "--outfile"
+      - "/fifos/s-rating-to-q-route"
+    environment:
+      HEALTH_NEEDLE: "server_func.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-route:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-route"
+      - "--qsize"
+      - "16"
+      - "-i"
+      - "/fifos/s-rating-to-q-route"
+      - "-o"
+      - "/fifos/q-route-to-s-route"
+    environment:
+      HEALTH_NEEDLE: "queue.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-route:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "route"
+      - "--qid"
+      - "q-route"
+      - "--server-id"
+      - "0"
+      - "--infile"
+      - "/fifos/q-route-to-s-route"
+      - "--route-edge"
+      - "na=/fifos/s-route-to-q-search"
+    environment:
+      HEALTH_NEEDLE: "server_func.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-search:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-search"
+      - "--qsize"
+      - "32"
+      - "-i"
+      - "/fifos/s-route-to-q-search"
+      - "-i"
+      - "/fifos/s-ready-to-q-search"
+      - "-o"
+      - "/fifos/q-search-to-s-search"
+    environment:
+      HEALTH_NEEDLE: "queue.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-search:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "search"
+      - "--qid"
+      - "q-search"
+      - "--server-id"
+      - "0"
+      - "--infile"
+      - "/fifos/q-search-to-s-search"
+      - "--outfile"
+      - "/fifos/s-search-to-q-ready"
+    environment:
+      HEALTH_NEEDLE: "server_func.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-ready:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-ready"
+      - "--qsize"
+      - "16"
+      - "-i"
+      - "/fifos/s-search-to-q-ready"
+      - "-o"
+      - "/fifos/q-ready-to-s-ready"
+    environment:
+      HEALTH_NEEDLE: "queue.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-ready:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "ready"
+      - "--qid"
+      - "q-ready"
+      - "--server-id"
+      - "0"
+      - "--infile"
+      - "/fifos/q-ready-to-s-ready"
+      - "--pass"
+      - "/fifos/s-ready-to-q-allocate"
+      - "--retry"
+      - "/fifos/s-ready-to-q-search"
+      - "--fail"
+      - "/shared/failed.csv"
+      - "--ready-fail-p"
+      - "0.2"
+      - "--max-ready-visits"
+      - "2"
+      - "--state-file"
+      - "/shared/ready-state.txt"
+      - "--seed"
+      - "7"
+    environment:
+      HEALTH_NEEDLE: "server_func.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+      - "../runs/fifo:/shared"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-allocate:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-allocate"
+      - "--qsize"
+      - "16"
+      - "-i"
+      - "/fifos/s-ready-to-q-allocate"
+      - "-o"
+      - "/fifos/q-allocate-to-s-allocate"
+    environment:
+      HEALTH_NEEDLE: "queue.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-allocate:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "allocate"
+      - "--qid"
+      - "q-allocate"
+      - "--server-id"
+      - "0"
+      - "--infile"
+      - "/fifos/q-allocate-to-s-allocate"
+      - "--outfile"
+      - "/shared/matched.csv"
+    environment:
+      HEALTH_NEEDLE: "server_func.py"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+      - "../runs/fifo:/shared"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  generator:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/workload-generator/workload_generator.py"
+      - "--out"
+      - "/fifos/jobs"
+      - "--count"
+      - "8"
+      - "--seed"
+      - "7"
+      - "--time-scale"
+      - "0.02"
+      - "--arrival-mean"
+      - "14.0"
+      - "--region"
+      - "na"
+      - "--mode"
+      - "ranked"
+    environment:
+      WAIT_PATH: "/fifos/admit.ready"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+      q-admit:
+        condition: service_healthy
+      s-validate:
+        condition: service_healthy
+      q-rating:
+        condition: service_healthy
+      s-rating:
+        condition: service_healthy
+      q-route:
+        condition: service_healthy
+      s-route:
+        condition: service_healthy
+      q-search:
+        condition: service_healthy
+      s-search:
+        condition: service_healthy
+      q-ready:
+        condition: service_healthy
+      s-ready:
+        condition: service_healthy
+      q-allocate:
+        condition: service_healthy
+      s-allocate:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    restart: "no"
+volumes:
+  fifos:

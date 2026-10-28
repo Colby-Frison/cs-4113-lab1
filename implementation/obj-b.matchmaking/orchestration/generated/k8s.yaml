@@ -1,0 +1,1234 @@
+# Refined from compose.grpc.yml. Kompose's translation is the
+# mechanical step; this file adds the namespace, probes, resources,
+# the shared FIFO and result volumes, and a Job for the generator.
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: matchmaking
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: matchmaking-fifos
+  namespace: matchmaking
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: matchmaking-results
+  namespace: matchmaking
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fifo-hold
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: fifo-hold
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: fifo-hold
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: fifo-hold
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: fifo-hold
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "-c"
+          - "import time; time.sleep(10**9)"
+        env:
+        - name: CLEAR_FILES
+          value: "/fifos/admit.ready"
+        - name: HEALTH_EXIST
+          value: "/fifos/jobs"
+        - name: HOLD_FIFOS
+          value: "/fifos/jobs"
+        startupProbe:
+          exec:
+            command:
+            - python
+            - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          exec:
+            command:
+            - python
+            - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          exec:
+            command:
+            - python
+            - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+        volumeMounts:
+        - name: fifos
+          mountPath: /fifos
+      volumes:
+      - name: fifos
+        persistentVolumeClaim:
+          claimName: matchmaking-fifos
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: q-admit
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: q-admit
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: q-admit
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: q-admit
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: q-admit
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-a/queue/queue.py"
+          - "--qid"
+          - "q-admit"
+          - "--qsize"
+          - "16"
+          - "-i"
+          - "/fifos/jobs"
+          - "--outgrpc"
+          - "s-validate:5001,1"
+        env:
+        - name: HEALTH_READY
+          value: "/fifos/admit.ready"
+        - name: READY_FILE
+          value: "/fifos/admit.ready"
+        - name: SIGNAL_FIFO
+          value: "/fifos/jobs"
+        - name: WAIT_FOR
+          value: "s-validate:5001"
+        startupProbe:
+          exec:
+            command:
+            - python
+            - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          exec:
+            command:
+            - python
+            - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          exec:
+            command:
+            - python
+            - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+        volumeMounts:
+        - name: fifos
+          mountPath: /fifos
+      volumes:
+      - name: fifos
+        persistentVolumeClaim:
+          claimName: matchmaking-fifos
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s-validate
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: s-validate
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: s-validate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: s-validate
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: s-validate
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-b.matchmaking/server-stages/server_func.py"
+          - "--stage"
+          - "validate"
+          - "--qid"
+          - "q-admit"
+          - "--server-id"
+          - "0"
+          - "--ingrpc"
+          - "0.0.0.0:5001,1"
+          - "--outgrpc"
+          - "q-rating:5002,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5001"
+        - name: WAIT_FOR
+          value: "q-rating:5002"
+        ports:
+        - name: grpc
+          containerPort: 5001
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s-validate
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: s-validate
+  ports:
+  - name: grpc
+    port: 5001
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: q-rating
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: q-rating
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: q-rating
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: q-rating
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: q-rating
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-a/queue/queue.py"
+          - "--qid"
+          - "q-rating"
+          - "--qsize"
+          - "16"
+          - "--ingrpc"
+          - "0.0.0.0:5002,1"
+          - "--outgrpc"
+          - "s-rating:5003,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5002"
+        - name: WAIT_FOR
+          value: "s-rating:5003"
+        ports:
+        - name: grpc
+          containerPort: 5002
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: q-rating
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: q-rating
+  ports:
+  - name: grpc
+    port: 5002
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s-rating
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: s-rating
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: s-rating
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: s-rating
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: s-rating
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-b.matchmaking/server-stages/server_func.py"
+          - "--stage"
+          - "rating"
+          - "--qid"
+          - "q-rating"
+          - "--server-id"
+          - "0"
+          - "--ingrpc"
+          - "0.0.0.0:5003,1"
+          - "--outgrpc"
+          - "q-route:5004,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5003"
+        - name: WAIT_FOR
+          value: "q-route:5004"
+        ports:
+        - name: grpc
+          containerPort: 5003
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s-rating
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: s-rating
+  ports:
+  - name: grpc
+    port: 5003
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: q-route
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: q-route
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: q-route
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: q-route
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: q-route
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-a/queue/queue.py"
+          - "--qid"
+          - "q-route"
+          - "--qsize"
+          - "16"
+          - "--ingrpc"
+          - "0.0.0.0:5004,1"
+          - "--outgrpc"
+          - "s-route:5005,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5004"
+        - name: WAIT_FOR
+          value: "s-route:5005"
+        ports:
+        - name: grpc
+          containerPort: 5004
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: q-route
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: q-route
+  ports:
+  - name: grpc
+    port: 5004
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s-route
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: s-route
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: s-route
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: s-route
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: s-route
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-b.matchmaking/server-stages/server_func.py"
+          - "--stage"
+          - "route"
+          - "--qid"
+          - "q-route"
+          - "--server-id"
+          - "0"
+          - "--ingrpc"
+          - "0.0.0.0:5005,1"
+          - "--route-edge"
+          - "na=q-search:5006,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5005"
+        - name: WAIT_FOR
+          value: "q-search:5006"
+        ports:
+        - name: grpc
+          containerPort: 5005
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s-route
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: s-route
+  ports:
+  - name: grpc
+    port: 5005
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: q-search
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: q-search
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: q-search
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: q-search
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: q-search
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-a/queue/queue.py"
+          - "--qid"
+          - "q-search"
+          - "--qsize"
+          - "32"
+          - "--ingrpc"
+          - "0.0.0.0:5006,4"
+          - "--outgrpc"
+          - "s-search:5007,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5006"
+        - name: WAIT_FOR
+          value: "s-search:5007"
+        ports:
+        - name: grpc
+          containerPort: 5006
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: q-search
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: q-search
+  ports:
+  - name: grpc
+    port: 5006
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s-search
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: s-search
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: s-search
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: s-search
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: s-search
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-b.matchmaking/server-stages/server_func.py"
+          - "--stage"
+          - "search"
+          - "--qid"
+          - "q-search"
+          - "--server-id"
+          - "0"
+          - "--ingrpc"
+          - "0.0.0.0:5007,4"
+          - "--outgrpc"
+          - "q-ready:5008,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5007"
+        - name: WAIT_FOR
+          value: "q-ready:5008"
+        ports:
+        - name: grpc
+          containerPort: 5007
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s-search
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: s-search
+  ports:
+  - name: grpc
+    port: 5007
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: q-ready
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: q-ready
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: q-ready
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: q-ready
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: q-ready
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-a/queue/queue.py"
+          - "--qid"
+          - "q-ready"
+          - "--qsize"
+          - "16"
+          - "--ingrpc"
+          - "0.0.0.0:5008,1"
+          - "--outgrpc"
+          - "s-ready:5009,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5008"
+        - name: WAIT_FOR
+          value: "s-ready:5009"
+        ports:
+        - name: grpc
+          containerPort: 5008
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: q-ready
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: q-ready
+  ports:
+  - name: grpc
+    port: 5008
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s-ready
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: s-ready
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: s-ready
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: s-ready
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: s-ready
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-b.matchmaking/server-stages/server_func.py"
+          - "--stage"
+          - "ready"
+          - "--qid"
+          - "q-ready"
+          - "--server-id"
+          - "0"
+          - "--ingrpc"
+          - "0.0.0.0:5009,1"
+          - "--pass"
+          - "q-allocate:5010,1"
+          - "--retry"
+          - "q-search:5006,1"
+          - "--fail"
+          - "/shared/failed.csv"
+          - "--ready-fail-p"
+          - "0.2"
+          - "--max-ready-visits"
+          - "2"
+          - "--state-file"
+          - "/shared/ready-state.txt"
+          - "--seed"
+          - "7"
+        env:
+        - name: HEALTH_TCP
+          value: "5009"
+        - name: WAIT_FOR
+          value: "q-allocate:5010"
+        ports:
+        - name: grpc
+          containerPort: 5009
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+        volumeMounts:
+        - name: results
+          mountPath: /shared
+      volumes:
+      - name: results
+        persistentVolumeClaim:
+          claimName: matchmaking-results
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s-ready
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: s-ready
+  ports:
+  - name: grpc
+    port: 5009
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: q-allocate
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: q-allocate
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: q-allocate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: q-allocate
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: q-allocate
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-a/queue/queue.py"
+          - "--qid"
+          - "q-allocate"
+          - "--qsize"
+          - "16"
+          - "--ingrpc"
+          - "0.0.0.0:5010,4"
+          - "--outgrpc"
+          - "s-allocate:5011,1"
+        env:
+        - name: HEALTH_TCP
+          value: "5010"
+        - name: WAIT_FOR
+          value: "s-allocate:5011"
+        ports:
+        - name: grpc
+          containerPort: 5010
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: q-allocate
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: q-allocate
+  ports:
+  - name: grpc
+    port: 5010
+    targetPort: grpc
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s-allocate
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: s-allocate
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: s-allocate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: s-allocate
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: s-allocate
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-b.matchmaking/server-stages/server_func.py"
+          - "--stage"
+          - "allocate"
+          - "--qid"
+          - "q-allocate"
+          - "--server-id"
+          - "0"
+          - "--ingrpc"
+          - "0.0.0.0:5011,4"
+          - "--outfile"
+          - "/shared/matched.csv"
+        env:
+        - name: HEALTH_TCP
+          value: "5011"
+        ports:
+        - name: grpc
+          containerPort: 5011
+        startupProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 90
+          timeoutSeconds: 3
+        readinessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 2
+          failureThreshold: 3
+          timeoutSeconds: 3
+        livenessProbe:
+          tcpSocket:
+            port: grpc
+          periodSeconds: 20
+          failureThreshold: 3
+          timeoutSeconds: 3
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+        volumeMounts:
+        - name: results
+          mountPath: /shared
+      volumes:
+      - name: results
+        persistentVolumeClaim:
+          claimName: matchmaking-results
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s-allocate
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+spec:
+  selector:
+    app.kubernetes.io/component: s-allocate
+  ports:
+  - name: grpc
+    port: 5011
+    targetPort: grpc
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: generator
+  namespace: matchmaking
+  labels:
+    app.kubernetes.io/name: matchmaking
+    app.kubernetes.io/component: generator
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 86400
+  activeDeadlineSeconds: 900
+  # Finite generator run of 8 tickets.
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: matchmaking
+        app.kubernetes.io/component: generator
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: generator
+        image: matchmaking:local
+        imagePullPolicy: IfNotPresent
+        args:
+          - "python"
+          - "/app/obj-b.matchmaking/workload-generator/workload_generator.py"
+          - "--out"
+          - "/fifos/jobs"
+          - "--count"
+          - "8"
+          - "--seed"
+          - "7"
+          - "--time-scale"
+          - "0.02"
+          - "--arrival-mean"
+          - "14.0"
+          - "--region"
+          - "na"
+          - "--mode"
+          - "ranked"
+        env:
+        - name: WAIT_PATH
+          value: "/fifos/admit.ready"
+        resources:
+          requests:
+            cpu: "50m"
+            memory: 64Mi
+          limits:
+            cpu: "1"
+            memory: 256Mi
+        volumeMounts:
+        - name: fifos
+          mountPath: /fifos
+      volumes:
+      - name: fifos
+        persistentVolumeClaim:
+          claimName: matchmaking-fifos
+---

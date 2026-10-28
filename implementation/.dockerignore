@@ -1,0 +1,9 @@
+**/__pycache__
+**/*.py[cod]
+**/.pytest_cache
+**/runs
+obj-a/sanity-check
+obj-a/mockups
+obj-a/tests
+obj-b.matchmaking/cpp
+obj-b.matchmaking/tests

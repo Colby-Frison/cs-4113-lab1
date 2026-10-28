@@ -1,0 +1,441 @@
+# Generated from the matchmaking topology for grpc edges.
+# Rebuild with orchestration/run.py --write-only.
+name: matchmaking-grpc
+x-image: &image
+  image: matchmaking:local
+  pull_policy: never
+services:
+  fifo-hold:
+    <<: *image
+    build:
+      context: ../../..
+      dockerfile: obj-b.matchmaking/orchestration/Dockerfile
+    command:
+      - "python"
+      - "-c"
+      - "import time; time.sleep(10**9)"
+    environment:
+      CLEAR_FILES: "/fifos/admit.ready"
+      HEALTH_EXIST: "/fifos/jobs"
+      HOLD_FIFOS: "/fifos/jobs"
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-admit:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-admit"
+      - "--qsize"
+      - "16"
+      - "-i"
+      - "/fifos/jobs"
+      - "--outgrpc"
+      - "s-validate:5001,1"
+    environment:
+      HEALTH_READY: "/fifos/admit.ready"
+      READY_FILE: "/fifos/admit.ready"
+      SIGNAL_FIFO: "/fifos/jobs"
+      WAIT_FOR: "s-validate:5001"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+      s-validate:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-validate:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "validate"
+      - "--qid"
+      - "q-admit"
+      - "--server-id"
+      - "0"
+      - "--ingrpc"
+      - "0.0.0.0:5001,1"
+      - "--outgrpc"
+      - "q-rating:5002,1"
+    environment:
+      HEALTH_TCP: "5001"
+      WAIT_FOR: "q-rating:5002"
+    depends_on:
+      q-rating:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-rating:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-rating"
+      - "--qsize"
+      - "16"
+      - "--ingrpc"
+      - "0.0.0.0:5002,1"
+      - "--outgrpc"
+      - "s-rating:5003,1"
+    environment:
+      HEALTH_TCP: "5002"
+      WAIT_FOR: "s-rating:5003"
+    depends_on:
+      s-rating:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-rating:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "rating"
+      - "--qid"
+      - "q-rating"
+      - "--server-id"
+      - "0"
+      - "--ingrpc"
+      - "0.0.0.0:5003,1"
+      - "--outgrpc"
+      - "q-route:5004,1"
+    environment:
+      HEALTH_TCP: "5003"
+      WAIT_FOR: "q-route:5004"
+    depends_on:
+      q-route:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-route:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-route"
+      - "--qsize"
+      - "16"
+      - "--ingrpc"
+      - "0.0.0.0:5004,1"
+      - "--outgrpc"
+      - "s-route:5005,1"
+    environment:
+      HEALTH_TCP: "5004"
+      WAIT_FOR: "s-route:5005"
+    depends_on:
+      s-route:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-route:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "route"
+      - "--qid"
+      - "q-route"
+      - "--server-id"
+      - "0"
+      - "--ingrpc"
+      - "0.0.0.0:5005,1"
+      - "--route-edge"
+      - "na=q-search:5006,1"
+    environment:
+      HEALTH_TCP: "5005"
+      WAIT_FOR: "q-search:5006"
+    depends_on:
+      q-search:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-search:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-search"
+      - "--qsize"
+      - "32"
+      - "--ingrpc"
+      - "0.0.0.0:5006,4"
+      - "--outgrpc"
+      - "s-search:5007,1"
+    environment:
+      HEALTH_TCP: "5006"
+      WAIT_FOR: "s-search:5007"
+    depends_on:
+      s-search:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-search:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "search"
+      - "--qid"
+      - "q-search"
+      - "--server-id"
+      - "0"
+      - "--ingrpc"
+      - "0.0.0.0:5007,4"
+      - "--outgrpc"
+      - "q-ready:5008,1"
+    environment:
+      HEALTH_TCP: "5007"
+      WAIT_FOR: "q-ready:5008"
+    depends_on:
+      q-ready:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-ready:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-ready"
+      - "--qsize"
+      - "16"
+      - "--ingrpc"
+      - "0.0.0.0:5008,1"
+      - "--outgrpc"
+      - "s-ready:5009,1"
+    environment:
+      HEALTH_TCP: "5008"
+      WAIT_FOR: "s-ready:5009"
+    depends_on:
+      s-ready:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-ready:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "ready"
+      - "--qid"
+      - "q-ready"
+      - "--server-id"
+      - "0"
+      - "--ingrpc"
+      - "0.0.0.0:5009,1"
+      - "--pass"
+      - "q-allocate:5010,1"
+      - "--retry"
+      - "q-search:5006,1"
+      - "--fail"
+      - "/shared/failed.csv"
+      - "--ready-fail-p"
+      - "0.2"
+      - "--max-ready-visits"
+      - "2"
+      - "--state-file"
+      - "/shared/ready-state.txt"
+      - "--seed"
+      - "7"
+    environment:
+      HEALTH_TCP: "5009"
+      WAIT_FOR: "q-allocate:5010"
+    depends_on:
+      q-allocate:
+        condition: service_healthy
+    volumes:
+      - "../runs/grpc:/shared"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  q-allocate:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-a/queue/queue.py"
+      - "--qid"
+      - "q-allocate"
+      - "--qsize"
+      - "16"
+      - "--ingrpc"
+      - "0.0.0.0:5010,4"
+      - "--outgrpc"
+      - "s-allocate:5011,1"
+    environment:
+      HEALTH_TCP: "5010"
+      WAIT_FOR: "s-allocate:5011"
+    depends_on:
+      s-allocate:
+        condition: service_healthy
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  s-allocate:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/server-stages/server_func.py"
+      - "--stage"
+      - "allocate"
+      - "--qid"
+      - "q-allocate"
+      - "--server-id"
+      - "0"
+      - "--ingrpc"
+      - "0.0.0.0:5011,4"
+      - "--outfile"
+      - "/shared/matched.csv"
+    environment:
+      HEALTH_TCP: "5011"
+    volumes:
+      - "../runs/grpc:/shared"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - "/app/obj-b.matchmaking/orchestration/healthcheck.py"
+      interval: 2s
+      timeout: 3s
+      retries: 40
+      start_period: 3s
+    restart: "unless-stopped"
+  generator:
+    <<: *image
+    command:
+      - "python"
+      - "/app/obj-b.matchmaking/workload-generator/workload_generator.py"
+      - "--out"
+      - "/fifos/jobs"
+      - "--count"
+      - "8"
+      - "--seed"
+      - "7"
+      - "--time-scale"
+      - "0.02"
+      - "--arrival-mean"
+      - "14.0"
+      - "--region"
+      - "na"
+      - "--mode"
+      - "ranked"
+    environment:
+      WAIT_PATH: "/fifos/admit.ready"
+    depends_on:
+      fifo-hold:
+        condition: service_healthy
+      q-admit:
+        condition: service_healthy
+    volumes:
+      - "fifos:/fifos"
+    restart: "no"
+volumes:
+  fifos:
