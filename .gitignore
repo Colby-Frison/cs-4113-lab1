@@ -3,3 +3,7 @@ __pycache__/
 *.py[cod]
 
 .cursor
+
+firmware-source
+implementation/obj-b/smart-lock/runs/*
+implementation/obj-b/smart-lock/results/*
