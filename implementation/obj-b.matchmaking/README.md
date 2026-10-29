@@ -2,7 +2,7 @@
 
 Objective B application for a live-service ranked tactical shooter. A player party asks for a match. The system checks the party, reads a hidden skill rating, sends the ticket to a regional search, waits out a ready check, and then places the party on a match host. The product name stays out of the writeup. The queueing model is what the rest of this directory implements.
 
-This tree sits on the [Objective A framework](../obj-a/README.md). Queues are `implementation/obj-a/queue/queue.py`. Server functions live here. They import `lib` from Objective A and `mm` from this directory. The file path does not import grpc. This pass ships the system. The size studies come later.
+This tree sits on the [Objective A framework](../obj-a/README.md). Queues are `implementation/obj-a/queue/queue.py`. Server functions live here. They import `lib` from Objective A and `mm` from this directory. The file path does not import grpc. The Small study is [studies/small/README.md](studies/small/README.md). How that runner is built, and what to copy for the next size, is [studies/README.md](studies/README.md).
 
 ## The queueing problem
 
@@ -38,6 +38,9 @@ A ticket is one queue slot even when the party has five players. Allocate capaci
 | [server-stages/](server-stages/README.md) | One stage per process, ready-check retry, visit cap |
 | [cpp/](cpp/README.md) | The same stage server in C++, including gRPC |
 | [run_demo.py](run_demo.py) | File-edge demo of the monolith and of the six stages |
+| [studies/README.md](studies/README.md) | Local study runner: processes, routing, logs, and what the next size copies |
+| [studies/small/](studies/small/README.md) | Small server sweep, figures, and the measured write-up |
+| [orchestration/](orchestration/README.md) | One Windows command that runs the same pipeline in containers |
 
 `runs/` is scratch output from the demo and is gitignored.
 
@@ -55,7 +58,7 @@ Listeners and FIFO readers still have to start before producers when a later run
 
 ## Containers
 
-[orchestration/README.md](orchestration/README.md) is the Windows launcher. One command builds the image, starts a container per queue and per stage, and starts the workload generator:
+[orchestration/README.md](orchestration/README.md) is the Windows launcher. One command builds the image, starts a container per queue and per stage, and starts the workload generator. That README also says where the container logs go and how to follow them while a stack is up:
 
 ```text
 python implementation/obj-b.matchmaking/orchestration/run.py
