@@ -7,12 +7,14 @@ A queue listen port serves both ServerToQueue and QueueToQueue. Both admit
 into the same buffer. A server function listen port serves QueueToServer and
 runs the wait-task visit before returning, so the caller blocks for the sleep.
 That is the backpressure: a full visit occupies one server thread and one
-queue sender thread.
+queue sender thread. Submit reuses one channel per peer address so a long
+run does not open a new TCP port for every job.
 """
 
 from __future__ import annotations
 
 import logging
+import threading
 from concurrent import futures
 from typing import Callable
 
@@ -30,6 +32,28 @@ from lib.proto_gen import job_pb2, queue_to_queue_pb2_grpc, queue_to_server_pb2_
 
 AdmitFn = Callable[[Job, str], bool]
 VisitFn = Callable[[Job], None]
+
+# One channel per peer. A new TCP connection per job leaves the local port in
+# TIME_WAIT, and a thousand-ticket pipeline then fails later connects with
+# WSAEADDRINUSE (10048) on Windows.
+_channels: dict[str, grpc.Channel] = {}
+_channel_lock = threading.Lock()
+
+
+def _cached_channel(address: str) -> grpc.Channel:
+    with _channel_lock:
+        channel = _channels.get(address)
+        if channel is None:
+            channel = grpc.insecure_channel(address)
+            _channels[address] = channel
+        return channel
+
+
+def _drop_channel(address: str, channel: grpc.Channel) -> None:
+    with _channel_lock:
+        if _channels.get(address) is channel:
+            _channels.pop(address, None)
+    channel.close()
 
 
 class _QueueAdmit(
@@ -91,16 +115,15 @@ def submit_job(
     QUEUE-FULL). ``failed`` is a transport error. The caller logs DEPART-VIA
     for accepted and rejected, and skips it for failed.
     """
-    channel = grpc.insecure_channel(dial.address)
+    channel = _cached_channel(dial.address)
     try:
         stub = _stub(dial.service, channel)
         response = stub.Submit(_request(job, source_edge))
     except grpc.RpcError as exc:
+        _drop_channel(dial.address, channel)
         if logger is not None:
             logger.error("gRPC submit to %s failed: %s", dial.address, exc)
         return "failed"
-    finally:
-        channel.close()
     return "accepted" if response.accepted else "rejected"
 
 
