@@ -1,0 +1,20 @@
+{
+  "size": "small",
+  "shared_stages": ["admit", "rating", "route", "ready", "allocate"],
+  "replicated_stage": "search",
+  "axes": ["region", "mode", "band"],
+  "regions": ["na"],
+  "modes": ["ranked"],
+  "search_grouping": "single",
+  "swept_stages": ["search", "allocate"],
+  "replicas": 1,
+  "baseline_search_workers": 10,
+  "shared_workers": 1,
+  "qsize": 1000,
+  "count": 1000,
+  "time_scale": 0.02,
+  "ready_fail_p": 0.2,
+  "max_ready_visits": 2,
+  "target_rho": 0.8,
+  "seed": 7
+}

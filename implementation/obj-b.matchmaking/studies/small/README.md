@@ -36,18 +36,18 @@ Route sends `na` to `q3`. Ready passes to `q5`, retries to `q3`, and writes `fai
 
 ## Configuration
 
-How the runner starts processes, where a ticket goes, and how to watch a run is in the [study runner guide](../README.md). The commands for this size are:
-
-`run_small.py` runs one scenario or all seven:
+How the runner starts processes, where a ticket goes, and how to watch a run is in the [study runner guide](../README.md). This size is the `small` pattern: one search queue, `na` / `ranked`, and the search and allocate pools swept together. The commands are:
 
 ```text
-python implementation/obj-b.matchmaking/studies/small/run_small.py
-python implementation/obj-b.matchmaking/studies/small/run_small.py --only base
+python implementation/obj-b.matchmaking/studies/run_study.py --size small
+python implementation/obj-b.matchmaking/studies/run_study.py --size small --only base
 ```
 
-Each scenario starts twelve local processes: `implementation/obj-a/queue/queue.py` and `implementation/obj-b.matchmaking/server-stages/server_func.py`. Listeners bind before the generator starts. gRPC links every hop after admit. Windows has no FIFOs, and a file edge between stages would close on EOF and break the ready-check retry.
+`studies/small/run_small.py` forwards to that same command.
 
-The generator writes `runs/<scenario>/jobs.csv`. `q0` reads a named pipe that carries the same bytes. A regular file returns EOF as soon as the reader catches the writer, which would admit the whole file as a burst and throw away the interarrival. The pipe is only the admit edge.
+Each scenario starts twelve local processes: `implementation/obj-a/queue/queue.py` and `implementation/obj-b.matchmaking/server-stages/server_func.py`. Listeners bind before the generator starts. gRPC links every hop after admit. Studies run on Linux so the admit edge can be a POSIX FIFO; a file edge between stages would close on EOF and break the ready-check retry.
+
+The generator writes `runs/<scenario>/jobs.csv`. `q0` reads `runs/<scenario>/jobs.fifo`, which carries the same bytes. A regular file returns EOF as soon as the reader catches the writer, which would admit the whole file as a burst and throw away the interarrival. The FIFO is only the admit edge.
 
 `topology/baseline.json` stays the product topology (search and allocate at 4 workers, search depth 32, interarrival 14 s). The runner overrides workers, depth, count, arrival mean, and time scale.
 

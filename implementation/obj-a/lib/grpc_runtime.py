@@ -68,6 +68,8 @@ class _QueueAdmit(
     def Submit(self, request, context):  # noqa: N802 - gRPC method name
         job = job_from_message(request.job)
         source = request.source_edge or "grpc"
+        # dest_qid addresses one buffer inside the multi-queue host. This
+        # process has one buffer, so the field is ignored.
         accepted = self._admit(job, source)
         return job_pb2.SubmitJobResponse(accepted=accepted)
 
@@ -108,17 +110,19 @@ def submit_job(
     source_edge: str,
     *,
     logger: logging.Logger | None = None,
+    dest_qid: str = "",
 ) -> str:
     """Send one job. Return ``accepted``, ``rejected``, or ``failed``.
 
     ``rejected`` means the peer returned accepted=false (the queue logged
     QUEUE-FULL). ``failed`` is a transport error. The caller logs DEPART-VIA
-    for accepted and rejected, and skips it for failed.
+    for accepted and rejected, and skips it for failed. ``dest_qid`` is empty
+    for a process that owns one queue.
     """
     channel = _cached_channel(dial.address)
     try:
         stub = _stub(dial.service, channel)
-        response = stub.Submit(_request(job, source_edge))
+        response = stub.Submit(_request(job, source_edge, dest_qid))
     except grpc.RpcError as exc:
         _drop_channel(dial.address, channel)
         if logger is not None:
@@ -141,14 +145,14 @@ def job_from_message(message) -> Job:
     return parse_job_line(raw_line)
 
 
-def _request(job: Job, source_edge: str):
+def _request(job: Job, source_edge: str, dest_qid: str = ""):
     message = job_pb2.Job(
         job_id=job.job_id,
         arrival_time=job.arrival_time,
         raw_line=job.raw_line,
         tasks=[job_pb2.Task(tid=task.tid, wait_seconds=task.wait_seconds) for task in job.tasks],
     )
-    return job_pb2.SubmitJobRequest(job=message, source_edge=source_edge)
+    return job_pb2.SubmitJobRequest(job=message, source_edge=source_edge, dest_qid=dest_qid)
 
 
 def _stub(service: str, channel):

@@ -20,6 +20,9 @@ message SubmitJobRequest {
   Job job = 1;
   // Edge label the receiver writes in ARRIVE-VIA (queue id or host:port).
   string source_edge = 2;
+  // Logical queue inside a process that hosts many buffers. Empty means the
+  // single-queue programs, which ignore this field and use their own --qid.
+  string dest_qid = 3;
 }
 
 message SubmitJobResponse {

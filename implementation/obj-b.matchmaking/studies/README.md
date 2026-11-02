@@ -1,89 +1,137 @@
 # Study runner
 
-The Small study is the worked example of a size run. Copy this shape for Medium and Large. What the Small numbers mean is [small/README.md](small/README.md). This file is how `studies/small/run_small.py` starts the pipeline, where a ticket goes, and what to keep when the next size is written.
+Every size is a pattern. [run_study.py](run_study.py) expands that pattern into numeric queues, scales the stages named in the pattern, starts the pipeline, and draws the figures. Small, Medium, Large, and Very Large use that same runner on Linux. Small and Medium run in a local VirtualBox Linux guest. Large and Very Large use the [remote kit](remote/README.md) on Linux boxes. What the Small numbers mean is [small/README.md](small/README.md).
 
-The study does not start containers. Twelve local Python processes run one scenario, then the runner stops them and draws the figures. Containers are the other launcher, [orchestration/README.md](../orchestration/README.md), and they read [topology/baseline.json](../topology/baseline.json) unchanged. A study overrides workers, depth, count, arrival, and time scale in its own script and leaves that JSON as the product topology.
+The study does not start containers. Containers are the other launcher, [orchestration/README.md](../orchestration/README.md), and they read [topology/baseline.json](../topology/baseline.json) unchanged. A study overrides workers, depth, count, arrival, and time scale in its pattern and leaves that JSON as the product topology.
 
 ## How to run
 
 From the repository root:
 
 ```text
-python implementation/obj-b.matchmaking/studies/small/run_small.py
-python implementation/obj-b.matchmaking/studies/small/run_small.py --only base
-python implementation/obj-b.matchmaking/studies/small/run_small.py --only base,srv-30 --count 1000
-python implementation/obj-b.matchmaking/studies/small/run_small.py --plots-only
+python implementation/obj-b.matchmaking/studies/run_study.py --size small
+python implementation/obj-b.matchmaking/studies/run_study.py --size small --only base
+python implementation/obj-b.matchmaking/studies/run_study.py --size medium --only base,srv-30 --count 1000
+python implementation/obj-b.matchmaking/studies/run_study.py --size large --plots-only
+python implementation/obj-b.matchmaking/studies/expand.py very-large
 ```
+
+`studies/small/run_small.py` forwards to `--size small`.
 
 | Flag | Default | Effect |
 | --- | --- | --- |
+| `--size` | required | `small`, `medium`, `large`, or `very-large` |
 | `--only` | all seven | Comma-separated scenario names: `base`, `srv-10`, `srv-20`, `srv-30`, `srv+25`, `srv+50`, `srv+100` |
-| `--count` | 1000 | Tickets in that scenario |
-| `--time-scale` | 0.02 | Multiplies every drawn wait and the interarrival |
-| `--arrival-mean` | tuned | Unscaled seconds between tickets. Omit it and the runner sets the baseline pool of 10 near $\rho = 0.8$ |
-| `--runs` | `studies/small/runs` | Process logs and sinks |
-| `--results` | `studies/small/results` | Figures and `summary.md` |
+| `--count` | the pattern | Tickets in that scenario. The buffer depth follows this count |
+| `--time-scale` | the pattern | Multiplies every drawn wait and the interarrival |
+| `--arrival-mean` | tuned | Unscaled seconds between tickets. Omit it and the runner sets one baseline search queue near $\rho = 0.8$ |
+| `--runs` | `studies/<size>/runs` | Process logs and sinks |
+| `--results` | `studies/<size>/results` | Figures and `summary.md` |
 | `--plots-only` | off | Skip the processes and redraw figures from logs already in `--runs` |
 
-The terminal that launched the script is the live count. It prints one line per scenario, then a sink line about every 5 seconds, then one summary line when that set finishes:
+The terminal that launched the script is the live count. It prints the size, then one line per scenario, then a sink line about every 5 seconds, then one summary line when that set finishes:
 
 ```text
-scenario base search/allocate workers 10
+small: 6 queues, backend process, tickets 1000, arrival 1.7181s
+scenario base backend process search workers 10 allocate workers 10
   sinks matched=552 failed=18 queue-full=0
-  matched 957 failed 43 queue-full 0 latency 15159.4 ms search util 0.980 (86s)
+  matched 957 failed 43 queue-full 0 latency 15159.4 ms
 summary: ...\studies\small\results\summary.md
 ```
 
-`matched` and `failed` are data rows in the two sink CSVs. `queue-full` is distinct job ids in the process logs that contain `ERROR QUEUE-FULL`. The runner stops the twelve processes when those three counts add up to `--count`. If the counts sit still for 45 seconds, or the deadline passes, it kills the processes and raises.
+`matched` and `failed` are data rows in the two sink CSVs. `queue-full` is distinct job ids in the process logs that contain `ERROR QUEUE-FULL`. The runner stops the processes when those three counts add up to `--count`. If the counts sit still for 45 seconds, or the deadline passes, it kills the processes and raises.
 
-A second terminal can follow one process while the set is still running. PowerShell, from the repository root:
+A second terminal can follow one process while the set is still running. From the repository root on Linux:
 
 ```text
-Get-Content -Wait implementation\obj-b.matchmaking\studies\small\runs\base\q3.log
-Get-Content -Wait implementation\obj-b.matchmaking\studies\small\runs\base\matched.csv
+tail -f implementation/obj-b.matchmaking/studies/small/runs/base/q3.log
+tail -f implementation/obj-b.matchmaking/studies/small/runs/base/matched.csv
 ```
 
-`q3.log` is the search queue. `sf-q4.log` is the ready server, which is where a retry and a ready-check failure show up. The PNG files appear only after that scenario's processes have been killed.
+`q3.log` is the search queue on Small, and the first search shard on the later sizes. `sf-q4.log` is the Small ready server, which is where a retry and a ready-check failure show up. Large and Very Large fold every queue into `q-host.log` and `sf-host.log`. The PNG files appear only after that scenario's processes have been killed.
+
+## The pattern
+
+A person edits `studies/<size>/pattern.json`. They do not edit a thousand queue entries. [expand.py](expand.py) reads the file and stamps the queues.
+
+| Field | Role |
+| --- | --- |
+| `shared_stages` | `admit`, `rating`, `route`, `ready`, `allocate`, in that order |
+| `replicated_stage` | `search`. This is the only stage the expander copies |
+| `axes` | `region`, `mode`, `band`. The ticket id already carries these |
+| `regions`, `modes` | Optional subset. Omit them and the expander uses the full tables. One entry pins the generator to that token |
+| `search_grouping` | `bracket` copies search once per region, mode, band, and replica. `single` keeps one search queue for every ticket |
+| `replicas` | Shard count inside a bracket. `seq % replicas` sends a ready-check retry back to the same queue. A single search queue uses `1` |
+| `swept_stages` | Stages whose worker count follows the seven factors. Defaults to `search` |
+| `baseline_search_workers` | Workers on each swept stage before a factor is applied |
+| `shared_workers` | Workers on every stage that is not swept |
+| `qsize`, `count` | Buffer depth and tickets. A `--count` override sets the buffer to that same count |
+| `time_scale`, `ready_fail_p`, `max_ready_visits`, `target_rho`, `seed` | Workload and the arrival target |
+
+Small is `search_grouping: single`, regions `na`, modes `ranked`, and `swept_stages` of `search` and `allocate`, with a baseline of 10. Skill band still changes the search wait. It does not add a queue, so the study stays inside the 2–10 queue band. Medium, Large, and Very Large leave the axes unset, group by bracket, and sweep search only.
 
 ## What one scenario starts
 
-`spawn` runs `subprocess.Popen` on two programs:
+Eighty queues is the cut. Small (6) and Medium (45) stay under it: one `queue.py` and one `server_func.py` per queue. Large and Very Large use [host/queue_host.py](host/queue_host.py) and [host/server_host.py](host/server_host.py).
+
+### One process pair per queue
+
+`spawn` runs `subprocess.Popen` on two programs for each logical queue:
 
 | Process | Program | Log file | Stderr |
 | --- | --- | --- | --- |
-| Queue `q0` … `q5` | `implementation/obj-a/queue/queue.py` | `runs/<scenario>/qN.log` | `qN.err` |
+| Queue `qN` | `implementation/obj-a/queue/queue.py` | `runs/<scenario>/qN.log` | `qN.err` |
 | Server for that queue | `implementation/obj-b.matchmaking/server-stages/server_func.py` | `runs/<scenario>/sf-qN.log` | `sf-qN.err` |
 
-Stdout of those processes is discarded. The Lab 0 line is written by `--logfile`. With no `--logfile` the same line would go to stderr only. The prefix is `Q_pid…` on a queue and `sv_pid…` on a server.
+Stdout of those processes is discarded. The Lab 0 line is written by `--logfile`. The prefix is `Q_pid…` on a queue and `sv_pid…` on a server. The worker count is the gRPC thread pool inside the one server process, passed as `127.0.0.1:PORT,N`.
 
-The worker count is the gRPC thread pool inside the one server process, passed as `127.0.0.1:PORT,N`. Search and allocate use the scenario pool (10, 9, 8, 7, 12, 15, 20). Admit, rating, route, and ready stay at 1, because a pool of 1 has nothing to shrink by 10%.
+Startup order is every server, then every queue except admit. The runner waits until each of those logs contains `gRPC listen`, then starts admit, then the generator. Listeners are up before any ticket is sent. Each scenario takes a block of host ports at `29100 + scenario_index * 200`, so a leftover process from the previous set does not collide, and these ports stay clear of the orchestrator's container ports.
 
-Startup order is the servers first, then queues `q1` through `q5`. The runner waits until each of those logs contains `gRPC listen`, then starts `q0`, then the generator. Listeners are up before any ticket is sent. Each scenario takes a block of host ports at `28100 + scenario_index * 20`, so a leftover process from the previous set does not collide, and these ports stay clear of the orchestrator's container ports.
+### One hosted pair
+
+Above 80 queues, two processes hold the whole graph. The queue host has one buffer per numeric qid and one listen port. The server host sleeps the stage wait, then submits the row back with `dest_qid` set to the next logical queue. An empty `dest_qid` is the single-queue path, which ignores the field. Each logical queue has a concurrency limit equal to its server count, so utilization still divides by `Num. Servers`. The file-only path does not import grpc.
 
 ## How a ticket is routed
 
-The processes never open `baseline.json`. `_queue_args` and `_server_args` are the wiring. The generator sleeps the interarrival, then writes one CSV row to `jobs.csv` and to a Windows named pipe `\\.\pipe\mm-small-<scenario>-<pid>`. `q0` is the only reader of that pipe. A regular file would look finished as soon as the reader caught the writer, which dumps every remaining ticket at once and breaks the ready-check loop. The pipe is only the first hop. Every later hop is gRPC on `127.0.0.1`.
+The processes never open `baseline.json`. The expander writes `bracket.json`, and the route and ready servers load it. The generator sleeps the interarrival, then writes one CSV row to `jobs.csv` and to a POSIX FIFO `runs/<scenario>/jobs.fifo`. Admit (`q0`) is the only reader of that FIFO. A regular file would look finished as soon as the reader caught the writer, which dumps every remaining ticket at once and breaks the ready-check loop. The FIFO is only the first hop. Every later hop is gRPC on `127.0.0.1`.
 
 ```text
 generator --pipe--> q0 --grpc--> validate --grpc--> q1 --grpc--> rating
-        --grpc--> q2 --grpc--> route --grpc--> q3 --grpc--> search
-        --grpc--> q4 --grpc--> ready --grpc--> q5 --grpc--> allocate --> matched.csv
-                                    \--grpc--> q3          (retry)
-                                    \--> failed.csv       (second failure)
+        --grpc--> q2 --grpc--> route --grpc--> search shard
+        --grpc--> ready --grpc--> allocate --> matched.csv
+                       \--grpc--> same shard   (retry)
+                       \--> failed.csv         (visit cap)
 ```
 
-Route's flag is `--route-edge na=127.0.0.1:<q3 port>,1`. Ready's flags are `--pass` (dial `q5`), `--retry` (dial `q3`), and `--fail` (the path `failed.csv`). Allocate's only output is `--outfile matched.csv`. The server sleeps the one wait that belongs to its stage and forwards the original row.
+Logged ids are numeric because Objective A `compute-use` casts the queue id to an integer. `q0` is admit, `q1` rating, `q2` route, then a contiguous search range, then ready, then allocate.
 
-Logged ids are `q0` through `q5` because Objective A `compute-use` casts the queue id to an integer. `q-admit` would throw. The stage names live in the Small README.
+On a bracket layout the search offset is
 
-| Log id | Stage | Where the row goes next |
-| --- | --- | --- |
-| `q0` | admit / validate | `q1` |
-| `q1` | rating | `q2` |
-| `q2` | route | `q3` for region `na` |
-| `q3` | search | `q4` |
-| `q4` | ready | `q5`, or back to `q3`, or `failed.csv` |
-| `q5` | allocate | `matched.csv` |
+$$
+((\text{region} \times \text{modes} + \text{mode}) \times \text{bands} + \text{band}) \times \text{replicas} + (\text{seq} \bmod \text{replicas})
+$$
+
+and the queue id is `q` plus `3` plus that offset. Route and the ready-check retry both use it, so a retry returns to the same shard. A single-search layout skips the formula and sends every ticket to `q3`.
+
+Ready's other edges are `--pass` (the allocate listen) and `--fail` (`failed.csv`). Allocate's only output is `--outfile matched.csv`. The server sleeps the one wait that belongs to its stage and forwards the original row.
+
+When the pattern names one region or one mode, the generator pins that token. Small therefore emits `na` and `ranked` across every skill band. A pattern that leaves the axis off the file spreads tickets across the full table, and an empty bracket is a traffic outcome.
+
+## Server sweep
+
+[scale.py](scale.py) copies the total-preserving scale from the Objective A sanity check. The seven factors are $1$, $0.9$, $0.8$, $0.7$, $1.25$, $1.5$, and $2$. Each swept stage is floored, kept at least at 1, then nudged until its total is the rounded factor times its baseline. Leftover workers are handed out one queue at a time, so $-10\%$, $-20\%$, and $-30\%$ stay different totals when a queue's own floor would have tied them.
+
+Small sweeps search and allocate together from a baseline of 10, which is the integer series $10$, $9$, $8$, $7$, $12$, $15$, $20$. Admit, rating, route, and ready stay at 1. Medium and the larger sizes sweep search only, from 4 workers on every search queue, and leave the shared stages at 1. The same arrival that loads search saturates the single ready worker. `summary.md` records that.
+
+## Arrival
+
+The unscaled interarrival that puts one baseline search queue near the target load is
+
+$$
+\frac{E[S]\, E[V]}{\rho \, c \, N}
+$$
+
+$E[S]$ is the mean search wait after the band cuts and the party mix. $E[V]$ is the expected search visits, $1 + 0.2 = 1.20$ at the default failure probability and visit cap. $c$ is the baseline workers on one search queue. $N$ is the number of search queues. Small has $N = 1$ and $c = 10$, so the mean is $1.718$ s and the single ready worker sits near $\rho = 1.40$. A later size divides by its shard count, so one baseline shard sits near $\rho = 0.8$ while the ready worker is further past capacity. Region weights are uneven, so some shards run hotter. The chosen interarrival is written into `summary.md`. The same arrival is reused across the seven factors.
 
 ## What is written
 
@@ -92,44 +140,44 @@ Logged ids are `q0` through `q5` because Objective A `compute-use` casts the que
 | `runs/<scenario>/jobs.csv` | Every ticket the generator wrote |
 | `runs/<scenario>/matched.csv` | Passed ready and allocate |
 | `runs/<scenario>/failed.csv` | Failed the ready check at the visit cap |
-| `runs/<scenario>/qN.log`, `sf-qN.log` | Lab 0 events for that process |
+| `runs/<scenario>/qN.log`, `sf-qN.log` | Lab 0 events for a process-pair scenario |
+| `runs/<scenario>/q-host.log`, `sf-host.log` | Lab 0 events for a hosted scenario |
 | `runs/<scenario>/*.err` | Stderr, including a traceback if a process died |
-| `runs/<scenario>/servers.csv` | `qid`, buffer size, worker count. The analyzer turns this into `qconf.csv` |
+| `runs/<scenario>/servers.csv` | `qid`, buffer size, worker count. The analyzer reads this as `--qconf-file` |
+| `runs/<scenario>/bracket.json` | Search edges for route and ready-retry |
 | `runs/<scenario>/ready-state.txt` | Ready-check visit count per job id |
 | `runs/<scenario>/analysis/` | Tables from `analyze_run.py` |
 | `results/<scenario>/*.png` | The six figures |
-| `results/<scenario>/tools/` | Accessory figures and `q3-qmet.csv` |
+| `results/<scenario>/tools/` | Accessory figures and the filtered search `qmet` |
 | `results/summary.md` | One row per scenario |
+| `results/sensitivity-servers.png`, `sensitivity-latency.png` | The seven search totals, ordered from smallest to largest |
 
-`studies/small/.gitignore` ignores `runs/` and the result logs and CSVs. Commit the runner, the READMEs, the PNGs, and `summary.md`.
+Each size's `.gitignore` ignores `runs/` and the result logs and CSVs. Commit the runner, the patterns, the READMEs, the PNGs, and `summary.md`.
 
-After the sinks fill, `run_scenario` calls `implementation/obj-a/mockups/analyze_run.py` with `--qconf-file` pointing at `servers.csv`, then `filter-by-queue` for `q3`. `write_six_plots` copies utilization, saturation, errors, latency, throughput, and the three longest jobs into `results/<scenario>/`. `errors.png` is `QUEUE-FULL` only. Ready-check failures stay in their own column of `summary.md`.
+After the sinks fill, `run_scenario` calls `implementation/obj-a/mockups/analyze_run.py`, then `filter-by-queue` for the first search queue. `write_six_plots` copies utilization, saturation, errors, latency, throughput, and the three longest jobs into `results/<scenario>/`. Past Small, the USE panels draw one line per stage and highlight the busiest search queue. Latency, throughput, and the three longest jobs stay global. `errors.png` is `QUEUE-FULL` only. Ready-check failures stay in their own column of `summary.md` and their own series on `sensitivity-servers.png`.
 
-## Where to look in `run_small.py`
+## Where the code lives
 
-The file is long because it is the supervisor and the plotting step in one script. The queue and the stage server stay in Objective A and `server-stages/`.
-
-| Piece | Functions | Role |
+| Piece | Module | Role |
 | --- | --- | --- |
-| Load | `expected_search_mean`, `tuned_arrival_mean`, `SCENARIOS` | Seven pools and the arrival that makes the baseline pool busy |
-| Admit edge | `JobPipe`, `_Tee` | Named pipe plus a copy of the same bytes in `jobs.csv` |
-| Processes | `spawn`, `stop`, `wait_for_listen` | Start, kill, and wait for `gRPC listen` |
-| Wiring | `_assign_ports`, `_queue_args`, `_server_args` | One command line per process |
-| The run | `execute_pipeline` | Start listeners, start the generator, poll the sinks |
-| One scenario | `run_scenario` | Clear the directory, run, call the Objective A tools |
-| Figures | `publish_tools`, `write_six_plots`, `write_summary` | PNGs and the comparison table |
-| Entry | `main` | Flags, then the scenarios in order |
+| Pattern | `studies/<size>/pattern.json` | The file a person edits |
+| Load and stamp | `expand.py` | Numeric queues, `servers.csv`, `bracket.json`, the host spec |
+| Pools | `scale.py` | The seven factors, total-preserving |
+| Arrival | `arrival.py` | $E[S]$, $E[V]$, and the interarrival |
+| Admit edge | `job_pipe.py` | POSIX FIFO plus a copy of the same bytes in `jobs.csv` |
+| Remote kit | `remote/` | Shell scripts and notes for Large and Very Large on Linux boxes |
+| The run | `run_study.py` | Backend choice, listeners, generator, sink polling, analysis |
+| Hosted pair | `host/queue_host.py`, `host/server_host.py` | Many logical queues in two processes |
+| Routing | `mm/stages.py` | Bracket formula, the single-queue shortcut, and the region map used when no bracket is loaded |
+| Figures | `plots.py` | Six PNGs, `summary.md`, and the two sensitivity charts |
 
-## What the next size copies
+## Sizes
 
-- One directory per scenario under `studies/<size>/runs/<scenario>/` and `studies/<size>/results/<scenario>/`.
-- Numeric queue ids, and a `servers.csv` with columns `qid`, `qsize`, `servers`.
-- Listeners before the generator. gRPC after the first hop on Windows, so a ready-check retry still has a live peer.
-- One gRPC channel per peer. That reuse lives in `implementation/obj-a/lib/grpc_runtime.py`. A new TCP connection per ticket exhausts Windows ephemeral ports before the second scenario finishes.
-- `QUEUE-FULL` and an application failure in separate columns. `errors.png` counts only `QUEUE-FULL`.
-- Overrides in the runner. Leave `topology/baseline.json` as the product description the orchestrator reads.
-- A baseline pool large enough that `floor` of $-10\%$, $-20\%$, and $-30\%$ are different integers. A baseline of 4 makes $-10\%$ and $-20\%$ the same run.
-- An arrival retuned for that baseline pool. The product interarrival of 14 s is for one search server. A pool of 10 at that arrival sits idle, and adding workers does not move latency.
-- Gitignore `runs/` and result logs and CSVs. Commit the PNGs, `summary.md`, and the README.
+| Size | Search queues | Queues | Tickets | Backend | Pool under test |
+| --- | --- | --- | --- | --- | --- |
+| Small | 1 | $5 + 1 = 6$ | 1,000 | one process pair per queue | search and allocate, baseline 10 |
+| Medium | 40 | $5 + 40 = 45$ | 10,000 | one process pair per queue | search, baseline 4 per shard |
+| Large | 200 | $5 + 200 = 205$ | 100,000 | one queue host and one server host | search, baseline 4 per shard |
+| Very Large | 1,000 | $5 + 1,000 = 1,005$ | 100,000 | one queue host and one server host | search, baseline 4 per shard |
 
-Growing the queue count for Medium and Large is a generated pattern, not a longer hand-written pipeline. Four regions, two modes, and five skill bands are $4 \times 2 \times 5 = 40$ search queues plus the shared stages. A replica count carries that into the larger bands. The 1,000–10,000 band runs the generated `qconf.csv` with many queues inside one process. One container, or one process, per queue does not scale to that band. The Objective A [topology section](../../obj-a/README.md#topology) is the description the other group members already have for that step.
+Medium is $4$ regions $\times$ $2$ modes $\times$ $5$ skill bands at one replica. Large uses 5 replicas. Very Large uses 25. `baseline.json` stays the eight-ticket product topology.

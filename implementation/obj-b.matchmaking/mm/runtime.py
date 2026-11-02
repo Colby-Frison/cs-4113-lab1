@@ -8,6 +8,7 @@ after one of those RPC flags is present.
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import random
 import time
@@ -19,7 +20,7 @@ from lib.job import Job, JobParseError, is_header, parse_job_line
 from lib.logsetup import configure_logging
 from lib.server import build_parser, serve_job, serve_until_interrupt
 
-from mm.stages import STAGES, make_edge_chooser
+from mm.stages import RETRY_SHARD, STAGES, BracketTable, load_bracket_table, make_edge_chooser
 from mm.statefile import load_state, save_state
 from mm.ticket import parse_ticket
 
@@ -78,9 +79,13 @@ def run_stage(argv: list[str] | None = None) -> int:
     parser.add_argument("--ready-fail-p", type=float, default=0.2)
     parser.add_argument("--max-ready-visits", type=int, default=2)
     parser.add_argument("--state-file", help="Persist the ready-check visit count here.")
+    parser.add_argument(
+        "--bracket-layout",
+        help="JSON search-shard map. Route and ready-retry use it instead of one region edge.",
+    )
     args = parser.parse_args(argv)
     _require_io(args)
-    routes, ready, outfiles, dials = _stage_edges(args)
+    routes, ready, outfiles, dials, bracket = _stage_edges(args)
     return _dispatch(
         args,
         label=args.stage,
@@ -94,18 +99,30 @@ def run_stage(argv: list[str] | None = None) -> int:
         accept_mode="stage",
         outfiles=outfiles,
         dials=dials,
+        bracket=bracket,
     )
 
 
 def _stage_edges(
     args: argparse.Namespace,
-) -> tuple[dict[str, str] | None, tuple[str, str, str] | None, list[str], list[DialSpec]]:
+) -> tuple[
+    dict[str, str] | None,
+    tuple[str, str, str] | None,
+    list[str],
+    list[DialSpec],
+    BracketTable | None,
+]:
     """Split this stage's destinations into files and dials."""
     stage = args.stage
+    bracket = load_bracket_table(Path(args.bracket_layout)) if args.bracket_layout else None
+    if stage == "route" and bracket is not None:
+        outfiles, dials = _edges_from_bracket(args.bracket_layout)
+        return None, None, outfiles, dials, bracket
+
     if stage == "route":
         routes: dict[str, str] = {}
-        outfiles: list[str] = []
-        dials: list[DialSpec] = []
+        outfiles = []
+        dials = []
         if not args.route_edge:
             raise SystemExit("--stage route requires at least one --route-edge")
         for item in args.route_edge:
@@ -116,9 +133,11 @@ def _stage_edges(
                 outfiles.append(stored)
             else:
                 dials.append(parse_dial(dest, caller="server"))
-        return routes, None, outfiles, dials
+        return routes, None, outfiles, dials, None
 
     if stage == "ready":
+        if bracket is not None and not args.retry_dest:
+            args.retry_dest = RETRY_SHARD
         _check_ready_args(args)
         named = (args.pass_dest, args.retry_dest, args.fail_dest)
         if len(set(named)) != 3:
@@ -127,13 +146,20 @@ def _stage_edges(
         dials = []
         resolved: list[str] = []
         for dest in named:
+            if dest == RETRY_SHARD:
+                resolved.append(dest)
+                continue
             kind, stored = _classify_dest(dest)
             resolved.append(stored)
             if kind == "file":
                 outfiles.append(stored)
             else:
                 dials.append(parse_dial(dest, caller="server"))
-        return None, (resolved[0], resolved[1], resolved[2]), outfiles, dials
+        if bracket is not None:
+            shard_files, shard_dials = _edges_from_bracket(args.bracket_layout)
+            outfiles.extend(shard_files)
+            dials.extend(shard_dials)
+        return None, (resolved[0], resolved[1], resolved[2]), outfiles, dials, bracket
 
     outfiles = list(args.outfile or [])
     dials = [parse_dial(item, caller="server") for item in (args.outgrpc or [])]
@@ -141,7 +167,24 @@ def _stage_edges(
         raise SystemExit(f"--stage {stage} requires exactly one --outfile or --outgrpc")
     if args.route_edge or args.pass_dest or args.retry_dest or args.fail_dest:
         raise SystemExit(f"--stage {stage} does not take route or ready edges")
-    return None, None, outfiles, dials
+    return None, None, outfiles, dials, None
+
+
+def _edges_from_bracket(path: str) -> tuple[list[str], list[DialSpec]]:
+    """Open every search-shard destination on the route or ready server."""
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    outfiles: list[str] = []
+    dials: list[DialSpec] = []
+    for dest in data["destinations"].values():
+        kind, stored = _classify_dest(dest)
+        if kind == "file":
+            if stored not in outfiles:
+                outfiles.append(stored)
+        elif all(dial.address != stored for dial in dials):
+            dials.append(parse_dial(dest, caller="server"))
+    if not outfiles and not dials:
+        raise SystemExit(f"{path} has no search destinations")
+    return outfiles, dials
 
 
 def _split_route(item: str) -> tuple[str, str]:
@@ -198,6 +241,7 @@ def _dispatch(
     accept_mode: str,
     outfiles: list[str] | None = None,
     dials: list[DialSpec] | None = None,
+    bracket: BracketTable | None = None,
 ) -> int:
     if outfiles is None:
         outfiles = list(args.outfile or [])
@@ -230,6 +274,7 @@ def _dispatch(
             state=state,
             fail_p=fail_p,
             max_visits=max_visits,
+            bracket=bracket,
         )
 
     def accept(job: Job) -> bool:
