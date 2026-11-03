@@ -11,7 +11,7 @@ from pathlib import Path
 import threading
 import time
 
-from fd.order import validate_order
+from fd.services import validate_request
 from fd.server import serve
 from fd.workload import positive_int
 from lib.events import arrive_via, error_queue_full
@@ -52,7 +52,7 @@ class Dispatcher:
         temporary.replace(self.root / "dispatch-state.json")
 
     def admit(self, job, source):
-        validate_order(job)
+        validate_request(job)
         with self.condition:
             if job.job_id in self.accepted:
                 raise ValueError(f"duplicate dispatch order: {job.job_id}")
@@ -87,29 +87,47 @@ class Dispatcher:
                 self.readers_done += 1
                 self.condition.notify_all()
 
+    def assign_next(self, courier_id):
+        """Wait for the oldest pending order and atomically reserve a courier."""
+        with self.condition:
+            courier = self.couriers[courier_id]
+            if courier["status"] != "available":
+                raise ValueError(f"courier {courier_id} is not available")
+            self.condition.wait_for(lambda: self.pending or self.stopping)
+            if self.stopping:
+                return None
+            # Recheck after waiting, since the condition releases the lock.
+            if courier["status"] != "available":
+                raise ValueError(f"courier {courier_id} is not available")
+            job = self.pending.popleft()
+            courier.update(status="busy", order_id=job.job_id)
+            self.log.info("dispatch-assigned courier_%s %s", courier_id, job.job_id)
+            self.persist()
+            return job
+
+    def release(self, courier_id, order_id):
+        """Complete only the active assignment, after delivery and output succeed."""
+        with self.condition:
+            courier = self.couriers[courier_id]
+            if courier["status"] != "busy" or courier["order_id"] != order_id:
+                raise ValueError(f"courier {courier_id} has no active assignment for {order_id}")
+            courier["completed"] += 1
+            courier.update(status="available", order_id=None)
+            self.log.info("dispatch-released courier_%s %s", courier_id, order_id)
+            self.persist()
+            self.condition.notify_all()
+
     def worker(self, courier_id):
         log = file_logger(self.root / f"courier-{courier_id}.log", "sv")
         try:
             destination = self.root / f"sink-{courier_id}.csv"
             with destination.open("w", encoding="utf-8") as writer:
                 while True:
-                    with self.condition:
-                        self.condition.wait_for(lambda: self.pending or self.stopping)
-                        if self.stopping:
-                            return
-                        job = self.pending.popleft()
-                        courier = self.couriers[courier_id]
-                        assert courier["status"] == "available"
-                        courier.update(status="busy", order_id=job.job_id)
-                        self.log.info("dispatch-assigned courier_%s %s", courier_id, job.job_id)
-                        self.persist()
+                    job = self.assign_next(courier_id)
+                    if job is None:
+                        return
                     serve(job, "courier", "q1", courier_id, writer, str(destination), log, sleep=self.sleep)
-                    with self.condition:
-                        courier["completed"] += 1
-                        courier.update(status="available", order_id=None)
-                        self.log.info("dispatch-released courier_%s %s", courier_id, job.job_id)
-                        self.persist()
-                        self.condition.notify_all()
+                    self.release(courier_id, job.job_id)
         except Exception as exc:
             try:
                 with self.condition:

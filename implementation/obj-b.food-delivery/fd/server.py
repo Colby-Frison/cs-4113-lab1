@@ -4,31 +4,23 @@ import logging
 import os
 import time
 
-from lib.events import enters_server, exits_server, task_start, task_end, depart_via
+from lib.events import enters_server, exits_server
 from lib.job import iter_jobs
 from lib.logsetup import configure_logging
-from fd.order import validate_order, WAIT_PRECISION
+from fd.services import validate_request, prepare_order, deliver_order, fulfill_order, forward_order
 
-STAGES = {"kitchen": (0,), "courier": (1,), "monolith": (0, 1)}
+SERVICES = {"kitchen": prepare_order, "courier": deliver_order, "monolith": fulfill_order}
 
 
 def serve(job, stage, qid, worker_id, writer, destination, log, sleep=time.sleep):
-    order = validate_order(job)
-    if order.restaurant != 0:
-        raise ValueError("this initial topology serves restaurant r0 only")
-    selected = STAGES[stage]
+    service = SERVICES[stage]
+    validate_request(job)
     log.info("%s", enters_server(job.job_id, qid, worker_id))
     if stage in ("courier", "monolith"):
         log.info("courier-assigned %s %s", worker_id, job.job_id)
-    for task in job.tasks:
-        if task.tid in selected:
-            log.info("%s", task_start(job.job_id, qid, task.tid, task.wait_seconds, wait_precision=WAIT_PRECISION))
-            sleep(task.wait_seconds)
-            log.info("%s", task_end(job.job_id, qid, task.tid, task.wait_seconds, wait_precision=WAIT_PRECISION))
+    service(job, qid, log, sleep)
     log.info("%s", exits_server(job.job_id, qid, worker_id))
-    writer.write(job.raw_line + "\n")
-    writer.flush()
-    log.info("%s", depart_via(job.job_id, qid, destination))
+    forward_order(job, qid, writer, destination, log)
     if stage in ("courier", "monolith"):
         log.info("courier-released %s %s", worker_id, job.job_id)
 

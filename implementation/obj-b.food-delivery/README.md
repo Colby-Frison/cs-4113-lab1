@@ -146,6 +146,68 @@ resource through both preparation and delivery. `couriers` and `pickup_capacity`
 do not apply in monolithic mode. This is a structural comparison, **not** an
 equal-resource performance comparison with the default staged configuration.
 
+## Server-function decomposition
+
+`fd/services.py` separates application work from process startup and FIFO I/O.
+`fd/server.py` is the common service-visit wrapper: validate, log service entry,
+call the selected operation, log service exit, and forward the original row.
+The monolith composes the same preparation and delivery operations in one
+visit; the staged deployment executes them on different worker resources.
+
+| Function | Responsibility | State |
+| --- | --- | --- |
+| `validate_request` | Check order metadata, restaurant r0, and task layout before work starts. | Current request only |
+| `prepare_order` | Execute task 0, with task-start/end events. | Current request only |
+| `Dispatcher.admit` | Admit a prepared order into the bounded pickup queue, or record a drop. | Pending queue and accepted IDs |
+| `Dispatcher.assign_next` | Reserve an available courier for the oldest pending order. | Shared courier registry under a lock |
+| `deliver_order` | Execute task 1, with task-start/end events. | Current request only; reservation is owned by dispatch |
+| `forward_order` | Write and flush the unchanged row, then log departure. At the final sink this records completion. | Output stream |
+| `Dispatcher.release` | Verify the active order, increment completed count, and make the courier available. | Shared courier registry under a lock |
+
+```mermaid
+flowchart LR
+    Q0[q0] --> V[Validate request]
+    V --> P[Prepare order: task 0]
+    P --> F[Forward prepared order]
+    F --> A[Admit to q1]
+    A --> R[Assign available courier]
+    R --> D[Deliver order: task 1]
+    D --> S[Forward to completed sink]
+    S --> U[Release courier]
+    U -. available again .-> R
+```
+
+These are logical function boundaries. Preparation and delivery remain the two
+timed service stages with queues q0 and q1; validation, handoff, and state
+transitions do not introduce extra queues or synthetic waits. The live runner
+launches `server-stages/kitchen.py` for preparation and runs delivery workers
+inside the dispatcher so all couriers share one authoritative registry.
+`server-stages/courier.py` also exposes delivery as an independent file/FIFO
+program for isolation tests. It does not implement fleet-wide dispatch on its
+own. The original `server-stages/server_func.py --stage kitchen|courier`
+interface remains supported.
+
+For an isolated, sequential demonstration, use fresh output paths (standalone
+servers append output). This demonstrates service composition, not live queueing:
+
+```bash
+demo_dir=$(mktemp -d)
+python3 implementation/obj-b.food-delivery/workload-generator/workload_generator.py \
+  --count 10 --seed 1 --out "$demo_dir/orders.csv"
+python3 implementation/obj-b.food-delivery/server-stages/kitchen.py \
+  -i "$demo_dir/orders.csv" -o "$demo_dir/prepared.csv" --qid q0 \
+  --logfile "$demo_dir/kitchen.log"
+python3 implementation/obj-b.food-delivery/server-stages/courier.py \
+  -i "$demo_dir/prepared.csv" -o "$demo_dir/delivered.csv" --qid q1 \
+  --logfile "$demo_dir/courier.log"
+```
+
+Use `run_demo.py --mode stages` for the concurrent queue/dispatcher experiment.
+The workload schema, durations, queue IDs, log format, and analysis outputs stay
+the same. No C++ or gRPC transport is introduced in this decomposition step.
+Tests cover the standalone composition, both live modes, single-task ownership,
+failed output, and rejected duplicate/mismatched courier state transitions.
+
 ## Order and workload
 
 Job ID `o42.r0.far.i3` means order 42, restaurant 0, far delivery zone, three items.

@@ -64,11 +64,10 @@ def run(root, config, mode="stages", timeout=60, plots=False):
             processes.append((name, process))
 
         def server(name, stage, qid, sid, source, dest):
-            script = APP / ("server-monolith" if stage == "monolith" else "server-stages") / "server_func.py"
+            script = (APP / "server-monolith/server_func.py" if stage == "monolith"
+                      else APP / "server-stages" / f"{stage}.py")
             args = ["-i", source, "-o", dest, "--qid", qid, "--server-id", sid,
                     "--logfile", root / f"{name}.log"]
-            if stage != "monolith":
-                args += ["--stage", stage]
             launch(name, script, args)
 
         def queue(qid, capacity, sources, destinations):

@@ -31,6 +31,77 @@ def config():
 
 
 class FoodDeliveryTests(unittest.TestCase):
+    def test_stage_entrypoints_match_monolith(self):
+        """Separately launched services do each task once and preserve the job."""
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source = root / "orders.csv"
+            original = format_job_line(Order(1, 0, "far", 3).job_id, 10,
+                                       (Task(0, 0.001), Task(1, 0.002)), wait_precision=3)
+            source.write_text(original + "\n")
+            for script, name, incoming, outgoing, qid in [
+                ("server-stages/kitchen.py", "kitchen", source, root / "prepared.csv", "q0"),
+                ("server-stages/courier.py", "courier", root / "prepared.csv", root / "delivered.csv", "q1"),
+                ("server-monolith/server_func.py", "monolith", source, root / "mono.csv", "q0"),
+            ]:
+                result = subprocess.run([sys.executable, str(APP / script), "-i", str(incoming),
+                    "-o", str(outgoing), "--qid", qid, "--logfile", str(root / f"{name}.log")],
+                    capture_output=True, text=True, timeout=10)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(outgoing.read_text(), original + "\n")
+            kitchen = (root / "kitchen.log").read_text()
+            courier = (root / "courier.log").read_text()
+            monolith = (root / "monolith.log").read_text()
+            self.assertNotIn("TASK-START 1", kitchen)
+            self.assertNotIn("TASK-START 0", courier)
+            for tid in (0, 1):
+                self.assertEqual((kitchen + courier).count(f"TASK-START {tid}"), 1)
+                self.assertEqual(monolith.count(f"TASK-START {tid}"), 1)
+
+    def test_invalid_request_has_no_work_or_output(self):
+        invalid = parse_job_line(format_job_line(Order(0, 1, "near", 2).job_id, 10, job().tasks))
+        for stage in ("kitchen", "courier", "monolith"):
+            sleeps, out, messages = [], io.StringIO(), io.StringIO()
+            log = logging.Logger(stage)
+            log.addHandler(logging.StreamHandler(messages))
+            with self.assertRaisesRegex(ValueError, "restaurant r0"):
+                serve(invalid, stage, "q0", 0, out, "sink", log, sleep=sleeps.append)
+            self.assertEqual(sleeps, [])
+            self.assertEqual(out.getvalue(), "")
+            self.assertEqual(messages.getvalue(), "")
+
+    def test_failed_output_does_not_report_completion(self):
+        class FailedWriter(io.StringIO):
+            def flush(self):
+                raise OSError("sink unavailable")
+        messages = io.StringIO()
+        log = logging.Logger("failed-output")
+        log.addHandler(logging.StreamHandler(messages))
+        with self.assertRaisesRegex(OSError, "sink unavailable"):
+            serve(job(), "courier", "q1", 0, FailedWriter(), "sink", log, sleep=lambda _: None)
+        self.assertNotIn("DEPART-VIA", messages.getvalue())
+        self.assertNotIn("courier-released", messages.getvalue())
+
+    def test_dispatch_rejects_double_assignment_and_wrong_release(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            dispatch = Dispatcher(1, 2, tmp)
+            try:
+                dispatch.admit(job(), "prepared")
+                self.assertEqual(dispatch.assign_next(0), job())
+                with self.assertRaisesRegex(ValueError, "not available"):
+                    dispatch.assign_next(0)
+                with self.assertRaisesRegex(ValueError, "no active assignment"):
+                    dispatch.release(0, "wrong-order")
+                self.assertEqual(dispatch.couriers[0]["status"], "busy")
+                self.assertEqual(dispatch.couriers[0]["completed"], 0)
+                dispatch.release(0, job().job_id)
+                with self.assertRaisesRegex(ValueError, "no active assignment"):
+                    dispatch.release(0, job().job_id)
+                self.assertEqual(dispatch.couriers[0]["completed"], 1)
+            finally:
+                for handler in dispatch.log.handlers:
+                    handler.close()
+
     def test_dispatch_registry_capacity_and_release(self):
         started, finish = threading.Event(), threading.Event()
         def delivery_wait(_):
