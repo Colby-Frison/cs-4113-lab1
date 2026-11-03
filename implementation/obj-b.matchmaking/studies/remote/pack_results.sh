@@ -3,21 +3,22 @@
 set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
-  echo "usage: $0 <large|very-large>" >&2
+  echo "usage: $0 <medium|large|very-large>" >&2
   exit 2
 fi
 
 SIZE="$1"
 case "$SIZE" in
-  large|very-large) ;;
+  medium|large|very-large) ;;
   *)
-    echo "size must be large or very-large" >&2
+    echo "size must be medium, large, or very-large" >&2
     exit 2
     ;;
 esac
 
-ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)"
-SIZE_DIR="$ROOT/implementation/obj-b.matchmaking/studies/$SIZE"
+# shellcheck source=./_repo_root.sh
+source "$(cd "$(dirname "$0")" && pwd)/_repo_root.sh"
+SIZE_DIR="$STUDIES_ROOT/$SIZE"
 RESULTS="$SIZE_DIR/results"
 OUT="$SIZE_DIR/${SIZE}-results.tar.gz"
 
