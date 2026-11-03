@@ -47,7 +47,7 @@ python implementation/obj-b.matchmaking/studies/run_study.py --size small --only
 
 Each scenario starts twelve local processes: `implementation/obj-a/queue/queue.py` and `implementation/obj-b.matchmaking/server-stages/server_func.py`. Listeners bind before the generator starts. gRPC links every hop after admit. Studies run on Linux so the admit edge can be a POSIX FIFO; a file edge between stages would close on EOF and break the ready-check retry.
 
-The generator writes `runs/<scenario>/jobs.csv`. `q0` reads `runs/<scenario>/jobs.fifo`, which carries the same bytes. A regular file returns EOF as soon as the reader catches the writer, which would admit the whole file as a burst and throw away the interarrival. The FIFO is only the admit edge.
+The generator writes `runs/<scenario>/jobs.csv`. `q0` reads a POSIX FIFO under a native temp directory that carries the same bytes. A regular file returns EOF as soon as the reader catches the writer, which would admit the whole file as a burst and throw away the interarrival. The FIFO is only the admit edge.
 
 `topology/baseline.json` stays the product topology (search and allocate at 4 workers, search depth 32, interarrival 14 s). The runner overrides workers, depth, count, arrival mean, and time scale.
 

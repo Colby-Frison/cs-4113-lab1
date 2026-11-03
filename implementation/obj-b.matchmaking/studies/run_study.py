@@ -1,10 +1,35 @@
 #!/usr/bin/env python3
 """Run a matchmaking size study from its pattern file.
 
-Small, Medium, Large, and Very Large share this runner. At most 80 queues
-start one queue process and one stage server per queue. Above that, one
-queue host and one server host hold every logical queue. The seven scenarios
-scale the stages named in the pattern. The others stay at their pattern count.
+Every size (small, medium, large, very-large) goes through this script. A person
+edits ``studies/<size>/pattern.json``; this module expands it, scales search
+workers across the seven lab scenarios, starts the pipeline, waits until every
+ticket is accounted for, then draws the six figures and the sensitivity charts.
+
+Flow for one invocation
+-----------------------
+1. Load ``pattern.json`` and expand it into a ``Layout`` (numeric qids).
+2. Tune the unscaled interarrival so one baseline search shard sits near the
+   pattern's ``target_rho`` (default 0.8), unless ``--arrival-mean`` is set.
+3. For each selected scenario factor in ``scale.SCENARIOS``:
+   a. Scale the stages named in ``swept_stages`` (search, and allocate on Small).
+   b. Clear ``runs/<scenario>/``, write ``servers.csv`` / ``qconf.csv``.
+   c. Start either one process pair per queue (≤80 queues) or the hosted pair.
+   d. Generate tickets into a POSIX FIFO (admit) and ``jobs.csv``.
+   e. Poll ``matched.csv``, ``failed.csv``, and ``ERROR QUEUE-FULL`` until the
+      three counts sum to ``--count``.
+   f. Run Objective A ``analyze_run.py``, filter the first search queue, plot.
+4. Write ``results/summary.md`` and the two sensitivity PNGs.
+
+Backends
+--------
+- **process** (Small, Medium): one ``queue.py`` and one ``server_func.py`` per
+  logical queue. gRPC after the first hop. Admit reads a FIFO.
+- **hosted** (Large, Very Large): ``host/queue_host.py`` and
+  ``host/server_host.py`` hold every logical queue in two OS processes.
+
+Remote wrappers under ``studies/remote/`` call this file with ``--size``.
+See ``studies/README.md`` for flags, figures, and the pattern schema.
 """
 
 from __future__ import annotations
@@ -54,10 +79,18 @@ STAGE_PY = MM_ROOT / "server-stages" / "server_func.py"
 HOST_QUEUE = HERE / "host" / "queue_host.py"
 HOST_SERVER = HERE / "host" / "server_host.py"
 ANALYZE = OBJ_A / "mockups" / "analyze_run.py"
+
+# Host ports for process-mode listens. Each scenario gets a disjoint block so a
+# leftover process from the previous set cannot collide. Stay clear of the
+# orchestrator's container ports and of Objective A sanity-check ranges.
 PORT_BASE = 29100
 PORT_STRIDE = 200
+
+# How long to wait for "gRPC listen" / the FIFO reader before failing the scenario.
 LISTEN_TIMEOUT_SEC = 120
 PIPE_TIMEOUT_SEC = 60
+
+# If matched+failed+QUEUE-FULL stops increasing for this long, the run is stuck.
 STALL_SEC = 45
 
 
@@ -66,15 +99,46 @@ class _Cancelled(Exception):
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Run one matchmaking size study.")
-    parser.add_argument("--size", required=True, choices=("small", "medium", "large", "very-large"))
-    parser.add_argument("--only", default="", help="Comma-separated scenario names (default: all seven)")
-    parser.add_argument("--count", type=int, default=0, help="Tickets per scenario (default: the pattern)")
-    parser.add_argument("--time-scale", type=float, default=-1.0, help="Default: the pattern")
-    parser.add_argument("--arrival-mean", type=float, default=-1.0, help="Unscaled seconds. Default: tuned")
-    parser.add_argument("--runs", default="", help="Process logs and sinks")
-    parser.add_argument("--results", default="", help="Figures and summary.md")
-    parser.add_argument("--plots-only", action="store_true")
+    """Parse flags, expand the pattern, run each scenario, write the summary."""
+    parser = argparse.ArgumentParser(
+        description="Run one matchmaking size study from studies/<size>/pattern.json.",
+    )
+    parser.add_argument(
+        "--size",
+        required=True,
+        choices=("small", "medium", "large", "very-large"),
+        help="Which studies/<size>/pattern.json to expand and run",
+    )
+    parser.add_argument(
+        "--only",
+        default="",
+        help="Comma-separated scenario names (default: all seven from scale.SCENARIOS)",
+    )
+    parser.add_argument(
+        "--count",
+        type=int,
+        default=0,
+        help="Tickets per scenario (default: the pattern). Buffer depth follows this count",
+    )
+    parser.add_argument(
+        "--time-scale",
+        type=float,
+        default=-1.0,
+        help="Multiplies every drawn wait and the interarrival (default: the pattern)",
+    )
+    parser.add_argument(
+        "--arrival-mean",
+        type=float,
+        default=-1.0,
+        help="Unscaled seconds between tickets. Omit to tune one baseline search shard near target_rho",
+    )
+    parser.add_argument("--runs", default="", help="Process logs and sinks (default: studies/<size>/runs)")
+    parser.add_argument("--results", default="", help="Figures and summary.md (default: studies/<size>/results)")
+    parser.add_argument(
+        "--plots-only",
+        action="store_true",
+        help="Skip processes; redraw figures from an existing runs/<scenario> directory",
+    )
     args = parser.parse_args(argv)
 
     pattern = load_pattern(HERE / args.size / "pattern.json")
@@ -84,6 +148,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.arrival_mean >= 0:
         arrival = args.arrival_mean
     else:
+        # Same arrival for every factor so the server sweep is the only change.
         arrival = tuned_arrival_mean(
             len(base.search_queues),
             base.baseline_search_workers,
@@ -145,7 +210,14 @@ def run_scenario(
     *,
     plots_only: bool,
 ) -> dict:
+    """Run or replot one server-factor scenario and return its summary row.
+
+    When ``plots_only`` is false, the run directory is wiped, the pipeline is
+    started, and every ticket must land in matched, failed, or QUEUE-FULL.
+    Analysis and the six PNGs always run from whatever is in ``runs/<name>/``.
+    """
     run_dir = runs / name
+    # Keep buffers large enough that a slower pool queues instead of dropping.
     if count != layout.qsize:
         layout = replace(
             layout,
@@ -194,6 +266,12 @@ def execute_process(
     time_scale: float,
     arrival_mean: float,
 ) -> None:
+    """Start one queue process and one stage server per logical queue.
+
+    Startup order: every stage server, then every queue except admit, wait for
+    ``gRPC listen``, then admit on the FIFO, then the generator. Listeners must
+    be up before any ticket is sent so a ready-check retry still has a live peer.
+    """
     ports = _assign_ports(layout, PORT_BASE + scenario_index * PORT_STRIDE)
     destinations = {
         queue.qid: f"127.0.0.1:{ports[queue.qid]},{queue.workers}"
@@ -201,9 +279,9 @@ def execute_process(
     }
     run_dir.mkdir(parents=True, exist_ok=True)
     write_bracket_layout(layout, destinations, run_dir / "bracket.json")
-    pipe_path = run_dir / "jobs.fifo"
-    pipe = JobPipe(pipe_path)
-    pipe_name = str(pipe_path)
+    # FIFO lives under a native temp dir (JobPipe default) so WSL /mnt/c works.
+    pipe = JobPipe()
+    pipe_name = str(pipe.path)
     children: list[tuple[subprocess.Popen, object]] = []
     cancel = threading.Event()
     box: dict = {}
@@ -232,6 +310,7 @@ def execute_process(
             name=f"gen-{name}",
         )
         generator.start()
+        # Admit may exit after pipe EOF; other listener deaths are fatal.
         _poll(name, run_dir, count, time_scale, arrival_mean, layout, box, children, q0, generator)
     finally:
         cancel.set()
@@ -253,6 +332,13 @@ def execute_hosted(
     region: str | None = None,
     mode: str | None = None,
 ) -> None:
+    """Start one queue host and one server host for every logical queue.
+
+    Used above 80 queues. The server host sleeps the stage wait and submits
+    back with ``dest_qid`` set so the queue host can pick the right buffer.
+    Optional ``region`` / ``mode`` pin the generator (smoke tests); size studies
+    normally leave them unset and let ``_traffic_pins`` decide from the layout.
+    """
     spec_path = run_dir / "spec.json"
     run_dir.mkdir(parents=True, exist_ok=True)
     write_host_spec(layout, spec_path)
@@ -260,9 +346,8 @@ def execute_hosted(
     queue_port = base
     server_port = base + 1
     pool = max(1, sum(queue.workers for queue in layout.queues))
-    pipe_path = run_dir / "jobs.fifo"
-    pipe = JobPipe(pipe_path)
-    pipe_name = str(pipe_path)
+    pipe = JobPipe()
+    pipe_name = str(pipe.path)
     children: list[tuple[subprocess.Popen, object]] = []
     cancel = threading.Event()
     box: dict = {}
@@ -292,6 +377,7 @@ def execute_hosted(
             )
         )
         wait_for_listen([run_dir / "sf-host.log"], LISTEN_TIMEOUT_SEC)
+        # Admit is put_nowait; the listen pool only needs to accept Submit RPCs.
         listen_workers = min(256, max(32, len(layout.queues)))
         children.append(
             spawn(
@@ -331,6 +417,11 @@ def execute_hosted(
 
 
 def _assign_ports(layout: Layout, base: int) -> dict[str, int]:
+    """Map each non-admit queue listen and each server listen to a host port.
+
+    Keys are ``qN`` for a queue's ``--ingrpc`` port and ``s:qN`` for that queue's
+    stage server. Admit has no listen port; it reads the FIFO.
+    """
     port = base
     assigned: dict[str, int] = {}
     for queue in layout.queues:
@@ -343,6 +434,7 @@ def _assign_ports(layout: Layout, base: int) -> dict[str, int]:
 
 
 def _queue_args(queue: QueueSpec, ports: dict[str, int], run_dir: Path, pipe_name: str) -> list[str]:
+    """Command line for one Objective A ``queue.py`` process."""
     args = [
         sys.executable,
         str(QUEUE_PY),
@@ -363,6 +455,12 @@ def _queue_args(queue: QueueSpec, ports: dict[str, int], run_dir: Path, pipe_nam
 
 
 def _server_args(queue: QueueSpec, layout: Layout, ports: dict[str, int], run_dir: Path) -> list[str]:
+    """Command line for one stage ``server_func.py`` process.
+
+    Route and ready load ``bracket.json`` so retries return to the same search
+    shard. Ready omits ``--retry``; the runtime substitutes the shard edge.
+    Linear stages dial the next queue on the layout.
+    """
     args = [
         sys.executable,
         str(STAGE_PY),
@@ -414,7 +512,8 @@ def _traffic_pins(
 ) -> tuple[str | None, str | None]:
     """Pin the generator when the pattern names one region or one mode.
 
-    A full axis stays unpinned, so tickets spread across that axis.
+    A full axis stays unpinned, so tickets spread across that axis. Small pins
+    ``na`` / ``ranked`` this way. Medium and larger leave both open.
     """
     if region is None and len(layout.regions) == 1:
         region = layout.regions[0]
@@ -435,6 +534,11 @@ def _run_generator(
     region: str | None = None,
     mode: str | None = None,
 ) -> None:
+    """Emit ``count`` tickets into ``jobs.csv`` and the admit FIFO.
+
+    ``box`` carries ``emitted``, ``cancelled``, or ``error`` back to ``_poll``.
+    The sleep respects ``cancel`` so a stalled scenario can stop the generator.
+    """
     tee = Tee(run_dir / "jobs.csv", pipe)
 
     def sleep_fn(delay: float) -> None:
@@ -480,6 +584,12 @@ def _poll(
     admit_process: subprocess.Popen | None,
     generator: threading.Thread,
 ) -> None:
+    """Block until every ticket is matched, failed, or QUEUE-FULL.
+
+    The deadline is a watchdog, not a promised runtime. It scales with the
+    slower of generation, serial ready work, and parallel search work. Ready
+    often dominates after Medium because the tuned arrival overloads one worker.
+    """
     matched = run_dir / "matched.csv"
     failed = run_dir / "failed.csv"
     visits = expected_search_visits(layout.ready_fail_p, layout.max_ready_visits)
@@ -527,6 +637,7 @@ def _poll(
 
 
 def _run_analysis(name: str, run_dir: Path, layout: Layout) -> None:
+    """Run Objective A analyze_run, then filter the first search queue's qmet."""
     analysis = subprocess.run(
         [
             sys.executable,
@@ -567,6 +678,7 @@ def _run_analysis(name: str, run_dir: Path, layout: Layout) -> None:
 
 
 def _require_accounted(name: str, run_dir: Path, count: int) -> None:
+    """Fail the scenario if matched + failed + QUEUE-FULL is not exactly count."""
     matched = csv_rows(run_dir / "matched.csv")
     failed = csv_rows(run_dir / "failed.csv")
     dropped = len(queue_full_jobs(run_dir))
@@ -578,6 +690,7 @@ def _require_accounted(name: str, run_dir: Path, count: int) -> None:
 
 
 def _select(only: str) -> list[tuple[str, float]]:
+    """Resolve ``--only`` into the ordered ``(name, factor)`` scenario list."""
     if not only:
         return list(SCENARIOS)
     wanted = {name.strip() for name in only.split(",") if name.strip()}
@@ -589,6 +702,7 @@ def _select(only: str) -> list[tuple[str, float]]:
 
 
 def spawn(args: list[str], err_path: Path) -> tuple[subprocess.Popen, object]:
+    """Start a child with stdout discarded and stderr in ``err_path``."""
     err_path.parent.mkdir(parents=True, exist_ok=True)
     handle = err_path.open("w", encoding="utf-8")
     process = subprocess.Popen(
@@ -602,6 +716,7 @@ def spawn(args: list[str], err_path: Path) -> tuple[subprocess.Popen, object]:
 
 
 def stop(processes: list[tuple[subprocess.Popen, object]]) -> None:
+    """Kill every child and close its stderr handle."""
     for process, _handle in processes:
         if process.poll() is None:
             process.kill()
@@ -614,6 +729,7 @@ def stop(processes: list[tuple[subprocess.Popen, object]]) -> None:
 
 
 def wait_for_listen(logs: list[Path], timeout: float) -> None:
+    """Block until each log contains ``gRPC listen``, or raise."""
     deadline = time.time() + timeout
     pending = set(logs)
     while pending and time.time() < deadline:
@@ -632,6 +748,7 @@ def wait_for_listen(logs: list[Path], timeout: float) -> None:
 
 
 def csv_rows(path: Path) -> int:
+    """Count non-header data rows in a sink CSV."""
     if not path.is_file():
         return 0
     rows = 0
@@ -642,6 +759,7 @@ def csv_rows(path: Path) -> int:
 
 
 def queue_full_jobs(run_dir: Path) -> set[str]:
+    """Distinct job ids that logged ``ERROR QUEUE-FULL`` in any process log."""
     found: set[str] = set()
     for path in sorted(run_dir.glob("*.log")):
         for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
@@ -654,6 +772,7 @@ def queue_full_jobs(run_dir: Path) -> set[str]:
 
 
 def err_tail(run_dir: Path) -> str:
+    """Last stderr chunks from up to six ``*.err`` files, for failure messages."""
     chunks: list[str] = []
     for path in sorted(run_dir.glob("*.err")):
         text = path.read_text(encoding="utf-8", errors="ignore").strip()

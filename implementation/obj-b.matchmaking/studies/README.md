@@ -1,6 +1,6 @@
 # Study runner
 
-Every size is a pattern. [run_study.py](run_study.py) expands that pattern into numeric queues, scales the stages named in the pattern, starts the pipeline, and draws the figures. Small, Medium, Large, and Very Large use that same runner on Linux. Small and Medium run in a local VirtualBox Linux guest. Large and Very Large use the [remote kit](remote/README.md) on Linux boxes. What the Small numbers mean is [small/README.md](small/README.md).
+Every size is a pattern. [run_study.py](run_study.py) expands that pattern into numeric queues, scales the stages named in the pattern, starts the pipeline, and draws the figures. Small, Medium, Large, and Very Large use that same runner on Linux. Small is short enough to finish locally. Medium and the larger bands use the [remote kit](remote/README.md) on a Linux box (`run_medium.sh`, `run_large.sh`, `run_very_large.sh`) because the single ready worker is past capacity at the tuned arrival. What the Small numbers mean is [small/README.md](small/README.md). The module docstring at the top of `run_study.py` is the map of how one invocation expands, starts, polls, and plots.
 
 The study does not start containers. Containers are the other launcher, [orchestration/README.md](../orchestration/README.md), and they read [topology/baseline.json](../topology/baseline.json) unchanged. A study overrides workers, depth, count, arrival, and time scale in its pattern and leaves that JSON as the product topology.
 
@@ -93,7 +93,7 @@ Above 80 queues, two processes hold the whole graph. The queue host has one buff
 
 ## How a ticket is routed
 
-The processes never open `baseline.json`. The expander writes `bracket.json`, and the route and ready servers load it. The generator sleeps the interarrival, then writes one CSV row to `jobs.csv` and to a POSIX FIFO `runs/<scenario>/jobs.fifo`. Admit (`q0`) is the only reader of that FIFO. A regular file would look finished as soon as the reader caught the writer, which dumps every remaining ticket at once and breaks the ready-check loop. The FIFO is only the first hop. Every later hop is gRPC on `127.0.0.1`.
+The processes never open `baseline.json`. The expander writes `bracket.json`, and the route and ready servers load it. The generator sleeps the interarrival, then writes one CSV row to `jobs.csv` and to a POSIX FIFO under a native temp directory (so a Windows-mounted repo path still works from WSL). Admit (`q0`) is the only reader of that FIFO. A regular file would look finished as soon as the reader caught the writer, which dumps every remaining ticket at once and breaks the ready-check loop. The FIFO is only the first hop. Every later hop is gRPC on `127.0.0.1`.
 
 ```text
 generator --pipe--> q0 --grpc--> validate --grpc--> q1 --grpc--> rating
@@ -165,7 +165,7 @@ After the sinks fill, `run_scenario` calls `implementation/obj-a/mockups/analyze
 | Pools | `scale.py` | The seven factors, total-preserving |
 | Arrival | `arrival.py` | $E[S]$, $E[V]$, and the interarrival |
 | Admit edge | `job_pipe.py` | POSIX FIFO plus a copy of the same bytes in `jobs.csv` |
-| Remote kit | `remote/` | Shell scripts and notes for Large and Very Large on Linux boxes |
+| Remote kit | `remote/` | Shell scripts and notes for Medium, Large, and Very Large on Linux boxes |
 | The run | `run_study.py` | Backend choice, listeners, generator, sink polling, analysis |
 | Hosted pair | `host/queue_host.py`, `host/server_host.py` | Many logical queues in two processes |
 | Routing | `mm/stages.py` | Bracket formula, the single-queue shortcut, and the region map used when no bracket is loaded |

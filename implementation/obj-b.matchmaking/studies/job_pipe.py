@@ -3,13 +3,16 @@
 A regular file returns EOF once the reader catches the writer, which dumps
 the rest of the tickets at once. The FIFO stays open until the generator
 closes it, so arrivals keep their interarrival sleep. Studies run on Linux
-(VirtualBox locally, remotes for the large bands).
+(VirtualBox or WSL locally, remotes for the large bands). The FIFO itself
+is created under a native temp directory so a Windows-mounted repo path
+(DrvFs) does not have to support ``mkfifo``.
 """
 
 from __future__ import annotations
 
 import os
-import stat
+import shutil
+import tempfile
 import threading
 from pathlib import Path
 
@@ -17,15 +20,27 @@ from pathlib import Path
 class JobPipe:
     """Byte pipe. Admit opens ``path`` for read; this object writes the generator stream."""
 
-    def __init__(self, path: str | Path) -> None:
-        self.path = Path(path)
+    def __init__(self, path: str | Path | None = None) -> None:
         self._lock = threading.Lock()
         self._file = None
-        if self.path.exists():
-            if not stat.S_ISFIFO(self.path.stat().st_mode):
-                raise OSError(f"{self.path} exists and is not a FIFO")
-            self.path.unlink()
-        os.mkfifo(self.path, 0o666)
+        self._tmpdir: Path | None = None
+        if path is None:
+            self._tmpdir = Path(tempfile.mkdtemp(prefix="mm-fifo-"))
+            self.path = self._tmpdir / "jobs.fifo"
+        else:
+            self.path = Path(path)
+            if self.path.exists():
+                self.path.unlink()
+        try:
+            os.mkfifo(self.path, 0o666)
+        except OSError as exc:
+            if self._tmpdir is not None:
+                shutil.rmtree(self._tmpdir, ignore_errors=True)
+                self._tmpdir = None
+            raise OSError(
+                f"mkfifo {self.path} failed ({exc}). "
+                "Use a native Linux filesystem for the admit FIFO."
+            ) from exc
 
     def wait_for_reader(self, timeout: float) -> None:
         """Open for write once admit is reading, or raise when ``timeout`` passes."""
@@ -70,6 +85,9 @@ class JobPipe:
             self._file = None
         if handle is not None:
             handle.close()
+        if self._tmpdir is not None:
+            shutil.rmtree(self._tmpdir, ignore_errors=True)
+            self._tmpdir = None
 
 
 class Tee:
