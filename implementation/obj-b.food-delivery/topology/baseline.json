@@ -1,0 +1,10 @@
+{
+  "kitchen_workers": 2,
+  "couriers": 3,
+  "kitchen_capacity": 16,
+  "pickup_capacity": 16,
+  "count": 100,
+  "arrival_mean": 0.04,
+  "time_scale": 1.0,
+  "seed": 1
+}

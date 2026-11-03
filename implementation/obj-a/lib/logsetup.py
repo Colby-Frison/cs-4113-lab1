@@ -20,8 +20,9 @@ def configure_logging(logfile: str | None, component: str) -> None:
     ``component`` is ``Q`` for the queue and ``sv`` for a server function, so
     the prefix matches the course examples (``Q_pid…``, ``sv_pid…``).
     """
+    identity = component if os.environ.get("LAB_LOG_COMPACT") == "1" else f"{component}_pid{os.getpid()}@{socket.gethostname()}"
     log_format = (
-        f"%(asctime)s - {component}_pid{os.getpid()}@{socket.gethostname()} "
+        f"%(asctime)s - {identity} "
         "- %(levelname)s - %(message)s"
     )
     if logfile is None:
