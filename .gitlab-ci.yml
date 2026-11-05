@@ -3,5 +3,7 @@ stages:
 
 test_runner:
   stage: test
+  tags:
+    - dos27
   script:
     - echo "Runner works!"
