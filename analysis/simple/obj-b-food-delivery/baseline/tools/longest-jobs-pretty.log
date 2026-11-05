@@ -1,0 +1,35 @@
+5890 q0 o619.r0.far.i4 ARRIVE-VIA source
+5891 q0 o619.r0.far.i4 ENTERS-SERVER 17
+     q0 o619.r0.far.i4 TASK-START 0 "W 0.317"
+6210 q0 o619.r0.far.i4 TASK-END 0 "W 0.317"
+     q0 o619.r0.far.i4 EXITS-SERVER 17
+6211                                          q1 o619.r0.far.i4 ARRIVE-VIA q0
+6212 q0 o619.r0.far.i4 DEPART-VIA q1
+6718                                          q1 o619.r0.far.i4 ENTERS-SERVER 14
+                                              q1 o619.r0.far.i4 TASK-START 1 "W 0.326"
+6822 q0 o721.r0.far.i4 ARRIVE-VIA source
+     q0 o721.r0.far.i4 ENTERS-SERVER 12
+     q0 o721.r0.far.i4 TASK-START 0 "W 0.310"
+7002 q0 o741.r0.far.i4 ARRIVE-VIA source
+7003 q0 o741.r0.far.i4 ENTERS-SERVER 3
+     q0 o741.r0.far.i4 TASK-START 0 "W 0.307"
+7044                                          q1 o619.r0.far.i4 TASK-END 1 "W 0.326"
+                                              q1 o619.r0.far.i4 EXITS-SERVER 14
+                                              q1 o619.r0.far.i4 DEPART-VIA sink
+7134 q0 o721.r0.far.i4 TASK-END 0 "W 0.310"
+     q0 o721.r0.far.i4 EXITS-SERVER 12
+7135 q0 o721.r0.far.i4 DEPART-VIA q1          q1 o721.r0.far.i4 ARRIVE-VIA q0
+7312 q0 o741.r0.far.i4 TASK-END 0 "W 0.307"
+     q0 o741.r0.far.i4 EXITS-SERVER 3
+7318                                          q1 o741.r0.far.i4 ARRIVE-VIA q0
+7319 q0 o741.r0.far.i4 DEPART-VIA q1
+7696                                          q1 o721.r0.far.i4 ENTERS-SERVER 11
+                                              q1 o721.r0.far.i4 TASK-START 1 "W 0.316"
+7882                                          q1 o741.r0.far.i4 ENTERS-SERVER 14
+                                              q1 o741.r0.far.i4 TASK-START 1 "W 0.338"
+8013                                          q1 o721.r0.far.i4 TASK-END 1 "W 0.316"
+                                              q1 o721.r0.far.i4 EXITS-SERVER 11
+                                              q1 o721.r0.far.i4 DEPART-VIA sink
+8221                                          q1 o741.r0.far.i4 TASK-END 1 "W 0.338"
+                                              q1 o741.r0.far.i4 EXITS-SERVER 14
+8222                                          q1 o741.r0.far.i4 DEPART-VIA sink

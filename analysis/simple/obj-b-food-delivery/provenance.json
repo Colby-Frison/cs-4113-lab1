@@ -1,0 +1,20 @@
+{
+  "git_revision": "82f45e101b4c7b134c6d9bcc4801ab2b198b08b5",
+  "platform": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "python": "3.13.7 (v3.13.7:bcee1c32211, Aug 14 2025, 19:10:51) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "grpcio": "1.85.1",
+  "protobuf": "7.36.2",
+  "sha256": {
+    "analysis/simple/study.json": "0fbd14d731a233cbcb6a1b8eb1329955725f775badd0b8401e0bad600021db1a",
+    "implementation/obj-b.food-delivery/run_grpc.py": "0d8342538ad33862c0c8331e18a9a9f6d1684364111de989816f1d185b87028f",
+    "implementation/obj-b.food-delivery/fd/dispatch.py": "88128763b5ea90e920e384ebb8deddf4edea59f6e58742769f38d59978e1b98d",
+    "implementation/obj-b.food-delivery/fd/workload.py": "7f6b426eb28130f15bafb425e1eb18a2b34ddf347019eec82c1df3284483b03c",
+    "implementation/obj-b.food-delivery/fd/order.py": "5653af9c1d911d534945e070a14c38239192a8b99d10ceb63e85933e84d0d680",
+    "implementation/obj-b.food-delivery/fd/analysis.py": "ac0fb3465a704f2ad487f0f30a43c12fb090f4cb71741243f71fdd6575b87bf0",
+    "implementation/obj-b.food-delivery/cpp/server.cpp": "c3f3427c34b47fe50a6ff4ca490e090467a824c8d85f2ad1229291268c993042",
+    "implementation/obj-b.food-delivery/cpp/CMakeLists.txt": "83ce0392623c05b4f452ceb6f70e53c5a88f3164fde0833f14770f45de5eaa4c",
+    "implementation/obj-b.food-delivery/cpp/build/food_server": "610a2fc3db6a07af0d75b9666f0af6dac258754ea9dfa7548400ff93798a3852"
+  },
+  "note": "Wall-clock local experiments. One scenario at a time; OS scheduling is not deterministic."
+}

@@ -1,0 +1,13 @@
+{
+  "kitchen_workers": 20,
+  "couriers": 40,
+  "kitchen_capacity": 64,
+  "pickup_capacity": 64,
+  "count": 1000,
+  "arrival_mean": 0.004,
+  "time_scale": 2.0,
+  "seed": 3,
+  "mode": "stages",
+  "transport": "grpc",
+  "server_language": "cpp"
+}

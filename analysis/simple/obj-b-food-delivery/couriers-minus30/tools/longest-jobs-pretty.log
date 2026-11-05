@@ -1,0 +1,33 @@
+3579 q0 o378.r0.far.i4 ARRIVE-VIA source
+3580 q0 o378.r0.far.i4 ENTERS-SERVER 9
+     q0 o378.r0.far.i4 TASK-START 0 "W 0.318"
+3898 q0 o378.r0.far.i4 TASK-END 0 "W 0.318"   q1 o378.r0.far.i4 ARRIVE-VIA q0
+     q0 o378.r0.far.i4 EXITS-SERVER 9
+3899 q0 o378.r0.far.i4 DEPART-VIA q1
+4828                                          q1 o378.r0.far.i4 ENTERS-SERVER 3
+                                              q1 o378.r0.far.i4 TASK-START 1 "W 0.331"
+5159                                          q1 o378.r0.far.i4 TASK-END 1 "W 0.331"
+                                              q1 o378.r0.far.i4 EXITS-SERVER 3
+                                              q1 o378.r0.far.i4 DEPART-VIA sink
+5904 q0 o619.r0.far.i4 ARRIVE-VIA source
+5905 q0 o619.r0.far.i4 ENTERS-SERVER 7
+     q0 o619.r0.far.i4 TASK-START 0 "W 0.317"
+5906 q0 o620.r0.far.i4 ARRIVE-VIA source
+     q0 o620.r0.far.i4 ENTERS-SERVER 9
+     q0 o620.r0.far.i4 TASK-START 0 "W 0.289"
+6196 q0 o620.r0.far.i4 TASK-END 0 "W 0.289"
+     q0 o620.r0.far.i4 EXITS-SERVER 9
+6197 q0 o620.r0.far.i4 DEPART-VIA q1          q1 o620.r0.far.i4 ARRIVE-VIA q0
+6223 q0 o619.r0.far.i4 TASK-END 0 "W 0.317"   q1 o619.r0.far.i4 ARRIVE-VIA q0
+     q0 o619.r0.far.i4 EXITS-SERVER 7
+6224 q0 o619.r0.far.i4 DEPART-VIA q1
+7258                                          q1 o620.r0.far.i4 ENTERS-SERVER 5
+                                              q1 o620.r0.far.i4 TASK-START 1 "W 0.255"
+7280                                          q1 o619.r0.far.i4 ENTERS-SERVER 12
+                                              q1 o619.r0.far.i4 TASK-START 1 "W 0.326"
+7514                                          q1 o620.r0.far.i4 TASK-END 1 "W 0.255"
+                                              q1 o620.r0.far.i4 EXITS-SERVER 5
+                                              q1 o620.r0.far.i4 DEPART-VIA sink
+7606                                          q1 o619.r0.far.i4 TASK-END 1 "W 0.326"
+                                              q1 o619.r0.far.i4 EXITS-SERVER 12
+                                              q1 o619.r0.far.i4 DEPART-VIA sink

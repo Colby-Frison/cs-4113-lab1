@@ -1,0 +1,12 @@
+{
+  "runs": 21,
+  "scenarios": 7,
+  "main_plots": 42,
+  "orders_generated": 21000,
+  "orders_delivered": 19413,
+  "orders_dropped": 1587,
+  "incomplete": 0,
+  "paired_workloads_match": true,
+  "all_dispatchers_drained": true,
+  "all_accessory_commands_succeeded": true
+}

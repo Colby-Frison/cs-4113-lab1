@@ -1,0 +1,11 @@
+{
+  "mode": "stages",
+  "generated": 1000,
+  "delivered": 1000,
+  "dropped": 0,
+  "incomplete": 0,
+  "mean_latency_seconds": 0.3615789999961853,
+  "mean_pickup_wait_seconds": 0.0024840006828308107,
+  "throughput_orders_per_second": 95.93246331746964,
+  "observation_seconds": 10.424000024795532
+}

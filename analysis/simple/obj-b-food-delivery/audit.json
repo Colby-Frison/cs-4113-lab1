@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "runs": 21,
+  "main_plots": 42,
+  "accessory_tools_per_set": 10,
+  "generated": 21000,
+  "delivered": 19413,
+  "dropped": 1587,
+  "incomplete": 0,
+  "checks": [
+    "raw CSV identity and uniqueness",
+    "every order delivered or dropped",
+    "configuration matches experiment",
+    "error counts match sampled USE and time bins",
+    "system-tool departure counts match sinks",
+    "longest jobs selected by end-to-end latency",
+    "all tool commands recorded",
+    "all 42 main PNGs present"
+  ]
+}

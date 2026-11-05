@@ -1,0 +1,130 @@
+{
+  "couriers": {
+    "0": {
+      "status": "available",
+      "order_id": null,
+      "completed": 41
+    },
+    "1": {
+      "status": "available",
+      "order_id": null,
+      "completed": 47
+    },
+    "2": {
+      "status": "available",
+      "order_id": null,
+      "completed": 42
+    },
+    "3": {
+      "status": "available",
+      "order_id": null,
+      "completed": 42
+    },
+    "4": {
+      "status": "available",
+      "order_id": null,
+      "completed": 40
+    },
+    "5": {
+      "status": "available",
+      "order_id": null,
+      "completed": 34
+    },
+    "6": {
+      "status": "available",
+      "order_id": null,
+      "completed": 43
+    },
+    "7": {
+      "status": "available",
+      "order_id": null,
+      "completed": 38
+    },
+    "8": {
+      "status": "available",
+      "order_id": null,
+      "completed": 36
+    },
+    "9": {
+      "status": "available",
+      "order_id": null,
+      "completed": 42
+    },
+    "10": {
+      "status": "available",
+      "order_id": null,
+      "completed": 40
+    },
+    "11": {
+      "status": "available",
+      "order_id": null,
+      "completed": 38
+    },
+    "12": {
+      "status": "available",
+      "order_id": null,
+      "completed": 43
+    },
+    "13": {
+      "status": "available",
+      "order_id": null,
+      "completed": 45
+    },
+    "14": {
+      "status": "available",
+      "order_id": null,
+      "completed": 41
+    },
+    "15": {
+      "status": "available",
+      "order_id": null,
+      "completed": 40
+    },
+    "16": {
+      "status": "available",
+      "order_id": null,
+      "completed": 40
+    },
+    "17": {
+      "status": "available",
+      "order_id": null,
+      "completed": 36
+    },
+    "18": {
+      "status": "available",
+      "order_id": null,
+      "completed": 35
+    },
+    "19": {
+      "status": "available",
+      "order_id": null,
+      "completed": 43
+    },
+    "20": {
+      "status": "available",
+      "order_id": null,
+      "completed": 41
+    },
+    "21": {
+      "status": "available",
+      "order_id": null,
+      "completed": 38
+    },
+    "22": {
+      "status": "available",
+      "order_id": null,
+      "completed": 37
+    },
+    "23": {
+      "status": "available",
+      "order_id": null,
+      "completed": 35
+    },
+    "24": {
+      "status": "available",
+      "order_id": null,
+      "completed": 43
+    }
+  },
+  "waiting": []
+}

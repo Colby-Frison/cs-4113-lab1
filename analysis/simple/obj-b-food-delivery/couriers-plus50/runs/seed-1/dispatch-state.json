@@ -1,0 +1,155 @@
+{
+  "couriers": {
+    "0": {
+      "status": "available",
+      "order_id": null,
+      "completed": 35
+    },
+    "1": {
+      "status": "available",
+      "order_id": null,
+      "completed": 30
+    },
+    "2": {
+      "status": "available",
+      "order_id": null,
+      "completed": 38
+    },
+    "3": {
+      "status": "available",
+      "order_id": null,
+      "completed": 36
+    },
+    "4": {
+      "status": "available",
+      "order_id": null,
+      "completed": 30
+    },
+    "5": {
+      "status": "available",
+      "order_id": null,
+      "completed": 35
+    },
+    "6": {
+      "status": "available",
+      "order_id": null,
+      "completed": 34
+    },
+    "7": {
+      "status": "available",
+      "order_id": null,
+      "completed": 31
+    },
+    "8": {
+      "status": "available",
+      "order_id": null,
+      "completed": 40
+    },
+    "9": {
+      "status": "available",
+      "order_id": null,
+      "completed": 38
+    },
+    "10": {
+      "status": "available",
+      "order_id": null,
+      "completed": 28
+    },
+    "11": {
+      "status": "available",
+      "order_id": null,
+      "completed": 36
+    },
+    "12": {
+      "status": "available",
+      "order_id": null,
+      "completed": 36
+    },
+    "13": {
+      "status": "available",
+      "order_id": null,
+      "completed": 31
+    },
+    "14": {
+      "status": "available",
+      "order_id": null,
+      "completed": 29
+    },
+    "15": {
+      "status": "available",
+      "order_id": null,
+      "completed": 34
+    },
+    "16": {
+      "status": "available",
+      "order_id": null,
+      "completed": 30
+    },
+    "17": {
+      "status": "available",
+      "order_id": null,
+      "completed": 32
+    },
+    "18": {
+      "status": "available",
+      "order_id": null,
+      "completed": 35
+    },
+    "19": {
+      "status": "available",
+      "order_id": null,
+      "completed": 29
+    },
+    "20": {
+      "status": "available",
+      "order_id": null,
+      "completed": 28
+    },
+    "21": {
+      "status": "available",
+      "order_id": null,
+      "completed": 34
+    },
+    "22": {
+      "status": "available",
+      "order_id": null,
+      "completed": 30
+    },
+    "23": {
+      "status": "available",
+      "order_id": null,
+      "completed": 35
+    },
+    "24": {
+      "status": "available",
+      "order_id": null,
+      "completed": 36
+    },
+    "25": {
+      "status": "available",
+      "order_id": null,
+      "completed": 33
+    },
+    "26": {
+      "status": "available",
+      "order_id": null,
+      "completed": 35
+    },
+    "27": {
+      "status": "available",
+      "order_id": null,
+      "completed": 32
+    },
+    "28": {
+      "status": "available",
+      "order_id": null,
+      "completed": 36
+    },
+    "29": {
+      "status": "available",
+      "order_id": null,
+      "completed": 34
+    }
+  },
+  "waiting": []
+}

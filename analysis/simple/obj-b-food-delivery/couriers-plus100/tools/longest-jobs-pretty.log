@@ -1,0 +1,34 @@
+ 582 q0 o66.r0.far.i4 ARRIVE-VIA source
+     q0 o66.r0.far.i4 ENTERS-SERVER 7
+     q0 o66.r0.far.i4 TASK-START 0 "W 0.309"
+ 893 q0 o66.r0.far.i4 TASK-END 0 "W 0.309"
+     q0 o66.r0.far.i4 EXITS-SERVER 7
+ 894 q0 o66.r0.far.i4 DEPART-VIA q1           q1 o66.r0.far.i4 ARRIVE-VIA q0
+ 895                                          q1 o66.r0.far.i4 ENTERS-SERVER 6
+                                              q1 o66.r0.far.i4 TASK-START 1 "W 0.340"
+1237                                          q1 o66.r0.far.i4 TASK-END 1 "W 0.340"
+                                              q1 o66.r0.far.i4 EXITS-SERVER 6
+                                              q1 o66.r0.far.i4 DEPART-VIA sink
+1295 q0 o150.r0.far.i4 ARRIVE-VIA source
+1357 q0 o150.r0.far.i4 ENTERS-SERVER 11
+     q0 o150.r0.far.i4 TASK-START 0 "W 0.305"
+1663 q0 o150.r0.far.i4 TASK-END 0 "W 0.305"
+     q0 o150.r0.far.i4 EXITS-SERVER 11
+1664                                          q1 o150.r0.far.i4 ARRIVE-VIA q0
+1665 q0 o150.r0.far.i4 DEPART-VIA q1
+1667                                          q1 o150.r0.far.i4 ENTERS-SERVER 2
+                                              q1 o150.r0.far.i4 TASK-START 1 "W 0.326"
+1995                                          q1 o150.r0.far.i4 TASK-END 1 "W 0.326"
+                                              q1 o150.r0.far.i4 EXITS-SERVER 2
+                                              q1 o150.r0.far.i4 DEPART-VIA sink
+3589 q0 o385.r0.far.i4 ARRIVE-VIA source
+3611 q0 o385.r0.far.i4 ENTERS-SERVER 3
+     q0 o385.r0.far.i4 TASK-START 0 "W 0.319"
+3930 q0 o385.r0.far.i4 TASK-END 0 "W 0.319"
+     q0 o385.r0.far.i4 EXITS-SERVER 3
+3931 q0 o385.r0.far.i4 DEPART-VIA q1          q1 o385.r0.far.i4 ARRIVE-VIA q0
+3932                                          q1 o385.r0.far.i4 ENTERS-SERVER 17
+                                              q1 o385.r0.far.i4 TASK-START 1 "W 0.313"
+4245                                          q1 o385.r0.far.i4 TASK-END 1 "W 0.313"
+                                              q1 o385.r0.far.i4 EXITS-SERVER 17
+                                              q1 o385.r0.far.i4 DEPART-VIA sink

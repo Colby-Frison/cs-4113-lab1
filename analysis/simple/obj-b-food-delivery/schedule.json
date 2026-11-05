@@ -1,0 +1,86 @@
+[
+  {
+    "scenario": "baseline",
+    "seed": 1
+  },
+  {
+    "scenario": "couriers-minus20",
+    "seed": 1
+  },
+  {
+    "scenario": "couriers-plus50",
+    "seed": 1
+  },
+  {
+    "scenario": "couriers-minus30",
+    "seed": 1
+  },
+  {
+    "scenario": "couriers-plus100",
+    "seed": 1
+  },
+  {
+    "scenario": "couriers-minus10",
+    "seed": 1
+  },
+  {
+    "scenario": "couriers-plus25",
+    "seed": 1
+  },
+  {
+    "scenario": "couriers-plus50",
+    "seed": 2
+  },
+  {
+    "scenario": "couriers-plus25",
+    "seed": 2
+  },
+  {
+    "scenario": "couriers-minus10",
+    "seed": 2
+  },
+  {
+    "scenario": "couriers-plus100",
+    "seed": 2
+  },
+  {
+    "scenario": "couriers-minus20",
+    "seed": 2
+  },
+  {
+    "scenario": "couriers-minus30",
+    "seed": 2
+  },
+  {
+    "scenario": "baseline",
+    "seed": 2
+  },
+  {
+    "scenario": "baseline",
+    "seed": 3
+  },
+  {
+    "scenario": "couriers-plus50",
+    "seed": 3
+  },
+  {
+    "scenario": "couriers-minus30",
+    "seed": 3
+  },
+  {
+    "scenario": "couriers-minus20",
+    "seed": 3
+  },
+  {
+    "scenario": "couriers-plus100",
+    "seed": 3
+  },
+  {
+    "scenario": "couriers-plus25",
+    "seed": 3
+  },
+  {
+    "scenario": "couriers-minus10",
+    "seed": 3
+  }
+]

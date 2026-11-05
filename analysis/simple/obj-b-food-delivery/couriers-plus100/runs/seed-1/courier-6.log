@@ -1,0 +1,182 @@
+2026-11-05 12:46:01,426 - sv - INFO - 1793904361.426 o59.r0.near.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:01,426 - sv - INFO - courier-assigned 6 o59.r0.near.i3
+2026-11-05 12:46:01,426 - sv - INFO - 1793904361.427 o59.r0.near.i3 IN q1 TASK-START 1 "W 0.099"
+2026-11-05 12:46:01,526 - sv - INFO - 1793904361.527 o59.r0.near.i3 IN q1 TASK-END 1 "W 0.099"
+2026-11-05 12:46:01,527 - sv - INFO - 1793904361.527 o59.r0.near.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:01,527 - sv - INFO - 1793904361.527 o59.r0.near.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:01,527 - sv - INFO - courier-released 6 o59.r0.near.i3
+2026-11-05 12:46:01,616 - sv - INFO - 1793904361.616 o66.r0.far.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:01,616 - sv - INFO - courier-assigned 6 o66.r0.far.i4
+2026-11-05 12:46:01,616 - sv - INFO - 1793904361.616 o66.r0.far.i4 IN q1 TASK-START 1 "W 0.340"
+2026-11-05 12:46:01,957 - sv - INFO - 1793904361.958 o66.r0.far.i4 IN q1 TASK-END 1 "W 0.340"
+2026-11-05 12:46:01,957 - sv - INFO - 1793904361.958 o66.r0.far.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:01,958 - sv - INFO - 1793904361.958 o66.r0.far.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:01,958 - sv - INFO - courier-released 6 o66.r0.far.i4
+2026-11-05 12:46:01,962 - sv - INFO - 1793904361.963 o116.r0.mid.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:01,962 - sv - INFO - courier-assigned 6 o116.r0.mid.i3
+2026-11-05 12:46:01,962 - sv - INFO - 1793904361.963 o116.r0.mid.i3 IN q1 TASK-START 1 "W 0.218"
+2026-11-05 12:46:02,181 - sv - INFO - 1793904362.181 o116.r0.mid.i3 IN q1 TASK-END 1 "W 0.218"
+2026-11-05 12:46:02,181 - sv - INFO - 1793904362.181 o116.r0.mid.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:02,181 - sv - INFO - 1793904362.181 o116.r0.mid.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:02,181 - sv - INFO - courier-released 6 o116.r0.mid.i3
+2026-11-05 12:46:02,517 - sv - INFO - 1793904362.517 o179.r0.far.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:02,517 - sv - INFO - courier-assigned 6 o179.r0.far.i3
+2026-11-05 12:46:02,517 - sv - INFO - 1793904362.517 o179.r0.far.i3 IN q1 TASK-START 1 "W 0.320"
+2026-11-05 12:46:02,839 - sv - INFO - 1793904362.839 o179.r0.far.i3 IN q1 TASK-END 1 "W 0.320"
+2026-11-05 12:46:02,839 - sv - INFO - 1793904362.839 o179.r0.far.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:02,839 - sv - INFO - 1793904362.839 o179.r0.far.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:02,839 - sv - INFO - courier-released 6 o179.r0.far.i3
+2026-11-05 12:46:03,015 - sv - INFO - 1793904363.016 o230.r0.mid.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:03,015 - sv - INFO - courier-assigned 6 o230.r0.mid.i4
+2026-11-05 12:46:03,015 - sv - INFO - 1793904363.016 o230.r0.mid.i4 IN q1 TASK-START 1 "W 0.215"
+2026-11-05 12:46:03,231 - sv - INFO - 1793904363.231 o230.r0.mid.i4 IN q1 TASK-END 1 "W 0.215"
+2026-11-05 12:46:03,231 - sv - INFO - 1793904363.232 o230.r0.mid.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:03,231 - sv - INFO - 1793904363.232 o230.r0.mid.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:03,231 - sv - INFO - courier-released 6 o230.r0.mid.i4
+2026-11-05 12:46:03,235 - sv - INFO - 1793904363.236 o256.r0.far.i2 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:03,235 - sv - INFO - courier-assigned 6 o256.r0.far.i2
+2026-11-05 12:46:03,236 - sv - INFO - 1793904363.236 o256.r0.far.i2 IN q1 TASK-START 1 "W 0.314"
+2026-11-05 12:46:03,551 - sv - INFO - 1793904363.551 o256.r0.far.i2 IN q1 TASK-END 1 "W 0.314"
+2026-11-05 12:46:03,551 - sv - INFO - 1793904363.551 o256.r0.far.i2 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:03,551 - sv - INFO - 1793904363.551 o256.r0.far.i2 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:03,551 - sv - INFO - courier-released 6 o256.r0.far.i2
+2026-11-05 12:46:03,694 - sv - INFO - 1793904363.694 o299.r0.near.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:03,694 - sv - INFO - courier-assigned 6 o299.r0.near.i4
+2026-11-05 12:46:03,694 - sv - INFO - 1793904363.694 o299.r0.near.i4 IN q1 TASK-START 1 "W 0.084"
+2026-11-05 12:46:03,778 - sv - INFO - 1793904363.779 o299.r0.near.i4 IN q1 TASK-END 1 "W 0.084"
+2026-11-05 12:46:03,778 - sv - INFO - 1793904363.779 o299.r0.near.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:03,778 - sv - INFO - 1793904363.779 o299.r0.near.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:03,778 - sv - INFO - courier-released 6 o299.r0.near.i4
+2026-11-05 12:46:03,782 - sv - INFO - 1793904363.782 o306.r0.mid.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:03,782 - sv - INFO - courier-assigned 6 o306.r0.mid.i3
+2026-11-05 12:46:03,782 - sv - INFO - 1793904363.782 o306.r0.mid.i3 IN q1 TASK-START 1 "W 0.205"
+2026-11-05 12:46:03,988 - sv - INFO - 1793904363.989 o306.r0.mid.i3 IN q1 TASK-END 1 "W 0.205"
+2026-11-05 12:46:03,988 - sv - INFO - 1793904363.989 o306.r0.mid.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:03,988 - sv - INFO - 1793904363.989 o306.r0.mid.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:03,988 - sv - INFO - courier-released 6 o306.r0.mid.i3
+2026-11-05 12:46:04,268 - sv - INFO - 1793904364.269 o366.r0.far.i1 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:04,268 - sv - INFO - courier-assigned 6 o366.r0.far.i1
+2026-11-05 12:46:04,268 - sv - INFO - 1793904364.269 o366.r0.far.i1 IN q1 TASK-START 1 "W 0.356"
+2026-11-05 12:46:04,626 - sv - INFO - 1793904364.627 o366.r0.far.i1 IN q1 TASK-END 1 "W 0.356"
+2026-11-05 12:46:04,626 - sv - INFO - 1793904364.627 o366.r0.far.i1 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:04,626 - sv - INFO - 1793904364.627 o366.r0.far.i1 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:04,626 - sv - INFO - courier-released 6 o366.r0.far.i1
+2026-11-05 12:46:04,633 - sv - INFO - 1793904364.633 o414.r0.mid.i1 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:04,633 - sv - INFO - courier-assigned 6 o414.r0.mid.i1
+2026-11-05 12:46:04,633 - sv - INFO - 1793904364.633 o414.r0.mid.i1 IN q1 TASK-START 1 "W 0.202"
+2026-11-05 12:46:04,837 - sv - INFO - 1793904364.837 o414.r0.mid.i1 IN q1 TASK-END 1 "W 0.202"
+2026-11-05 12:46:04,837 - sv - INFO - 1793904364.837 o414.r0.mid.i1 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:04,837 - sv - INFO - 1793904364.837 o414.r0.mid.i1 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:04,837 - sv - INFO - courier-released 6 o414.r0.mid.i1
+2026-11-05 12:46:04,859 - sv - INFO - 1793904364.860 o433.r0.far.i2 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:04,859 - sv - INFO - courier-assigned 6 o433.r0.far.i2
+2026-11-05 12:46:04,859 - sv - INFO - 1793904364.860 o433.r0.far.i2 IN q1 TASK-START 1 "W 0.268"
+2026-11-05 12:46:05,129 - sv - INFO - 1793904365.130 o433.r0.far.i2 IN q1 TASK-END 1 "W 0.268"
+2026-11-05 12:46:05,129 - sv - INFO - 1793904365.130 o433.r0.far.i2 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:05,129 - sv - INFO - 1793904365.130 o433.r0.far.i2 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:05,129 - sv - INFO - courier-released 6 o433.r0.far.i2
+2026-11-05 12:46:05,498 - sv - INFO - 1793904365.498 o495.r0.near.i2 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:05,498 - sv - INFO - courier-assigned 6 o495.r0.near.i2
+2026-11-05 12:46:05,498 - sv - INFO - 1793904365.498 o495.r0.near.i2 IN q1 TASK-START 1 "W 0.099"
+2026-11-05 12:46:05,599 - sv - INFO - 1793904365.600 o495.r0.near.i2 IN q1 TASK-END 1 "W 0.099"
+2026-11-05 12:46:05,599 - sv - INFO - 1793904365.600 o495.r0.near.i2 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:05,599 - sv - INFO - 1793904365.600 o495.r0.near.i2 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:05,599 - sv - INFO - courier-released 6 o495.r0.near.i2
+2026-11-05 12:46:05,720 - sv - INFO - 1793904365.720 o512.r0.near.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:05,720 - sv - INFO - courier-assigned 6 o512.r0.near.i3
+2026-11-05 12:46:05,720 - sv - INFO - 1793904365.720 o512.r0.near.i3 IN q1 TASK-START 1 "W 0.104"
+2026-11-05 12:46:05,824 - sv - INFO - 1793904365.825 o512.r0.near.i3 IN q1 TASK-END 1 "W 0.104"
+2026-11-05 12:46:05,824 - sv - INFO - 1793904365.825 o512.r0.near.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:05,824 - sv - INFO - 1793904365.825 o512.r0.near.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:05,824 - sv - INFO - courier-released 6 o512.r0.near.i3
+2026-11-05 12:46:05,884 - sv - INFO - 1793904365.885 o526.r0.near.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:05,884 - sv - INFO - courier-assigned 6 o526.r0.near.i4
+2026-11-05 12:46:05,884 - sv - INFO - 1793904365.885 o526.r0.near.i4 IN q1 TASK-START 1 "W 0.116"
+2026-11-05 12:46:06,001 - sv - INFO - 1793904366.001 o526.r0.near.i4 IN q1 TASK-END 1 "W 0.116"
+2026-11-05 12:46:06,001 - sv - INFO - 1793904366.001 o526.r0.near.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:06,001 - sv - INFO - 1793904366.001 o526.r0.near.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:06,001 - sv - INFO - courier-released 6 o526.r0.near.i4
+2026-11-05 12:46:06,160 - sv - INFO - 1793904366.161 o567.r0.far.i1 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:06,160 - sv - INFO - courier-assigned 6 o567.r0.far.i1
+2026-11-05 12:46:06,160 - sv - INFO - 1793904366.161 o567.r0.far.i1 IN q1 TASK-START 1 "W 0.338"
+2026-11-05 12:46:06,500 - sv - INFO - 1793904366.500 o567.r0.far.i1 IN q1 TASK-END 1 "W 0.338"
+2026-11-05 12:46:06,500 - sv - INFO - 1793904366.500 o567.r0.far.i1 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:06,500 - sv - INFO - 1793904366.500 o567.r0.far.i1 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:06,500 - sv - INFO - courier-released 6 o567.r0.far.i1
+2026-11-05 12:46:06,505 - sv - INFO - 1793904366.506 o582.r0.far.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:06,505 - sv - INFO - courier-assigned 6 o582.r0.far.i4
+2026-11-05 12:46:06,505 - sv - INFO - 1793904366.506 o582.r0.far.i4 IN q1 TASK-START 1 "W 0.271"
+2026-11-05 12:46:06,776 - sv - INFO - 1793904366.777 o582.r0.far.i4 IN q1 TASK-END 1 "W 0.271"
+2026-11-05 12:46:06,776 - sv - INFO - 1793904366.777 o582.r0.far.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:06,777 - sv - INFO - 1793904366.777 o582.r0.far.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:06,777 - sv - INFO - courier-released 6 o582.r0.far.i4
+2026-11-05 12:46:06,781 - sv - INFO - 1793904366.781 o621.r0.far.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:06,781 - sv - INFO - courier-assigned 6 o621.r0.far.i3
+2026-11-05 12:46:06,781 - sv - INFO - 1793904366.781 o621.r0.far.i3 IN q1 TASK-START 1 "W 0.255"
+2026-11-05 12:46:07,036 - sv - INFO - 1793904367.037 o621.r0.far.i3 IN q1 TASK-END 1 "W 0.255"
+2026-11-05 12:46:07,036 - sv - INFO - 1793904367.037 o621.r0.far.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:07,036 - sv - INFO - 1793904367.037 o621.r0.far.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:07,036 - sv - INFO - courier-released 6 o621.r0.far.i3
+2026-11-05 12:46:07,038 - sv - INFO - 1793904367.039 o658.r0.mid.i2 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:07,038 - sv - INFO - courier-assigned 6 o658.r0.mid.i2
+2026-11-05 12:46:07,038 - sv - INFO - 1793904367.039 o658.r0.mid.i2 IN q1 TASK-START 1 "W 0.233"
+2026-11-05 12:46:07,272 - sv - INFO - 1793904367.272 o658.r0.mid.i2 IN q1 TASK-END 1 "W 0.233"
+2026-11-05 12:46:07,272 - sv - INFO - 1793904367.272 o658.r0.mid.i2 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:07,272 - sv - INFO - 1793904367.272 o658.r0.mid.i2 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:07,272 - sv - INFO - courier-released 6 o658.r0.mid.i2
+2026-11-05 12:46:07,279 - sv - INFO - 1793904367.280 o689.r0.mid.i1 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:07,279 - sv - INFO - courier-assigned 6 o689.r0.mid.i1
+2026-11-05 12:46:07,279 - sv - INFO - 1793904367.280 o689.r0.mid.i1 IN q1 TASK-START 1 "W 0.180"
+2026-11-05 12:46:07,460 - sv - INFO - 1793904367.460 o689.r0.mid.i1 IN q1 TASK-END 1 "W 0.180"
+2026-11-05 12:46:07,460 - sv - INFO - 1793904367.460 o689.r0.mid.i1 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:07,460 - sv - INFO - 1793904367.460 o689.r0.mid.i1 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:07,460 - sv - INFO - courier-released 6 o689.r0.mid.i1
+2026-11-05 12:46:08,009 - sv - INFO - 1793904368.010 o752.r0.mid.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:08,009 - sv - INFO - courier-assigned 6 o752.r0.mid.i4
+2026-11-05 12:46:08,009 - sv - INFO - 1793904368.010 o752.r0.mid.i4 IN q1 TASK-START 1 "W 0.230"
+2026-11-05 12:46:08,241 - sv - INFO - 1793904368.241 o752.r0.mid.i4 IN q1 TASK-END 1 "W 0.230"
+2026-11-05 12:46:08,241 - sv - INFO - 1793904368.241 o752.r0.mid.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:08,241 - sv - INFO - 1793904368.241 o752.r0.mid.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:08,241 - sv - INFO - courier-released 6 o752.r0.mid.i4
+2026-11-05 12:46:08,360 - sv - INFO - 1793904368.361 o792.r0.near.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:08,360 - sv - INFO - courier-assigned 6 o792.r0.near.i4
+2026-11-05 12:46:08,360 - sv - INFO - 1793904368.361 o792.r0.near.i4 IN q1 TASK-START 1 "W 0.093"
+2026-11-05 12:46:08,453 - sv - INFO - 1793904368.454 o792.r0.near.i4 IN q1 TASK-END 1 "W 0.093"
+2026-11-05 12:46:08,453 - sv - INFO - 1793904368.454 o792.r0.near.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:08,453 - sv - INFO - 1793904368.454 o792.r0.near.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:08,453 - sv - INFO - courier-released 6 o792.r0.near.i4
+2026-11-05 12:46:08,718 - sv - INFO - 1793904368.719 o818.r0.mid.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:08,718 - sv - INFO - courier-assigned 6 o818.r0.mid.i3
+2026-11-05 12:46:08,718 - sv - INFO - 1793904368.719 o818.r0.mid.i3 IN q1 TASK-START 1 "W 0.182"
+2026-11-05 12:46:08,902 - sv - INFO - 1793904368.903 o818.r0.mid.i3 IN q1 TASK-END 1 "W 0.182"
+2026-11-05 12:46:08,902 - sv - INFO - 1793904368.903 o818.r0.mid.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:08,902 - sv - INFO - 1793904368.903 o818.r0.mid.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:08,902 - sv - INFO - courier-released 6 o818.r0.mid.i3
+2026-11-05 12:46:08,911 - sv - INFO - 1793904368.912 o850.r0.near.i1 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:08,911 - sv - INFO - courier-assigned 6 o850.r0.near.i1
+2026-11-05 12:46:08,911 - sv - INFO - 1793904368.912 o850.r0.near.i1 IN q1 TASK-START 1 "W 0.082"
+2026-11-05 12:46:08,995 - sv - INFO - 1793904368.996 o850.r0.near.i1 IN q1 TASK-END 1 "W 0.082"
+2026-11-05 12:46:08,995 - sv - INFO - 1793904368.996 o850.r0.near.i1 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:08,995 - sv - INFO - 1793904368.996 o850.r0.near.i1 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:08,995 - sv - INFO - courier-released 6 o850.r0.near.i1
+2026-11-05 12:46:09,226 - sv - INFO - 1793904369.227 o871.r0.far.i4 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:09,226 - sv - INFO - courier-assigned 6 o871.r0.far.i4
+2026-11-05 12:46:09,226 - sv - INFO - 1793904369.227 o871.r0.far.i4 IN q1 TASK-START 1 "W 0.294"
+2026-11-05 12:46:09,521 - sv - INFO - 1793904369.521 o871.r0.far.i4 IN q1 TASK-END 1 "W 0.294"
+2026-11-05 12:46:09,521 - sv - INFO - 1793904369.521 o871.r0.far.i4 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:09,521 - sv - INFO - 1793904369.521 o871.r0.far.i4 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:09,521 - sv - INFO - courier-released 6 o871.r0.far.i4
+2026-11-05 12:46:09,524 - sv - INFO - 1793904369.525 o891.r0.mid.i3 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:09,524 - sv - INFO - courier-assigned 6 o891.r0.mid.i3
+2026-11-05 12:46:09,524 - sv - INFO - 1793904369.525 o891.r0.mid.i3 IN q1 TASK-START 1 "W 0.218"
+2026-11-05 12:46:09,743 - sv - INFO - 1793904369.744 o891.r0.mid.i3 IN q1 TASK-END 1 "W 0.218"
+2026-11-05 12:46:09,743 - sv - INFO - 1793904369.744 o891.r0.mid.i3 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:09,743 - sv - INFO - 1793904369.744 o891.r0.mid.i3 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:09,743 - sv - INFO - courier-released 6 o891.r0.mid.i3
+2026-11-05 12:46:10,019 - sv - INFO - 1793904370.020 o948.r0.far.i1 IN q1 ENTERS-SERVER 6
+2026-11-05 12:46:10,019 - sv - INFO - courier-assigned 6 o948.r0.far.i1
+2026-11-05 12:46:10,019 - sv - INFO - 1793904370.020 o948.r0.far.i1 IN q1 TASK-START 1 "W 0.325"
+2026-11-05 12:46:10,346 - sv - INFO - 1793904370.346 o948.r0.far.i1 IN q1 TASK-END 1 "W 0.325"
+2026-11-05 12:46:10,346 - sv - INFO - 1793904370.346 o948.r0.far.i1 IN q1 EXITS-SERVER 6
+2026-11-05 12:46:10,346 - sv - INFO - 1793904370.346 o948.r0.far.i1 IN q1 DEPART-VIA /Users/jmackey/cs5113-git-practice/CS5113/Lab 1/lab1/analysis/simple/couriers-plus100/runs/seed-1/sink-6.csv
+2026-11-05 12:46:10,346 - sv - INFO - courier-released 6 o948.r0.far.i1
