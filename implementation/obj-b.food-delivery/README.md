@@ -87,7 +87,9 @@ python3 -m unittest discover -s implementation/obj-b.food-delivery/tests -v
 The core run, normalized logs, per-order metrics, and summary require only the
 standard library. Plotting dependencies can be installed in your Python virtual
 environment with `python3 -m pip install numpy pandas matplotlib`.
-Native Windows requires WSL for this FIFO runner. gRPC and containers are not
+Native Windows requires WSL for this FIFO runner. A C++/gRPC server-function
+port is also available; see [build and run instructions](cpp/README.md). It uses
+`run_grpc.py` and leaves the Python/FIFO runner available. Containers are not
 implemented for this application yet; Objective A's gRPC libraries are unchanged.
 
 ## Model and architecture
@@ -204,7 +206,8 @@ python3 implementation/obj-b.food-delivery/server-stages/courier.py \
 
 Use `run_demo.py --mode stages` for the concurrent queue/dispatcher experiment.
 The workload schema, durations, queue IDs, log format, and analysis outputs stay
-the same. No C++ or gRPC transport is introduced in this decomposition step.
+the same in the Python implementation. The subsequent [C++/gRPC port](cpp/README.md)
+uses these same service boundaries with a separate runner.
 Tests cover the standalone composition, both live modes, single-task ownership,
 failed output, and rejected duplicate/mismatched courier state transitions.
 
@@ -308,7 +311,7 @@ time; do not present those as time-weighted utilization. The standalone
 sleep and scheduling overhead, not actual network/restaurant measurements.
 
 This is a runnable initial application, not a completed scale study. Next:
-add gRPC transport and validate upstream backpressure, then run baseline
+compare FIFO and gRPC buffering/backpressure, then run baseline
 and +25/+50/+100/-10/-20/-30 resource scenarios with repeated seeds. Vary kitchen
 workers and couriers separately, hold workload fixed, record actual integer
 resource counts, and include losses when comparing latency. Add restaurants and

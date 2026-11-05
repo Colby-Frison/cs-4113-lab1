@@ -5,6 +5,7 @@ oldest admitted order only while available; there are no per-courier FIFOs.
 """
 import argparse
 from collections import deque
+from contextlib import nullcontext
 import json
 import logging
 from pathlib import Path
@@ -27,13 +28,15 @@ def file_logger(path, component):
 
 
 class Dispatcher:
-    def __init__(self, couriers, capacity, root, sleep=time.sleep):
+    def __init__(self, couriers, capacity, root, sleep=time.sleep, delivery=None):
         if couriers < 1 or capacity < 1:
             raise ValueError("couriers and capacity must be positive")
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True)
         self.capacity = capacity
         self.sleep = sleep
+        # Optional synchronous remote visit. It owns its sink and service log.
+        self.delivery = delivery
         self.pending = deque()
         self.condition = threading.Condition()
         self.couriers = {i: {"status": "available", "order_id": None, "completed": 0} for i in range(couriers)}
@@ -118,15 +121,19 @@ class Dispatcher:
             self.condition.notify_all()
 
     def worker(self, courier_id):
-        log = file_logger(self.root / f"courier-{courier_id}.log", "sv")
+        name = "dispatch-worker" if self.delivery else "courier"
+        log = file_logger(self.root / f"{name}-{courier_id}.log", "sv")
         try:
             destination = self.root / f"sink-{courier_id}.csv"
-            with destination.open("w", encoding="utf-8") as writer:
+            with (nullcontext() if self.delivery else destination.open("w", encoding="utf-8")) as writer:
                 while True:
                     job = self.assign_next(courier_id)
                     if job is None:
                         return
-                    serve(job, "courier", "q1", courier_id, writer, str(destination), log, sleep=self.sleep)
+                    if self.delivery:
+                        self.delivery(job, courier_id)
+                    else:
+                        serve(job, "courier", "q1", courier_id, writer, str(destination), log, sleep=self.sleep)
                     self.release(courier_id, job.job_id)
         except Exception as exc:
             try:
@@ -139,9 +146,20 @@ class Dispatcher:
             for handler in log.handlers:
                 handler.close()
 
-    def run(self, sources):
+    def wait_for_input_close(self, done):
+        while not done.wait(0.05):
+            with self.condition:
+                if self.stopping:
+                    return
+        with self.condition:
+            self.readers_done += 1
+            self.condition.notify_all()
+
+    def run(self, sources=(), *, input_done=None):
         workers = [threading.Thread(target=self.worker, args=(i,), daemon=True) for i in self.couriers]
         readers = [threading.Thread(target=self.read, args=(p,), daemon=True) for p in sources]
+        if input_done is not None:
+            readers.append(threading.Thread(target=self.wait_for_input_close, args=(input_done,), daemon=True))
         try:
             for thread in workers + readers:
                 thread.start()
