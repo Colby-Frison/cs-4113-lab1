@@ -12,6 +12,8 @@ From the repository root:
 python implementation/obj-b.matchmaking/studies/run_study.py --size small
 python implementation/obj-b.matchmaking/studies/run_study.py --size small --only base
 python implementation/obj-b.matchmaking/studies/run_study.py --size medium --only base,srv-30 --count 1000
+python implementation/obj-b.matchmaking/studies/run_study.py --size large --only srv- --sims-only
+python implementation/obj-b.matchmaking/studies/run_study.py --size large --only srv+ --sims-only
 python implementation/obj-b.matchmaking/studies/run_study.py --size large --plots-only
 python implementation/obj-b.matchmaking/studies/expand.py very-large
 ```
@@ -21,13 +23,14 @@ python implementation/obj-b.matchmaking/studies/expand.py very-large
 | Flag | Default | Effect |
 | --- | --- | --- |
 | `--size` | required | `small`, `medium`, `large`, or `very-large` |
-| `--only` | all seven | Comma-separated scenario names: `base`, `srv-10`, `srv-20`, `srv-30`, `srv+25`, `srv+50`, `srv+100` |
+| `--only` | all seven | Comma-separated names and/or groups. Names: `base`, `srv-10`, `srv-20`, `srv-30`, `srv+25`, `srv+50`, `srv+100`. Groups: `srv-` (three cuts), `srv+` (three boosts) |
 | `--count` | the pattern | Tickets in that scenario. The buffer depth follows this count |
 | `--time-scale` | the pattern | Multiplies every drawn wait and the interarrival |
 | `--arrival-mean` | tuned | Unscaled seconds between tickets. Omit it and the runner sets one baseline search queue near $\rho = 0.8$ |
 | `--runs` | `studies/<size>/runs` | Process logs and sinks |
 | `--results` | `studies/<size>/results` | Figures and `summary.md` |
 | `--plots-only` | off | Skip the processes and redraw figures from logs already in `--runs` |
+| `--sims-only` | off | Run the pipeline until tickets are accounted; skip analysis, figures, and `summary.md` |
 
 The terminal that launched the script is the live count. It prints the size, then one line per scenario, then a sink line about every 5 seconds, then one summary line when that set finishes:
 

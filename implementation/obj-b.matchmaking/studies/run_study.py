@@ -18,8 +18,9 @@ Flow for one invocation
    d. Generate tickets into a POSIX FIFO (admit) and ``jobs.csv``.
    e. Poll ``matched.csv``, ``failed.csv``, and ``ERROR QUEUE-FULL`` until the
       three counts sum to ``--count``.
-   f. Run Objective A ``analyze_run.py``, filter the first search queue, plot.
-4. Write ``results/summary.md`` and the two sensitivity PNGs.
+   f. Unless ``--sims-only``, run Objective A ``analyze_run.py``, filter the
+      first search queue, and plot.
+4. Unless ``--sims-only``, write ``results/summary.md`` and the sensitivity PNGs.
 
 Backends
 --------
@@ -112,7 +113,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--only",
         default="",
-        help="Comma-separated scenario names (default: all seven from scale.SCENARIOS)",
+        help=(
+            "Comma-separated scenario names or groups (default: all seven). "
+            "Names: base, srv-10, srv-20, srv-30, srv+25, srv+50, srv+100. "
+            "Groups: srv- (the three cuts), srv+ (the three boosts)"
+        ),
     )
     parser.add_argument(
         "--count",
@@ -139,7 +144,14 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Skip processes; redraw figures from an existing runs/<scenario> directory",
     )
+    parser.add_argument(
+        "--sims-only",
+        action="store_true",
+        help="Run the pipeline and stop once tickets are accounted; skip analysis and plots",
+    )
     args = parser.parse_args(argv)
+    if args.plots_only and args.sims_only:
+        raise SystemExit("use only one of --plots-only and --sims-only")
 
     pattern = load_pattern(HERE / args.size / "pattern.json")
     base = build_layout(pattern)
@@ -164,8 +176,9 @@ def main(argv: list[str] | None = None) -> int:
         f"tickets {count}, arrival {arrival:.4f}s",
         flush=True,
     )
+    index_by_name = {name: index for index, (name, _factor) in enumerate(SCENARIOS)}
     rows = []
-    for index, (name, factor) in enumerate(selected):
+    for name, factor in selected:
         layout = scale_layout(base, factor)
         allocate = ""
         if "allocate" in layout.swept_stages:
@@ -179,22 +192,37 @@ def main(argv: list[str] | None = None) -> int:
         row = run_scenario(
             name,
             layout,
-            index,
+            index_by_name[name],
             runs,
             results,
             count,
             time_scale,
             arrival,
             plots_only=args.plots_only,
+            sims_only=args.sims_only,
         )
         rows.append(row)
+        if args.sims_only:
+            print(
+                f"  matched {row['matched']} failed {row['failed']} "
+                f"queue-full {row['queue_full']} (sims-only)",
+                flush=True,
+            )
+        else:
+            print(
+                f"  matched {row['matched']} failed {row['failed']} queue-full {row['queue_full']} "
+                f"latency {row['mean_latency']:.1f} ms",
+                flush=True,
+            )
+    if args.sims_only:
         print(
-            f"  matched {row['matched']} failed {row['failed']} queue-full {row['queue_full']} "
-            f"latency {row['mean_latency']:.1f} ms",
+            f"sims-only done ({len(rows)} scenario(s)); "
+            f"plot later with --plots-only --only <same set>",
             flush=True,
         )
-    write_summary(rows, results, base)
-    print(f"summary: {results / 'summary.md'}", flush=True)
+    else:
+        write_summary(rows, results, base)
+        print(f"summary: {results / 'summary.md'}", flush=True)
     return 0
 
 
@@ -209,12 +237,14 @@ def run_scenario(
     arrival_mean: float,
     *,
     plots_only: bool,
+    sims_only: bool = False,
 ) -> dict:
     """Run or replot one server-factor scenario and return its summary row.
 
     When ``plots_only`` is false, the run directory is wiped, the pipeline is
     started, and every ticket must land in matched, failed, or QUEUE-FULL.
-    Analysis and the six PNGs always run from whatever is in ``runs/<name>/``.
+    When ``sims_only`` is true, stop after accounting; otherwise analysis and
+    the six PNGs run from whatever is in ``runs/<name>/``.
     """
     run_dir = runs / name
     # Keep buffers large enough that a slower pool queues instead of dropping.
@@ -238,7 +268,6 @@ def run_scenario(
     elif not (run_dir / "servers.csv").is_file():
         raise RuntimeError(f"{name}: no run to plot in {run_dir}")
 
-    _run_analysis(name, run_dir, layout)
     row = {
         "name": name,
         "workers": search_worker_total(layout),
@@ -253,6 +282,9 @@ def run_scenario(
         "qsize": layout.qsize,
         "stage_of": {queue.number: queue.stage for queue in layout.queues},
     }
+    if sims_only:
+        return row
+    _run_analysis(name, run_dir, layout)
     write_six_plots(row, results)
     return row
 
@@ -689,15 +721,40 @@ def _require_accounted(name: str, run_dir: Path, count: int) -> None:
         )
 
 
+# Group tokens expand to every matching name in SCENARIOS order.
+ONLY_GROUPS: dict[str, tuple[str, ...]] = {
+    "srv-": tuple(name for name, _factor in SCENARIOS if name.startswith("srv-")),
+    "srv+": tuple(name for name, _factor in SCENARIOS if name.startswith("srv+")),
+}
+
+
 def _select(only: str) -> list[tuple[str, float]]:
-    """Resolve ``--only`` into the ordered ``(name, factor)`` scenario list."""
+    """Resolve ``--only`` into the ordered ``(name, factor)`` scenario list.
+
+    Tokens may be exact scenario names or group aliases ``srv-`` / ``srv+``.
+    """
     if not only:
         return list(SCENARIOS)
-    wanted = {name.strip() for name in only.split(",") if name.strip()}
-    chosen = [item for item in SCENARIOS if item[0] in wanted]
-    missing = wanted - {name for name, _factor in chosen}
-    if missing:
-        raise SystemExit(f"unknown scenario {', '.join(sorted(missing))}")
+    wanted: list[str] = []
+    unknown: list[str] = []
+    known = {name for name, _factor in SCENARIOS}
+    for token in (part.strip() for part in only.split(",")):
+        if not token:
+            continue
+        if token in ONLY_GROUPS:
+            wanted.extend(ONLY_GROUPS[token])
+        elif token in known:
+            wanted.append(token)
+        else:
+            unknown.append(token)
+    if unknown:
+        groups = ", ".join(sorted(ONLY_GROUPS))
+        raise SystemExit(
+            f"unknown scenario {', '.join(sorted(unknown))} "
+            f"(names: {', '.join(name for name, _ in SCENARIOS)}; groups: {groups})"
+        )
+    # Preserve SCENARIOS order; drop duplicates from overlapping tokens.
+    chosen = [item for item in SCENARIOS if item[0] in set(wanted)]
     return chosen
 
 

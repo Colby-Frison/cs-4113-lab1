@@ -20,11 +20,14 @@ invoke the script from a clone of that repo; `cd` into `ROOT` happens inside.
 ## Setup
 
 1. Clone or copy the lab repository onto the Linux host.
-2. Install Python 3.11+ and deps from the repository root:
+2. Install Python 3.11+ and deps from the repository root. Prefer an activated
+   venv, or run `_wsl_bootstrap.sh` (it picks venv vs `--user` automatically):
 
 ```text
-python3 -m pip install -r implementation/obj-a/requirements.txt
-python3 -m pip install matplotlib pandas
+python3 -m pip install -r implementation/obj-a/requirements.txt matplotlib pandas
+# Ubuntu system Python without a venv:
+# python3 -m pip install --user --break-system-packages \
+#   -r implementation/obj-a/requirements.txt matplotlib pandas
 ```
 
 3. Free host ports from 29100 upward (each scenario takes a block of 200).
@@ -50,7 +53,13 @@ Pass the same flags `run_study.py` accepts after the script name:
 bash implementation/obj-b.matchmaking/studies/remote/run_medium.sh --only base
 bash implementation/obj-b.matchmaking/studies/remote/run_medium.sh --only base,srv-30
 bash implementation/obj-b.matchmaking/studies/remote/run_large.sh --only base
+bash implementation/obj-b.matchmaking/studies/remote/run_very_large.sh --only srv- --sims-only
+bash implementation/obj-b.matchmaking/studies/remote/run_very_large.sh --only srv+ --sims-only
 ```
+
+`--only srv-` is `srv-10,srv-20,srv-30`. `--only srv+` is `srv+25,srv+50,srv+100`.
+`--sims-only` stops after sinks are accounted so one machine can finish the cuts
+while another finishes the boosts; plot later with `--plots-only`.
 
 Stdout and stderr append to `studies/<size>/remote-run.log`. Live sinks:
 
