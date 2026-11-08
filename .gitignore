@@ -1,1 +1,17 @@
 */local_notes/*
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Generated logs
+*.log
+
+# Generated ticketing data
+implementation/obj-b.ticketing/*.csv
+
+# Local editor settings
+.vscode/
+
+implementation/obj-b.ticketing/server-monolith/server_func_backup.py
+implementation/obj-b.ticketing/analysis/large_run/
