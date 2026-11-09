@@ -26,7 +26,9 @@ import random
 import threading
 import time
 from contextlib import ExitStack
-from typing import Callable, TextIO
+from typing import Callable, Optional, TextIO
+
+from pathlib import Path
 
 from lib.events import (
     depart_via,
@@ -39,12 +41,15 @@ from lib.events import (
 from lib.grpc_spec import DialSpec, parse_dial, parse_listen
 from lib.job import Job, JobParseError, is_header, parse_job_line
 from lib.logsetup import configure_logging
+from lib import metrics
 
 SleepFn = Callable[[float], None]
 SubmitFn = Callable[[DialSpec, Job, str], str]
 AdmitFn = Callable[[Job], bool]
 # Return an outfile path or a dial address (host:port). None declines the edge.
 EdgeChooser = Callable[[Job, list[str], list[DialSpec], random.Random], str | None]
+# Optional replacement for the local visit-count bump (used by 2PC).
+VisitCountFn = Callable[[dict[str, int], str, Optional[threading.Lock]], None]
 
 
 def serve_job(
@@ -63,6 +68,7 @@ def serve_job(
     state_lock: threading.Lock | None = None,
     only_tids: set[int] | None = None,
     edge_chooser: EdgeChooser | None = None,
+    visit_count_fn: VisitCountFn | None = None,
 ) -> str | None:
     """Run one visit. Return the edge label used, or None when the job stays here.
 
@@ -71,32 +77,41 @@ def serve_job(
     limits which waits are slept; the forwarded row is still ``raw_line``.
     ``writers``, when passed, must match ``outfiles``; the caller owns them.
     ``state_lock`` guards the visit count when several gRPC workers run at once.
+    ``visit_count_fn`` replaces the local increment when the KV uses 2PC.
     """
     chooser = rng or random.Random()
     selected = None if only_tids is None else set(only_tids)
+    started = metrics.begin_visit(qid)
+    tasks_done = 0
     logger.info("%s", enters_server(job.job_id, qid, server_id))
     if state is not None:
-        _count_visit(state, job.job_id, state_lock)
+        counter = visit_count_fn or _count_visit
+        counter(state, job.job_id, state_lock)
 
-    for task in job.tasks:
-        if selected is not None and task.tid not in selected:
-            continue
-        logger.info("%s", task_start(job.job_id, qid, task.tid, task.wait_seconds))
-        sleep_fn(task.wait_seconds)
-        logger.info("%s", task_end(job.job_id, qid, task.tid, task.wait_seconds))
+    try:
+        for task in job.tasks:
+            if selected is not None and task.tid not in selected:
+                continue
+            logger.info("%s", task_start(job.job_id, qid, task.tid, task.wait_seconds))
+            sleep_fn(task.wait_seconds)
+            logger.info("%s", task_end(job.job_id, qid, task.tid, task.wait_seconds))
+            metrics.record_task_wait(qid, task.wait_seconds)
+            tasks_done += 1
 
-    logger.info("%s", exits_server(job.job_id, qid, server_id))
-    return _forward(
-        job,
-        outfiles,
-        writers,
-        grpc_edges or [],
-        qid,
-        logger,
-        chooser,
-        submit_fn,
-        edge_chooser,
-    )
+        logger.info("%s", exits_server(job.job_id, qid, server_id))
+        return _forward(
+            job,
+            outfiles,
+            writers,
+            grpc_edges or [],
+            qid,
+            logger,
+            chooser,
+            submit_fn,
+            edge_chooser,
+        )
+    finally:
+        metrics.end_visit(qid, started, tasks=tasks_done)
 
 
 def serve_stream(
@@ -113,6 +128,7 @@ def serve_stream(
     submit_fn: SubmitFn | None = None,
     only_tids: set[int] | None = None,
     edge_chooser: EdgeChooser | None = None,
+    visit_count_fn: VisitCountFn | None = None,
 ) -> None:
     """Read ``infile`` until EOF, sleeping through every wait-task job."""
     chooser = rng or random.Random()
@@ -144,6 +160,7 @@ def serve_stream(
                 submit_fn=submit_fn,
                 only_tids=only_tids,
                 edge_chooser=edge_chooser,
+                visit_count_fn=visit_count_fn,
             )
 
 
@@ -197,6 +214,34 @@ def build_parser(stateful: bool) -> argparse.ArgumentParser:
         action="append",
         help="Forward to a queue: host:port,workers (server-to-queue). Repeat for several queues.",
     )
+    parser.add_argument(
+        "--metrics-port",
+        type=int,
+        default=None,
+        help="Expose Prometheus /metrics on this port. Omit to disable.",
+    )
+    if stateful:
+        parser.add_argument(
+            "--load-kv-from",
+            help="JSON file of job_id -> visit count loaded before serve.",
+        )
+        parser.add_argument(
+            "--store-kv-to",
+            help="JSON file written with the visit map after serve.",
+        )
+        parser.add_argument(
+            "--kv-replicas",
+            help=(
+                "Comma-separated host:port list of KV replicas for 2PC writes. "
+                "Omit for a local-only visit map."
+            ),
+        )
+        parser.add_argument(
+            "--kv-2pc-timeout",
+            type=float,
+            default=2.0,
+            help="Seconds to wait for each 2PC RPC (default: 2.0).",
+        )
     return parser
 
 
@@ -212,9 +257,17 @@ def run_cli(argv: list[str] | None = None, *, stateful: bool) -> int:
     if not args.infile and not args.ingrpc:
         raise SystemExit("need --infile or --ingrpc")
 
+    load_path = getattr(args, "load_kv_from", None)
+    store_path = getattr(args, "store_kv_to", None)
+    replica_flag = getattr(args, "kv_replicas", None)
+    timeout = float(getattr(args, "kv_2pc_timeout", 2.0) or 2.0)
+    if timeout <= 0:
+        raise SystemExit("--kv-2pc-timeout must be > 0")
+
     dials = [parse_dial(item, caller="server") for item in (args.outgrpc or [])]
     outfiles = list(args.outfile or [])
-    if dials or args.ingrpc:
+    need_grpc = bool(dials or args.ingrpc or replica_flag)
+    if need_grpc:
         try:
             import lib.grpc_runtime  # noqa: F401  (fail before any job is read)
         except ImportError as exc:
@@ -223,8 +276,53 @@ def run_cli(argv: list[str] | None = None, *, stateful: bool) -> int:
     log = logging.getLogger("server-func")
     log.info("Started")
     log.info("qid %s server-id %s", args.qid, args.server_id)
-    state: dict[str, int] | None = {} if stateful else None
+    if args.metrics_port is not None:
+        metrics.start_metrics(args.metrics_port)
+        log.info("metrics listen 0.0.0.0:%s", args.metrics_port)
+    state: dict[str, int] | None = None
+    visit_count_fn: VisitCountFn | None = None
+    store_target = Path(store_path) if store_path else None
+    if stateful:
+        # Import KV helpers only on the stateful path so matchmaking / metrics
+        # containers do not pull kv_2pc (or its stubs) at module import time.
+        from lib.kv_store import load_kv, save_kv
+
+        if load_path:
+            try:
+                state = load_kv(Path(load_path))
+            except ValueError as exc:
+                raise SystemExit(str(exc)) from exc
+            log.info("load-kv-from %s entries %s", load_path, len(state))
+        else:
+            state = {}
+        if replica_flag:
+            addresses = [item.strip() for item in replica_flag.split(",") if item.strip()]
+            if len(addresses) < 2:
+                raise SystemExit("--kv-replicas needs at least two host:port values")
+            from lib.kv_2pc import TwoPhaseCoordinator
+
+            coordinator = TwoPhaseCoordinator(addresses, timeout_sec=timeout, logger=log)
+            visit_count_fn = coordinator.make_visit_count_fn()
+            log.info("kv-replicas %s", ",".join(addresses))
+        if store_target is not None:
+            # Persist after each increment so a hard kill still leaves a usable file.
+            inner = visit_count_fn or _count_visit
+            persist_lock = threading.Lock()
+
+            def visit_count_fn(
+                current: dict[str, int],
+                job_id: str,
+                state_lock: threading.Lock | None,
+            ) -> None:
+                inner(current, job_id, state_lock)
+                try:
+                    with persist_lock:
+                        save_kv(store_target, current)
+                except (OSError, ValueError) as exc:
+                    log.error("store-kv-to failed: %s", exc)
+
     if args.infile:
+        metrics.set_server_workers(args.qid, 1)
         serve_stream(
             args.infile,
             outfiles,
@@ -233,13 +331,32 @@ def run_cli(argv: list[str] | None = None, *, stateful: bool) -> int:
             log,
             state=state,
             grpc_edges=dials,
+            visit_count_fn=visit_count_fn,
         )
     else:
         listen = parse_listen(args.ingrpc)
-        serve_until_interrupt(listen, outfiles, dials, args.qid, args.server_id, log, state)
+        metrics.set_server_workers(args.qid, listen.workers)
+        serve_until_interrupt(
+            listen,
+            outfiles,
+            dials,
+            args.qid,
+            args.server_id,
+            log,
+            state,
+            visit_count_fn=visit_count_fn,
+        )
     if state is not None:
         for job_id, visits in sorted(state.items()):
             log.info("state-visits %s %s", job_id, visits)
+        if store_path:
+            from lib.kv_store import save_kv as _save_kv
+
+            try:
+                _save_kv(Path(store_path), state)
+            except ValueError as exc:
+                raise SystemExit(str(exc)) from exc
+            log.info("store-kv-to %s entries %s", store_path, len(state))
     log.info("Finished")
     return 0
 
@@ -257,6 +374,7 @@ def serve_until_interrupt(
     edge_chooser: EdgeChooser | None = None,
     rng: random.Random | None = None,
     admit: AdmitFn | None = None,
+    visit_count_fn: VisitCountFn | None = None,
 ) -> None:
     """Block until Ctrl-C. Each Submit runs one visit on a server thread.
 
@@ -291,6 +409,7 @@ def serve_until_interrupt(
                 only_tids=only_tids,
                 edge_chooser=edge_chooser,
                 rng=rng,
+                visit_count_fn=visit_count_fn,
             )
 
         server, port = start_server_func_server(listen, visit)
@@ -335,11 +454,13 @@ def _forward(
     slots.extend(("grpc", edge) for edge in grpc_edges)
     if not slots:
         logger.info("%s", error_no_out_edge(job.job_id, qid))
+        metrics.record_forward_error(qid, reason="no_out_edge")
         return None
 
     picked = _pick_slot(job, outfiles, grpc_edges, slots, chooser, edge_chooser, logger)
     if picked is None:
         logger.info("%s", error_no_out_edge(job.job_id, qid))
+        metrics.record_forward_error(qid, reason="no_out_edge")
         return None
     kind, payload = picked
     if kind == "file":
@@ -354,6 +475,7 @@ def _forward(
         raise TypeError("grpc slot was not a DialSpec")
     outcome = _submit(edge, job, qid, logger, submit_fn)
     if outcome == "failed":
+        metrics.record_forward_error(qid, reason="grpc_failed")
         return None
     logger.info("%s", depart_via(job.job_id, qid, edge.address))
     return edge.address

@@ -15,6 +15,7 @@ PROTO_NAMES = (
     "queue_to_server.proto",
     "server_to_queue.proto",
     "queue_to_queue.proto",
+    "kv_replica.proto",
 )
 
 # grpc_tools writes absolute imports. The stubs live in a package, so they
@@ -24,6 +25,7 @@ _STUB_MODULES = (
     "queue_to_server_pb2",
     "server_to_queue_pb2",
     "queue_to_queue_pb2",
+    "kv_replica_pb2",
 )
 
 

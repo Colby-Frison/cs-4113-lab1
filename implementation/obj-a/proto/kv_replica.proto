@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+// Two-phase commit between a stateful coordinator and KV replica processes.
+// Prepare stages a key write; Commit installs it; Abort drops the pending write.
+
+message KvPrepareRequest {
+  string txn_id = 1;
+  string key = 2;
+  int32 value = 3;
+}
+
+message KvPrepareResponse {
+  bool vote_yes = 1;
+  string reason = 2;
+}
+
+message KvCommitRequest {
+  string txn_id = 1;
+}
+
+message KvCommitResponse {
+  bool ok = 1;
+}
+
+message KvAbortRequest {
+  string txn_id = 1;
+}
+
+message KvAbortResponse {
+  bool ok = 1;
+}
+
+message KvGetRequest {
+  string key = 1;
+}
+
+message KvGetResponse {
+  bool found = 1;
+  int32 value = 2;
+}
+
+service KvReplica {
+  rpc Prepare(KvPrepareRequest) returns (KvPrepareResponse);
+  rpc Commit(KvCommitRequest) returns (KvCommitResponse);
+  rpc Abort(KvAbortRequest) returns (KvAbortResponse);
+  rpc Get(KvGetRequest) returns (KvGetResponse);
+}

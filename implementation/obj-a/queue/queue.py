@@ -63,6 +63,7 @@ from lib.events import arrive_via, depart_via, error_queue_full
 from lib.grpc_spec import DialSpec, ListenSpec, parse_dial, parse_listen
 from lib.job import Job, JobParseError, is_header, parse_job_line
 from lib.logsetup import configure_logging
+from lib import metrics
 
 logger = logging.getLogger(__name__)
 
@@ -88,15 +89,24 @@ def admit_job(
         buffer.put_nowait(job)
     except Full:
         log.info("%s", error_queue_full(job.job_id, qid, now))
+        metrics.record_drop(qid)
         return False
     log.info("%s", arrive_via(job.job_id, qid, source, now))
+    metrics.record_admit(qid, job)
     return True
 
 
-def worker_sidecar(buffer: Queue[Job | None], barrier: Barrier, sample_interval: float) -> None:
+def worker_sidecar(
+    buffer: Queue[Job | None],
+    barrier: Barrier,
+    sample_interval: float,
+    qid: str = "q0",
+) -> None:
     """Sample buffer occupancy until the main thread is waiting to shut down."""
     while True:
-        logger.info("metric-q-size %s", buffer.qsize())
+        depth = buffer.qsize()
+        logger.info("metric-q-size %s", depth)
+        metrics.set_queue_depth(qid, depth)
         time.sleep(sample_interval)
         if barrier.n_waiting > 0:
             break
@@ -147,6 +157,9 @@ def worker_grpc_sender(
         outcome = submit(dial, item, qid, logger=logger)
         if outcome != "failed":
             logger.info("%s", depart_via(item.job_id, qid, dial.address))
+            metrics.record_depart(qid, item)
+        else:
+            metrics.record_buffer_take(qid, item)
         time.sleep(YIELD_SEC)
     logger.info("gRPC sender %s done", dial.address)
 
@@ -168,6 +181,7 @@ def worker_consumer(
         handle.write(item.raw_line + "\n")
         handle.flush()
         logger.info("%s", depart_via(item.job_id, qid, outfile))
+        metrics.record_depart(qid, item)
         time.sleep(YIELD_SEC)
     logger.info("Consumer %s done", identifier)
 
@@ -197,6 +211,12 @@ def build_parser() -> argparse.ArgumentParser:
         action="append",
         help="Send jobs: host:port,workers[,server|queue]. Default role is server.",
     )
+    parser.add_argument(
+        "--metrics-port",
+        type=int,
+        default=None,
+        help="Expose Prometheus /metrics on this port. Omit to disable.",
+    )
     return parser
 
 
@@ -220,6 +240,10 @@ def main(argv: list[str] | None = None) -> int:
     configure_logging(args.logfile, "Q")
     logger.info("Started")
     logger.info("qid %s", args.qid)
+    if args.metrics_port is not None:
+        metrics.start_metrics(args.metrics_port)
+        metrics.set_queue_capacity(args.qid, args.qsize)
+        logger.info("metrics listen 0.0.0.0:%s", args.metrics_port)
 
     buffer: Queue[Job | None]
     if args.qsize is None:
@@ -245,7 +269,7 @@ def main(argv: list[str] | None = None) -> int:
     sidecar = Thread(
         target=worker_sidecar,
         args=(buffer, sidecar_barrier),
-        kwargs={"sample_interval": SAMPLE_INTERVAL_SEC},
+        kwargs={"sample_interval": SAMPLE_INTERVAL_SEC, "qid": args.qid},
         daemon=True,
     )
     sidecar.start()

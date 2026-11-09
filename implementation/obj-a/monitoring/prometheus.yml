@@ -1,0 +1,32 @@
+# Scrape the baseline matchmaking Compose services on the shared Docker network.
+# Each queue/server container listens on metrics port 9100.
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: matchmaking-queues
+    static_configs:
+      - targets:
+          - q-admit:9100
+          - q-rating:9100
+          - q-route:9100
+          - q-search:9100
+          - q-ready:9100
+          - q-allocate:9100
+        labels:
+          role: queue
+          study: matchmaking-baseline
+
+  - job_name: matchmaking-servers
+    static_configs:
+      - targets:
+          - s-validate:9100
+          - s-rating:9100
+          - s-route:9100
+          - s-search:9100
+          - s-ready:9100
+          - s-allocate:9100
+        labels:
+          role: server
+          study: matchmaking-baseline

@@ -1,0 +1,123 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "Saturation — queue depth",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] },
+      "targets": [
+        {
+          "expr": "queue_depth",
+          "legendFormat": "{{qid}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Saturation — queue depth ratio",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percentunit", "max": 1 }, "overrides": [] },
+      "targets": [
+        {
+          "expr": "queue_depth_ratio",
+          "legendFormat": "{{qid}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Utilization — jobs in service / workers",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percentunit" }, "overrides": [] },
+      "targets": [
+        {
+          "expr": "jobs_in_service / ignoring(job) group_left server_workers",
+          "legendFormat": "{{qid}}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "title": "Errors — queue full + forward failures",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "ops" }, "overrides": [] },
+      "targets": [
+        {
+          "expr": "rate(jobs_dropped_total[1m])",
+          "legendFormat": "drop {{qid}} {{reason}}",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(forward_errors_total[1m])",
+          "legendFormat": "fwd {{qid}} {{reason}}",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "title": "Throughput — admits / departs / visits",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "ops" }, "overrides": [] },
+      "targets": [
+        {
+          "expr": "rate(jobs_admitted_total[1m])",
+          "legendFormat": "admit {{qid}}",
+          "refId": "A"
+        },
+        {
+          "expr": "rate(jobs_departed_total[1m])",
+          "legendFormat": "depart {{qid}}",
+          "refId": "B"
+        },
+        {
+          "expr": "rate(visits_total[1m])",
+          "legendFormat": "visit {{qid}}",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "title": "Latency — queue wait p95 / visit p95",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "s" }, "overrides": [] },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum by (le, qid) (rate(queue_wait_seconds_bucket[1m])))",
+          "legendFormat": "queue wait p95 {{qid}}",
+          "refId": "A"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum by (le, qid) (rate(visit_seconds_bucket[1m])))",
+          "legendFormat": "visit p95 {{qid}}",
+          "refId": "B"
+        }
+      ]
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": ["lab1", "use", "prometheus"],
+  "templating": { "list": [] },
+  "time": { "from": "now-15m", "to": "now" },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "USE + Thr/Lat",
+  "uid": "lab1-use-thr-lat",
+  "version": 1
+}

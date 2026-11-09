@@ -26,10 +26,19 @@ python server_func.py
   [--qid q0]
   [--server-id 0]
   [--logfile PATH]
+  [--load-kv-from PATH.json]
+  [--store-kv-to PATH.json]
+  [--kv-replicas host:port,host:port,...]
+  [--kv-2pc-timeout SECONDS]
 ```
+
+`--load-kv-from` / `--store-kv-to` persist the visit map as a JSON object
+(`{"j0": 1, ...}`). `--kv-replicas` turns each increment into a two-phase
+commit against those replica processes (see [../kv-store/README.md](../kv-store/README.md)).
 
 ## Example
 
 ```bash
-python server_func.py -i queued.csv -o sink.csv --logfile sf.log --qid q0
+python server_func.py -i queued.csv -o sink.csv --logfile sf.log --qid q0 \
+  --load-kv-from kv.json --store-kv-to kv.json
 ```

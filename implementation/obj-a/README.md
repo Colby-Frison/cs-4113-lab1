@@ -30,7 +30,7 @@ A running process takes its edges from the flags on its command line. A queue ne
 
 An application that chains several of these systems writes the chain in its own topology file. The matchmaking baseline is [../obj-b.matchmaking/topology/baseline.json](../obj-b.matchmaking/topology/baseline.json). Order in the `pipeline` array is the edge for a stage that leaves the destination blank, so validate sends to the next queue, rating to the one after that, and search to ready. A stage that branches names the destination. Route maps a region token to a queue id. Ready names `pass`, `retry`, and `fail`. Allocate names a sink. The [orchestrator](../obj-b.matchmaking/orchestration/README.md) reads that file and writes one command per container, including host names and ports. The processes still see only flags.
 
-`qconf.csv` is the analysis table for those same queues. [compute-use](compute-use/README.md) reads `Num. Servers` from it. The columns are Sys ID, queue max size, server count, server function, rate, source, sink, edges in, and edges out. The [medium sanity check](sanity-check/README.md) writes one for the wait-job model. An application study writes one from its topology so utilization for a set is in-service time divided by that set's server count.
+`qconf.csv` is the analysis table for those same queues. [compute-use](compute-use/README.md) reads `Num. Servers` from it. The columns are Sys ID, queue max size, server count, server function, rate, source, sink, edges in, and edges out. The [medium sanity check](sanity-check/medium/README.md) writes one for the wait-job model. An application study writes one from its topology so utilization for a set is in-service time divided by that set's server count.
 
 The file a person edits stays the pattern. Matchmaking grows by copying the search stage across the tokens already stored in the job id: 4 regions, 2 modes, and 5 skill bands, which is $4 \times 2 \times 5 = 40$ search queues, plus the shared stages in front of them. A replica count on a stage carries that pattern into the larger bands. A generator stamps the expanded topology, the process commands, and `qconf.csv` from that description. One container per queue is the shape of the six-queue baseline and of a few dozen search queues. The 1,000–10,000 band runs the generated `qconf` with many queues inside one process, the same way a multi-queue simulator consumes that table.
 
@@ -53,16 +53,18 @@ The body is `{wall-clock seconds} {job id} IN {qid} {KIND} ...`. The time token 
 | Queue | Buffer, drop-on-full, file and RPC edges. | [queue/README.md](queue/README.md) |
 | Stateless server function | Sleeps the waits and forwards the row. | [server-func-stateless/README.md](server-func-stateless/README.md) |
 | Stateful server function | Same visit, plus an in-process visit count. | [server-func-stateful/README.md](server-func-stateful/README.md) |
+| KV store (tech-lead) | JSON persistence, hash sharding, 2PC replicas, $N \times M$ study. | [kv-store/README.md](kv-store/README.md) |
 | Optional gRPC | Protos, flags, startup order, backpressure. | [proto/README.md](proto/README.md) |
 | `filter-by-queue` | Keep one queue's metric rows. | [filter-by-queue/README.md](filter-by-queue/README.md) |
 | `filter-by-job` | Keep one job's event lines. | [filter-by-job/README.md](filter-by-job/README.md) |
 | `compute-use` / `plot-use` | Utilization, saturation, errors. | [compute-use/README.md](compute-use/README.md) |
 | `derive-sys-metrics` / `plot-sys-metrics` | Throughput and end-to-end latency. | [derive-sys-metrics/README.md](derive-sys-metrics/README.md) |
+| `monitoring` | Live USE + Thr/Lat via Prometheus/Grafana (`--metrics-port`). | [monitoring/README.md](monitoring/README.md) |
 | `derive-event-metrics` / `plot-derive-event-metrics` | Per-visit response. | [derive-event-metrics/README.md](derive-event-metrics/README.md) |
 | `create-event-trace` | Gantt of job lifelines. | [create-event-trace/README.md](create-event-trace/README.md) |
 | `pretty-print-job-trace` | Readable job timeline. | [pretty-print-job-trace/README.md](pretty-print-job-trace/README.md) |
 | Large-model mock-ups | Three queues, both server functions, gRPC and FIFO. | [mockups/large-model/README.md](mockups/large-model/README.md) |
-| Sanity check | Medium wait-job scale study: 100 queues, seven server sets, figures. | [sanity-check/README.md](sanity-check/README.md) |
+| Sanity check | Medium wait-job scale study: 100 queues, seven server sets, figures. | [sanity-check/medium/README.md](sanity-check/medium/README.md) |
 
 Python dependencies for an RPC edge are listed in [requirements.txt](requirements.txt). The file-only path does not import them.
 

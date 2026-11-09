@@ -28,6 +28,10 @@ python implementation/obj-a/proto/generate_stubs.py
 
 The checked-in stubs were generated with grpcio 1.84. They refuse to load on an older grpcio.
 
+`kv_replica.proto` is the optional two-phase-commit service used by the
+[KV store stretch](../kv-store/README.md). Job-forwarding edges still use the
+three Submit protos above.
+
 ## Which flag is which
 
 | Flag | Who | Form | What it does |
