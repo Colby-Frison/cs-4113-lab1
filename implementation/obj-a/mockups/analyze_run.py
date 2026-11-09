@@ -299,20 +299,36 @@ def run_tools(out: Path, title: str, trace_limit: int | None = None) -> None:
     if trace_limit is not None:
         trace_args.extend(["--limit", str(trace_limit)])
     _tool("create-event-trace/create_event_trace.py", trace_args)
-    _tool(
-        "pretty-print-job-trace/pretty_print_events.py",
-        [str(events), "--out", str(out / "pp-events.log"), "--no-color"],
-    )
+    # Pretty-printing a full Large/Very Large events.log (100k+ tickets) can
+    # OOM a WSL guest and take the VM down. Skip the full dump past 32 MiB;
+    # still pretty-print the single longest job below.
+    events_bytes = events.stat().st_size if events.is_file() else 0
+    if events_bytes <= 32 * 1024 * 1024:
+        try:
+            _tool(
+                "pretty-print-job-trace/pretty_print_events.py",
+                [str(events), "--out", str(out / "pp-events.log"), "--no-color"],
+            )
+        except subprocess.CalledProcessError as exc:
+            print(f"warning: pretty-print events skipped ({exc})", flush=True)
+    else:
+        print(
+            f"warning: pretty-print events skipped ({events_bytes} byte events.log)",
+            flush=True,
+        )
     longest = _longest_job(emetrics)
     if longest is not None:
-        _tool(
-            "filter-by-job/filter_by_job.py",
-            ["--events", str(events), "--jobs", longest, "--out", str(out / "longest-job.log")],
-        )
-        _tool(
-            "pretty-print-job-trace/pretty_print_events.py",
-            [str(out / "longest-job.log"), "--out", str(out / "pp-longest.log"), "--no-color"],
-        )
+        try:
+            _tool(
+                "filter-by-job/filter_by_job.py",
+                ["--events", str(events), "--jobs", longest, "--out", str(out / "longest-job.log")],
+            )
+            _tool(
+                "pretty-print-job-trace/pretty_print_events.py",
+                [str(out / "longest-job.log"), "--out", str(out / "pp-longest.log"), "--no-color"],
+            )
+        except subprocess.CalledProcessError as exc:
+            print(f"warning: longest-job pretty-print skipped ({exc})", flush=True)
 
 
 def analyze(
