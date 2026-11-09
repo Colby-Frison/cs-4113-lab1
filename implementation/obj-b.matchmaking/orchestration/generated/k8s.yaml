@@ -139,6 +139,8 @@ spec:
           - "q-admit"
           - "--qsize"
           - "16"
+          - "--metrics-port"
+          - "9100"
           - "-i"
           - "/fifos/jobs"
           - "--outgrpc"
@@ -226,6 +228,8 @@ spec:
           - "q-admit"
           - "--server-id"
           - "0"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5001,1"
           - "--outgrpc"
@@ -312,6 +316,8 @@ spec:
           - "q-rating"
           - "--qsize"
           - "16"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5002,1"
           - "--outgrpc"
@@ -400,6 +406,8 @@ spec:
           - "q-rating"
           - "--server-id"
           - "0"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5003,1"
           - "--outgrpc"
@@ -486,6 +494,8 @@ spec:
           - "q-route"
           - "--qsize"
           - "16"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5004,1"
           - "--outgrpc"
@@ -574,6 +584,8 @@ spec:
           - "q-route"
           - "--server-id"
           - "0"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5005,1"
           - "--route-edge"
@@ -660,6 +672,8 @@ spec:
           - "q-search"
           - "--qsize"
           - "32"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5006,4"
           - "--outgrpc"
@@ -748,6 +762,8 @@ spec:
           - "q-search"
           - "--server-id"
           - "0"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5007,4"
           - "--outgrpc"
@@ -834,6 +850,8 @@ spec:
           - "q-ready"
           - "--qsize"
           - "16"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5008,1"
           - "--outgrpc"
@@ -922,6 +940,8 @@ spec:
           - "q-ready"
           - "--server-id"
           - "0"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5009,1"
           - "--pass"
@@ -1027,6 +1047,8 @@ spec:
           - "q-allocate"
           - "--qsize"
           - "16"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5010,4"
           - "--outgrpc"
@@ -1115,6 +1137,8 @@ spec:
           - "q-allocate"
           - "--server-id"
           - "0"
+          - "--metrics-port"
+          - "9100"
           - "--ingrpc"
           - "0.0.0.0:5011,4"
           - "--outfile"
@@ -1173,8 +1197,8 @@ spec:
     port: 5011
     targetPort: grpc
 ---
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: generator
   namespace: matchmaking
@@ -1182,17 +1206,19 @@ metadata:
     app.kubernetes.io/name: matchmaking
     app.kubernetes.io/component: generator
 spec:
-  backoffLimit: 1
-  ttlSecondsAfterFinished: 86400
-  activeDeadlineSeconds: 900
-  # Finite generator run of 8 tickets.
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: generator
   template:
     metadata:
       labels:
         app.kubernetes.io/name: matchmaking
         app.kubernetes.io/component: generator
     spec:
-      restartPolicy: Never
+      restartPolicy: Always
       containers:
       - name: generator
         image: matchmaking:local
@@ -1202,8 +1228,6 @@ spec:
           - "/app/obj-b.matchmaking/workload-generator/workload_generator.py"
           - "--out"
           - "/fifos/jobs"
-          - "--count"
-          - "8"
           - "--seed"
           - "7"
           - "--time-scale"

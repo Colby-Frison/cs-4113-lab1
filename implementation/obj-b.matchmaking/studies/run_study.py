@@ -72,7 +72,7 @@ from studies.expand import (  # noqa: E402
     write_servers_csv,
 )
 from studies.job_pipe import JobPipe, Tee  # noqa: E402
-from studies.plots import TRACE_LIMIT, write_six_plots, write_summary  # noqa: E402
+from studies.plots import CORE_TOOLS, TRACE_LIMIT, write_six_plots, write_summary  # noqa: E402
 from studies.scale import SCENARIOS, scale_layout, worker_span  # noqa: E402
 
 QUEUE_PY = OBJ_A / "queue" / "queue.py"
@@ -284,7 +284,9 @@ def run_scenario(
     }
     if sims_only:
         return row
-    _run_analysis(name, run_dir, layout)
+    # Resume-friendly: reuse a complete analysis tree on --plots-only.
+    if not (plots_only and _analysis_complete(run_dir)):
+        _run_analysis(name, run_dir, layout)
     write_six_plots(row, results)
     return row
 
@@ -719,6 +721,12 @@ def _require_accounted(name: str, run_dir: Path, count: int) -> None:
             f"{name}: accounted {matched + failed + dropped}/{count} "
             f"(matched={matched} failed={failed} queue-full={dropped})\n{err_tail(run_dir)}"
         )
+
+
+def _analysis_complete(run_dir: Path) -> bool:
+    """True when ``analysis/`` has every file the six figures require."""
+    analysis = run_dir / "analysis"
+    return all((analysis / name).is_file() for name in CORE_TOOLS)
 
 
 # Group tokens expand to every matching name in SCENARIOS order.

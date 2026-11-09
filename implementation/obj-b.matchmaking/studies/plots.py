@@ -22,6 +22,8 @@ from .expand import Layout
 
 OBJ_A = Path(__file__).resolve().parents[2] / "obj-a"
 TRACE_LIMIT = 40
+# Required for the six study figures. Pretty-printed traces are optional: on
+# Large/Very Large the events.log is hundreds of MB and pretty-print can OOM WSL.
 CORE_TOOLS = (
     "events.log",
     "qmet.csv",
@@ -34,7 +36,11 @@ CORE_TOOLS = (
     "response-hist.png",
     "response-scatter.png",
     "etrace.png",
+)
+OPTIONAL_TOOLS = (
     "pp-events.log",
+    "pp-longest.log",
+    "longest-job.log",
 )
 
 
@@ -49,7 +55,7 @@ def publish_tools(scenario: dict, out: Path) -> None:
         shutil.copy2(source, tools / name)
     for source in analysis.glob("q*-qmet.csv"):
         shutil.copy2(source, tools / source.name)
-    for name in ("pp-longest.log", "longest-job.log"):
+    for name in OPTIONAL_TOOLS:
         source = analysis / name
         if source.is_file():
             shutil.copy2(source, tools / name)

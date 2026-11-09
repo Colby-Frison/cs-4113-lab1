@@ -39,6 +39,8 @@ services:
       - "q-admit"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "-i"
       - "/fifos/jobs"
       - "-o"
@@ -52,6 +54,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9100:9100"
     healthcheck:
       test:
         - CMD
@@ -73,6 +77,8 @@ services:
       - "q-admit"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--infile"
       - "/fifos/q-admit-to-s-validate"
       - "--outfile"
@@ -84,6 +90,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9101:9100"
     healthcheck:
       test:
         - CMD
@@ -103,6 +111,8 @@ services:
       - "q-rating"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "-i"
       - "/fifos/s-validate-to-q-rating"
       - "-o"
@@ -114,6 +124,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9102:9100"
     healthcheck:
       test:
         - CMD
@@ -135,6 +147,8 @@ services:
       - "q-rating"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--infile"
       - "/fifos/q-rating-to-s-rating"
       - "--outfile"
@@ -146,6 +160,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9103:9100"
     healthcheck:
       test:
         - CMD
@@ -165,6 +181,8 @@ services:
       - "q-route"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "-i"
       - "/fifos/s-rating-to-q-route"
       - "-o"
@@ -176,6 +194,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9104:9100"
     healthcheck:
       test:
         - CMD
@@ -197,6 +217,8 @@ services:
       - "q-route"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--infile"
       - "/fifos/q-route-to-s-route"
       - "--route-edge"
@@ -208,6 +230,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9105:9100"
     healthcheck:
       test:
         - CMD
@@ -227,6 +251,8 @@ services:
       - "q-search"
       - "--qsize"
       - "32"
+      - "--metrics-port"
+      - "9100"
       - "-i"
       - "/fifos/s-route-to-q-search"
       - "-i"
@@ -240,6 +266,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9106:9100"
     healthcheck:
       test:
         - CMD
@@ -261,6 +289,8 @@ services:
       - "q-search"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--infile"
       - "/fifos/q-search-to-s-search"
       - "--outfile"
@@ -272,6 +302,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9107:9100"
     healthcheck:
       test:
         - CMD
@@ -291,6 +323,8 @@ services:
       - "q-ready"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "-i"
       - "/fifos/s-search-to-q-ready"
       - "-o"
@@ -302,6 +336,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9108:9100"
     healthcheck:
       test:
         - CMD
@@ -323,6 +359,8 @@ services:
       - "q-ready"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--infile"
       - "/fifos/q-ready-to-s-ready"
       - "--pass"
@@ -347,6 +385,8 @@ services:
     volumes:
       - "fifos:/fifos"
       - "../runs/fifo:/shared"
+    ports:
+      - "9109:9100"
     healthcheck:
       test:
         - CMD
@@ -366,6 +406,8 @@ services:
       - "q-allocate"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "-i"
       - "/fifos/s-ready-to-q-allocate"
       - "-o"
@@ -377,6 +419,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9110:9100"
     healthcheck:
       test:
         - CMD
@@ -398,6 +442,8 @@ services:
       - "q-allocate"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--infile"
       - "/fifos/q-allocate-to-s-allocate"
       - "--outfile"
@@ -410,6 +456,8 @@ services:
     volumes:
       - "fifos:/fifos"
       - "../runs/fifo:/shared"
+    ports:
+      - "9111:9100"
     healthcheck:
       test:
         - CMD
@@ -427,8 +475,6 @@ services:
       - "/app/obj-b.matchmaking/workload-generator/workload_generator.py"
       - "--out"
       - "/fifos/jobs"
-      - "--count"
-      - "8"
       - "--seed"
       - "7"
       - "--time-scale"

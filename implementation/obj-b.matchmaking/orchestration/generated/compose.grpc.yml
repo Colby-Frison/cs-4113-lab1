@@ -39,6 +39,8 @@ services:
       - "q-admit"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "-i"
       - "/fifos/jobs"
       - "--outgrpc"
@@ -55,6 +57,8 @@ services:
         condition: service_healthy
     volumes:
       - "fifos:/fifos"
+    ports:
+      - "9100:9100"
     healthcheck:
       test:
         - CMD
@@ -76,6 +80,8 @@ services:
       - "q-admit"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5001,1"
       - "--outgrpc"
@@ -86,6 +92,8 @@ services:
     depends_on:
       q-rating:
         condition: service_healthy
+    ports:
+      - "9101:9100"
     healthcheck:
       test:
         - CMD
@@ -105,6 +113,8 @@ services:
       - "q-rating"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5002,1"
       - "--outgrpc"
@@ -115,6 +125,8 @@ services:
     depends_on:
       s-rating:
         condition: service_healthy
+    ports:
+      - "9102:9100"
     healthcheck:
       test:
         - CMD
@@ -136,6 +148,8 @@ services:
       - "q-rating"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5003,1"
       - "--outgrpc"
@@ -146,6 +160,8 @@ services:
     depends_on:
       q-route:
         condition: service_healthy
+    ports:
+      - "9103:9100"
     healthcheck:
       test:
         - CMD
@@ -165,6 +181,8 @@ services:
       - "q-route"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5004,1"
       - "--outgrpc"
@@ -175,6 +193,8 @@ services:
     depends_on:
       s-route:
         condition: service_healthy
+    ports:
+      - "9104:9100"
     healthcheck:
       test:
         - CMD
@@ -196,6 +216,8 @@ services:
       - "q-route"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5005,1"
       - "--route-edge"
@@ -206,6 +228,8 @@ services:
     depends_on:
       q-search:
         condition: service_healthy
+    ports:
+      - "9105:9100"
     healthcheck:
       test:
         - CMD
@@ -225,6 +249,8 @@ services:
       - "q-search"
       - "--qsize"
       - "32"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5006,4"
       - "--outgrpc"
@@ -235,6 +261,8 @@ services:
     depends_on:
       s-search:
         condition: service_healthy
+    ports:
+      - "9106:9100"
     healthcheck:
       test:
         - CMD
@@ -256,6 +284,8 @@ services:
       - "q-search"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5007,4"
       - "--outgrpc"
@@ -266,6 +296,8 @@ services:
     depends_on:
       q-ready:
         condition: service_healthy
+    ports:
+      - "9107:9100"
     healthcheck:
       test:
         - CMD
@@ -285,6 +317,8 @@ services:
       - "q-ready"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5008,1"
       - "--outgrpc"
@@ -295,6 +329,8 @@ services:
     depends_on:
       s-ready:
         condition: service_healthy
+    ports:
+      - "9108:9100"
     healthcheck:
       test:
         - CMD
@@ -316,6 +352,8 @@ services:
       - "q-ready"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5009,1"
       - "--pass"
@@ -340,6 +378,8 @@ services:
         condition: service_healthy
     volumes:
       - "../runs/grpc:/shared"
+    ports:
+      - "9109:9100"
     healthcheck:
       test:
         - CMD
@@ -359,6 +399,8 @@ services:
       - "q-allocate"
       - "--qsize"
       - "16"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5010,4"
       - "--outgrpc"
@@ -369,6 +411,8 @@ services:
     depends_on:
       s-allocate:
         condition: service_healthy
+    ports:
+      - "9110:9100"
     healthcheck:
       test:
         - CMD
@@ -390,6 +434,8 @@ services:
       - "q-allocate"
       - "--server-id"
       - "0"
+      - "--metrics-port"
+      - "9100"
       - "--ingrpc"
       - "0.0.0.0:5011,4"
       - "--outfile"
@@ -398,6 +444,8 @@ services:
       HEALTH_TCP: "5011"
     volumes:
       - "../runs/grpc:/shared"
+    ports:
+      - "9111:9100"
     healthcheck:
       test:
         - CMD
@@ -415,8 +463,6 @@ services:
       - "/app/obj-b.matchmaking/workload-generator/workload_generator.py"
       - "--out"
       - "/fifos/jobs"
-      - "--count"
-      - "8"
       - "--seed"
       - "7"
       - "--time-scale"

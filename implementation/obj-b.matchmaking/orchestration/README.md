@@ -89,6 +89,17 @@ A log line looks like the course examples. `Q_pid…` is a queue and `sv_pid…`
 
 gRPC ports start at 5001 inside the Compose network. They are not published on the Windows host. `q-admit` has no listen port; it reads the FIFO. The first hop is always that FIFO, on both edges, because the generator only writes CSV. On the gRPC edge every later hop is gRPC. On the FIFO edge every hop is a named pipe, and `fifo-hold` keeps each pipe open so a reader does not see end-of-file when the writer closes.
 
+## Metrics (Prometheus)
+
+Each queue and stage server gets `--metrics-port 9100` inside the container. Those ports are also published on the host as `9100` through `9111` (service order) for ad-hoc curls. Live USE + Thr/Lat dashboards live under [`../../obj-a/monitoring/`](../../obj-a/monitoring/README.md):
+
+```text
+python implementation/obj-b.matchmaking/orchestration/run.py --continuous
+docker compose -f implementation/obj-a/monitoring/docker-compose.yml up -d
+```
+
+Grafana is `http://localhost:3000`. The monitoring Compose joins `matchmaking-grpc_default` and scrapes each service at `:9100`. Size studies do not use this path; they stay bare processes unless a runner passes `--metrics-port`.
+
 Submit is not retried. The entrypoint waits until the next listen port accepts a connection before it sends. Ready-check retry is left out of that wait on purpose: `q-search` is already up by the time a ticket can reach ready, and waiting on it would cycle with the forward path. `q-admit` publishes `/fifos/admit.ready` after it has the jobs FIFO open. The generator waits for that file.
 
 ## What gets generated

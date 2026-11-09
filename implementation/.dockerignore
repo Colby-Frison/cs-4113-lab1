@@ -1,9 +1,26 @@
+# Keep the matchmaking image small. Study artifacts are multi-GB and have
+# crashed Docker Desktop when they slipped into the build context.
 **/__pycache__
 **/*.py[cod]
 **/.pytest_cache
+
+# Run outputs (any depth). Prefer explicit trees below as well.
 **/runs
+**/runs/**
+**/results
+**/results/**
+
+# Entire study trees — not needed in the product Compose image.
+obj-b.matchmaking/studies
+obj-a/kv-store/studies
 obj-a/sanity-check
 obj-a/mockups
 obj-a/tests
-obj-b.matchmaking/cpp
 obj-b.matchmaking/tests
+obj-b.matchmaking/cpp
+
+# Local logs / plots left next to studies or orchestration.
+**/*.log
+**/etrace.png
+**/use.png
+**/resplot.png

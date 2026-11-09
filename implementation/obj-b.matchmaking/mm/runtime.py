@@ -15,6 +15,7 @@ import time
 from contextlib import ExitStack
 from pathlib import Path
 
+from lib import metrics
 from lib.grpc_spec import DialSpec, parse_dial, parse_listen
 from lib.job import Job, JobParseError, is_header, parse_job_line
 from lib.logsetup import configure_logging
@@ -82,6 +83,12 @@ def run_stage(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--bracket-layout",
         help="JSON search-shard map. Route and ready-retry use it instead of one region edge.",
+    )
+    parser.add_argument(
+        "--metrics-port",
+        type=int,
+        default=None,
+        help="Expose Prometheus /metrics on this port. Omit to disable.",
     )
     args = parser.parse_args(argv)
     _require_io(args)
@@ -259,6 +266,9 @@ def _dispatch(
     log.propagate = True
     log.info("Started")
     log.info("stage %s qid %s server-id %s", label, args.qid, args.server_id)
+    if getattr(args, "metrics_port", None) is not None:
+        metrics.start_metrics(args.metrics_port)
+        log.info("metrics listen 0.0.0.0:%s", args.metrics_port)
 
     state = load_state(state_path) if state_path is not None else None
     if accept_mode == "ready" or (label == "ready"):
@@ -281,6 +291,7 @@ def _dispatch(
         return _accept(job, log, only_tids)
 
     if args.infile:
+        metrics.set_server_workers(args.qid, 1)
         _serve_file(
             args.infile,
             outfiles,
@@ -296,6 +307,7 @@ def _dispatch(
         )
     else:
         listen = parse_listen(args.ingrpc)
+        metrics.set_server_workers(args.qid, listen.workers)
         serve_until_interrupt(
             listen,
             outfiles,

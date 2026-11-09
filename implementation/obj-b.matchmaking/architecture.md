@@ -3,6 +3,11 @@
 A party ticket is one job. Six stages run in order. The monolith performs every stage inside one server visit. The staged system gives each stage its own queue process and its own server process. Decomposition does not change the CSV row. Each stage sleeps only its own task id and forwards `raw_line`.
 
 ```mermaid
+qAdmit
+sValidate
+qRate
+sRating
+qRoute
 flowchart LR
   gen[generator]
   qAdmit[qAdmit]
@@ -81,4 +86,4 @@ The staged file runner writes one CSV per hop under its work directory. Ready-ch
 
 ## Processes and later containers
 
-One queue process and one server process per stage. The C++ port is one binary, `match_server`, and `--stage` selects the visit. A container image can be that binary with different arguments. Python stages remain the reference for log lines and for the Windows file demo. The C++ server speaks the Objective A protos (`job.proto`, `queue_to_server.proto`, `server_to_queue.proto`) and writes the same `sv_pid` prefix and Lab 0 body.
+One queue process and one server process per stage. The C++port is one binary,++ `match_server`++, and++ `--stage` ++selects the visit. A container image can be that binary with different arguments. Python stages remain the reference for log lines and for the Windows file demo. The C++ server speaks the Objective A protos (`job.proto`, `queue_to_server.proto`, `server_to_queue.proto`) and writes the same `sv_pid` prefix and Lab 0 body.

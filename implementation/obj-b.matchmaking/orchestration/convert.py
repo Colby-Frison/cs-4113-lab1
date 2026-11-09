@@ -22,6 +22,8 @@ JOBS_FIFO = f"{FIFO_ROOT}/jobs"
 READY_FLAG = f"{FIFO_ROOT}/admit.ready"
 STATE_FILE = f"{SHARED}/ready-state.txt"
 PORT_BASE = 5001
+METRICS_PORT = 9100
+METRICS_HOST_BASE = 9100
 IMAGE = "matchmaking:local"
 HOLD = "fifo-hold"
 GENERATOR = "generator"
@@ -39,6 +41,8 @@ class Service:
     name: str
     command: list[str]
     listen_port: int | None = None
+    metrics_port: int | None = None
+    metrics_host_port: int | None = None
     depends_on: list[str] = field(default_factory=list)
     environment: dict[str, str] = field(default_factory=dict)
     mount_fifos: bool = False
@@ -158,6 +162,13 @@ def render_compose(plan: Plan) -> str:
             lines.append("    volumes:")
             for mount in mounts:
                 lines.append(f"      - {_yaml(mount)}")
+        if service.metrics_port is not None and service.metrics_host_port is not None:
+            lines.extend(
+                [
+                    "    ports:",
+                    f"      - {_yaml(f'{service.metrics_host_port}:{service.metrics_port}')}",
+                ]
+            )
         if service.health != "none":
             lines.extend(
                 [
@@ -347,16 +358,34 @@ def _work_services(
 ) -> list[Service]:
     _fill_next_queues(steps)
     services: list[Service] = []
+    metrics_index = 0
     for index, step in enumerate(steps):
-        services.append(_queue_service(steps, index, edge, ports))
-        services.append(_server_service(step, edge, ports, topology, generator))
+        services.append(_queue_service(steps, index, edge, ports, metrics_index))
+        metrics_index += 1
+        services.append(_server_service(step, edge, ports, topology, generator, metrics_index))
+        metrics_index += 1
     return services
 
 
-def _queue_service(steps: list[_Step], index: int, edge: str, ports: dict[str, int]) -> Service:
+def _queue_service(
+    steps: list[_Step],
+    index: int,
+    edge: str,
+    ports: dict[str, int],
+    metrics_index: int,
+) -> Service:
     step = steps[index]
     sid = f"s-{step.stage}"
-    command = [PYTHON, QUEUE_SCRIPT, "--qid", step.queue_id, "--qsize", str(step.qsize)]
+    command = [
+        PYTHON,
+        QUEUE_SCRIPT,
+        "--qid",
+        step.queue_id,
+        "--qsize",
+        str(step.qsize),
+        "--metrics-port",
+        str(METRICS_PORT),
+    ]
     incoming = _queue_inputs(steps, index, edge)
     for path in incoming:
         command.extend(["-i", path])
@@ -386,6 +415,8 @@ def _queue_service(steps: list[_Step], index: int, edge: str, ports: dict[str, i
         name=step.queue_id,
         command=command,
         listen_port=listen,
+        metrics_port=METRICS_PORT,
+        metrics_host_port=METRICS_HOST_BASE + metrics_index,
         environment=environment,
         mount_fifos=bool(incoming) or edge == "fifo",
         health=health,
@@ -412,6 +443,7 @@ def _server_service(
     ports: dict[str, int],
     topology: dict,
     generator: dict,
+    metrics_index: int,
 ) -> Service:
     sid = f"s-{step.stage}"
     command = [
@@ -423,6 +455,8 @@ def _server_service(
         step.queue_id,
         "--server-id",
         str(step.server_id),
+        "--metrics-port",
+        str(METRICS_PORT),
     ]
     listen = ports.get(sid) if edge == "grpc" else None
     environment: dict[str, str] = {}
@@ -475,6 +509,8 @@ def _server_service(
         name=sid,
         command=command,
         listen_port=listen,
+        metrics_port=METRICS_PORT,
+        metrics_host_port=METRICS_HOST_BASE + metrics_index,
         environment=environment,
         mount_fifos=edge == "fifo",
         mount_shared=shared,
