@@ -3,6 +3,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+RUN pip install --no-cache-dir grpcio protobuf
+
 COPY implementation/obj-a /app/obj-a
 COPY implementation/obj-b.ticketing /app/obj-b.ticketing
 
