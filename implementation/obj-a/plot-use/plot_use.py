@@ -155,9 +155,9 @@ def plot_use(
     one_queue = len(queues) == 1
     fig, (ax_u, ax_s, ax_e) = plt.subplots(3, 1, figsize=(10, 6.4), sharex=True)
     panels = (
-        (ax_u, "Utilization", "Utilization", (0, 1.05)),
+        (ax_u, "Utilization", "Busy Workers", None),
         (ax_s, "Saturation", "Saturation", None),
-        (ax_e, "Errors", "Error Rate", None),
+        (ax_e, "Errors", "Error Count", None),
     )
 
     for index, qid in enumerate(queues):
