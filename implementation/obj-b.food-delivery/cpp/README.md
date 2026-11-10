@@ -134,3 +134,17 @@ The optional `--restaurants 0,1,2` argument permits those restaurant IDs on a
 worker; omitting it retains the r0-only behavior. `run_network.py` assigns each
 kitchen its one restaurant and each regional courier its region's restaurants.
 The shared protobuf wire format remains unchanged.
+
+## Shared asynchronous host for large studies
+
+The same CMake build also produces `food_host`. It hosts multiple independent
+queue/worker pools in one process using gRPC completion events and timers; it does
+not create a sleeping thread for each logical worker. `common.hpp` shares CSV
+validation and log formatting with the existing serial `food_server`.
+
+The Python `run_hosted.py` launcher writes the host JSON configuration and starts
+two hosts (kitchen and courier). The Objective A protobuf schema is unchanged;
+`source_edge` selects a queue and `worker-id` RPC metadata selects its reserved
+worker. Queue bounds, courier reservations, and handoff live in the coordinator.
+See [the large study](../../../analysis/simple/obj-b-food-delivery/large/README.md)
+and its [VM commands](../../../analysis/simple/obj-b-food-delivery/large/VM.md).

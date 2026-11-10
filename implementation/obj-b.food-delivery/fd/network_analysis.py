@@ -15,7 +15,10 @@ def analyze_network(root, config):
     n = len(config['restaurant_regions'])
     records = bridge.load_records(root)
     for region in range(len(config['couriers'])):
-        records.extend(bridge.load_records(root / f'region-{region}'))
+        directory = root / f'region-{region}'
+        # Short pilots can legitimately send no orders to a region.
+        if any(path.stat().st_size for path in directory.glob('*.log')):
+            records.extend(bridge.load_records(directory))
     jobs = list(iter_jobs((root / 'jobs.csv').read_text().splitlines()))
     generated = {j.job_id:j for j in jobs}
     if len(generated) != len(jobs):

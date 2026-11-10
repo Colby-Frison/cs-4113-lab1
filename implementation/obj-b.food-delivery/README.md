@@ -324,3 +324,19 @@ shared regional pickup queues with C++/gRPC services. The network configuration
 sets restaurant-to-region routes, demand weights, kitchen workers, and courier
 counts by region. See the [20-queue medium study](../../analysis/simple/obj-b-food-delivery/medium/README.md)
 for configurations, seven sensitivity sets, plots, and measured results.
+
+### Large study: shared processes
+
+`run_hosted.py --config CONFIG --workdir RUN_DIRECTORY` hosts restaurant and pickup
+buffers on one asyncio loop, with two asynchronous C++ `food_host` processes.
+Logical worker counts remain independent per queue. Arrival offsets are scheduled
+against an absolute monotonic timeline and injection delay is recorded.
+
+The [200-queue large study](../../analysis/simple/obj-b-food-delivery/large/README.md)
+provides seven courier configurations, three paired seeds, a separate smoke-test
+mode, six main plots per configuration, Objective A accessory outputs, resume
+checks, and verified raw-run archives. Follow the
+[VM instructions](../../analysis/simple/obj-b-food-delivery/large/VM.md) to build,
+smoke-test, and run it under tmux. The full VM study is complete: 21 runs and 2.1 million orders, with all 42 main
+plots and the measured analysis in the large-study directory. Raw archives remain
+on the VM; local development pilots are separate from these final results.
