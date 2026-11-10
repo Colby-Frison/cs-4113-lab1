@@ -1,0 +1,6 @@
+syntax = "proto3";
+package smartlock;
+message Finding { string rule = 1; uint32 line = 2; string symbol = 3; string reason = 4; }
+message Request { string stage = 1; string source = 2; string check = 3; repeated Finding findings = 4; string status = 5; }
+message Reply { string prepared = 1; repeated Finding findings = 2; string status = 3; }
+service Scanner { rpc Execute(Request) returns (Reply); }
