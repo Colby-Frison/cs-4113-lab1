@@ -15,7 +15,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config_io import build_config, save_config
 from lab0_workload_generator import make_draw, parse_interval, validate_args, write_workload
 
-
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
 
@@ -54,7 +53,6 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--capacity", type=int, default=100000)
 
     return parser
-
 
 def main(argv: list[str] | None = None) -> None:
     parser = build_parser()
@@ -202,7 +200,6 @@ def main(argv: list[str] | None = None) -> None:
         f"{args.queues} queues; "
         f"{args.mode}; {out}"
     )
-
 
 if __name__ == "__main__":
     main()

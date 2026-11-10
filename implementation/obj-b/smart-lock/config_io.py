@@ -3,7 +3,6 @@ import csv
 import json
 from pathlib import Path
 
-
 HEADER = [
     "Sys ID",
     "Queue Max Size",
@@ -16,10 +15,8 @@ HEADER = [
     "Edges out",
 ]
 
-
 def edge_list(ids):
     return "[" + ",".join(ids) + "]"
-
 
 def parse_edges(text):
     text = text.strip()
@@ -35,7 +32,6 @@ def parse_edges(text):
         for part in text.strip("[]").split(",")
         if part.strip()
     ]
-
 
 def build_config(total=6, mode="decomposed", capacity=100000, servers=1):
     if mode == "monolithic":
@@ -87,7 +83,6 @@ def build_config(total=6, mode="decomposed", capacity=100000, servers=1):
         )
 
     return rows, ingress
-
 
 def save_config(path, rows):
     with Path(path).open("w", newline="") as f:
