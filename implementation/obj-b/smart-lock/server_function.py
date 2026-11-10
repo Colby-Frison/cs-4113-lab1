@@ -29,7 +29,7 @@ def monolithic(job,root):
     job.status='candidate' if job.findings else 'no_candidate'
     return job
 
-def execute(stage,job,root,engine='python',rpc_timeout=30):
+def execute(stage,job,root,engine='python',endpoint=None,rpc_timeout=30):
     if engine=='cpp-grpc':
         from rpc_client import execute_rpc
         return execute_rpc(stage,job,root,endpoint,rpc_timeout)
