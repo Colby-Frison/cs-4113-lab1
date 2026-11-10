@@ -127,3 +127,10 @@ registry snapshots, and the existing analysis outputs. `config.json` also record
 selected ports (historical once the run ends); `dispatch-worker-*.log` files are
 Python callback-worker diagnostics, while `courier-*.log` contains the C++ service
 events. Errors from each C++ process go to its `*.stderr` file.
+
+## Restaurant allowlists for regional networks
+
+The optional `--restaurants 0,1,2` argument permits those restaurant IDs on a
+worker; omitting it retains the r0-only behavior. `run_network.py` assigns each
+kitchen its one restaurant and each regional courier its region's restaurants.
+The shared protobuf wire format remains unchanged.

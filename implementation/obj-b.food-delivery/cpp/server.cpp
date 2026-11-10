@@ -96,7 +96,7 @@ Job parse_row(const std::string& row) {
     return job;
 }
 
-Job validate_request(const Job& message) {
+Job validate_request(const Job& message, const std::set<std::string>& restaurants) {
     Job job = message;
     if (!message.raw_line().empty()) {
         job = parse_row(message.raw_line());
@@ -111,8 +111,10 @@ Job validate_request(const Job& message) {
                     throw std::invalid_argument("structured tasks disagree with CSV");
         }
     }
-    static const std::regex order_pattern(R"(^o[0-9]+\.r0\.(near|mid|far)\.i[1-9][0-9]*$)");
-    if (!std::regex_match(job.job_id(), order_pattern))
+    static const std::regex order_pattern(R"(^o[0-9]+\.r([0-9]+)\.(near|mid|far)\.i[1-9][0-9]*$)");
+    std::smatch match;
+    const std::string id = job.job_id();
+    if (!std::regex_match(id, match, order_pattern) || !restaurants.count(match[1].str()))
         throw std::invalid_argument("invalid food order ID or unsupported restaurant");
     if (!std::isfinite(job.arrival_time()) || job.arrival_time() < 0 || job.tasks_size() != 2)
         throw std::invalid_argument("invalid arrival time or task count");
@@ -155,6 +157,7 @@ public:
 
 class FoodServer final : public QueueToServer::Service {
     std::string stage_, qid_, worker_, destination_;
+    std::set<std::string> restaurants_;
     Logger log_;
     std::ofstream sink_;
     std::unique_ptr<ServerToQueue::Stub> downstream_;
@@ -177,8 +180,8 @@ class FoodServer final : public QueueToServer::Service {
     }
 public:
     FoodServer(const std::string& stage, const std::string& qid, const std::string& worker,
-               const std::string& log, const std::string& out, const std::string& peer)
-        : stage_(stage), qid_(qid), worker_(worker), destination_(peer.empty() ? out : peer), log_(log) {
+               const std::string& log, const std::string& out, const std::string& peer, const std::set<std::string>& restaurants)
+        : stage_(stage), qid_(qid), worker_(worker), destination_(peer.empty() ? out : peer), restaurants_(restaurants), log_(log) {
         if (!peer.empty()) downstream_ = ServerToQueue::NewStub(grpc::CreateChannel(peer, grpc::InsecureChannelCredentials()));
         else {
             sink_.open(out);
@@ -190,7 +193,7 @@ public:
         if (!guard.owns_lock()) return {grpc::StatusCode::RESOURCE_EXHAUSTED, "worker already busy"};
         try {
             if (!request->has_job()) throw std::invalid_argument("missing job");
-            Job job = validate_request(request->job());
+            Job job = validate_request(request->job(), restaurants_);
             if (ctx->IsCancelled()) return {grpc::StatusCode::CANCELLED, "request cancelled"};
             if (!seen_.insert(job.job_id()).second)
                 return {grpc::StatusCode::ALREADY_EXISTS, "job already submitted; automatic retries are not supported"};
@@ -231,7 +234,7 @@ public:
 int main(int argc, char** argv) {
     try {
         std::map<std::string, std::string> args;
-        const std::set<std::string> allowed{"--stage", "--qid", "--server-id", "--logfile", "--out", "--outgrpc", "--listen", "--ready-file"};
+        const std::set<std::string> allowed{"--stage", "--qid", "--server-id", "--logfile", "--out", "--outgrpc", "--listen", "--ready-file", "--restaurants"};
         for (int i = 1; i < argc; i += 2) {
             if (i + 1 == argc || !allowed.count(argv[i]) || !args.emplace(argv[i], argv[i + 1]).second)
                 throw std::invalid_argument("expected unique --option value pairs");
@@ -246,7 +249,14 @@ int main(int argc, char** argv) {
         if (!std::regex_match(args["--server-id"], std::regex("[0-9]+")) ||
             !std::regex_match(args["--qid"], std::regex("q[0-9]+")))
             throw std::invalid_argument("invalid queue or worker ID");
-        FoodServer service(stage, args["--qid"], args["--server-id"], args["--logfile"], args["--out"], args["--outgrpc"]);
+        std::string restaurant_text = args.count("--restaurants") ? args["--restaurants"] : "0";
+        if (!std::regex_match(restaurant_text, std::regex("[0-9]+(,[0-9]+)*")))
+            throw std::invalid_argument("restaurants must be comma-separated nonnegative IDs");
+        std::set<std::string> restaurants;
+        std::stringstream restaurant_stream(restaurant_text);
+        std::string restaurant;
+        while (std::getline(restaurant_stream, restaurant, ',')) restaurants.insert(restaurant);
+        FoodServer service(stage, args["--qid"], args["--server-id"], args["--logfile"], args["--out"], args["--outgrpc"], restaurants);
         grpc::ServerBuilder builder;
         int port = 0;
         builder.AddListeningPort(args.count("--listen") ? args["--listen"] : "127.0.0.1:0",

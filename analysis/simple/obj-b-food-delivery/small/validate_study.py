@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
+RESULTS=HERE/'results'
+RUNS=HERE/'runs'
 SPEC=json.loads((HERE/'study.json').read_text())
 PLOTS=['utilization.png','saturation.png','errors.png','throughput.png','latency.png','longest-jobs.png']
 TOOLS=['filter_by_queue.py','filter_by_job.py','derive_event_metrics.py','derive_sys_metrics.py',
@@ -21,9 +23,9 @@ def records(path):
 def validate():
     total_generated=total_delivered=total_dropped=0
     for scenario in SPEC['scenarios']:
-        directory=HERE/scenario['name']
+        directory=RESULTS/scenario['name']
         for seed in SPEC['seeds']:
-            root=directory/'runs'/f'seed-{seed}'
+            root=RUNS/scenario['name']/f'seed-{seed}'
             config=json.loads((root/'config.json').read_text())
             expected={**SPEC['baseline'],'couriers':scenario['couriers'],'seed':seed}
             assert all(config[k]==v for k,v in expected.items()), root
@@ -75,7 +77,7 @@ def validate():
              'configuration matches experiment','error counts match sampled USE and time bins',
              'system-tool departure counts match sinks','longest jobs selected by end-to-end latency',
              'all tool commands recorded','all 42 main PNGs present']}
-    (HERE/'audit.json').write_text(json.dumps(outcome,indent=2)+'\n')
+    (RESULTS/'audit.json').write_text(json.dumps(outcome,indent=2)+'\n')
     print(json.dumps(outcome,indent=2))
 
 

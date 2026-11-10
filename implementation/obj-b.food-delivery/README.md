@@ -316,3 +316,11 @@ and +25/+50/+100/-10/-20/-30 resource scenarios with repeated seeds. Vary kitche
 workers and couriers separately, hold workload fixed, record actual integer
 resource counts, and include losses when comparing latency. Add restaurants and
 zones with genuine routing before expanding to the larger queue scales.
+
+## Regional medium-study runner
+
+`run_network.py --config <network.json>` runs multiple restaurant queues feeding
+shared regional pickup queues with C++/gRPC services. The network configuration
+sets restaurant-to-region routes, demand weights, kitchen workers, and courier
+counts by region. See the [20-queue medium study](../../analysis/simple/obj-b-food-delivery/medium/README.md)
+for configurations, seven sensitivity sets, plots, and measured results.

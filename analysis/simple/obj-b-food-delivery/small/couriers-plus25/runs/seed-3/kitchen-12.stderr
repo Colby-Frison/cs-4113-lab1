@@ -1,3 +1,0 @@
-I1105 12:49:22.179819 8212323 ev_poll_posix.cc:588] FD from fork parent still in poll list: fd(178, generation: 1)
-WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
-I0000 00:00:1793904573.424661 8212347 chttp2_transport.cc:1400] ipv4:127.0.0.1:55711: Got goaway [2] err=UNAVAILABLE:GOAWAY received; Error code: 2; Debug Text: Cancelling all calls {http2_error:2}

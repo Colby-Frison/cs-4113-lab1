@@ -64,11 +64,11 @@ The source protocol is Objective A's `job.proto`, `queue_to_server.proto`, and
 Each order has a unique ID, an original generation timestamp, preparation task 0,
 and delivery task 1. Each sink preserves that CSV row exactly.
 
-Each `<scenario>/runs/seed-N/` directory contains the exact `config.json`,
-`jobs.csv`, queue logs, C++ worker logs, diagnostic stderr files, readiness-port
-records, final courier registry, delivered sinks, and normalized `analysis/`
-events/qmet/qconf/per-order metrics/summary. Readiness ports are historical after
-the run. Empty stderr/dispatch-worker logs are normal. The application’s original
+Each `runs/<scenario>/seed-N/` directory contains the exact `config.json`,
+`jobs.csv`, queue logs, C++ worker logs, nonempty diagnostic stderr files,
+final courier registry, delivered sinks, and normalized `analysis/`
+events/qmet/qconf/per-order metrics/summary. Historical readiness-port files and
+empty diagnostic logs were removed during cleanup. The application’s original
 FIFO runner is not used in this experiment.
 
 ## Workload decisions
@@ -115,7 +115,7 @@ Twenty baseline couriers let each requested percentage map to an exact integer.
 | couriers-minus30 | 14 | −30% | 20 | 34 | −15% |
 
 Each has three runs, 1,000 jobs per run, 64 pending slots per queue, identical
-requested workload settings, and paired seeds 1/2/3. `schedule.json` records the
+requested workload settings, and paired seeds 1/2/3. `runs/schedule.json` records the
 predefined run order (baseline seed 1 first, then shuffled scenario order within
 seed blocks). Seed 1 was selected in advance for each set's six main plots.
 The report uses all seeds; no run or trace was selected for favorable results.
@@ -194,11 +194,11 @@ incomplete jobs.
 
 ## Validation, scope limits, and reproduction
 
-`validation.json` checks the number of runs, 42 required main plots, order
+`results/validation.json` checks the number of runs, 42 required main plots, order
 accounting, identical paired task workloads, and drained courier registries.
 State checks reject negative counts, service counts above configured workers,
 nonempty final queues, or disagreement between queue errors and dropped orders.
-`provenance.json` records the code/binary hashes, Git revision, Python/gRPC versions,
+`runs/provenance.json` records the code/binary hashes, Git revision, Python/gRPC versions,
 and host platform. Raw logs preserve the evidence behind every derived metric.
 
 This local experiment varies couriers only. It does not test network failures,
@@ -214,12 +214,12 @@ From the repository root, after following the app's `cpp/README.md` build/setup:
 # Collect missing runs and create reports; existing successful runs are checked/reused.
 MPLCONFIGDIR=/tmp/food-delivery-mpl \
 implementation/obj-b.food-delivery/.venv/bin/python \
-  analysis/simple/run_study.py --collect --report
+  analysis/simple/obj-b-food-delivery/small/run_study.py --collect --report
 
 # Rebuild plots/tables from saved raw evidence without running gRPC services.
 MPLCONFIGDIR=/tmp/food-delivery-mpl \
 implementation/obj-b.food-delivery/.venv/bin/python \
-  analysis/simple/run_study.py --report
+  analysis/simple/obj-b-food-delivery/small/run_study.py --report
 ```
 
 For a fresh independent collection, use a copy of this study directory without
@@ -227,7 +227,6 @@ its run directories and provenance file. The runner refuses to overwrite a
 nonempty run directory lacking a valid summary. The collection requires localhost
 TCP permission; rebuilding plots requires only local file access.
 
-An independent audit is reproducible with `python3 analysis/simple/validate_study.py`;
-its output is `audit.json`. It also checks raw sink row identity, sampled error counts,
-binned departure counts, and longest-job selection. `analysis-code-sha256.json`
-records the reporting and accessory-tool source hashes used for these artifacts.
+An independent audit is reproducible with `python3 analysis/simple/obj-b-food-delivery/small/validate_study.py`;
+its output is `results/audit.json`. It also checks raw sink row identity, sampled error counts,
+binned departure counts, and longest-job selection.

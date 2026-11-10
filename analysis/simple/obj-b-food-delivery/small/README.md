@@ -1,5 +1,17 @@
 # Small food-delivery queueing study
 
+The layout follows the matchmaking studies on `obj-b-study-results`:
+
+- **Keep in Git:** study scripts, `study.json`, these notes, and all PNGs under `results/`.
+- **Local only:** `runs/` contains raw logs, input/sink CSVs, configurations and run metadata.
+  Generated CSV/log/JSON files under `results/` are also ignored by Git.
+- `results/<scenario>/` contains the six main plots; its `tools/` folder contains
+  the Objective A accessory plots and local intermediate outputs.
+
+Raw evidence is preserved on this computer. Links to CSVs, logs, run archives,
+and audit JSON below work locally; a fresh clone must collect runs before using
+`--report` or the saved-data audit. PNGs and analysis notes remain available in Git.
+
 **Completed: two queues, seven scenario sets, six main plots per set (42 total),
 three seeds per set, and 21,000 generated orders.** All 19,413 delivered and
 1,587 dropped orders reconcile with the source workload; none are incomplete.
@@ -13,7 +25,7 @@ Increasing further to 30 or 40 couriers added little latency benefit at the
 measured offered load. Cutting the pool to 14 couriers reduced throughput by
 29.2% and lost 27.4% of orders.
 
-![Sensitivity comparison](sensitivity-comparison.png)
+![Sensitivity comparison](results/sensitivity-comparison.png)
 
 ## 1. Identify the problem and map it to queues
 
@@ -54,7 +66,7 @@ produce mean requested preparation of 0.15 s and delivery of 0.20 s.
 The nominal offered rate is 125 orders/s. **Measured rates averaged roughly
 101–105 orders/s by scenario**, because live sleeps, scheduling, and logging add
 overhead. Requested gaps and service workloads use paired seeds, but actual
-wall-clock arrival times are not identical replay. [metrics-by-run.csv](metrics-by-run.csv)
+wall-clock arrival times are not identical replay. [metrics-by-run.csv](results/metrics-by-run.csv)
 retains each measured rate; matching workload hashes verify identical order IDs
 and requested service durations for each seed across scenarios.
 
@@ -72,13 +84,13 @@ The comparison figure's bars show min–max across seeds, not confidence interva
 
 | Scenario | Couriers | Delivered orders/s | Mean latency (s) | P95 latency (s) | Loss (%) | Paired throughput change | Paired latency change |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| [Baseline](baseline/README.md) | 20 | 93.97 | 0.717 | 1.059 | 1.57 | +0.0% | +0.0% |
-| [+25% couriers](couriers-plus25/README.md) | 25 | 96.30 | 0.365 | 0.564 | 0.00 | +2.5% | -48.8% |
-| [+50% couriers](couriers-plus50/README.md) | 30 | 98.90 | 0.362 | 0.556 | 0.00 | +5.3% | -49.4% |
-| [+100% couriers](couriers-plus100/README.md) | 40 | 95.91 | 0.361 | 0.556 | 0.00 | +2.1% | -49.5% |
-| [−10% couriers](couriers-minus10/README.md) | 18 | 85.10 | 0.863 | 1.196 | 7.20 | -9.4% | +21.0% |
-| [−20% couriers](couriers-minus20/README.md) | 16 | 76.49 | 0.997 | 1.316 | 16.73 | -18.6% | +39.8% |
-| [−30% couriers](couriers-minus30/README.md) | 14 | 66.52 | 1.127 | 1.461 | 27.40 | -29.2% | +57.9% |
+| [Baseline](results/baseline/README.md) | 20 | 93.97 | 0.717 | 1.059 | 1.57 | +0.0% | +0.0% |
+| [+25% couriers](results/couriers-plus25/README.md) | 25 | 96.30 | 0.365 | 0.564 | 0.00 | +2.5% | -48.8% |
+| [+50% couriers](results/couriers-plus50/README.md) | 30 | 98.90 | 0.362 | 0.556 | 0.00 | +5.3% | -49.4% |
+| [+100% couriers](results/couriers-plus100/README.md) | 40 | 95.91 | 0.361 | 0.556 | 0.00 | +2.1% | -49.5% |
+| [−10% couriers](results/couriers-minus10/README.md) | 18 | 85.10 | 0.863 | 1.196 | 7.20 | -9.4% | +21.0% |
+| [−20% couriers](results/couriers-minus20/README.md) | 16 | 76.49 | 0.997 | 1.316 | 16.73 | -18.6% | +39.8% |
+| [−30% couriers](results/couriers-minus30/README.md) | 14 | 66.52 | 1.127 | 1.461 | 27.40 | -29.2% | +57.9% |
 
 All losses in these experiments occurred at **q1 (pickup)**. There were no q0
 rejections. Baseline losses were 0, 19, and 28 orders in seeds 1, 2, and 3,
@@ -128,7 +140,7 @@ for the kitchen. Long service requirements alone do not explain its 1.220 s tota
 | `o721.r0.far.i4` | 1.191 | 0.000 | 0.312 | 0.561 | 0.317 | 0.001 |
 | `o619.r0.far.i4` | 1.154 | 0.001 | 0.319 | 0.507 | 0.326 | 0.001 |
 
-![Baseline longest orders](baseline/longest-jobs.png)
+![Baseline longest orders](results/baseline/longest-jobs.png)
 
 Each set includes the three IDs, exact phase breakdown, filtered raw event trace,
 pretty-printed trace, the shared event-trace tool's plot, and the main phase plot.
@@ -160,21 +172,19 @@ restaurant performance. This report covers only the requested small case.
 
 - [Methods and architecture](METHODS.md): answers the slide questions, explains
   resource percentages, metric units, limitations, and how to rerun the study.
-- [Per-run metrics](metrics-by-run.csv), [per-scenario means/ranges](metrics-by-scenario.csv),
-  and [paired comparisons](comparison.csv).
-- [42-plot manifest](plot-manifest.csv), [validation results](validation.json), [independent audit](audit.json),
-  [provenance](provenance.json), and [actual execution order](schedule.json).
+- [Per-run metrics](results/metrics-by-run.csv), [per-scenario means/ranges](results/metrics-by-scenario.csv),
+  and [paired comparisons](results/comparison.csv).
+- [42-plot manifest](results/plot-manifest.csv), [validation results](results/validation.json), [independent audit](results/audit.json),
+  [provenance](runs/provenance.json), and [actual execution order](runs/schedule.json).
 - [run_study.py](run_study.py) and [study.json](study.json): reproducible collection
-  and plotting code. [execution.log](execution.log) captures collection;
-  [report.log](report.log) captures final plot/table generation.
-- Every scenario directory has a six-plot gallery, three complete raw run folders,
-  and `tools/commands.log` demonstrating all ten accessory/analysis/plotting CLIs.
+  and plotting code.
+- Every `results/<scenario>/` directory has a six-plot gallery and
+  `tools/commands.log`; raw evidence lives separately in `runs/<scenario>/` demonstrating all ten accessory/analysis/plotting CLIs.
   Native accessory plots and CSVs are additional supporting artifacts, not counted
   toward the required six main plots.
 
-The entire study is contained in `analysis/simple/`; application binaries and
+The entire study is contained in `analysis/simple/obj-b-food-delivery/small/`; application binaries and
 Python environment are rebuilt using the existing app instructions. See
 [METHODS.md](METHODS.md#validation-scope-limits-and-reproduction) for commands.
 
-Run the independent saved-artifact audit with `python3 analysis/simple/validate_study.py`.
-[ARTIFACTS.sha256](ARTIFACTS.sha256) records the final artifact checksums.
+Run the independent saved-artifact audit with `python3 analysis/simple/obj-b-food-delivery/small/validate_study.py`.

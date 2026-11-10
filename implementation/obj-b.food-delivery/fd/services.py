@@ -10,11 +10,11 @@ from fd.order import validate_order, WAIT_PRECISION
 from lib.events import task_start, task_end, depart_via
 
 
-def validate_request(job):
+def validate_request(job, allowed_restaurants=(0,)):
     """Reject unsupported metadata/task layouts before doing any work."""
     order = validate_order(job)
-    if order.restaurant != 0:
-        raise ValueError("this initial topology serves restaurant r0 only")
+    if order.restaurant not in allowed_restaurants:
+        raise ValueError("unsupported restaurant; allowed restaurant r" + ", r".join(map(str, allowed_restaurants)))
     return order
 
 

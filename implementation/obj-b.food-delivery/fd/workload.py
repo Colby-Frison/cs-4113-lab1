@@ -24,12 +24,15 @@ def positive_int(value):
 
 
 def generate(out, *, count=100, seed=1, arrival_mean=0.04, time_scale=1.0,
-             sleep=time.sleep, clock=time.time):
+             sleep=time.sleep, clock=time.time, restaurant_weights=None):
     """Times below are model seconds; scale both arrival and service once.
 
     count=None streams until interrupted. A zero arrival mean creates a burst.
     Separate random streams keep service attributes fixed if arrivals change.
     """
+    if restaurant_weights is not None and (not restaurant_weights or any(not math.isfinite(w) or w <= 0 for w in restaurant_weights)):
+        raise ValueError("restaurant weights must be finite and positive")
+    restaurants = random.Random(seed + 2)
     arrivals, attributes = random.Random(seed), random.Random(seed + 1)
     out.write(HEADER + "\n")
     out.flush()
@@ -41,8 +44,9 @@ def generate(out, *, count=100, seed=1, arrival_mean=0.04, time_scale=1.0,
         items = attributes.randint(1, 4)
         prep = attributes.uniform(0.02, 0.04) * items
         travel = attributes.uniform(0.04, 0.06) * (ZONES.index(zone) + 1)
+        restaurant = restaurants.choices(range(len(restaurant_weights)), weights=restaurant_weights)[0] if restaurant_weights else 0
         tasks = (Task(0, prep * time_scale), Task(1, travel * time_scale))
-        out.write(format_job_line(Order(seq, 0, zone, items).job_id, clock(), tasks,
+        out.write(format_job_line(Order(seq, restaurant, zone, items).job_id, clock(), tasks,
                                   wait_precision=WAIT_PRECISION) + "\n")
         out.flush()
         seq += 1

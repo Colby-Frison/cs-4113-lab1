@@ -18,7 +18,9 @@ import subprocess
 import sys
 
 HERE = Path(__file__).resolve().parent
-REPO = HERE.parents[1]
+RESULTS = HERE / 'results'
+RUNS = HERE / 'runs'
+REPO = next(p for p in HERE.parents if (p / 'implementation/obj-b.food-delivery').is_dir())
 APP = REPO / 'implementation/obj-b.food-delivery'
 OBJ_A = REPO / 'implementation/obj-a'
 sys.path.insert(0, str(APP))
@@ -40,7 +42,8 @@ def fingerprint():
 
 
 def collect():
-    provenance = HERE / 'provenance.json'
+    RUNS.mkdir(exist_ok=True)
+    provenance = RUNS / 'provenance.json'
     hashes = fingerprint()
     if provenance.exists():
         if json.loads(provenance.read_text())['sha256'] != hashes:
@@ -62,10 +65,10 @@ def collect():
         if seed == 1:
             scenarios.sort(key=lambda s: s['name'] != 'baseline')
         schedule += [(s, seed) for s in scenarios]
-    (HERE / 'schedule.json').write_text(json.dumps([
+    (RUNS / 'schedule.json').write_text(json.dumps([
         {'scenario': s['name'], 'seed': seed} for s, seed in schedule], indent=2) + '\n')
     for s, seed in schedule:
-        root = HERE / s['name'] / 'runs' / f'seed-{seed}'
+        root = RUNS / s['name'] / f'seed-{seed}'
         config = configuration(s, seed)
         summary = root / 'analysis/summary.json'
         if summary.exists():
@@ -170,7 +173,7 @@ def tool(script, args, log):
 
 def accessory(root, out, longest):
     """Exercise all ten accessory CLIs with explicit, retained inputs/outputs."""
-    out.mkdir(exist_ok=True)
+    out.mkdir(parents=True,exist_ok=True)
     a = root / 'analysis'
     with (out/'commands.log').open('w') as log:
         tool('filter-by-queue/filter_by_queue.py', ['--qmet',a/'qmet.csv','--qid','q0','--out',out/'q0-qmet.csv','-v'],log)
@@ -196,9 +199,9 @@ def plot_set(scenario, root, data):
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
     row, events, states, arrivals, delivered, orders = data
-    out = HERE/scenario['name']
+    out = RESULTS/scenario['name']
     tools = out/'tools'
-    tools.mkdir(exist_ok=True)
+    tools.mkdir(parents=True,exist_ok=True)
     finish = max(e['time'] for e in events)
     width = SPEC['bin_seconds']
     edges = np.arange(0, finish+width, width)
@@ -317,11 +320,12 @@ def plot_set(scenario, root, data):
 
 
 def report():
+    RESULTS.mkdir(exist_ok=True)
     import pandas as pd
     rows=[]
     for scenario in SPEC['scenarios']:
         for seed in SPEC['seeds']:
-            root=HERE/scenario['name']/'runs'/f'seed-{seed}'
+            root=RUNS/scenario['name']/f'seed-{seed}'
             data=measure(root,scenario,seed)
             rows.append(data[0])
             if seed==SPEC['representative_seed']:
@@ -331,11 +335,11 @@ def report():
     for seed, group in table.groupby('seed'):
         if group.workload_sha256.nunique()!=1:
             raise RuntimeError(f'Service workload differs for paired seed {seed}')
-    table.to_csv(HERE/'metrics-by-run.csv',index=False)
+    table.to_csv(RESULTS/'metrics-by-run.csv',index=False)
     numeric=[c for c in table.columns if c not in ('scenario','seed','workload_sha256')]
     aggregate=table.groupby('scenario',sort=False)[numeric].agg(['mean','min','max'])
     aggregate.columns=['_'.join(c) for c in aggregate.columns]
-    aggregate.to_csv(HERE/'metrics-by-scenario.csv')
+    aggregate.to_csv(RESULTS/'metrics-by-scenario.csv')
     comparisons=[]
     for s in SPEC['scenarios']:
         g=table[table.scenario==s['name']].set_index('seed')
@@ -349,18 +353,18 @@ def report():
             'mean_p95_seconds':g.p95_latency_seconds.mean(),'mean_loss_percent':g.loss_percent.mean(),
             'mean_q0_utilization':g.q0_utilization.mean(),'mean_q1_utilization':g.q1_utilization.mean(),
             'mean_q0_waiting':g.q0_mean_waiting.mean(),'mean_q1_waiting':g.q1_mean_waiting.mean()})
-    write_csv(HERE/'comparison.csv',comparisons)
+    write_csv(RESULTS/'comparison.csv',comparisons)
     comparison_plot(table)
     # Audit every required set and all retained raw accounting.
     required=['utilization.png','saturation.png','errors.png','throughput.png','latency.png','longest-jobs.png']
     manifest=[]
     for scenario in SPEC['scenarios']:
         for filename in required:
-            path=HERE/scenario['name']/filename
+            path=RESULTS/scenario['name']/filename
             if not path.is_file() or not path.stat().st_size: raise RuntimeError(f'Missing {path}')
-            manifest.append({'scenario':scenario['name'],'plot':filename,'path':str(path.relative_to(HERE))})
-    write_csv(HERE/'plot-manifest.csv',manifest)
-    (HERE/'validation.json').write_text(json.dumps({'runs':len(rows),'scenarios':7,'main_plots':len(manifest),
+            manifest.append({'scenario':scenario['name'],'plot':filename,'path':str(path.relative_to(RESULTS))})
+    write_csv(RESULTS/'plot-manifest.csv',manifest)
+    (RESULTS/'validation.json').write_text(json.dumps({'runs':len(rows),'scenarios':7,'main_plots':len(manifest),
         'orders_generated':int(table.generated.sum()),'orders_delivered':int(table.delivered.sum()),
         'orders_dropped':int(table.dropped.sum()),'incomplete':0,'paired_workloads_match':True,
         'all_dispatchers_drained':True,'all_accessory_commands_succeeded':True},indent=2)+'\n')
@@ -380,7 +384,7 @@ def comparison_plot(table):
         ax.set_xlabel('Courier workers (kitchens fixed at 20)'); ax.set_ylabel(label)
         ax.grid(alpha=.18); ax.set_ylim(bottom=0)
     fig.suptitle('Two-queue sensitivity study | mean and min–max across three paired seeds',fontweight='bold')
-    fig.tight_layout(); fig.savefig(HERE/'sensitivity-comparison.png',dpi=150); plt.close(fig)
+    fig.tight_layout(); fig.savefig(RESULTS/'sensitivity-comparison.png',dpi=150); plt.close(fig)
 
 
 if __name__=='__main__':

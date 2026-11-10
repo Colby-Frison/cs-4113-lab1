@@ -28,11 +28,13 @@ def file_logger(path, component):
 
 
 class Dispatcher:
-    def __init__(self, couriers, capacity, root, sleep=time.sleep, delivery=None):
+    def __init__(self, couriers, capacity, root, sleep=time.sleep, delivery=None, qid="q1", allowed_restaurants=(0,)):
         if couriers < 1 or capacity < 1:
             raise ValueError("couriers and capacity must be positive")
         self.root = Path(root)
         self.root.mkdir(parents=True, exist_ok=True)
+        self.qid = qid
+        self.allowed_restaurants = tuple(allowed_restaurants)
         self.capacity = capacity
         self.sleep = sleep
         # Optional synchronous remote visit. It owns its sink and service log.
@@ -44,7 +46,7 @@ class Dispatcher:
         self.readers_done = 0
         self.stopping = False
         self.failure = None
-        self.log = file_logger(self.root / "q1.log", "Q")
+        self.log = file_logger(self.root / f"{qid}.log", "Q")
         self.persist()
 
     def persist(self):
@@ -55,16 +57,16 @@ class Dispatcher:
         temporary.replace(self.root / "dispatch-state.json")
 
     def admit(self, job, source):
-        validate_request(job)
+        validate_request(job, self.allowed_restaurants)
         with self.condition:
             if job.job_id in self.accepted:
                 raise ValueError(f"duplicate dispatch order: {job.job_id}")
             if len(self.pending) >= self.capacity:
-                self.log.info("%s", error_queue_full(job.job_id, "q1"))
+                self.log.info("%s", error_queue_full(job.job_id, self.qid))
                 return False
             self.accepted.add(job.job_id)
             self.pending.append(job)
-            self.log.info("%s", arrive_via(job.job_id, "q1", source))
+            self.log.info("%s", arrive_via(job.job_id, self.qid, source))
             self.persist()
             self.condition.notify_all()
             return True
@@ -133,7 +135,7 @@ class Dispatcher:
                     if self.delivery:
                         self.delivery(job, courier_id)
                     else:
-                        serve(job, "courier", "q1", courier_id, writer, str(destination), log, sleep=self.sleep)
+                        serve(job, "courier", self.qid, courier_id, writer, str(destination), log, sleep=self.sleep)
                     self.release(courier_id, job.job_id)
         except Exception as exc:
             try:
