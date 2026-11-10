@@ -5,5 +5,7 @@ __pycache__/
 .cursor
 
 firmware-source
+homekey-firmware
+
 implementation/obj-b/smart-lock/runs/*
 implementation/obj-b/smart-lock/results/*
