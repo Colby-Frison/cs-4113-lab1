@@ -1,0 +1,590 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+        "name": "food-delivery"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ConfigMap",
+      "metadata": {
+        "name": "food-config",
+        "namespace": "food-delivery"
+      },
+      "data": {
+        "config.json": "{\n  \"kitchen_workers\": 2,\n  \"couriers\": 3,\n  \"kitchen_capacity\": 16,\n  \"pickup_capacity\": 16,\n  \"count\": 100,\n  \"arrival_mean\": 0.04,\n  \"time_scale\": 1.0,\n  \"seed\": 1\n}"
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "PersistentVolumeClaim",
+      "metadata": {
+        "name": "food-results",
+        "namespace": "food-delivery"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "1Gi"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "batch/v1",
+      "kind": "Job",
+      "metadata": {
+        "name": "food-delivery",
+        "namespace": "food-delivery"
+      },
+      "spec": {
+        "backoffLimit": 0,
+        "activeDeadlineSeconds": 180,
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "food-delivery"
+            }
+          },
+          "spec": {
+            "restartPolicy": "Never",
+            "automountServiceAccountToken": false,
+            "initContainers": [
+              {
+                "name": "init",
+                "image": "food-delivery:local",
+                "args": [
+                  "init"
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              }
+            ],
+            "containers": [
+              {
+                "name": "courier-0",
+                "image": "food-delivery:local",
+                "args": [
+                  "server",
+                  "--name",
+                  "courier-0"
+                ],
+                "ports": [
+                  {
+                    "containerPort": 50054,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent",
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "test",
+                      "-f",
+                      "/data/run/courier-0.ready"
+                    ]
+                  },
+                  "periodSeconds": 1
+                }
+              },
+              {
+                "name": "courier-1",
+                "image": "food-delivery:local",
+                "args": [
+                  "server",
+                  "--name",
+                  "courier-1"
+                ],
+                "ports": [
+                  {
+                    "containerPort": 50055,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent",
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "test",
+                      "-f",
+                      "/data/run/courier-1.ready"
+                    ]
+                  },
+                  "periodSeconds": 1
+                }
+              },
+              {
+                "name": "courier-2",
+                "image": "food-delivery:local",
+                "args": [
+                  "server",
+                  "--name",
+                  "courier-2"
+                ],
+                "ports": [
+                  {
+                    "containerPort": 50056,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent",
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "test",
+                      "-f",
+                      "/data/run/courier-2.ready"
+                    ]
+                  },
+                  "periodSeconds": 1
+                }
+              },
+              {
+                "name": "generator",
+                "image": "food-delivery:local",
+                "args": [
+                  "generator"
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent"
+              },
+              {
+                "name": "kitchen-0",
+                "image": "food-delivery:local",
+                "args": [
+                  "server",
+                  "--name",
+                  "kitchen-0"
+                ],
+                "ports": [
+                  {
+                    "containerPort": 50052,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent",
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "test",
+                      "-f",
+                      "/data/run/kitchen-0.ready"
+                    ]
+                  },
+                  "periodSeconds": 1
+                }
+              },
+              {
+                "name": "kitchen-1",
+                "image": "food-delivery:local",
+                "args": [
+                  "server",
+                  "--name",
+                  "kitchen-1"
+                ],
+                "ports": [
+                  {
+                    "containerPort": 50053,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent",
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "test",
+                      "-f",
+                      "/data/run/kitchen-1.ready"
+                    ]
+                  },
+                  "periodSeconds": 1
+                }
+              },
+              {
+                "name": "q0",
+                "image": "food-delivery:local",
+                "args": [
+                  "queue",
+                  "--name",
+                  "q0"
+                ],
+                "ports": [
+                  {
+                    "containerPort": 50050,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent",
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "test",
+                      "-f",
+                      "/data/run/q0.ready"
+                    ]
+                  },
+                  "periodSeconds": 1
+                }
+              },
+              {
+                "name": "q1",
+                "image": "food-delivery:local",
+                "args": [
+                  "queue",
+                  "--name",
+                  "q1"
+                ],
+                "ports": [
+                  {
+                    "containerPort": 50051,
+                    "protocol": "TCP"
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "FOOD_TRANSPORT",
+                    "value": "grpc"
+                  },
+                  {
+                    "name": "FOOD_LOCALHOST",
+                    "value": "1"
+                  },
+                  {
+                    "name": "FOOD_CONFIG",
+                    "valueFrom": {
+                      "configMapKeyRef": {
+                        "name": "food-config",
+                        "key": "config.json"
+                      }
+                    }
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "64Mi"
+                  },
+                  "limits": {
+                    "cpu": "1",
+                    "memory": "256Mi"
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "results",
+                    "mountPath": "/data"
+                  }
+                ],
+                "imagePullPolicy": "IfNotPresent",
+                "readinessProbe": {
+                  "exec": {
+                    "command": [
+                      "test",
+                      "-f",
+                      "/data/run/q1.ready"
+                    ]
+                  },
+                  "periodSeconds": 1
+                }
+              }
+            ],
+            "volumes": [
+              {
+                "name": "results",
+                "persistentVolumeClaim": {
+                  "claimName": "food-results"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

@@ -78,6 +78,7 @@ Omitting `--count` from the standalone generator produces orders continuously.
 | `run_grpc.py` | Monolithic or staged C++/gRPC demonstration |
 | `run_network.py` | Regional network with separate worker processes |
 | `run_hosted.py` | Regional network using two shared C++ hosts |
+| [orchestration/](orchestration/README.md) | FIFO/gRPC containers, Compose, and Kubernetes |
 
 Runs contain `jobs.csv`, configuration, kitchen/courier/queue logs, delivered-order
 sinks, dispatcher snapshots, and `analysis/` outputs compatible with Objective A.

@@ -1,0 +1,967 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-0-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-0-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-0"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "courier-0-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "courier-0-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "courier-0",
+            "image": "food-delivery:local",
+            "args": [
+              "server",
+              "--name",
+              "courier-0"
+            ],
+            "ports": [
+              {
+                "containerPort": 50054,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "courier-0-claim0",
+                "mountPath": "/data"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "test",
+                  "-f",
+                  "/data/run/courier-0.ready"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 1,
+              "failureThreshold": 30
+            }
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-0"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "50054",
+            "port": 50054,
+            "targetPort": 50054
+          }
+        ],
+        "selector": {
+          "io.kompose.service": "courier-0"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-1-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-1-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-1",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-1"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "courier-1-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "courier-1-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "courier-1",
+            "image": "food-delivery:local",
+            "args": [
+              "server",
+              "--name",
+              "courier-1"
+            ],
+            "ports": [
+              {
+                "containerPort": 50055,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "courier-1-claim0",
+                "mountPath": "/data"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "test",
+                  "-f",
+                  "/data/run/courier-1.ready"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 1,
+              "failureThreshold": 30
+            }
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-1",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-1"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "50055",
+            "port": 50055,
+            "targetPort": 50055
+          }
+        ],
+        "selector": {
+          "io.kompose.service": "courier-1"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-2-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-2-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-2",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-2"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "courier-2-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "courier-2-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "courier-2",
+            "image": "food-delivery:local",
+            "args": [
+              "server",
+              "--name",
+              "courier-2"
+            ],
+            "ports": [
+              {
+                "containerPort": 50056,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "courier-2-claim0",
+                "mountPath": "/data"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "test",
+                  "-f",
+                  "/data/run/courier-2.ready"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 1,
+              "failureThreshold": 30
+            }
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "courier-2",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "courier-2"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "50056",
+            "port": 50056,
+            "targetPort": 50056
+          }
+        ],
+        "selector": {
+          "io.kompose.service": "courier-2"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "generator-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "generator-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "generator",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "generator"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "generator-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "generator-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "generator",
+            "image": "food-delivery:local",
+            "args": [
+              "generator"
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "generator-claim0",
+                "mountPath": "/data"
+              }
+            ]
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "init-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "init-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "init",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "init"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "init-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "init-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "init",
+            "image": "food-delivery:local",
+            "args": [
+              "init"
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "init-claim0",
+                "mountPath": "/data"
+              }
+            ]
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "kitchen-0-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "kitchen-0-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "kitchen-0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "kitchen-0"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "kitchen-0-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "kitchen-0-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "kitchen-0",
+            "image": "food-delivery:local",
+            "args": [
+              "server",
+              "--name",
+              "kitchen-0"
+            ],
+            "ports": [
+              {
+                "containerPort": 50052,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "kitchen-0-claim0",
+                "mountPath": "/data"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "test",
+                  "-f",
+                  "/data/run/kitchen-0.ready"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 1,
+              "failureThreshold": 30
+            }
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "kitchen-0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "kitchen-0"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "50052",
+            "port": 50052,
+            "targetPort": 50052
+          }
+        ],
+        "selector": {
+          "io.kompose.service": "kitchen-0"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "kitchen-1-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "kitchen-1-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "kitchen-1",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "kitchen-1"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "kitchen-1-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "kitchen-1-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "kitchen-1",
+            "image": "food-delivery:local",
+            "args": [
+              "server",
+              "--name",
+              "kitchen-1"
+            ],
+            "ports": [
+              {
+                "containerPort": 50053,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "kitchen-1-claim0",
+                "mountPath": "/data"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "test",
+                  "-f",
+                  "/data/run/kitchen-1.ready"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 1,
+              "failureThreshold": 30
+            }
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "kitchen-1",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "kitchen-1"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "50053",
+            "port": 50053,
+            "targetPort": 50053
+          }
+        ],
+        "selector": {
+          "io.kompose.service": "kitchen-1"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "q0-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "q0-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "q0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "q0"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "q0-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "q0-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "q0",
+            "image": "food-delivery:local",
+            "args": [
+              "queue",
+              "--name",
+              "q0"
+            ],
+            "ports": [
+              {
+                "containerPort": 50050,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "q0-claim0",
+                "mountPath": "/data"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "test",
+                  "-f",
+                  "/data/run/q0.ready"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 1,
+              "failureThreshold": 30
+            }
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "q0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "q0"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "50050",
+            "port": 50050,
+            "targetPort": 50050
+          }
+        ],
+        "selector": {
+          "io.kompose.service": "q0"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    },
+    {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "q1-claim0",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "q1-claim0"
+        }
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      },
+      "status": {}
+    },
+    {
+      "kind": "Pod",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "q1",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "q1"
+        }
+      },
+      "spec": {
+        "volumes": [
+          {
+            "name": "q1-claim0",
+            "persistentVolumeClaim": {
+              "claimName": "q1-claim0"
+            }
+          }
+        ],
+        "containers": [
+          {
+            "name": "q1",
+            "image": "food-delivery:local",
+            "args": [
+              "queue",
+              "--name",
+              "q1"
+            ],
+            "ports": [
+              {
+                "containerPort": 50051,
+                "protocol": "TCP"
+              }
+            ],
+            "env": [
+              {
+                "name": "FOOD_CONFIG",
+                "value": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}"
+              },
+              {
+                "name": "FOOD_TRANSPORT",
+                "value": "grpc"
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "q1-claim0",
+                "mountPath": "/data"
+              }
+            ],
+            "livenessProbe": {
+              "exec": {
+                "command": [
+                  "test",
+                  "-f",
+                  "/data/run/q1.ready"
+                ]
+              },
+              "timeoutSeconds": 1,
+              "periodSeconds": 1,
+              "failureThreshold": 30
+            }
+          }
+        ],
+        "restartPolicy": "Never"
+      },
+      "status": {}
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "q1",
+        "creationTimestamp": null,
+        "labels": {
+          "io.kompose.service": "q1"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "name": "50051",
+            "port": 50051,
+            "targetPort": 50051
+          }
+        ],
+        "selector": {
+          "io.kompose.service": "q1"
+        }
+      },
+      "status": {
+        "loadBalancer": {}
+      }
+    }
+  ]
+}
