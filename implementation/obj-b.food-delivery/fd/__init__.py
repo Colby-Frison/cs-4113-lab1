@@ -1,4 +1,5 @@
 """Food-delivery application built on Objective A's job and event formats."""
+
 import sys
 from pathlib import Path
 

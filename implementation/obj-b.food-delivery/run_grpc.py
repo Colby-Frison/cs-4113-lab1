@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Python workload/queues/dispatch with C++ server functions over loopback gRPC."""
+
 import argparse
 from collections import deque
 from concurrent import futures
@@ -21,7 +22,7 @@ from run_demo import validate_config
 
 
 def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
-    # Import only here so the ordinary Python/FIFO application stays dependency-free.
+    # import only here so the ordinary Python/FIFO application stays dependency-free
     import grpc
     from lib.proto_gen import job_pb2, queue_to_server_pb2_grpc, server_to_queue_pb2_grpc
 
@@ -35,7 +36,12 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
     root.mkdir(parents=True, exist_ok=True)
     if any(root.iterdir()):
         raise ValueError(f"refusing to overwrite nonempty run directory: {root}")
-    (root / "config.json").write_text(json.dumps({**config, "mode": mode, "transport": "grpc", "server_language": "cpp"}, indent=2) + "\n")
+    (root / "config.json").write_text(
+        json.dumps(
+            {**config, "mode": mode, "transport": "grpc", "server_language": "cpp"}, indent=2
+        )
+        + "\n"
+    )
     deadline = time.monotonic() + timeout
     processes, channels, senders = [], [], []
     ingress = dispatch = dispatch_thread = None
@@ -69,21 +75,40 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
             time.sleep(min(delay, 0.05))
 
     def visit(stub, job, source):
-        request = job_pb2.SubmitJobRequest(source_edge=source, job=job_pb2.Job(
-            job_id=job.job_id, arrival_time=job.arrival_time, raw_line=job.raw_line,
-            tasks=[job_pb2.Task(tid=t.tid, wait_seconds=t.wait_seconds) for t in job.tasks]))
+        request = job_pb2.SubmitJobRequest(
+            source_edge=source,
+            job=job_pb2.Job(
+                job_id=job.job_id,
+                arrival_time=job.arrival_time,
+                raw_line=job.raw_line,
+                tasks=[job_pb2.Task(tid=t.tid, wait_seconds=t.wait_seconds) for t in job.tasks],
+            ),
+        )
         response = stub.Submit(request, timeout=remaining())
         if not response.accepted:
             raise RuntimeError(f"server rejected {job.job_id}")
 
     try:
         with ExitStack() as files:
+
             def launch(stage, index, peer=None):
                 name = f"{stage}-{index}"
                 ready = root / f"{name}.ready"
-                args = [str(binary), "--stage", stage, "--qid", "q1" if stage == "courier" else "q0",
-                        "--server-id", str(index), "--logfile", str(root / f"{name}.log"),
-                        "--ready-file", str(ready), "--listen", "127.0.0.1:0"]
+                args = [
+                    str(binary),
+                    "--stage",
+                    stage,
+                    "--qid",
+                    "q1" if stage == "courier" else "q0",
+                    "--server-id",
+                    str(index),
+                    "--logfile",
+                    str(root / f"{name}.log"),
+                    "--ready-file",
+                    str(ready),
+                    "--listen",
+                    "127.0.0.1:0",
+                ]
                 args += ["--outgrpc", peer] if peer else ["--out", str(root / f"sink-{index}.csv")]
                 err = files.enter_context((root / f"{name}.stderr").open("w"))
                 process = subprocess.Popen(args, stdout=subprocess.DEVNULL, stderr=err)
@@ -92,7 +117,9 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
                     remaining()
                     time.sleep(0.01)
                 port = int(ready.read_text())
-                channel = grpc.insecure_channel(f"127.0.0.1:{port}", options=[("grpc.enable_retries", 0)])
+                channel = grpc.insecure_channel(
+                    f"127.0.0.1:{port}", options=[("grpc.enable_retries", 0)]
+                )
                 channels.append(channel)
                 grpc.channel_ready_future(channel).result(timeout=remaining())
                 return queue_to_server_pb2_grpc.QueueToServerStub(channel)
@@ -100,13 +127,17 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
             peer = None
             if mode == "stages":
                 couriers = [launch("courier", i) for i in range(config["couriers"])]
-                dispatch = Dispatcher(config["couriers"], config["pickup_capacity"], root,
-                                      delivery=lambda job, index: visit(couriers[index], job, "q1"))
+                dispatch = Dispatcher(
+                    config["couriers"],
+                    config["pickup_capacity"],
+                    root,
+                    delivery=lambda job, index: visit(couriers[index], job, "q1"),
+                )
 
                 class Pickup(server_to_queue_pb2_grpc.ServerToQueueServicer):
                     def Submit(self, request, context):
                         try:
-                            # The C++ kitchen sends the validated, original workload row.
+                            # the C++ kitchen sends the validated, original workload row
                             job = parse_job_line(request.job.raw_line)
                             with dispatch.condition:
                                 if dispatch.stopping:
@@ -121,7 +152,9 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
                             dispatch.fail(exc)
                             context.abort(grpc.StatusCode.INTERNAL, str(exc))
 
-                ingress = grpc.server(futures.ThreadPoolExecutor(max_workers=config["kitchen_workers"]))
+                ingress = grpc.server(
+                    futures.ThreadPoolExecutor(max_workers=config["kitchen_workers"])
+                )
                 server_to_queue_pb2_grpc.add_ServerToQueueServicer_to_server(Pickup(), ingress)
                 port = ingress.add_insecure_port("127.0.0.1:0")
                 if not port:
@@ -134,11 +167,14 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
                         dispatch.run(input_done=input_done)
                     except Exception as exc:
                         failures.append(exc)
+
                 dispatch_thread = threading.Thread(target=dispatch_run)
                 dispatch_thread.start()
 
-            workers = [launch("kitchen" if mode == "stages" else "monolith", i, peer)
-                       for i in range(config["kitchen_workers"])]
+            workers = [
+                launch("kitchen" if mode == "stages" else "monolith", i, peer)
+                for i in range(config["kitchen_workers"])
+            ]
 
             def sender(stub):
                 try:
@@ -172,15 +208,22 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
                         if len(pending) >= config["kitchen_capacity"]:
                             qlog.info("%s", error_queue_full(job.job_id, "q0"))
                         else:
-                            # Admission log precedes any worker's service entry.
+                            # admission log precedes any worker's service entry
                             qlog.info("%s", arrive_via(job.job_id, "q0", "orders"))
                             pending.append(job)
                             condition.notify()
+
                 def flush(self):
                     record.flush()
 
-            generate(WorkloadOutput(), count=config["count"], seed=config["seed"],
-                     arrival_mean=config["arrival_mean"], time_scale=config["time_scale"], sleep=paced_sleep)
+            generate(
+                WorkloadOutput(),
+                count=config["count"],
+                seed=config["seed"],
+                arrival_mean=config["arrival_mean"],
+                time_scale=config["time_scale"],
+                sleep=paced_sleep,
+            )
             with condition:
                 source_done = True
                 condition.notify_all()
@@ -188,7 +231,7 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
                 while thread.is_alive():
                     thread.join(min(0.05, remaining()))
             remaining()
-            # All kitchen RPCs have returned: no further q1 admissions can arrive.
+            # all kitchen RPCs have returned: no further q1 admissions can arrive
             input_done.set()
             if dispatch_thread:
                 while dispatch_thread.is_alive():
@@ -206,7 +249,7 @@ def run(root, config, mode="stages", *, binary=None, timeout=60, plots=False):
         input_done.set()
         if ingress:
             ingress.stop(0).wait()
-        # Closing channels cancels in-flight calls on failure; no automatic retries.
+        # closing channels cancels in-flight calls on failure; no automatic retries
         for channel in channels:
             channel.close()
         for _, process in processes:
@@ -245,7 +288,9 @@ def main():
             config[key] = getattr(args, key)
     root = args.workdir or APP / "runs" / (datetime.now().strftime("%Y%m%d-%H%M%S-%f") + "-cpp")
     try:
-        summary = run(root, config, args.mode, binary=args.binary, timeout=args.timeout, plots=args.plots)
+        summary = run(
+            root, config, args.mode, binary=args.binary, timeout=args.timeout, plots=args.plots
+        )
     except (ImportError, ValueError, RuntimeError, TimeoutError) as exc:
         parser.exit(1, f"{exc}\n")
     print(json.dumps(summary, indent=2))

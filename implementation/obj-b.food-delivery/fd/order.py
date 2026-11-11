@@ -2,6 +2,7 @@
 
 Like the matchmaking application, keep the shared three-column CSV intact.
 """
+
 from dataclasses import dataclass
 import re
 

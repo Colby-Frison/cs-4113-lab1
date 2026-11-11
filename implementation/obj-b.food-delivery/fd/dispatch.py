@@ -3,6 +3,7 @@
 Admission, assignment, and release share a condition lock. Couriers take the
 oldest admitted order only while available; there are no per-courier FIFOs.
 """
+
 import argparse
 from collections import deque
 from contextlib import nullcontext
@@ -22,13 +23,26 @@ from lib.job import iter_jobs
 def file_logger(path, component):
     logger = logging.Logger(str(path), logging.INFO)
     handler = logging.FileHandler(path, mode="w", encoding="utf-8")
-    handler.setFormatter(logging.Formatter(f"%(asctime)s - {component} - %(levelname)s - %(message)s"))
+    handler.setFormatter(
+        logging.Formatter(f"%(asctime)s - {component} - %(levelname)s - %(message)s")
+    )
     logger.addHandler(handler)
     return logger
 
 
 class Dispatcher:
-    def __init__(self, couriers, capacity, root, sleep=time.sleep, delivery=None, qid="q1", allowed_restaurants=(0,)):
+    """Assign waiting orders to available couriers and track each active delivery."""
+
+    def __init__(
+        self,
+        couriers,
+        capacity,
+        root,
+        sleep=time.sleep,
+        delivery=None,
+        qid="q1",
+        allowed_restaurants=(0,),
+    ):
         if couriers < 1 or capacity < 1:
             raise ValueError("couriers and capacity must be positive")
         self.root = Path(root)
@@ -37,11 +51,13 @@ class Dispatcher:
         self.allowed_restaurants = tuple(allowed_restaurants)
         self.capacity = capacity
         self.sleep = sleep
-        # Optional synchronous remote visit. It owns its sink and service log.
+        # an optional remote delivery callback owns its sink and service log
         self.delivery = delivery
         self.pending = deque()
         self.condition = threading.Condition()
-        self.couriers = {i: {"status": "available", "order_id": None, "completed": 0} for i in range(couriers)}
+        self.couriers = {
+            i: {"status": "available", "order_id": None, "completed": 0} for i in range(couriers)
+        }
         self.accepted = set()
         self.readers_done = 0
         self.stopping = False
@@ -101,7 +117,7 @@ class Dispatcher:
             self.condition.wait_for(lambda: self.pending or self.stopping)
             if self.stopping:
                 return None
-            # Recheck after waiting, since the condition releases the lock.
+            # recheck after waiting, since the condition releases the lock
             if courier["status"] != "available":
                 raise ValueError(f"courier {courier_id} is not available")
             job = self.pending.popleft()
@@ -127,7 +143,9 @@ class Dispatcher:
         log = file_logger(self.root / f"{name}-{courier_id}.log", "sv")
         try:
             destination = self.root / f"sink-{courier_id}.csv"
-            with (nullcontext() if self.delivery else destination.open("w", encoding="utf-8")) as writer:
+            with (
+                nullcontext() if self.delivery else destination.open("w", encoding="utf-8")
+            ) as writer:
                 while True:
                     job = self.assign_next(courier_id)
                     if job is None:
@@ -135,7 +153,16 @@ class Dispatcher:
                     if self.delivery:
                         self.delivery(job, courier_id)
                     else:
-                        serve(job, "courier", self.qid, courier_id, writer, str(destination), log, sleep=self.sleep)
+                        serve(
+                            job,
+                            "courier",
+                            self.qid,
+                            courier_id,
+                            writer,
+                            str(destination),
+                            log,
+                            sleep=self.sleep,
+                        )
                     self.release(courier_id, job.job_id)
         except Exception as exc:
             try:
@@ -158,17 +185,26 @@ class Dispatcher:
             self.condition.notify_all()
 
     def run(self, sources=(), *, input_done=None):
-        workers = [threading.Thread(target=self.worker, args=(i,), daemon=True) for i in self.couriers]
+        workers = [
+            threading.Thread(target=self.worker, args=(i,), daemon=True) for i in self.couriers
+        ]
         readers = [threading.Thread(target=self.read, args=(p,), daemon=True) for p in sources]
         if input_done is not None:
-            readers.append(threading.Thread(target=self.wait_for_input_close, args=(input_done,), daemon=True))
+            readers.append(
+                threading.Thread(target=self.wait_for_input_close, args=(input_done,), daemon=True)
+            )
         try:
             for thread in workers + readers:
                 thread.start()
             with self.condition:
-                self.condition.wait_for(lambda: self.failure is not None or (
-                    self.readers_done == len(readers) and not self.pending and
-                    all(c["status"] == "available" for c in self.couriers.values())))
+                self.condition.wait_for(
+                    lambda: self.failure is not None
+                    or (
+                        self.readers_done == len(readers)
+                        and not self.pending
+                        and all(c["status"] == "available" for c in self.couriers.values())
+                    )
+                )
                 self.stopping = True
                 self.condition.notify_all()
             if self.failure is not None:

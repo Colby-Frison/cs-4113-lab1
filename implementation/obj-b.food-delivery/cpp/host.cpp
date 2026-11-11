@@ -1,4 +1,4 @@
-// One asynchronous gRPC event loop hosts many independently limited queues.
+// one asynchronous gRPC event loop hosts many independently limited queues
 #include "common.hpp"
 #include <grpcpp/alarm.h>
 #include <memory>
@@ -10,7 +10,7 @@ struct Queue {
     Logger log;
     std::ofstream sink;
     Queue(std::string q, std::string s, int workers, std::set<std::string> allowed,
-          const std::string& logfile, const std::string& output)
+          const std::string &logfile, const std::string &output)
         : id(std::move(q)), stage(std::move(s)), destination(output),
           restaurants(std::move(allowed)), busy(workers, false), log(logfile) {
         if (stage == "courier") {
@@ -27,152 +27,206 @@ class Host {
     std::map<std::string, std::unique_ptr<Queue>> queues_;
 
     class Call {
-        Host& host_;
+        Host &host_;
         grpc::ServerContext context_;
         SubmitJobRequest request_;
         SubmitJobResponse response_;
         grpc::ServerAsyncResponseWriter<SubmitJobResponse> responder_{&context_};
         grpc::Alarm timer_;
+        // one call survives across request, service timer, and response completion events
         enum Phase { REQUEST, TIMER, FINISH } phase_ = REQUEST;
-        Queue* queue_ = nullptr;
+        Queue *queue_ = nullptr;
         int worker_ = -1, tid_ = -1;
         bool reserved_ = false;
         Job job_;
 
-        void finish(const grpc::Status& status) {
-            if (reserved_) { queue_->busy[worker_] = false; reserved_ = false; }
+        void finish(const grpc::Status &status) {
+            if (reserved_) {
+                queue_->busy[worker_] = false;
+                reserved_ = false;
+            }
+            // gRPC still owns this completion tag until the FINISH event arrives
             phase_ = FINISH;
             responder_.Finish(response_, status, this);
         }
         std::string task() const {
             return std::to_string(tid_) + " \"W " + number(job_.tasks(tid_).wait_seconds()) + "\"";
         }
-    public:
-        explicit Call(Host& host) : host_(host) {
-            host_.service_.RequestSubmit(&context_, &request_, &responder_,
-                                        host_.cq_.get(), host_.cq_.get(), this);
+
+        // Validate and reserve a worker, then schedule its service timer.
+        void begin_service() {
+            new Call(host_); // keep another request pending while this one waits for service
+            auto found = host_.queues_.find(request_.source_edge());
+            if (found == host_.queues_.end())
+                throw std::invalid_argument("unknown queue source_edge");
+            queue_ = found->second.get();
+            auto metadata = context_.client_metadata().find("worker-id");
+            if (metadata == context_.client_metadata().end())
+                throw std::invalid_argument("missing worker-id metadata");
+            std::string worker(metadata->second.data(), metadata->second.size());
+            if (!std::regex_match(worker, std::regex("[0-9]{1,6}")))
+                throw std::invalid_argument("invalid worker-id");
+            worker_ = std::stoi(worker);
+            if (worker_ >= static_cast<int>(queue_->busy.size()))
+                throw std::invalid_argument("worker-id outside queue pool");
+            if (!request_.has_job())
+                throw std::invalid_argument("missing job");
+            job_ = validate_request(request_.job(), queue_->restaurants);
+            if (Clock::now() >= context_.deadline()) {
+                finish({grpc::StatusCode::DEADLINE_EXCEEDED, "expired before service"});
+                return;
+            }
+            if (queue_->seen.count(job_.job_id())) {
+                finish({grpc::StatusCode::ALREADY_EXISTS,
+                        "job already submitted; retries unsupported"});
+                return;
+            }
+            if (queue_->busy[worker_]) {
+                finish({grpc::StatusCode::RESOURCE_EXHAUSTED, "worker already busy"});
+                return;
+            }
+            queue_->seen.insert(job_.job_id());
+            queue_->busy[worker_] = true;
+            reserved_ = true;
+            queue_->log.event(job_, queue_->id, "ENTERS-SERVER", worker);
+            tid_ = queue_->stage == "kitchen" ? 0 : 1;
+            queue_->log.event(job_, queue_->id, "TASK-START", task());
+            auto end =
+                Clock::now() + std::chrono::duration_cast<Clock::duration>(
+                                   std::chrono::duration<double>(job_.tasks(tid_).wait_seconds()));
+            // the timer simulates service without blocking other logical workers
+            phase_ = TIMER;
+            timer_.Set(host_.cq_.get(), std::min(end, context_.deadline()), this);
+        }
+
+        // Record completion and output before releasing the worker.
+        void complete_service() {
+            if (Clock::now() >= context_.deadline()) {
+                finish({grpc::StatusCode::DEADLINE_EXCEEDED, "expired during service"});
+                return;
+            }
+            queue_->log.event(job_, queue_->id, "TASK-END", task());
+            queue_->log.event(job_, queue_->id, "EXITS-SERVER", std::to_string(worker_));
+            if (queue_->stage == "courier") {
+                queue_->sink << job_.raw_line() << '\n';
+                queue_->sink.flush();
+            }
+            queue_->log.event(job_, queue_->id, "DEPART-VIA", queue_->destination);
+            response_.set_accepted(true);
+            finish(grpc::Status::OK);
+        }
+
+      public:
+        explicit Call(Host &host) : host_(host) {
+            host_.service_.RequestSubmit(&context_, &request_, &responder_, host_.cq_.get(),
+                                         host_.cq_.get(), this);
         }
         void proceed(bool ok) {
             if (phase_ == FINISH || !ok) {
-                if (reserved_) queue_->busy[worker_] = false;
+                if (reserved_)
+                    queue_->busy[worker_] = false;
                 delete this;
                 return;
             }
             try {
                 if (phase_ == REQUEST) {
-                    new Call(host_); // Always keep an accept pending.
-                    auto found = host_.queues_.find(request_.source_edge());
-                    if (found == host_.queues_.end()) throw std::invalid_argument("unknown queue source_edge");
-                    queue_ = found->second.get();
-                    auto metadata = context_.client_metadata().find("worker-id");
-                    if (metadata == context_.client_metadata().end()) throw std::invalid_argument("missing worker-id metadata");
-                    std::string worker(metadata->second.data(), metadata->second.size());
-                    if (!std::regex_match(worker, std::regex("[0-9]{1,6}"))) throw std::invalid_argument("invalid worker-id");
-                    worker_ = std::stoi(worker);
-                    if (worker_ >= static_cast<int>(queue_->busy.size())) throw std::invalid_argument("worker-id outside queue pool");
-                    if (!request_.has_job()) throw std::invalid_argument("missing job");
-                    job_ = validate_request(request_.job(), queue_->restaurants);
-                    if (Clock::now() >= context_.deadline()) {
-                        finish({grpc::StatusCode::DEADLINE_EXCEEDED, "expired before service"}); return;
-                    }
-                    if (queue_->seen.count(job_.job_id())) {
-                        finish({grpc::StatusCode::ALREADY_EXISTS, "job already submitted; retries unsupported"}); return;
-                    }
-                    if (queue_->busy[worker_]) {
-                        finish({grpc::StatusCode::RESOURCE_EXHAUSTED, "worker already busy"}); return;
-                    }
-                    queue_->seen.insert(job_.job_id());
-                    queue_->busy[worker_] = true; reserved_ = true;
-                    queue_->log.event(job_, queue_->id, "ENTERS-SERVER", worker);
-                    tid_ = queue_->stage == "kitchen" ? 0 : 1;
-                    queue_->log.event(job_, queue_->id, "TASK-START", task());
-                    auto end = Clock::now() + std::chrono::duration_cast<Clock::duration>(
-                        std::chrono::duration<double>(job_.tasks(tid_).wait_seconds()));
-                    phase_ = TIMER;
-                    timer_.Set(host_.cq_.get(), std::min(end, context_.deadline()), this);
+                    begin_service();
                 } else {
-                    if (Clock::now() >= context_.deadline()) {
-                        finish({grpc::StatusCode::DEADLINE_EXCEEDED, "expired during service"}); return;
-                    }
-                    queue_->log.event(job_, queue_->id, "TASK-END", task());
-                    queue_->log.event(job_, queue_->id, "EXITS-SERVER", std::to_string(worker_));
-                    if (queue_->stage == "courier") {
-                        queue_->sink << job_.raw_line() << '\n'; queue_->sink.flush();
-                    }
-                    queue_->log.event(job_, queue_->id, "DEPART-VIA", queue_->destination);
-                    response_.set_accepted(true);
-                    finish(grpc::Status::OK);
+                    complete_service();
                 }
-            } catch (const std::invalid_argument& e) {
+            } catch (const std::invalid_argument &e) {
                 finish({grpc::StatusCode::INVALID_ARGUMENT, e.what()});
-            } catch (const std::exception& e) {
+            } catch (const std::exception &e) {
                 finish({grpc::StatusCode::INTERNAL, e.what()});
             }
         }
     };
-public:
-    explicit Host(const std::string& path) {
+
+  public:
+    explicit Host(const std::string &path) {
         std::ifstream input(path);
-        if (!input) throw std::runtime_error("cannot read host configuration");
+        if (!input)
+            throw std::runtime_error("cannot read host configuration");
         std::string text((std::istreambuf_iterator<char>(input)), {});
         google::protobuf::Struct config;
-        if (!google::protobuf::util::JsonStringToMessage(text, &config).ok()) throw std::invalid_argument("invalid JSON configuration");
-        const auto& entries = config.fields().at("queues");
-        if (entries.kind_case() != google::protobuf::Value::kListValue) throw std::invalid_argument("queues must be a list");
-        for (const auto& value : entries.list_value().values()) {
-            const auto& f = value.struct_value().fields();
-            auto string = [&](const char* key) {
-                const auto& v = f.at(key);
-                if (v.kind_case() != google::protobuf::Value::kStringValue || v.string_value().empty())
+        if (!google::protobuf::util::JsonStringToMessage(text, &config).ok())
+            throw std::invalid_argument("invalid JSON configuration");
+        const auto &entries = config.fields().at("queues");
+        if (entries.kind_case() != google::protobuf::Value::kListValue)
+            throw std::invalid_argument("queues must be a list");
+        for (const auto &value : entries.list_value().values()) {
+            const auto &f = value.struct_value().fields();
+            auto string = [&](const char *key) {
+                const auto &v = f.at(key);
+                if (v.kind_case() != google::protobuf::Value::kStringValue ||
+                    v.string_value().empty())
                     throw std::invalid_argument(std::string("invalid ") + key);
                 return v.string_value();
             };
-            auto integer = [](const google::protobuf::Value& v) {
+            auto integer = [](const google::protobuf::Value &v) {
                 double n = v.number_value();
-                if (v.kind_case() != google::protobuf::Value::kNumberValue || !std::isfinite(n) || n < 0 || n > 100000 || std::floor(n) != n)
+                if (v.kind_case() != google::protobuf::Value::kNumberValue || !std::isfinite(n) ||
+                    n < 0 || n > 100000 || std::floor(n) != n)
                     throw std::invalid_argument("invalid nonnegative integer");
                 return static_cast<int>(n);
             };
             std::string id = string("qid"), stage = string("stage");
             int workers = integer(f.at("workers"));
             if (!workers || !std::regex_match(id, std::regex("q[0-9]+")) ||
-                (stage != "kitchen" && stage != "courier") || queues_.count(id)) throw std::invalid_argument("invalid queue configuration");
-            const auto& list = f.at("restaurants");
-            if (list.kind_case() != google::protobuf::Value::kListValue) throw std::invalid_argument("restaurants must be a list");
+                (stage != "kitchen" && stage != "courier") || queues_.count(id))
+                throw std::invalid_argument("invalid queue configuration");
+            const auto &list = f.at("restaurants");
+            if (list.kind_case() != google::protobuf::Value::kListValue)
+                throw std::invalid_argument("restaurants must be a list");
             std::set<std::string> restaurants;
-            for (const auto& r : list.list_value().values()) restaurants.insert(std::to_string(integer(r)));
-            if (restaurants.empty()) throw std::invalid_argument("empty restaurant allowlist");
-            queues_[id] = std::make_unique<Queue>(id, stage, workers, restaurants, string("logfile"), string("destination"));
+            for (const auto &r : list.list_value().values())
+                restaurants.insert(std::to_string(integer(r)));
+            if (restaurants.empty())
+                throw std::invalid_argument("empty restaurant allowlist");
+            queues_[id] = std::make_unique<Queue>(id, stage, workers, restaurants,
+                                                  string("logfile"), string("destination"));
         }
-        if (queues_.empty()) throw std::invalid_argument("empty host");
+        if (queues_.empty())
+            throw std::invalid_argument("empty host");
     }
-    void run(const std::string& listen, const std::string& ready_path) {
+    void run(const std::string &listen, const std::string &ready_path) {
         grpc::ServerBuilder builder;
         int port = 0;
         builder.AddListeningPort(listen, grpc::InsecureServerCredentials(), &port);
         builder.RegisterService(&service_);
         cq_ = builder.AddCompletionQueue();
         server_ = builder.BuildAndStart();
-        if (!server_ || !port) throw std::runtime_error("could not bind hosted listener");
+        if (!server_ || !port)
+            throw std::runtime_error("could not bind hosted listener");
         std::ofstream ready(ready_path);
-        ready.exceptions(std::ios::failbit | std::ios::badbit); ready << port << '\n'; ready.close();
+        ready.exceptions(std::ios::failbit | std::ios::badbit);
+        ready << port << '\n';
+        ready.close();
         new Call(*this);
-        void* tag; bool ok;
-        // Only this thread mutates queues, worker reservations, logs, and sinks.
-        while (cq_->Next(&tag, &ok)) static_cast<Call*>(tag)->proceed(ok);
+        void *tag;
+        bool ok;
+        // only this thread mutates queues, worker reservations, logs, and sinks
+        while (cq_->Next(&tag, &ok))
+            static_cast<Call *>(tag)->proceed(ok);
     }
 };
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
     try {
         std::map<std::string, std::string> args;
         for (int i = 1; i < argc; i += 2) {
             std::string key = argv[i];
-            if (i + 1 == argc || (key != "--config" && key != "--ready-file" && key != "--listen") || !args.emplace(key, argv[i + 1]).second)
+            if (i + 1 == argc ||
+                (key != "--config" && key != "--ready-file" && key != "--listen") ||
+                !args.emplace(key, argv[i + 1]).second)
                 throw std::invalid_argument("expected unique --config/--ready-file/--listen pairs");
         }
-        if (args["--config"].empty() || args["--ready-file"].empty()) throw std::invalid_argument("config and ready-file are required");
+        if (args["--config"].empty() || args["--ready-file"].empty())
+            throw std::invalid_argument("config and ready-file are required");
         Host host(args["--config"]);
         host.run(args.count("--listen") ? args["--listen"] : "127.0.0.1:0", args["--ready-file"]);
-    } catch (const std::exception& e) { std::cerr << e.what() << '\n'; return 1; }
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
 }

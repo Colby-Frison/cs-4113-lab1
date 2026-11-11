@@ -1,4 +1,4 @@
-// Shared CSV validation and event formatting for serial and hosted servers.
+// shared CSV validation and event formatting for serial and hosted servers
 #pragma once
 #include <grpcpp/grpcpp.h>
 #include <google/protobuf/struct.pb.h>
@@ -33,7 +33,7 @@ std::string number(double value) {
 }
 
 // Parse RFC-style CSV quoting, including doubled quotes in the Tasks JSON.
-std::vector<std::string> csv_fields(const std::string& row) {
+std::vector<std::string> csv_fields(const std::string &row) {
     if (row.find_first_of("\r\n") != std::string::npos)
         throw std::invalid_argument("job row must be a single line");
     std::vector<std::string> fields;
@@ -45,37 +45,51 @@ std::vector<std::string> csv_fields(const std::string& row) {
             bool closed = false;
             while (pos < row.size()) {
                 char c = row[pos++];
-                if (c != '"') field += c;
-                else if (pos < row.size() && row[pos] == '"') { field += '"'; ++pos; }
-                else { closed = true; break; }
+                if (c != '"')
+                    field += c;
+                else if (pos < row.size() && row[pos] == '"') {
+                    field += '"';
+                    ++pos;
+                } else {
+                    closed = true;
+                    break;
+                }
             }
-            if (!closed) throw std::invalid_argument("unclosed CSV quote");
+            if (!closed)
+                throw std::invalid_argument("unclosed CSV quote");
         } else {
             while (pos < row.size() && row[pos] != ',') {
-                if (row[pos] == '"') throw std::invalid_argument("unexpected CSV quote");
+                if (row[pos] == '"')
+                    throw std::invalid_argument("unexpected CSV quote");
                 field += row[pos++];
             }
         }
         fields.push_back(field);
-        if (pos == row.size()) break;
-        if (row[pos++] != ',') throw std::invalid_argument("expected CSV separator");
+        if (pos == row.size())
+            break;
+        if (row[pos++] != ',')
+            throw std::invalid_argument("expected CSV separator");
     }
     return fields;
 }
 
-double seconds(const std::string& text) {
+double seconds(const std::string &text) {
     size_t used = 0;
     double value;
-    try { value = std::stod(text, &used); }
-    catch (const std::exception&) { throw std::invalid_argument("invalid duration/time"); }
+    try {
+        value = std::stod(text, &used);
+    } catch (const std::exception &) {
+        throw std::invalid_argument("invalid duration/time");
+    }
     if (used != text.size() || !std::isfinite(value) || value < 0)
         throw std::invalid_argument("time must be finite and nonnegative");
     return value;
 }
 
-Job parse_row(const std::string& row) {
+Job parse_row(const std::string &row) {
     const auto fields = csv_fields(row);
-    if (fields.size() != 3) throw std::invalid_argument("expected three CSV fields");
+    if (fields.size() != 3)
+        throw std::invalid_argument("expected three CSV fields");
     Job job;
     job.set_job_id(fields[0]);
     job.set_arrival_time(seconds(fields[1]));
@@ -84,24 +98,24 @@ Job parse_row(const std::string& row) {
     if (!google::protobuf::util::JsonStringToMessage(fields[2], &tasks).ok())
         throw std::invalid_argument("invalid task JSON list");
     static const std::regex task_pattern(R"(^([01]):\s*W\s*([0-9]+(?:\.[0-9]+)?)$)");
-    for (const auto& value : tasks.values()) {
+    for (const auto &value : tasks.values()) {
         std::smatch match;
         const auto text = value.string_value();
         if (value.kind_case() != google::protobuf::Value::kStringValue ||
             !std::regex_match(text, match, task_pattern))
             throw std::invalid_argument("invalid wait task");
-        auto* task = job.add_tasks();
+        auto *task = job.add_tasks();
         task->set_tid(std::stoi(match[1]));
         task->set_wait_seconds(seconds(match[2]));
     }
     return job;
 }
 
-Job validate_request(const Job& message, const std::set<std::string>& restaurants) {
+Job validate_request(const Job &message, const std::set<std::string> &restaurants) {
     Job job = message;
     if (!message.raw_line().empty()) {
         job = parse_row(message.raw_line());
-        // A caller may send only raw_line, or the complete shared Job message.
+        // callers can send just CSV or both forms, but both must describe the same order
         if (!message.job_id().empty() || message.tasks_size() != 0) {
             if (message.job_id() != job.job_id() || message.arrival_time() != job.arrival_time() ||
                 message.tasks_size() != job.tasks_size())
@@ -122,13 +136,14 @@ Job validate_request(const Job& message, const std::set<std::string>& restaurant
     for (int i = 0; i < 2; ++i) {
         double wait = job.tasks(i).wait_seconds();
         if (job.tasks(i).tid() != i || !std::isfinite(wait) || wait < 0)
-            throw std::invalid_argument("expected nonnegative preparation task 0 then delivery task 1");
+            throw std::invalid_argument(
+                "expected nonnegative preparation task 0 then delivery task 1");
     }
     if (job.raw_line().empty()) {
-        // Canonical food-app precision for structured-only clients.
+        // normalize structured-only clients to the same precision as CSV workloads
         std::string row = job.job_id() + "," + number(job.arrival_time()) + ",\"[\"\"0: W " +
-            number(job.tasks(0).wait_seconds()) + "\"\", \"\"1: W " +
-            number(job.tasks(1).wait_seconds()) + "\"\"]\"";
+                          number(job.tasks(0).wait_seconds()) + "\"\", \"\"1: W " +
+                          number(job.tasks(1).wait_seconds()) + "\"\"]\"";
         job = parse_row(row);
     }
     return job;
@@ -136,23 +151,26 @@ Job validate_request(const Job& message, const std::set<std::string>& restaurant
 
 class Logger {
     std::ofstream file_;
-public:
-    explicit Logger(const std::string& path) : file_(path) {
+
+  public:
+    explicit Logger(const std::string &path) : file_(path) {
         file_.exceptions(std::ios::failbit | std::ios::badbit);
     }
-    void message(const std::string& text) {
+    void message(const std::string &text) {
         auto now = Clock::now();
         auto stamp = Clock::to_time_t(now);
         std::tm local{};
         localtime_r(&stamp, &local);
-        auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() % 1000;
+        auto millis =
+            std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() %
+            1000;
         file_ << std::put_time(&local, "%Y-%m-%d %H:%M:%S") << ',' << std::setfill('0')
               << std::setw(3) << millis << " - sv - INFO - " << text << '\n';
         file_.flush();
     }
-    void event(const Job& job, const std::string& qid, const std::string& kind, const std::string& detail) {
+    void event(const Job &job, const std::string &qid, const std::string &kind,
+               const std::string &detail) {
         const double now = std::chrono::duration<double>(Clock::now().time_since_epoch()).count();
         message(number(now) + " " + job.job_id() + " IN " + qid + " " + kind + " " + detail);
     }
 };
-

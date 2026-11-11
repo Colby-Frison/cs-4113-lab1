@@ -1,4 +1,5 @@
 """Stage-specific or monolithic service; each process is one worker resource."""
+
 import argparse
 import logging
 import os
@@ -40,6 +41,11 @@ def main(default_stage=None):
     os.environ["LAB_LOG_COMPACT"] = "1"
     configure_logging(args.logfile, "sv")
     log = logging.getLogger("food-delivery")
-    with open(args.infile, encoding="utf-8") as source, open(args.outfile, "a", encoding="utf-8") as dest:
+    with (
+        open(args.infile, encoding="utf-8") as source,
+        open(args.outfile, "a", encoding="utf-8") as dest,
+    ):
         for job in iter_jobs(source):
-            serve(job, default_stage or args.stage, args.qid, args.server_id, dest, args.outfile, log)
+            serve(
+                job, default_stage or args.stage, args.qid, args.server_id, dest, args.outfile, log
+            )

@@ -4,6 +4,7 @@ The server validates each job before invoking preparation or delivery. Both
 deployment modes use these same operations and forward the original CSV row.
 Only the dispatcher owns persistent courier state.
 """
+
 import time
 
 from fd.order import validate_order, WAIT_PRECISION
@@ -14,17 +15,23 @@ def validate_request(job, allowed_restaurants=(0,)):
     """Reject unsupported metadata/task layouts before doing any work."""
     order = validate_order(job)
     if order.restaurant not in allowed_restaurants:
-        raise ValueError("unsupported restaurant; allowed restaurant r" + ", r".join(map(str, allowed_restaurants)))
+        raise ValueError(
+            "unsupported restaurant; allowed restaurant r"
+            + ", r".join(map(str, allowed_restaurants))
+        )
     return order
 
 
 def execute_task(job, task, qid, log, sleep):
     """Shared task instrumentation; the supplied duration is already scaled."""
-    log.info("%s", task_start(job.job_id, qid, task.tid, task.wait_seconds,
-                             wait_precision=WAIT_PRECISION))
+    log.info(
+        "%s",
+        task_start(job.job_id, qid, task.tid, task.wait_seconds, wait_precision=WAIT_PRECISION),
+    )
     sleep(task.wait_seconds)
-    log.info("%s", task_end(job.job_id, qid, task.tid, task.wait_seconds,
-                           wait_precision=WAIT_PRECISION))
+    log.info(
+        "%s", task_end(job.job_id, qid, task.tid, task.wait_seconds, wait_precision=WAIT_PRECISION)
+    )
 
 
 def prepare_order(job, qid, log, sleep=time.sleep):
