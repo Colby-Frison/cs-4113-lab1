@@ -93,7 +93,6 @@ def main():
         print('Generated', dest)
     print('Inputs:', inputs)
     print('Outputs:', outputs)
-    print('Run only ONE transport per run-name or choose different run names for independent evidence.')
 
 if __name__ == '__main__':
     main()
