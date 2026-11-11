@@ -89,9 +89,11 @@ FIFO transport adds buffering, so its queue setting is not a bound on total back
 - [Small: 2 queues](../../analysis/simple/obj-b-food-delivery/small/README.md)
 - [Medium: 20 queues](../../analysis/simple/obj-b-food-delivery/medium/README.md)
 - [Large: 200 queues](../../analysis/simple/obj-b-food-delivery/large/README.md)
+- [Very-large: 2,000 queues, one seed](../../analysis/simple/obj-b-food-delivery/very-large/README.md)
 
-Each completed study has seven scenarios and six main plots per scenario.
-Medium and large studies share reporting and archive helpers in `study_tools/`.
+All four studies are complete, each with seven scenarios and six main plots per
+scenario. The very-large study uses one seed; the other three use three seeds.
+Regional studies share reporting and archive helpers in `study_tools/`.
 Archiving is optional: it compresses raw logs after verification; reports accept
 both folders and archives. Generated runs and build binaries are Git-ignored.
 

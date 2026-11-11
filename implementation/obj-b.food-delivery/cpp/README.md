@@ -48,6 +48,6 @@ it after successful output; transport failures or timeouts fail the run.
 
 The large runner uses two shared hosts while preserving separate queue limits and
 regional courier pools. See the [large study](../../../analysis/simple/obj-b-food-delivery/large/README.md)
-and [VM guide](../../../analysis/simple/obj-b-food-delivery/large/VM.md).
+and [very-large study](../../../analysis/simple/obj-b-food-delivery/very-large/README.md).
 These experiments use simulated waits and local gRPC; timing differences from
 Python/FIFO include transport and buffering changes, not just language speed.

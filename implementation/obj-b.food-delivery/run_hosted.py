@@ -8,6 +8,7 @@ import hashlib
 import io
 import json
 import math
+import resource
 import shutil
 from pathlib import Path
 import time
@@ -134,7 +135,10 @@ async def execute(root,config,binary,timeout):
                     for stage,p,_ in processes:
                         if p.returncode is not None:raise RuntimeError(f'{stage} host exited: {p.returncode}')
                     if time.monotonic()-last_snapshot>=1:
-                        for region in range(regions):queues[restaurants+region].snapshot(root/f'region-{region}/dispatch-state.json')
+                        for region in range(regions):
+                            queues[restaurants+region].snapshot(root/f'region-{region}/dispatch-state.json')
+                            # Let arrivals and RPC completions run between batches of disk writes.
+                            if region % 8 == 7:await asyncio.sleep(0)
                         last_snapshot=time.monotonic()
                     try:await asyncio.wait_for(stop.wait(),.1)
                     except TimeoutError:pass
@@ -184,6 +188,10 @@ async def execute(root,config,binary,timeout):
 def run(root,config,*,binary=None,timeout=600,analyze=True):
     validate_config(config)
     if not math.isfinite(timeout) or timeout<=0:raise ValueError('timeout must be positive')
+    needed = 2 * (len(config['restaurant_regions']) + len(config['couriers'])) + 128
+    limit, _ = resource.getrlimit(resource.RLIMIT_NOFILE)
+    if limit != resource.RLIM_INFINITY and limit < needed:
+        raise ValueError(f'Open-file limit {limit} is too low for this topology; run ulimit -n {needed} or higher before starting.')
     binary=Path(binary or APP/'cpp/build/food_host').resolve()
     if not binary.is_file():raise ValueError('build cpp/build/food_host first')
     root=Path(root).resolve();root.mkdir(parents=True,exist_ok=True)

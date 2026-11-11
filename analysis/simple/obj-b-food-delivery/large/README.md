@@ -1,7 +1,6 @@
 # Large food-delivery study: 200 queues
 
-Completed on the OU CS Cloud VM `dos8`: **21 runs, 2,100,000 orders, and 42 main
-plots**. The audit passed with 1,802,827 delivered, 297,173 rejected, and none incomplete.
+Completed **21 runs, 2,100,000 orders, and 42 main plots**. The audit passed with 1,802,827 delivered, 297,173 rejected, and none incomplete.
 
 ## Model and workload
 
@@ -86,7 +85,7 @@ and the different backend prevent a direct performance comparison with medium.
 
 ## Run and inspect
 
-[VM.md](VM.md) contains build, smoke-test, collection, tmux, and download commands.
+See the [C++ build guide](../../../../implementation/obj-b.food-delivery/cpp/README.md) for setup.
 Archiving is optional; raw log folders and verified `.tar.gz` archives both work.
 With the environment active, from the repository root:
 
@@ -95,8 +94,8 @@ python analysis/simple/obj-b-food-delivery/large/run_study.py --report
 python analysis/simple/obj-b-food-delivery/large/validate_study.py
 ```
 
-The full raw-evidence audit ran on the VM. **Raw runs remain on `dos8`**; copy its
-complete `large/runs/` directory before reporting or auditing locally. Local
-results include the [measured summary](results/summary.md), plots, metrics, and
+The saved audit covers the original raw evidence. Raw logs are not included in
+this results-only copy; reporting or repeating the full audit requires the complete
+`large/runs/` directory. Results include the [measured summary](results/summary.md), plots, metrics, and
 [audit record](results/audit.json). Scripts, notes, and PNGs are tracked;
 raw runs and generated CSV/log/JSON files remain local and Git-ignored.
