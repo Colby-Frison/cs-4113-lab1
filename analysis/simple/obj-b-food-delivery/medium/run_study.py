@@ -26,7 +26,7 @@ def configuration(s,seed):return {**SPEC['baseline'],'couriers':s['couriers'],'s
 
 def collect():
     RUNS.mkdir(exist_ok=True)
-    files=[HERE/'study.json',APP/'run_network.py',APP/'fd/network_analysis.py',APP/'fd/workload.py',APP/'fd/services.py',APP/'fd/dispatch.py',APP/'cpp/server.cpp',APP/'cpp/build/food_server']
+    files=[HERE/'study.json',APP/'run_network.py',APP/'fd/network_config.py',APP/'fd/network_analysis.py',APP/'fd/workload.py',APP/'fd/services.py',APP/'fd/dispatch.py',APP/'cpp/server.cpp',APP/'cpp/build/food_server']
     hashes={str(p.relative_to(REPO)):hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
     provenance=RUNS/'provenance.json'
     if provenance.exists():

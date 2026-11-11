@@ -19,7 +19,7 @@ from fd.order import validate_order, WAIT_PRECISION
 from fd.workload import generate
 from lib.events import arrive_via, error_queue_full
 from lib.job import HEADER, format_job_line, parse_job_line, iter_jobs
-from run_network import validate_config
+from fd.network_config import validate_config
 
 
 def workload(config):

@@ -1,5 +1,5 @@
 """Real Python/C++ gRPC integration tests; build cpp/ and install grpcio first."""
-import io
+from contextlib import contextmanager, ExitStack
 import json
 from pathlib import Path
 import subprocess
@@ -36,39 +36,41 @@ def request(seq=0, prep=0.001, delivery=0.002, structured=False):
 
 @unittest.skipUnless(grpc is not None and BINARY.is_file(), "requires C++ build and Python gRPC dependencies")
 class CppGrpcTests(unittest.TestCase):
-    def launch(self, root, stage="monolith", peer=None):
-        ready = root / "ready"
-        args = [str(BINARY), "--stage", stage, "--qid", "q1" if stage == "courier" else "q0",
-                "--server-id", "0", "--logfile", str(root / "server.log"), "--ready-file", str(ready)]
-        args += ["--outgrpc", peer] if peer else ["--out", str(root / "sink.csv")]
-        err = (root / "stderr").open("w")
-        process = subprocess.Popen(args, stdout=subprocess.DEVNULL, stderr=err)
-        def cleanup():
-            process.terminate()
-            try:
-                process.wait(timeout=3)
-            except subprocess.TimeoutExpired:
-                process.kill()
-                process.wait()
-            err.close()
-        self.addCleanup(cleanup)
-        deadline = time.monotonic() + 5
-        while not ready.exists() or not ready.read_text().strip():
-            if process.poll() is not None:
-                self.fail((root / "stderr").read_text())
-            if time.monotonic() > deadline:
-                self.fail("C++ server startup timed out")
-            time.sleep(0.01)
-        channel = grpc.insecure_channel(f"127.0.0.1:{int(ready.read_text())}", options=[("grpc.enable_retries", 0)])
-        self.addCleanup(channel.close)
-        grpc.channel_ready_future(channel).result(timeout=3)
-        return queue_to_server_pb2_grpc.QueueToServerStub(channel)
+    @contextmanager
+    def server(self, stage="monolith", peer=None):
+        with tempfile.TemporaryDirectory() as tmp, ExitStack() as resources:
+            root = Path(tmp)
+            ready = root / "ready"
+            args = [str(BINARY), "--stage", stage, "--qid", "q1" if stage == "courier" else "q0",
+                    "--server-id", "0", "--logfile", str(root / "server.log"), "--ready-file", str(ready)]
+            args += ["--outgrpc", peer] if peer else ["--out", str(root / "sink.csv")]
+            err = (root / "stderr").open("w")
+            process = subprocess.Popen(args, stdout=subprocess.DEVNULL, stderr=err)
+            def cleanup():
+                process.terminate()
+                try:
+                    process.wait(timeout=3)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.wait()
+                err.close()
+            resources.callback(cleanup)
+            deadline = time.monotonic() + 5
+            while not ready.exists() or not ready.read_text().strip():
+                if process.poll() is not None:
+                    self.fail((root / "stderr").read_text())
+                if time.monotonic() > deadline:
+                    self.fail("C++ server startup timed out")
+                time.sleep(0.01)
+            channel = grpc.insecure_channel(f"127.0.0.1:{int(ready.read_text())}", options=[("grpc.enable_retries", 0)])
+            resources.callback(channel.close)
+            grpc.channel_ready_future(channel).result(timeout=3)
+            yield root, queue_to_server_pb2_grpc.QueueToServerStub(channel)
+
 
     def test_stage_tasks_output_and_duplicate_rejection(self):
         for stage, tids in [("kitchen", [0]), ("courier", [1]), ("monolith", [0, 1])]:
-            with self.subTest(stage=stage), tempfile.TemporaryDirectory() as tmp:
-                root = Path(tmp)
-                stub = self.launch(root, stage)
+            with self.subTest(stage=stage), self.server(stage) as (root, stub):
                 req = request()
                 self.assertTrue(stub.Submit(req, timeout=3).accepted)
                 self.assertEqual((root / "sink.csv").read_text(), req.job.raw_line + "\n")
@@ -81,12 +83,9 @@ class CppGrpcTests(unittest.TestCase):
                     stub.Submit(req, timeout=3)
                 self.assertEqual(caught.exception.code(), grpc.StatusCode.ALREADY_EXISTS)
                 self.assertEqual(len((root / "sink.csv").read_text().splitlines()), 1)
-                self.doCleanups()
 
     def test_invalid_messages_do_no_work(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            stub = self.launch(root)
+        with self.server() as (root, stub):
             bad = []
             missing = job_pb2.SubmitJobRequest()
             bad.append(missing)
@@ -109,20 +108,14 @@ class CppGrpcTests(unittest.TestCase):
                 self.assertEqual(caught.exception.code(), grpc.StatusCode.INVALID_ARGUMENT)
             self.assertEqual((root / "sink.csv").read_text(), "")
             self.assertEqual((root / "server.log").read_text(), "")
-            self.doCleanups()
 
     def test_structured_only_job(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            stub = self.launch(root)
+        with self.server() as (root, stub):
             self.assertTrue(stub.Submit(request(structured=True), timeout=3).accepted)
             self.assertEqual((root / "sink.csv").read_text(), request().job.raw_line + "\n")
-            self.doCleanups()
 
     def test_busy_worker_and_cancelled_visit(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            stub = self.launch(root)
+        with self.server() as (root, stub):
             active = stub.Submit.future(request(prep=1), timeout=2)
             deadline = time.monotonic() + 2
             while "TASK-START" not in (root / "server.log").read_text():
@@ -137,16 +130,12 @@ class CppGrpcTests(unittest.TestCase):
             self.assertEqual((root / "sink.csv").read_text(), "")
             self.assertNotIn("DEPART-VIA", (root / "server.log").read_text())
             self.assertTrue(stub.Submit(request(seq=2), timeout=2).accepted)
-            self.doCleanups()
 
     def test_downstream_failure_is_not_completion(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            stub = self.launch(root, "kitchen", "127.0.0.1:1")
+        with self.server("kitchen", "127.0.0.1:1") as (root, stub):
             with self.assertRaises(grpc.RpcError):
                 stub.Submit(request(), timeout=1)
             self.assertNotIn("DEPART-VIA", (root / "server.log").read_text())
-            self.doCleanups()
 
     def test_live_modes_and_registry(self):
         config = json.loads((APP / "topology/baseline.json").read_text())

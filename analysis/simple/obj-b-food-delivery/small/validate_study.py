@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Audit the saved study without launching services or regenerating plots."""
 import csv
-import hashlib
 import json
 from pathlib import Path
 

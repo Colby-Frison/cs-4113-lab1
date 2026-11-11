@@ -5,6 +5,11 @@ remain the reproduction/reference workflow. See [the measured analysis](README.m
 
 From `~/food-delivery-lab` after extracting the updated source bundle:
 
+Include the sibling `analysis/simple/obj-b-food-delivery/study_tools/` directory
+in the bundle; medium and large reporting and archiving share these helpers.
+Code changes invalidate collection fingerprints: use a fresh output for new
+collections, while existing results can still be reported and audited.
+
 ```bash
 source implementation/obj-b.food-delivery/.venv/bin/activate
 cmake -S implementation/obj-b.food-delivery/cpp \

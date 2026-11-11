@@ -3,7 +3,7 @@ import json
 import numpy as np
 import pandas as pd
 from PIL import Image
-from run_study import HERE, RESULTS, RUNS, SPEC, configuration
+from run_study import RESULTS, SPEC, configuration
 from report_study import saved_run, measure, PLOTS
 
 

@@ -1,6 +1,6 @@
 """Quantify observed source gaps without treating requested arrivals as exact replay."""
 import csv
-from run_study import HERE, RESULTS, RUNS, SPEC
+from run_study import RESULTS, SPEC
 from report_study import saved_run, write_csv
 
 

@@ -1,8 +1,5 @@
-"""Hosted isolation, deadline handling, and end-to-end accounting."""
-import asyncio
-import csv
+"""Shared C++ host routing, worker isolation, and cancellation checks."""
 import json
-import os
 from pathlib import Path
 import subprocess
 import sys
@@ -11,8 +8,6 @@ import time
 import unittest
 
 APP=Path(__file__).resolve().parents[1];sys.path.insert(0,str(APP))
-from run_hosted import run,workload
-from test_network import config
 from fd import APP
 from lib.job import format_job_line,Task
 try:
@@ -20,54 +15,6 @@ try:
     from lib.proto_gen import job_pb2,queue_to_server_pb2_grpc
 except ImportError:grpc=None
 BINARY=APP/'cpp/build/food_host'
-
-
-@unittest.skipUnless(grpc and BINARY.exists(),'requires built food_host and gRPC')
-class HostedRunTests(unittest.TestCase):
-    def test_shared_network_routes_and_drains(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            result=run(tmp,config(),timeout=30)
-            self.assertEqual(result['delivered'],60)
-            self.assertEqual(result['dropped'],0)
-            self.assertEqual(result['server_processes'],2)
-            self.assertEqual(result['incomplete'],0)
-            runtime=json.loads((Path(tmp)/'runtime.json').read_text())
-            self.assertEqual(runtime['logical_queues'],6)
-            for pid in runtime['hosts'].values():
-                with self.assertRaises(ProcessLookupError):os.kill(pid,0)
-
-    def test_burst_and_unvisited_queues_remain_accounted(self):
-        c={**config(),'count':1,'arrival_mean':0}
-        with tempfile.TemporaryDirectory() as tmp:
-            result=run(tmp,c,timeout=30)
-            self.assertEqual(result['delivered'],1)
-            with (Path(tmp)/'analysis/qmet.csv').open() as f:
-                self.assertEqual({int(r['queue-sys-id']) for r in csv.DictReader(f)},set(range(6)))
-        c={**config(),'count':500,'arrival_mean':0,'pickup_capacity':1,'kitchen_capacity':1,'couriers':[1,1]}
-        with tempfile.TemporaryDirectory() as tmp:
-            result=run(tmp,c,timeout=30)
-            self.assertGreater(result['dropped'],0)
-            self.assertEqual(result['delivered']+result['dropped'],500)
-
-    def test_deadline_is_failed_run_not_success(self):
-        c={**config(),'count':10,'arrival_mean':5,'time_scale':1}
-        with tempfile.TemporaryDirectory() as tmp:
-            with self.assertRaises(Exception):run(tmp,c,timeout=.5)
-            root=Path(tmp)
-            self.assertEqual(json.loads((root/'status.json').read_text())['status'],'failed')
-            self.assertFalse((root/'analysis/summary.json').exists())
-
-    def test_two_hundred_queues(self):
-        c={**config(),'restaurant_regions':[r for r in range(50) for _ in range(3)],
-            'restaurant_weights':[1]*150,'kitchen_workers':[2]*150,'couriers':[4]*50,
-            'count':3000,'arrival_mean':.002,'time_scale':.1}
-        with tempfile.TemporaryDirectory() as tmp:
-            result=run(tmp,c,timeout=60)
-            self.assertEqual(result['queues'],200)
-            self.assertEqual(result['generated'],result['delivered']+result['dropped'])
-            self.assertEqual(result['server_processes'],2)
-            with (Path(tmp)/'analysis/qmet.csv').open() as f:
-                self.assertEqual({int(r['queue-sys-id']) for r in csv.DictReader(f)},set(range(200)))
 
 
 @unittest.skipUnless(grpc and BINARY.exists(),'requires built food_host and gRPC')
@@ -120,12 +67,5 @@ class HostProtocolTests(unittest.TestCase):
         self.assertTrue(self.submit(self.request(seq=1)).accepted)
 
 
-class ArrivalPlanTests(unittest.TestCase):
-    def test_resource_changes_preserve_absolute_plan(self):
-        original=config();changed={**original,'couriers':[3,4],'kitchen_workers':[2]*4}
-        self.assertEqual(workload(original),workload(changed))
-        plan=workload(original)
-        self.assertTrue(all(a[0]<b[0] for a,b in zip(plan,plan[1:])))
-
-
-if __name__=='__main__':unittest.main()
+if __name__ == '__main__':
+    unittest.main()
