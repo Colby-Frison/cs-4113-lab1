@@ -10,7 +10,7 @@ Search is the pool under test. Every other stage has 1 worker.
 Every buffer holds 10000 tickets, so a slower pool queues instead of dropping.
 `QUEUE-FULL` is a ticket that never entered a stage. A ready-check failure is a ticket that reached the failed sink.
 Time in the plots is milliseconds from the first event.
-The USE panels draw one line per stage. The dark line is the busiest search queue.
+The USE panels draw one line per stage (1000-step window). Search is dark blue; ready is red.
 
 | scenario | search workers | per queue | matched | ready-check failures | QUEUE-FULL | mean latency (ms) | search peak util | search peak sat | ready peak util |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |

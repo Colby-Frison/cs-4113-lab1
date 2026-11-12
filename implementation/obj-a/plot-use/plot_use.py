@@ -143,33 +143,89 @@ def _draw_series(ax, time, values, color: str, size: int) -> None:
     )
 
 
+MAX_AUTO_QUEUES = 8
+
+
+def select_salient_queues(df: pd.DataFrame, limit: int = MAX_AUTO_QUEUES) -> list[str]:
+    """Keep the figure readable when a fan-out casting has dozens of queues.
+
+    Prefer the busiest saturation peaks so shared gates and hot shards remain
+    visible; drop quiet replicas that only thicken the hairball.
+    """
+    queues = list(dict.fromkeys(df["queue-sys-id"]))
+    if len(queues) <= limit:
+        return queues
+    peaks: list[tuple[float, str]] = []
+    for qid in queues:
+        series = df[df["queue-sys-id"] == qid]["Saturation(100)"]
+        peaks.append((float(series.max()) if not series.empty else 0.0, qid))
+    peaks.sort(reverse=True)
+    chosen = [qid for _peak, qid in peaks[:limit]]
+    # Stable legend order by numeric id when possible.
+    def sort_key(qid: str) -> tuple[int, str]:
+        try:
+            return (0, f"{int(qid):06d}")
+        except ValueError:
+            return (1, qid)
+
+    return sorted(chosen, key=sort_key)
+
+
+def _downsample_frame(series: pd.DataFrame, limit: int = 2500) -> pd.DataFrame:
+    if len(series) <= limit:
+        return series
+    idx = (
+        (pd.Series(range(len(series))) * (limit - 1) / max(len(series) - 1, 1))
+        .round()
+        .astype(int)
+        .unique()
+    )
+    return series.iloc[idx].reset_index(drop=True)
+
+
 def plot_use(
     df: pd.DataFrame,
     out: str,
     title: str | None = None,
     xlim: tuple[float, float] | None = None,
+    max_queues: int | None = MAX_AUTO_QUEUES,
+    labels: dict[str, str] | None = None,
 ) -> None:
     queues = list(dict.fromkeys(df["queue-sys-id"]))
     if not queues:
         raise SystemExit("plot-use: quse CSV has no rows")
+    omitted = 0
+    if max_queues is not None and len(queues) > max_queues:
+        keep = set(select_salient_queues(df, max_queues))
+        omitted = len(queues) - len(keep)
+        df = df[df["queue-sys-id"].isin(keep)].reset_index(drop=True)
+        queues = list(dict.fromkeys(df["queue-sys-id"]))
     one_queue = len(queues) == 1
+    labels = labels or {}
+    # Many-queue casts: one long window only. Dual windows turn into a hairball.
+    windows = (1000,) if len(queues) > 1 else WINDOWS
     fig, (ax_u, ax_s, ax_e) = plt.subplots(3, 1, figsize=(10, 6.4), sharex=True)
+    util_peak = float(df["Utilization(1000)"].max()) if "Utilization(1000)" in df else float(
+        df["Utilization(100)"].max()
+    )
+    util_ylim = (0, 1.05) if util_peak <= 1.05 else (0, util_peak * 1.08)
     panels = (
-        (ax_u, "Utilization", "Utilization", (0, 1.05)),
+        (ax_u, "Utilization", "Utilization", util_ylim),
         (ax_s, "Saturation", "Saturation", None),
-        (ax_e, "Errors", "Error Rate", None),
+        (ax_e, "Errors", "Errors (QUEUE-FULL)", None),
     )
 
     for index, qid in enumerate(queues):
-        series = df[df["queue-sys-id"] == qid]
+        series = _downsample_frame(df[df["queue-sys-id"] == qid])
         time = series["time-step"]
         for ax, prefix, _ylabel, _ylim in panels:
             hue = SLIDE_HUE[prefix] if one_queue else PALETTE[index % len(PALETTE)]
-            for size in WINDOWS:
+            for size in windows:
                 color = shade(hue, WINDOW_TINT[size])
                 values = series[f"{prefix}({size})"]
-                if prefix == "Saturation" and size == 10:
-                    ax.fill_between(time, values, color=color, alpha=0.45, linewidth=0)
+                # Area fill only for a single queue; multi-queue fills occlude each other.
+                if prefix == "Saturation" and one_queue and size == windows[0]:
+                    ax.fill_between(time, values, color=color, alpha=0.35, linewidth=0)
                     continue
                 _draw_series(ax, time, values, color, size)
 
@@ -180,15 +236,23 @@ def plot_use(
             ax.set_ylim(*ylim)
         else:
             ax.set_ylim(bottom=0)
-    ax_e.set_xlabel("Time Step")
+    ax_e.set_xlabel("time (ms from first event)")
     if xlim is not None:
         ax_e.set_xlim(*xlim)
 
-    legend_rows = [
-        Line2D([0], [0], color="#b9b9b4", lw=WINDOW_WIDTH[10], label="10 steps"),
-        Line2D([0], [0], color="#6e6d68", lw=WINDOW_WIDTH[100], label="100 steps"),
-        Line2D([0], [0], color=COLORS["ink"], lw=WINDOW_WIDTH[1000], ls="--", label="1000 steps"),
-    ]
+    legend_rows = []
+    if len(windows) > 1:
+        for size in windows:
+            legend_rows.append(
+                Line2D(
+                    [0],
+                    [0],
+                    color="#6e6d68" if size != 1000 else COLORS["ink"],
+                    lw=WINDOW_WIDTH[size],
+                    ls=WINDOW_STYLE[size],
+                    label=f"{size} steps",
+                )
+            )
     if not one_queue:
         for index, qid in enumerate(queues):
             legend_rows.append(
@@ -197,9 +261,25 @@ def plot_use(
                     [0],
                     color=PALETTE[index % len(PALETTE)],
                     lw=2.0,
-                    label=f"q{qid}",
+                    label=labels.get(qid, f"q{qid}"),
                 )
             )
+    elif windows == WINDOWS:
+        for size in windows:
+            legend_rows.append(
+                Line2D(
+                    [0],
+                    [0],
+                    color="#6e6d68" if size != 1000 else COLORS["ink"],
+                    lw=WINDOW_WIDTH[size],
+                    ls=WINDOW_STYLE[size],
+                    label=f"{size} steps",
+                )
+            )
+    if omitted:
+        legend_rows.append(
+            Line2D([0], [0], color="none", label=f"+{omitted} quiet queues hidden")
+        )
     fig.legend(
         handles=legend_rows,
         loc="center left",
@@ -224,22 +304,54 @@ def build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Queue id or comma-separated list (q0 and 0 are the same). Default: every queue",
     )
+    parser.add_argument(
+        "--max-queues",
+        type=int,
+        default=MAX_AUTO_QUEUES,
+        help=(
+            f"When plotting every queue, keep only the busiest N by saturation "
+            f"(default {MAX_AUTO_QUEUES}; 0 = no cap)"
+        ),
+    )
+    parser.add_argument(
+        "--labels",
+        default=None,
+        help="Optional legend names as qid:name pairs, e.g. 0:admit,3:search,4:ready",
+    )
     parser.add_argument("--title", default=None, help="Figure title")
     parser.add_argument("--xlim", type=parse_pair, default=None, help="Time-step limits as A:B")
     return parser
 
 
+def parse_labels(text: str) -> dict[str, str]:
+    labels: dict[str, str] = {}
+    for token in text.split(","):
+        if not token.strip():
+            continue
+        if ":" not in token:
+            raise ValueError(f"expected qid:name in {token!r}")
+        qid_text, name = token.split(":", 1)
+        labels[normalize_qid(qid_text)] = name.strip()
+    return labels
+
+
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     df = load_quse(args.quse)
-    qids = None
     if args.qid is not None:
         try:
             qids = parse_qids(args.qid)
         except ValueError as exc:
             raise SystemExit(f"plot-use: {exc}") from exc
         df = select_queues(df, qids)
-    plot_use(df, args.out, args.title, args.xlim)
+    labels = None
+    if args.labels is not None:
+        try:
+            labels = parse_labels(args.labels)
+        except ValueError as exc:
+            raise SystemExit(f"plot-use: {exc}") from exc
+    max_queues = None if args.max_queues <= 0 or args.qid is not None else args.max_queues
+    plot_use(df, args.out, args.title, args.xlim, max_queues=max_queues, labels=labels)
     return 0
 
 

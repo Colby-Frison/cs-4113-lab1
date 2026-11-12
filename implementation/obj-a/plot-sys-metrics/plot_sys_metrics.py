@@ -22,6 +22,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 REQUIRED_COLUMNS = [
@@ -83,6 +84,39 @@ def _style_axis(ax) -> None:
     ax.title.set_color(COLORS["ink"])
 
 
+def _downsample(df: pd.DataFrame, limit: int = 2500) -> pd.DataFrame:
+    if len(df) <= limit:
+        return df
+    idx = (pd.Series(range(len(df))) * (limit - 1) / (len(df) - 1)).round().astype(int).unique()
+    return df.iloc[idx].reset_index(drop=True)
+
+
+def _jobs_per_second(df: pd.DataFrame, window_ms: float = 1000.0) -> np.ndarray:
+    """Convert per-step departure counts into a smooth tickets/s series."""
+    time = df["time-step"].to_numpy(dtype=float)
+    counts = df["throughput"].fillna(0).to_numpy(dtype=float)
+    if len(time) == 0:
+        return np.asarray([], dtype=float)
+    order = np.argsort(time)
+    time_s = time[order]
+    cumulative = np.cumsum(counts[order])
+    half = window_ms / 2.0
+    rate_s = np.empty(len(time_s), dtype=float)
+    left = 0
+    right = 0
+    for index, stamp in enumerate(time_s):
+        while left < index and time_s[left] < stamp - half:
+            left += 1
+        while right + 1 < len(time_s) and time_s[right + 1] <= stamp + half:
+            right += 1
+        width = max(time_s[right] - time_s[left], 1.0)
+        departed = cumulative[right] - (cumulative[left - 1] if left > 0 else 0.0)
+        rate_s[index] = 1000.0 * departed / width
+    rate = np.empty(len(time), dtype=float)
+    rate[order] = rate_s
+    return rate
+
+
 def plot_system_metrics(
     df: pd.DataFrame,
     out: str,
@@ -91,7 +125,11 @@ def plot_system_metrics(
     ylim: tuple[float, float] | None = None,
     band: bool = True,
 ) -> None:
+    df = _downsample(df.sort_values("time-step").reset_index(drop=True))
     t = df["time-step"]
+    # Lab 1 analyze_run stores milliseconds; show seconds when values are large.
+    scale = 1000.0 if float(df["Avg-response-time"].max()) >= 1000.0 else 1.0
+    unit = "s" if scale == 1000.0 else "ms"
     marker = "o" if len(df) <= MARKER_POINT_LIMIT else None
 
     fig, (ax_lat, ax_tp) = plt.subplots(
@@ -102,38 +140,39 @@ def plot_system_metrics(
     if band:
         ax_lat.fill_between(
             t,
-            df["10-response-time"],
-            df["90-response-time"],
+            df["10-response-time"] / scale,
+            df["90-response-time"] / scale,
             color=COLORS["band"],
             alpha=0.15,
             linewidth=0,
             label="P10–P90 band",
         )
     ax_lat.plot(
-        t, df["median-response-time"], color=COLORS["median"], linewidth=2,
+        t, df["median-response-time"] / scale, color=COLORS["median"], linewidth=2,
         marker=marker, markersize=4, label="Median",
     )
     ax_lat.plot(
-        t, df["Avg-response-time"], color=COLORS["average"], linewidth=2,
+        t, df["Avg-response-time"] / scale, color=COLORS["average"], linewidth=2,
         marker=marker, markersize=4, label="Average",
     )
-    ax_lat.set_ylabel("Response time (time steps)")
-    ax_lat.set_title("Response time (latency) vs time-step", loc="left", fontsize=11)
+    ax_lat.set_ylabel(f"Response time ({unit})")
+    ax_lat.set_title("Response time (latency) vs time", loc="left", fontsize=11)
     ax_lat.legend(loc="upper left", frameon=False, labelcolor=COLORS["ink"])
     if ylim is not None:
-        ax_lat.set_ylim(*ylim)
+        ax_lat.set_ylim(ylim[0] / scale, ylim[1] / scale)
     else:
         ax_lat.set_ylim(bottom=0)
 
     # --- Panel 2: throughput --------------------------------------------- #
+    rate = _jobs_per_second(df)
     ax_tp.plot(
-        t, df["throughput"], color=COLORS["throughput"], linewidth=2,
+        t, rate, color=COLORS["throughput"], linewidth=2,
         marker=marker, markersize=4,
     )
-    ax_tp.fill_between(t, 0, df["throughput"], color=COLORS["throughput"], alpha=0.12, linewidth=0)
-    ax_tp.set_ylabel("Jobs leaving")
-    ax_tp.set_xlabel("time-step")
-    ax_tp.set_title("Throughput vs time-step", loc="left", fontsize=11)
+    ax_tp.fill_between(t, 0, rate, color=COLORS["throughput"], alpha=0.12, linewidth=0)
+    ax_tp.set_ylabel("Jobs / s")
+    ax_tp.set_xlabel("time (ms from first event)")
+    ax_tp.set_title("Throughput vs time", loc="left", fontsize=11)
     ax_tp.set_ylim(bottom=0)
 
     for ax in (ax_lat, ax_tp):
