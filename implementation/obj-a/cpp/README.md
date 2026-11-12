@@ -1,6 +1,8 @@
 # Shared C++ helpers (Objective A)
 
-Small reusable pieces for the tech-lead C++ ports. Queue: [../queue-cpp](../queue-cpp). Later KV / stateless SF ports should link these instead of copying them.
+Small reusable pieces for the tech-lead C++ ports, shared by the
+[queue](../queue-cpp) and [stateful K-V function](../server-func-stateful-cpp).
+Future ports should link these instead of copying them.
 
 | File | Role |
 | --- | --- |

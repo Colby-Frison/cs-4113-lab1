@@ -4,7 +4,7 @@
 #   .\run-all-tests.ps1 -Extended
 #
 # The default pass runs the Objective A and matchmaking unittest suites, then
-# the C++ file self-tests when CMake is on PATH.
+# the C++ file self-tests and K-V integration tests when their dependencies exist
 #
 # -Extended prints the longer studies (KV smoke, the KV N x M sweep, the
 # medium wait-job sanity check, and matchmaking Small through Very Large).
@@ -120,6 +120,20 @@ function Invoke-CppSelfTests {
         }
         Invoke-Checked "queue_file_selftest" {
             Invoke-Exe $queueTest.FullName @($jobs, $sink)
+        }
+
+        if (Find-Built "implementation/obj-a/queue-cpp/build" "queue_server") {
+            Invoke-Checked "configure stateful K-V cpp" {
+                cmake -S implementation/obj-a/server-func-stateful-cpp -B implementation/obj-a/server-func-stateful-cpp/build
+            }
+            Invoke-Checked "build stateful K-V cpp" {
+                cmake --build implementation/obj-a/server-func-stateful-cpp/build
+            }
+            Invoke-Checked "stateful K-V integration tests" {
+                python implementation/obj-a/server-func-stateful-cpp/tests/test_integration.py -v
+            }
+        } else {
+            Write-Host "==> stateful K-V integration tests skipped (gRPC C++ is unavailable)"
         }
 
         Invoke-Checked "configure matchmaking cpp" {

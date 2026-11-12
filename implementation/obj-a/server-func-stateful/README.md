@@ -4,6 +4,9 @@ Same wait-and-forward visit as [the stateless server](../server-func-stateless/R
 
 Part of the [Objective A framework](../README.md).
 
+A [C++ gRPC version](../server-func-stateful-cpp/README.md) implements the
+in-memory visit counter and wait/forward behavior.
+
 ## How the visit count works
 
 The script passes a dict into `serve_job`. On `ENTERS-SERVER`, the dict does `count[job_id] = count.get(job_id, 0) + 1`. The stateless script passes no dict, so that step is skipped. When the input is gRPC, several handlers can enter at once, and the increment takes a lock. The file path is one thread, so it does not need the lock.

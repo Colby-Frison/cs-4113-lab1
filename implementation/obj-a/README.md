@@ -55,6 +55,7 @@ The body is `{wall-clock seconds} {job id} IN {qid} {KIND} ...`. The time token 
 | C++ queue (tech-lead) | Same flags and protos as `queue.py`, gRPC binary. | [queue-cpp/README.md](queue-cpp/README.md) |
 | Stateless server function | Sleeps the waits and forwards the row. | [server-func-stateless/README.md](server-func-stateless/README.md) |
 | Stateful server function | Same visit, plus an in-process visit count. | [server-func-stateful/README.md](server-func-stateful/README.md) |
+| C++ stateful K-V function | gRPC function with a thread-safe, in-memory visit map. | [server-func-stateful-cpp/README.md](server-func-stateful-cpp/README.md) |
 | KV store (tech-lead) | JSON persistence, hash sharding, 2PC replicas, $N \times M$ study. | [kv-store/README.md](kv-store/README.md) |
 | Optional gRPC | Protos, flags, startup order, backpressure. | [proto/README.md](proto/README.md) |
 | `filter-by-queue` | Keep one queue's metric rows. | [filter-by-queue/README.md](filter-by-queue/README.md) |
