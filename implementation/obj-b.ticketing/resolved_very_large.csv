@@ -1,0 +1,321 @@
+ticket_id,description,priority,assigned_team,status
+T0003_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0000_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0002_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0001_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0005_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0007_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0006_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0004_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0009_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0010_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0008_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0011_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0013_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0012_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0014_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0015_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0017_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0018_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0016_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0019_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0021_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0020_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0022_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0023_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0024_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0026_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0027_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0025_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0029_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0030_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0028_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0031_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0034_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0032_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0033_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0035_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0037_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0036_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0039_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0038_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0043_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0040_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0041_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0042_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0044_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0045_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0046_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0047_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0048_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0049_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0050_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0051_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0052_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0053_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0054_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0055_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0056_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0057_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0058_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0059_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0061_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0060_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0062_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0063_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0065_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0064_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0067_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0066_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0068_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0069_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0070_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0071_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0072_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0073_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0075_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0074_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0076_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0077_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0079_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0078_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0080_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0081_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0082_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0083_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0084_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0085_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0086_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0087_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0089_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0088_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0090_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0091_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0092_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0093_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0094_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0095_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0096_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0097_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0098_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0099_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0100_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0101_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0102_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0103_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0105_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0104_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0107_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0106_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0109_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0108_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0111_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0110_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0119_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0118_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0120_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0121_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0153_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0154_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0155_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0158_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0191_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0192_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0193_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0196_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0229_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0230_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0231_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0232_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0254_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0253_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0255_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0256_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0289_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0290_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0291_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0292_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0328_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0329_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0330_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0331_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0366_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0365_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0367_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0368_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0403_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0402_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0404_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0405_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0436_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0437_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0443_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0438_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0470_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0474_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0475_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0479_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0513_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0508_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0514_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0516_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0545_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0550_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0551_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0553_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0586_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0587_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0591_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0594_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0621_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0626_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0631_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0632_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0656_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0662_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0669_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0670_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0694_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0700_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0707_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0708_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0731_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0737_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0742_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0744_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0771_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0773_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T0780_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0781_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0811_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0812_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0818_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0821_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0849_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0850_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0856_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0855_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0884_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0888_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T0894_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0892_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0921_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0925_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T0932_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0933_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0957_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T0959_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0965_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0964_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T0974_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T0975_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1004_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1005_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1013_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1014_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1041_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1043_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1051_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1053_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1078_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1082_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1089_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1092_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1117_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1119_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1129_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1131_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1155_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1154_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1166_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1167_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1191_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1192_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1202_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1203_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1226_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1231_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1238_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1239_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1263_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1267_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1276_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1277_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1303_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1301_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1315_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1316_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1336_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1341_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1350_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1355_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1378_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1376_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1388_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1415_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1390_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1414_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1426_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1453_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1449_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1427_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1464_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1488_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1500_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1491_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1465_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1503_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1524_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1527_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1537_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1541_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1565_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1574_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1561_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1610_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1576_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1595_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1600_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1631_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1615_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1645_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1635_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1652_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1666_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1684_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1672_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1704_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1690_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1709_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1721_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1738_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1727_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1756_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1742_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1763_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1776_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1773_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1792_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1801_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1828_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1813_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1812_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1850_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1836_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1847_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1865_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1872_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1887_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1883_my_application_is_not_working,my application is not working,medium,general_support,resolved
+T1898_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1909_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1923_my_payment_was_declined,my payment was declined,medium,billing_support,resolved
+T1937_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1924_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1949_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1961_i_need_help_with_my_order,i need help with my order,medium,general_support,resolved
+T1962_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1976_i_have_a_billing_problem,i have a billing problem,medium,billing_support,resolved
+T1988_i_cannot_login_to_my_account,i cannot login to my account,medium,account_support,resolved
+T1997_i_forgot_my_password,i forgot my password,medium,account_support,resolved
+T1998_my_application_is_not_working,my application is not working,medium,general_support,resolved
