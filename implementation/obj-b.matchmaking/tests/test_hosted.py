@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import unittest
 from pathlib import Path
 import tempfile
@@ -16,6 +17,7 @@ del support
 
 
 class HostedSmokeTests(unittest.TestCase):
+    @unittest.skipUnless(hasattr(os, "mkfifo"), "hosted smoke opens a FIFO")
     def test_retries_land_on_the_same_shard(self) -> None:
         pattern = {
             "size": "smoke",
