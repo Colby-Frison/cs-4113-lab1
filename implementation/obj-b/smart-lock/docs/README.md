@@ -10,7 +10,7 @@ Grafana Loki seemed like a better choice for our application because it is desig
 
 I ultimately chose **Grafana Loki with Grafana Alloy and Grafana** because it provided the functionality we needed without the additional complexity of the ELK stack.
 
-### Deployment (50 Points)
+### Deployment
 
 I deployed the logging stack into an existing Minikube Kubernetes cluster using Helm. The deployment consists of three main components:
 
