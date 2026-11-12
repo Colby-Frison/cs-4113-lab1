@@ -1,5 +1,6 @@
 */local_notes/*
 __pycache__/
 *.py[cod]
-
+output/
 .cursor
+.vscode/
