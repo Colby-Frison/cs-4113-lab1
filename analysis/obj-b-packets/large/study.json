@@ -1,0 +1,27 @@
+{
+  "mode": "monolith",
+  "routers": 1000,
+  "seed": 7,
+  "topology": "topology/as20000102.txt",
+  "sources": 100,
+  "degree_per_server": 70,
+  "qsize_per_server": 4,
+  "min_qsize": 8,
+  "validate_wait": 0.01,
+  "lookup_wait": 0.03,
+  "forward_wait_mean": 0.06,
+  "ttl": 64,
+  "baseline_servers": 1500,
+  "target_busiest_utilization": 0.7,
+  "packets": 100000,
+  "traffic_seeds": [1],
+  "sets": {
+    "base": 1.0,
+    "srv-10": 0.9,
+    "srv-20": 0.8,
+    "srv-30": 0.7,
+    "srv+25": 1.25,
+    "srv+50": 1.5,
+    "srv+100": 2.0
+  }
+}

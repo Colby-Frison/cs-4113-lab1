@@ -87,6 +87,7 @@ python -m unittest discover -s implementation/obj-a/tests -v
 | `tests/test_server.py` | The visit sleeps each wait in order, forwards `raw_line`, logs `NO-OUT-EDGE` when there is no edge, and still finishes the visit when a gRPC send fails. |
 | `tests/test_grpc_spec.py` | Listen flags require `host:port`. A queue's default dial calls a server function. A server function's dial calls a queue. |
 | `tests/test_grpc_loopback.py` | A real localhost `Submit` accepts `j0`, drops `j1` when the buffer holds one job, and a server function forwards the original row. Skipped when grpcio is not installed. |
+| `tests/test_packet_fields.py` | Packet rows round-trip, three-column rows are unchanged, the TTL on the message beats the row, and the analyzer does not count a dropped job as delivered. |
 | `tests/test_smoke.py` | Generator, queue, and stateless server function as three processes. Two jobs, two of each event, queue id `q0`, server id `0`, no `QUEUE-FULL`, sink rows equal generated rows. |
 
 The gRPC listen-until-Ctrl-C path is not a subprocess test, because that process is meant to stay up. The loopback test covers the RPC itself.

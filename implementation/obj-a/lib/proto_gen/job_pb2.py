@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tjob.proto\")\n\x04Task\x12\x0b\n\x03tid\x18\x01 \x01(\x05\x12\x14\n\x0cwait_seconds\x18\x02 \x01(\x01\"S\n\x03Job\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61rrival_time\x18\x02 \x01(\x01\x12\x14\n\x05tasks\x18\x03 \x03(\x0b\x32\x05.Task\x12\x10\n\x08raw_line\x18\x04 \x01(\t\":\n\x10SubmitJobRequest\x12\x11\n\x03job\x18\x01 \x01(\x0b\x32\x04.Job\x12\x13\n\x0bsource_edge\x18\x02 \x01(\t\"%\n\x11SubmitJobResponse\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\tjob.proto\")\n\x04Task\x12\x0b\n\x03tid\x18\x01 \x01(\x05\x12\x14\n\x0cwait_seconds\x18\x02 \x01(\x01\"\x82\x01\n\x03Job\x12\x0e\n\x06job_id\x18\x01 \x01(\t\x12\x14\n\x0c\x61rrival_time\x18\x02 \x01(\x01\x12\x14\n\x05tasks\x18\x03 \x03(\x0b\x32\x05.Task\x12\x10\n\x08raw_line\x18\x04 \x01(\t\x12\x0e\n\x06\x64st_ip\x18\x05 \x01(\x07\x12\x0b\n\x03ttl\x18\x06 \x01(\x05\x12\x10\n\x08next_hop\x18\x07 \x01(\t\":\n\x10SubmitJobRequest\x12\x11\n\x03job\x18\x01 \x01(\x0b\x32\x04.Job\x12\x13\n\x0bsource_edge\x18\x02 \x01(\t\"%\n\x11SubmitJobResponse\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,10 +33,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
   _globals['_TASK']._serialized_start=13
   _globals['_TASK']._serialized_end=54
-  _globals['_JOB']._serialized_start=56
-  _globals['_JOB']._serialized_end=139
-  _globals['_SUBMITJOBREQUEST']._serialized_start=141
-  _globals['_SUBMITJOBREQUEST']._serialized_end=199
-  _globals['_SUBMITJOBRESPONSE']._serialized_start=201
-  _globals['_SUBMITJOBRESPONSE']._serialized_end=238
+  _globals['_JOB']._serialized_start=57
+  _globals['_JOB']._serialized_end=187
+  _globals['_SUBMITJOBREQUEST']._serialized_start=189
+  _globals['_SUBMITJOBREQUEST']._serialized_end=247
+  _globals['_SUBMITJOBRESPONSE']._serialized_start=249
+  _globals['_SUBMITJOBRESPONSE']._serialized_end=286
 # @@protoc_insertion_point(module_scope)

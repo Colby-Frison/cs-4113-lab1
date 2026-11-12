@@ -43,7 +43,7 @@ The course comment wrote `--ingrpc 0.0.0.0,5` with no port. A listen address nee
 
 ## Three services, one job
 
-`job.proto` is the shared `Job` (id, arrival time, wait tasks, and the original CSV `raw_line`). Each direction is its own service with the same `Submit` RPC:
+`job.proto` is the shared `Job` (id, arrival time, wait tasks, and the original CSV `raw_line`, plus `dst_ip`, `ttl`, and `next_hop`, which only the packet routing application sets). Each direction is its own service with the same `Submit` RPC:
 
 | Proto | Client | Server |
 | --- | --- | --- |

@@ -99,6 +99,11 @@ def error_queue_full(job_id: str, qid: str, now: float | None = None) -> str:
     return format_event(job_id, qid, "ERROR", "QUEUE-FULL", now)
 
 
+def error_ttl_expired(job_id: str, qid: str, now: float | None = None) -> str:
+    """The packet's TTL ran out before it reached its destination."""
+    return format_event(job_id, qid, "ERROR", "TTL-EXPIRED", now)
+
+
 def error_no_out_edge(job_id: str, qid: str, now: float | None = None) -> str:
     """Visit finished and the server function had no outfile."""
     return format_event(job_id, qid, "ERROR", "NO-OUT-EDGE", now)

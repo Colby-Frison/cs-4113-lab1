@@ -14,6 +14,12 @@ message Job {
   double arrival_time = 2;
   repeated Task tasks = 3;
   string raw_line = 4;
+  // Packet header for the routing application. Other applications leave these
+  // unset. The message is authoritative, because ttl and next_hop change on
+  // the way while raw_line does not.
+  fixed32 dst_ip = 5;   // IPv4 destination as a 32-bit integer
+  int32 ttl = 6;
+  string next_hop = 7;  // Filled by a lookup stage for the forward stage
 }
 
 message SubmitJobRequest {

@@ -3,3 +3,8 @@ __pycache__/
 *.py[cod]
 
 .cursor
+.idea
+
+# Archives for copying code and results to and from Sooner
+*.tgz
+*.tar.gz

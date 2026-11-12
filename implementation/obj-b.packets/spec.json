@@ -1,0 +1,15 @@
+{
+  "routers": 1000,
+  "seed": 7,
+  "topology": "topology/as20000102.txt",
+  "degree_per_server": 70,
+  "qsize_per_server": 4,
+  "min_qsize": 8,
+  "validate_wait": 0.005,
+  "lookup_wait": 0.015,
+  "forward_wait_mean": 0.03,
+  "ttl": 64,
+  "sources": 100,
+  "packets_per_second": 20,
+  "duration_seconds": 60
+}

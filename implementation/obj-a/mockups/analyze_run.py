@@ -12,7 +12,9 @@ function, before ``ENTERS-SERVER`` on a FIFO. Those handoffs are left out so a
 visit stays open until ``EXITS-SERVER``. A ``DEPART-VIA`` that is followed by
 another arrival of the same job is rewritten to that next queue id, so
 end-to-end metrics treat only the last departure (the sink file) as leaving
-the system.
+the system. A last departure to ``host:port`` is a hop that went nowhere: the
+next queue rejected the job, or the job stopped at that queue. It stays internal,
+so a dropped job does not count as delivered.
 """
 
 from __future__ import annotations
@@ -117,7 +119,8 @@ def prepare(records: list[Record]) -> list[Record]:
         arrives = [event for event in events if event.kind == "ARRIVE-VIA"]
         departs = [event for event in events if event.kind == "DEPART-VIA"]
         internal_arrives = arrives[1:]
-        internal_departs = departs[:-1]
+        left_system = bool(departs) and ":" not in departs[-1].rest
+        internal_departs = departs[:-1] if left_system else departs
         for depart, arrive in zip(internal_departs, internal_arrives):
             depart.rest = arrive.qsid
             if arrive.rest not in queue_ids:
@@ -127,7 +130,7 @@ def prepare(records: list[Record]) -> list[Record]:
         for arrive in internal_arrives[len(internal_departs) :]:
             if arrive.rest not in queue_ids:
                 arrive.rest = arrive.qsid
-        if departs and departs[-1].rest in queue_ids:
+        if left_system and departs[-1].rest in queue_ids:
             departs[-1].rest = "sink"
     return kept
 
@@ -232,7 +235,28 @@ def _longest_job(emetrics: Path) -> str | None:
     return max(rows, key=lambda row: int(row["turnaround-time"]))["Job-id"]
 
 
-def run_tools(out: Path, title: str, trace_limit: int | None = None) -> None:
+def keep_queues(quse: Path, queues: list[str], out: Path) -> Path:
+    """Copy only the rows of ``queues`` (ids without the ``q``), for a readable USE plot."""
+    wanted = set(queues)
+    with quse.open(encoding="utf-8", newline="") as source, out.open(
+        "w", encoding="utf-8", newline=""
+    ) as target:
+        reader = csv.reader(source)
+        writer = csv.writer(target, lineterminator="\n")
+        header = next(reader)
+        column = header.index("queue-sys-id")
+        writer.writerow(header)
+        writer.writerows(row for row in reader if row[column] in wanted)
+    return out
+
+
+def run_tools(
+    out: Path,
+    title: str,
+    trace_limit: int | None = None,
+    use_queues: list[str] | None = None,
+) -> None:
+    """Run every tool on ``out``. ``use_queues`` limits only the USE plot to those queues."""
     events = out / "events.log"
     qmet = out / "qmet.csv"
     qconf = out / "qconf.csv"
@@ -256,9 +280,10 @@ def run_tools(out: Path, title: str, trace_limit: int | None = None) -> None:
         "compute-use/compute_use.py",
         ["--qmet", str(qmet), "--config", str(qconf), "--out", str(quse), "-v"],
     )
+    plotted = quse if use_queues is None else keep_queues(quse, use_queues, out / "quse-plotted.csv")
     _tool(
         "plot-use/plot_use.py",
-        ["--quse", str(quse), "--out", str(out / "use.png"), "--title", f"{title} USE"],
+        ["--quse", str(plotted), "--out", str(out / "use.png"), "--title", f"{title} USE"],
     )
     _tool(
         "plot-sys-metrics/plot_sys_metrics.py",
@@ -319,6 +344,7 @@ def analyze(
     run_dir: Path,
     specs: dict[str, tuple[int, int]] | None = None,
     trace_limit: int | None = None,
+    use_queues: list[str] | None = None,
 ) -> Path:
     records = prepare(load_records(run_dir))
     out = run_dir / "analysis"
@@ -326,7 +352,7 @@ def analyze(
     write_events(records, out / "events.log")
     write_qmet(records, out / "qmet.csv")
     write_qconf(records, out / "qconf.csv", specs)
-    run_tools(out, run_dir.parent.name, trace_limit)
+    run_tools(out, run_dir.parent.name, trace_limit, use_queues)
     return out
 
 
