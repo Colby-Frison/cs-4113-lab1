@@ -7,6 +7,7 @@ import logging
 import os
 import signal
 import time
+from typing import Callable
 
 from lib.grpc_spec import parse_listen
 from lib.logsetup import configure_logging
@@ -37,8 +38,22 @@ def build_parser(description: str, *, with_stage: bool) -> argparse.ArgumentPars
     return parser
 
 
-def run_cli(stage: str | None, argv: list[str] | None, description: str) -> int:
+def run_cli(
+    stage: str | None,
+    argv: list[str] | None,
+    description: str,
+    *,
+    add_options: Callable[[argparse.ArgumentParser], None] | None = None,
+    make_router: Callable[..., Router] | None = None,
+) -> int:
+    """Parse the options, build the router, and serve visits until interrupted.
+
+    Another application can add options with ``add_options``, and build its own
+    ``Router`` subclass with ``make_router(args, stage, *router_args, **router_kwargs)``.
+    """
     parser = build_parser(description, with_stage=stage is None)
+    if add_options is not None:
+        add_options(parser)
     args = parser.parse_args(argv)
     stage = stage or args.stage
     if stage in NEEDS_ROUTES and not args.routes:
@@ -58,7 +73,8 @@ def run_cli(stage: str | None, argv: list[str] | None, description: str) -> int:
     table = RoutingTable.load(args.routes) if stage in NEEDS_ROUTES else None
     handle = open(args.sink, "a", encoding="utf-8", newline="\n") if stage in NEEDS_SINK else None
     try:
-        router = Router(
+        build = Router if make_router is None else lambda *a, **k: make_router(args, stage, *a, **k)
+        router = build(
             args.qid,
             args.server_id,
             log,

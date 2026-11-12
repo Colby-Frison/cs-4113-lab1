@@ -2,8 +2,10 @@
 # The body of every model's Slurm job. Each model's run.sbatch sets the resources and
 # calls this from the repository root:
 #   job.sh MODEL NEED_TASKS [run_study.py arguments]
-# NEED_TASKS is a rough count of the processes and threads the model starts. The job
-# stops at once if the node's limits are lower, so a run doesn't fail an hour in.
+# MODEL is a packet routing model such as simple, or a folder under analysis/ such as
+# obj-b-firewall/simple. NEED_TASKS is a rough count of the processes and threads the
+# model starts. The job stops at once if the node's limits are lower, so a run doesn't
+# fail an hour in.
 set -uo pipefail
 
 MODEL="$1"
@@ -12,10 +14,14 @@ shift 2
 JOB_ID="${SLURM_JOB_ID:-local}"
 REPO="${SLURM_SUBMIT_DIR:-$PWD}"
 STUDIES="$REPO/analysis/obj-b-packets"
+case "$MODEL" in
+    */*) MODEL_DIR="$REPO/analysis/$MODEL"; TAG="${MODEL//\//-}" ;;
+    *) MODEL_DIR="$STUDIES/$MODEL"; TAG="packets-$MODEL" ;;
+esac
 # FIFOs and per-line log flushes stay off the shared filesystem during a run.
-WORK="${PACKETS_WORK:-/tmp/packets-$MODEL-$JOB_ID}"
+WORK="${PACKETS_WORK:-/tmp/$TAG-$JOB_ID}"
 # Each run's raw logs are packed here as soon as the run is analyzed.
-ARCHIVE="${PACKETS_ARCHIVE:-/scratch/$USER/packets-$MODEL/$JOB_ID}"
+ARCHIVE="${PACKETS_ARCHIVE:-/scratch/$USER/$TAG/$JOB_ID}"
 PYTHON="${PACKETS_PYTHON:-$HOME/packets-venv/bin/python}"
 
 fail() {
@@ -23,7 +29,7 @@ fail() {
     exit "$2"
 }
 
-[ -f "$STUDIES/$MODEL/study.json" ] || fail "Submit from the repository root. Looked for $STUDIES/$MODEL/study.json" 2
+[ -f "$MODEL_DIR/study.json" ] || fail "Submit from the repository root. Looked for $MODEL_DIR/study.json" 2
 if command -v module >/dev/null 2>&1; then
     module purge
     module load Python/3.13.5-GCCcore-14.3.0
@@ -56,7 +62,7 @@ df -h "$WORK" | tail -1
 mkfifo "$WORK/fifo-check" || fail "$WORK does not support FIFOs. Set PACKETS_WORK to a directory that does." 3
 rm -f "$WORK/fifo-check"
 # Past 6000 queues, a run listens on 127.0.0.2 and up as well as 127.0.0.1.
-queues="$("$PYTHON" -c "import json, sys; s = json.load(open(sys.argv[1])); print(s['routers'] * (3 if s.get('mode') == 'stages' else 1))" "$STUDIES/$MODEL/study.json")"
+queues="$("$PYTHON" -c "import json, sys; s = json.load(open(sys.argv[1])); print(s['routers'] * (3 if s.get('mode') == 'stages' else 1))" "$MODEL_DIR/study.json")"
 echo "queues $queues"
 if [ "$queues" -gt 6000 ]; then
     "$PYTHON" -c "import socket; s = socket.socket(); s.bind(('127.0.0.2', 0)); s.close()" \

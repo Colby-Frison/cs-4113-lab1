@@ -64,6 +64,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="Mean forward wait. A packet's wait scales with its size.",
     )
     parser.add_argument("--seed", type=int, default=1)
+    parser.add_argument(
+        "--blocked-share",
+        type=float,
+        help="Send this share to the firewall's blocked hosts (.240 to .254), the rest below them",
+    )
     parser.add_argument("--out", help="File or FIFO (default: stdout)")
     parser.add_argument("--copy", help="Also write every row to this file")
     return parser
@@ -79,12 +84,24 @@ def packet_tasks(
     )
 
 
-def draw_destination(attributes: random.Random, source: int, routers: int) -> int:
-    """A uniform router other than the source, and a host from 1 to 254 inside it."""
+def draw_destination(
+    attributes: random.Random, source: int, routers: int, blocked_share: float | None = None
+) -> int:
+    """A uniform router other than the source, and a host from 1 to 254 inside it.
+
+    With ``blocked_share``, that share of packets goes to hosts 240 to 254, which
+    the firewall blocks, and the rest to hosts 1 to 239.
+    """
     router = attributes.randrange(routers - 1)
     if router >= source:
         router += 1
-    return router_network(router) | attributes.randint(1, 254)
+    if blocked_share is None:
+        host = attributes.randint(1, 254)
+    elif attributes.random() < blocked_share:
+        host = attributes.randint(240, 254)
+    else:
+        host = attributes.randint(1, 239)
+    return router_network(router) | host
 
 
 def generate(
@@ -117,7 +134,7 @@ def generate(
                 f"p{args.source}-{sequence}",
                 clock(),
                 packet_tasks(size, args.validate_wait, args.lookup_wait, args.forward_wait_mean),
-                dst_ip=draw_destination(attributes, args.source, args.routers),
+                dst_ip=draw_destination(attributes, args.source, args.routers, args.blocked_share),
                 ttl=args.ttl,
             )
         )

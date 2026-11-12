@@ -30,6 +30,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 APP = REPO / "implementation" / "obj-b.packets"
 OBJ_A = REPO / "implementation" / "obj-a"
+FIREWALL = REPO / "implementation" / "obj-b.firewall"
 sys.path[:0] = [str(APP), str(OBJ_A), str(OBJ_A / "mockups")]
 
 import analyze_run
@@ -48,6 +49,7 @@ TOOL_OUTPUTS = (
 LARGEST_COPIED_BYTES = 50_000_000
 # Above this many queues, the USE plot and the summary table show only the busiest.
 LISTED_QUEUES = 10
+FIREWALL_KEYS = ("firewall_rules", "rule_wait", "blocked_share")
 # Slots 1 to 3 of the validated categorical palette, then neutral inks.
 SERIES = ("#2a78d6", "#eb6834", "#1baf7a")
 OTHER = "#b9b8b0"
@@ -65,20 +67,34 @@ def plan_study(study: dict) -> dict:
     sources = build_network.choose_sources(links, spec["sources"], spec["seed"])
     visits = build_network.visit_rates(tables, sources)
     mode = study.get("mode", build_network.MONOLITH)
+    # A firewall adds N * r to the visit that checks it. Denied packets, a share p,
+    # make only that visit, at their source router.
+    check = study.get("firewall_rules", 0) * study.get("rule_wait", 0.0)
+    denied = study.get("blocked_share", 0.0) if study.get("firewall_rules") else 0.0
+    source_share = [1 / len(sources) if router in sources else 0.0 for router in range(len(visits))]
+
+    def checked(router: int) -> float:
+        return (1 - denied) * visits[router] + denied * source_share[router]
+
+    def allowed(router: int) -> float:
+        return (1 - denied) * visits[router]
+
     # A decomposed router has one queue per stage, and each stage has its own service time.
-    waits = (
-        [spec["validate_wait"], spec["lookup_wait"], spec["forward_wait_mean"]]
+    stages = (
+        [(spec["validate_wait"] + check, checked), (spec["lookup_wait"], allowed),
+         (spec["forward_wait_mean"], allowed)]
         if mode == build_network.STAGES
-        else [spec["validate_wait"] + spec["lookup_wait"] + spec["forward_wait_mean"]]
+        else [(spec["validate_wait"] + spec["lookup_wait"] + spec["forward_wait_mean"] + check, checked)]
     )
+    # (queue id, router, service time, packets per offered packet)
     queues = [
-        (build_network.queue_id(router, mode, stage), router, wait)
+        (build_network.queue_id(router, mode, stage), router, wait, arrivals(router))
         for router in range(len(visits))
-        for stage, wait in enumerate(waits)
+        for stage, (wait, arrivals) in enumerate(stages)
     ]
     baseline = build_network.allocate_servers(visits, study["baseline_servers"])
     rate = study["target_busiest_utilization"] / max(
-        visits[router] * wait / baseline[router] for _, router, wait in queues
+        load * wait / baseline[router] for _, router, wait, load in queues
     )
     sets = {}
     for name, factor in study["sets"].items():
@@ -89,7 +105,7 @@ def plan_study(study: dict) -> dict:
             "total_servers": total,
             "servers": servers,
             "predicted_utilization": [
-                rate * visits[router] * wait / servers[router] for _, router, wait in queues
+                rate * load * wait / servers[router] for _, router, wait, load in queues
             ],
         }
     # The baseline's likeliest bottlenecks keep their colors in every set.
@@ -100,8 +116,9 @@ def plan_study(study: dict) -> dict:
         "mode": mode,
         "rate": rate,
         "visits": visits,
-        "queues": [qid for qid, _, _ in queues],
-        "queue_router": [router for _, router, _ in queues],
+        "queues": [queue[0] for queue in queues],
+        "queue_router": [queue[1] for queue in queues],
+        "blocked_share": denied,
         "busiest": busiest,
         "highlight": busiest[: len(SERIES)],
         "sets": sets,
@@ -119,7 +136,10 @@ def base_spec(study: dict) -> dict:
         "routers", "seed", "topology", "sources", "degree_per_server", "qsize_per_server",
         "min_qsize", "validate_wait", "lookup_wait", "forward_wait_mean", "ttl",
     )
-    return {key: study[key] for key in keys}
+    spec = {key: study[key] for key in keys}
+    # Firewall settings pass through only when a study has them.
+    spec.update({key: study[key] for key in FIREWALL_KEYS if key in study})
+    return spec
 
 
 def read_events(path: Path):
@@ -208,13 +228,17 @@ def run_metrics(
         with path.open(encoding="utf-8", newline="") as handle:
             arrival_times += [float(row[1]) for row in list(csv.reader(handle))[1:]]
     span = max(arrival_times) - min(arrival_times)
+    # Firewall denials are intended, so loss counts only the packets the firewall allowed.
+    denied = summary.get("FIREWALL-DENY", 0)
+    allowed = sent - denied
     return {
         "sent": sent,
         "delivered": summary["delivered"],
+        "denied": denied,
         "dropped": summary["QUEUE-FULL"],
         "routing_faults": summary["TTL-EXPIRED"] + summary["NO-OUT-EDGE"],
         "unaccounted": summary["unaccounted"],
-        "loss_percent": 100 * (sent - summary["delivered"]) / sent if sent else 0.0,
+        "loss_percent": 100 * (allowed - summary["delivered"]) / allowed if allowed else 0.0,
         "offered_per_second": (sent - 1) / span if span else 0.0,
         "delivered_per_second": 1000 * summary["delivered"] / end if end else 0.0,
         "mean_latency_ms": statistics.mean(durations) if durations else float("nan"),
@@ -380,7 +404,7 @@ def write_comparison(rows: list[dict], plan: dict, results: Path) -> None:
 
 def write_results(rows: list[dict], plan: dict, study: dict, results: Path, host: str) -> None:
     fields = [
-        "set", "traffic_seed", "server", "total_servers", "sent", "delivered", "dropped",
+        "set", "traffic_seed", "server", "total_servers", "sent", "delivered", "denied", "dropped",
         "routing_faults", "unaccounted", "loss_percent", "offered_per_second",
         "delivered_per_second", "mean_latency_ms", "median_latency_ms", "p90_latency_ms",
     ]
@@ -403,9 +427,17 @@ def write_results(rows: list[dict], plan: dict, study: dict, results: Path, host
         f"Requested rate {plan['rate']:.1f} packets per second, "
         f"{study['packets']} packets per run, server functions in {rows[0]['server']}.",
         "Each value is the mean over the runs of that set.",
+    ]
+    if study.get("firewall_rules"):
+        lines.append(
+            f"Firewall: {study['firewall_rules']} rules at {1000 * study.get('rule_wait', 0):g} ms each, "
+            f"{100 * plan['blocked_share']:g}% of packets sent to blocked hosts. "
+            "Loss counts only packets the firewall allowed. Denied packets are in their own column."
+        )
+    lines += [
         "",
-        "| Set | Servers | Runs | Offered /s | Delivered /s | Mean latency (ms) | Median (ms) | P90 (ms) | Loss (%) | Dropped | Faults | Unaccounted |",
-        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
+        "| Set | Servers | Runs | Offered /s | Delivered /s | Mean latency (ms) | Median (ms) | P90 (ms) | Loss (%) | Denied | Dropped | Faults | Unaccounted |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for name in order:
         count = sum(1 for r in rows if r["set"] == name)
@@ -414,7 +446,8 @@ def write_results(rows: list[dict], plan: dict, study: dict, results: Path, host
             f"| {mean(name, 'offered_per_second'):.1f} | {mean(name, 'delivered_per_second'):.1f} "
             f"| {mean(name, 'mean_latency_ms'):.0f} | {mean(name, 'median_latency_ms'):.0f} "
             f"| {mean(name, 'p90_latency_ms'):.0f} | {mean(name, 'loss_percent'):.2f} "
-            f"| {mean(name, 'dropped'):.0f} | {mean(name, 'routing_faults'):.0f} | {mean(name, 'unaccounted'):.0f} |"
+            f"| {mean(name, 'denied'):.0f} | {mean(name, 'dropped'):.0f} "
+            f"| {mean(name, 'routing_faults'):.0f} | {mean(name, 'unaccounted'):.0f} |"
         )
     every = plan["queues"]
     queues = every if len(every) <= LISTED_QUEUES else plan["busiest"]
@@ -451,6 +484,17 @@ def write_results(rows: list[dict], plan: dict, study: dict, results: Path, host
     write_comparison(rows, plan, results)
 
 
+def extension_for(study: dict):
+    """The firewall application's additions for a study with a firewall, else none."""
+    if not study.get("firewall_rules"):
+        return None
+    if str(FIREWALL) not in sys.path:
+        sys.path.insert(0, str(FIREWALL))
+    from fw.extension import FirewallExtension
+
+    return FirewallExtension()
+
+
 def run_one(name: str, seed: int, first: bool, study: dict, plan: dict, args) -> dict:
     entry = plan["sets"][name]
     spec = base_spec(study)
@@ -461,7 +505,8 @@ def run_one(name: str, seed: int, first: bool, study: dict, plan: dict, args) ->
     )
     run_dir = args.work_dir / name / f"seed-{seed}"
     summary = run_local.run_network(
-        spec, plan["mode"], run_dir, plan["rate"], packets=study["packets"], server_bin=args.server_bin
+        spec, plan["mode"], run_dir, plan["rate"], packets=study["packets"],
+        server_bin=args.server_bin, extension=extension_for(study),
     )
     servers = queue_servers(plan, name)
     if first:
@@ -517,7 +562,11 @@ def run_one(name: str, seed: int, first: bool, study: dict, plan: dict, args) ->
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("model", help="Folder next to this script with a study.json, such as simple")
+    parser.add_argument(
+        "model",
+        help="Folder next to this script with a study.json, such as simple, "
+        "or one under analysis/, such as obj-b-firewall/simple",
+    )
     parser.add_argument("--study", type=Path, help="Default: MODEL/study.json")
     parser.add_argument("--only", default="", help="Comma-separated sets (default: all)")
     parser.add_argument("--seeds", default="", help="Comma-separated traffic seeds (default: the study's)")
@@ -530,7 +579,8 @@ def main(argv: list[str] | None = None) -> int:
         help="Pack each run's raw logs into this folder, then delete them (default: keep them)",
     )
     args = parser.parse_args(argv)
-    model = HERE / args.model
+    # A bare name is a packet routing model. A path is a model of another application.
+    model = HERE.parent / args.model if "/" in args.model else HERE / args.model
     args.study = args.study or model / "study.json"
     args.work_dir = args.work_dir or model / "runs"
     args.results = args.results or model / "results"
@@ -564,7 +614,7 @@ def main(argv: list[str] | None = None) -> int:
             rows.append(row)
             print(
                 f"{name} seed {seed}: sent {row['sent']} delivered {row['delivered']} "
-                f"dropped {row['dropped']} unaccounted {row['unaccounted']} "
+                f"denied {row['denied']} dropped {row['dropped']} unaccounted {row['unaccounted']} "
                 f"mean {row['mean_latency_ms']:.0f} ms ({time.time() - started:.0f} s)",
                 flush=True,
             )

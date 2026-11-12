@@ -288,6 +288,8 @@ The analysis tools act only on `QUEUE-FULL` among error kinds, so `TTL-EXPIRED` 
 | `run_local.py` | New: a small network on one machine |
 | Slurm jobs | One-node jobs for each model in `analysis/obj-b-packets/`. The multi-node launcher is not written. |
 
+The [firewall application](../obj-b.firewall/architecture.md) reuses this code through three hooks that change nothing here: `Router._admit` and `Router._reject` around `EXITS-SERVER`, a router factory and extra options in `pk/runtime.run_cli`, and an optional extension in `run_local.run_network`.
+
 ### Contract for the C++ server function
 
 The [C++ port](cpp/README.md) can replace the Python server function on any router, because it keeps to this contract. `tests/test_parity_and_network.py` enforces it. Queues stay in Python.

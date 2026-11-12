@@ -11,6 +11,10 @@ drops a packet saves the work of the stages after it.
 
 A visit returns only after the packet has been handed on, so a server thread
 stays busy for the whole visit.
+
+A subclass can stop a packet during a visit through two hooks: ``_admit`` runs
+inside the visit, just before ``EXITS-SERVER``, and ``_reject`` runs after it for a
+packet that was not admitted. The firewall application uses them.
 """
 
 from __future__ import annotations
@@ -85,7 +89,8 @@ class Router:
         self.submit_fn = submit_fn
 
     def monolith(self, job: Job) -> None:
-        self._work(job, None)
+        if not self._work(job, None):
+            return
         if not self._ttl_is_valid(job):
             return
         next_hop = self._lookup(job)
@@ -93,8 +98,7 @@ class Router:
             self._hand_on(job, next_hop)
 
     def validate(self, job: Job) -> None:
-        self._work(job, VALIDATE_TID)
-        if self._ttl_is_valid(job):
+        if self._work(job, VALIDATE_TID) and self._ttl_is_valid(job):
             self._send(job, self.next_qid)
 
     def lookup(self, job: Job) -> None:
@@ -107,7 +111,8 @@ class Router:
         self._work(job, FORWARD_TID)
         self._hand_on(job, job.next_hop)
 
-    def _work(self, job: Job, tid: int | None) -> None:
+    def _work(self, job: Job, tid: int | None) -> bool:
+        """Spend the visit's service time. False when ``_admit`` stopped the packet."""
         self.log.info("%s", enters_server(job.job_id, self.qid, self.server_id))
         for task in job.tasks:
             if tid is not None and task.tid != tid:
@@ -115,7 +120,18 @@ class Router:
             self.log.info("%s", task_start(job.job_id, self.qid, task.tid, task.wait_seconds))
             self.sleep_fn(task.wait_seconds)
             self.log.info("%s", task_end(job.job_id, self.qid, task.tid, task.wait_seconds))
+        admitted = self._admit(job, tid)
         self.log.info("%s", exits_server(job.job_id, self.qid, self.server_id))
+        if not admitted:
+            self._reject(job)
+        return admitted
+
+    def _admit(self, job: Job, tid: int | None) -> bool:
+        """Inside the visit, after the tasks. A subclass may spend time here or say no."""
+        return True
+
+    def _reject(self, job: Job) -> None:
+        """After the visit, for a packet ``_admit`` did not admit."""
 
     def _ttl_is_valid(self, job: Job) -> bool:
         if job.ttl > 0:

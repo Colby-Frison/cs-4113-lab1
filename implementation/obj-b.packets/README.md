@@ -103,6 +103,8 @@ The settings we can change are server placement, buffer sizes, and routing polic
 | `run_local.py` | Runs a small network on one machine |
 | `tests/` | Unit tests, whole networks, and Python and C++ compared |
 
+The [firewall application](../obj-b.firewall/README.md) builds on this code through three hooks: `_admit` and `_reject` in a router's visit, a router factory in `pk/runtime.py`, and an optional extension in `run_local.run_network`. Without them, nothing here changes.
+
 The [studies](../../analysis/obj-b-packets/README.md) run four models, from 10 routers to 10,200 queues, each with a one-node Slurm job for Sooner.
 
 ## Run

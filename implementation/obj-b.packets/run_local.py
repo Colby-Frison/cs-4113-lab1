@@ -40,6 +40,26 @@ READY_SEC_PER_PROCESS = 0.05
 DROP_ERRORS = ("QUEUE-FULL", "TTL-EXPIRED", "NO-OUT-EDGE")
 
 
+class Extension:
+    """What another application can add to a run. This base adds nothing.
+
+    The firewall application's ``fw.extension.FirewallExtension`` is one.
+    """
+
+    drop_errors: tuple[str, ...] = ()
+
+    def prepare(self, spec: dict, out: Path) -> None:
+        """Called after the build, before any process starts."""
+
+    def server_command(self, command: list, stage: str, spec: dict, server_bin: str | None) -> list:
+        """The command that starts one server function."""
+        return command
+
+    def generator_args(self, spec: dict) -> list:
+        """Extra options for every generator."""
+        return []
+
+
 class Run:
     """The processes of one run and where they log."""
 
@@ -127,14 +147,17 @@ def server_command(
     return command
 
 
-def start_servers(run: Run, server_bin: str | None, topology: dict, addresses: dict) -> list[str]:
+def start_servers(
+    run: Run, server_bin: str | None, topology: dict, addresses: dict, extension: Extension
+) -> list[str]:
     names = []
     for entry in topology["routers"]:
         queues = list(entry["queues"].items())
         for position, (stage, qid) in enumerate(queues):
             next_qid = queues[position + 1][1] if position + 1 < len(queues) else None
             name = f"sf-{qid}"
-            run.start(name, server_command(server_bin, entry, stage, qid, next_qid, addresses[qid]))
+            command = server_command(server_bin, entry, stage, qid, next_qid, addresses[qid])
+            run.start(name, extension.server_command(command, stage, topology["spec"], server_bin))
             names.append(name)
     return names
 
@@ -164,7 +187,12 @@ def start_queues(run: Run, topology: dict, addresses: dict) -> list[str]:
 
 
 def start_generators(
-    run: Run, topology: dict, rate: float, duration: float | None, packets: int | None
+    run: Run,
+    topology: dict,
+    rate: float,
+    duration: float | None,
+    packets: int | None,
+    extension: Extension,
 ) -> list[str]:
     """Each source gets an equal share of the rate, and of the packets if there is a count."""
     spec = topology["spec"]
@@ -191,6 +219,7 @@ def start_generators(
                 "--lookup-wait", spec["lookup_wait"],
                 "--forward-wait-mean", spec["forward_wait_mean"],
                 "--seed", spec.get("traffic_seed", spec["seed"]),
+                *extension.generator_args(spec),
                 "--out", f"{name}.fifo",
                 "--copy", f"jobs-{qid}.csv",
             ],
@@ -204,28 +233,30 @@ def count_lines(path: Path) -> int:
         return sum(1 for _ in handle)
 
 
-def account(out: Path) -> dict[str, int]:
+def account(out: Path, errors: tuple[str, ...] = DROP_ERRORS) -> dict[str, int]:
     """Count every packet sent, and how each one ended."""
-    counts = {"sent": 0, "delivered": 0, **{error: 0 for error in DROP_ERRORS}}
+    counts = {"sent": 0, "delivered": 0, **{error: 0 for error in errors}}
     for path in out.glob("jobs-*.csv"):
         counts["sent"] += max(0, count_lines(path) - 1)
     for path in out.glob("sink-*.csv"):
         counts["delivered"] += count_lines(path)
     for path in out.glob("*.log"):
         text = path.read_text(encoding="utf-8")
-        for error in DROP_ERRORS:
+        for error in errors:
             counts[error] += text.count(f" ERROR {error}")
     return counts
 
 
-def wait_for_packets(run: Run, generators: list[str], timeout: float) -> dict[str, int]:
+def wait_for_packets(
+    run: Run, generators: list[str], timeout: float, errors: tuple[str, ...] = DROP_ERRORS
+) -> dict[str, int]:
     deadline = time.time() + timeout
     pause = 0.2
     while True:
         if all(run.processes[name].poll() is not None for name in generators):
             started = time.time()
-            counts = account(run.out)
-            ended = counts["delivered"] + sum(counts[error] for error in DROP_ERRORS)
+            counts = account(run.out, errors)
+            ended = counts["delivered"] + sum(counts[error] for error in errors)
             if ended >= counts["sent"]:
                 return counts
             if time.time() > deadline:
@@ -245,8 +276,14 @@ def run_network(
     duration: float | None = None,
     packets: int | None = None,
     server_bin: str | None = None,
+    extension: Extension | None = None,
 ) -> dict:
-    """Build one network in ``out``, run it to the end, and return its packet accounting."""
+    """Build one network in ``out``, run it to the end, and return its packet accounting.
+
+    An ``extension`` lets another application add to the run, such as the firewall.
+    """
+    extension = extension or Extension()
+    errors = DROP_ERRORS + extension.drop_errors
     out = Path(out).resolve()
     if out.exists():
         shutil.rmtree(out)
@@ -254,18 +291,19 @@ def run_network(
     per_router = len(build_network.STAGE_NAMES) if mode == build_network.STAGES else 1
     hosts = loopback_hosts(spec["routers"] * per_router)
     topology = build_network.build(spec, mode, out, hosts)
+    extension.prepare(spec, out)
     addresses = load_addresses(out / "addresses.csv")
     expected = duration if duration is not None else packets / rate
 
     run = Run(out)
     started = time.time()
     try:
-        servers = start_servers(run, server_bin, topology, addresses)
+        servers = start_servers(run, server_bin, topology, addresses, extension)
         run.wait_for_listen(servers)
         queues = start_queues(run, topology, addresses)
         run.wait_for_listen(queues)
-        generators = start_generators(run, topology, rate, duration, packets)
-        counts = wait_for_packets(run, generators, 1.1 * expected + 120)
+        generators = start_generators(run, topology, rate, duration, packets, extension)
+        counts = wait_for_packets(run, generators, 1.1 * expected + 120, errors)
         run.interrupt(queues)
         run.interrupt(servers)
     finally:
@@ -280,7 +318,7 @@ def run_network(
         "longest_path_hops": topology["longest_path_hops"],
         "seconds": round(time.time() - started, 1),
         **counts,
-        "unaccounted": counts["sent"] - counts["delivered"] - sum(counts[e] for e in DROP_ERRORS),
+        "unaccounted": counts["sent"] - counts["delivered"] - sum(counts[e] for e in errors),
     }
     (out / "summary.json").write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8")
     return summary
