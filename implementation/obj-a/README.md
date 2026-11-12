@@ -51,6 +51,8 @@ The body is `{wall-clock seconds} {job id} IN {qid} {KIND} ...`. The time token 
 | Shared job, event, visit, and gRPC code | Imported by the scripts below. No install step. | [lib/README.md](lib/README.md) |
 | Workload generator | Produces the CSV. Does not speak gRPC. | [workload-generator/README.md](workload-generator/README.md) |
 | Queue | Buffer, drop-on-full, file and RPC edges. | [queue/README.md](queue/README.md) |
+| C++ helpers (tech-lead) | Shared job parse + event log for C++ ports. | [cpp/README.md](cpp/README.md) |
+| C++ queue (tech-lead) | Same flags and protos as `queue.py`, gRPC binary. | [queue-cpp/README.md](queue-cpp/README.md) |
 | Stateless server function | Sleeps the waits and forwards the row. | [server-func-stateless/README.md](server-func-stateless/README.md) |
 | Stateful server function | Same visit, plus an in-process visit count. | [server-func-stateful/README.md](server-func-stateful/README.md) |
 | KV store (tech-lead) | JSON persistence, hash sharding, 2PC replicas, $N \times M$ study. | [kv-store/README.md](kv-store/README.md) |

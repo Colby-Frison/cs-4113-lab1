@@ -91,4 +91,4 @@ python implementation/obj-a/queue/queue.py --qid q1 --ingrpc 0.0.0.0:50051,4 --o
 python implementation/obj-a/queue/queue.py --qid q0 -i jobs.csv --outgrpc 127.0.0.1:50051,2,queue
 ```
 
-There is no TLS. Docker and the C++ ports are separate tasks; they can speak these same protos later.
+There is no TLS. The C++ queue port is [queue-cpp](../queue-cpp/README.md). Docker and the other C++ ports are separate tasks; they speak these same protos.

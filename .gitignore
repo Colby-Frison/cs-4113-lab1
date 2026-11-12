@@ -3,3 +3,7 @@ __pycache__/
 *.py[cod]
 
 .cursor
+.vscode/
+compile_commands.json
+implementation/obj-b.matchmaking/studies/remote/_tmp_*.sh
+implementation/obj-b.matchmaking/studies/*/remote-run.log
