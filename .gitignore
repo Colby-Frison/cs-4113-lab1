@@ -8,7 +8,15 @@ firmware-source
 homekey-firmware
 
 implementation/obj-b/smart-lock/runs/**
+implementation/obj-b/smart-lock/orchestration/**
 
 # Except output directories and their contents
 !implementation/obj-b/smart-lock/runs/**/
 !implementation/obj-b/smart-lock/runs/**/outputs/**.png
+venv
+.venv
+
+/analysis/**
+!/analysis/**/
+!/analysis/**/*.png
+!/analysis/**/*.md

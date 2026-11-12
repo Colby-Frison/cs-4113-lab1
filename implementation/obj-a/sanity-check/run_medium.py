@@ -86,13 +86,16 @@ def scale_servers(baseline: dict[int, int], factor: float) -> dict[int, int]:
 def spawn(args: list[str], err_path: Path) -> subprocess.Popen:
     err_path.parent.mkdir(parents=True, exist_ok=True)
     handle = err_path.open("w", encoding="utf-8")
-    return subprocess.Popen(
-        args,
-        cwd=str(REPO),
-        stdout=subprocess.DEVNULL,
-        stderr=handle,
-        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
-    )
+    try:
+        return subprocess.Popen(
+            args,
+            cwd=str(REPO),
+            stdout=subprocess.DEVNULL,
+            stderr=handle,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+        )
+    finally:
+        handle.close()
 
 
 def stop(processes: list[subprocess.Popen]) -> None:
@@ -156,33 +159,55 @@ def generate_jobs(run_dir: Path, queues: int, jobs_per_queue: int, wait_sec: flo
     )
     if generated.returncode != 0:
         raise RuntimeError(f"workload generator failed\n{generated.stderr[-2000:]}")
-    with combined.open(encoding="utf-8", newline="") as handle:
-        rows = list(csv.reader(handle))
-    header, jobs = rows[0], [row for row in rows[1:] if row]
-    if len(jobs) != total:
-        raise RuntimeError(f"generator wrote {len(jobs)} jobs, expected {total}")
-    buckets: list[list[list[str]]] = [[] for _ in range(queues)]
-    for index, row in enumerate(jobs):
-        buckets[index % queues].append(row)
-    for index, bucket in enumerate(buckets):
-        with (run_dir / f"jobs-q{index}.csv").open("w", encoding="utf-8", newline="") as handle:
-            writer = csv.writer(handle, lineterminator="\n")
-            writer.writerow(header)
-            writer.writerows(bucket)
+    # Keep file descriptor use bounded, including for 1024 queues.
+    from collections import OrderedDict
+    from contextlib import ExitStack
+    with combined.open(encoding="utf-8", newline="") as incoming:
+        reader = csv.reader(incoming)
+        header = next(reader)
+        for index in range(queues):
+            with (run_dir / f"jobs-q{index}.csv").open("w", encoding="utf-8", newline="") as handle:
+                csv.writer(handle, lineterminator="\n").writerow(header)
+        handles = OrderedDict()
+        try:
+            count = 0
+            for row in reader:
+                if not row:
+                    continue
+                index = count % queues
+                if index not in handles:
+                    if len(handles) >= 64:
+                        _, old = handles.popitem(last=False)
+                        old.close()
+                    handles[index] = (run_dir / f"jobs-q{index}.csv").open(
+                        "a", encoding="utf-8", newline=""
+                    )
+                handles.move_to_end(index)
+                csv.writer(handles[index], lineterminator="\n").writerow(row)
+                count += 1
+            if count != total:
+                raise RuntimeError(f"generator wrote {count} jobs, expected {total}")
+        finally:
+            for handle in handles.values():
+                handle.close()
+    combined.unlink()
     return total
 
 
-def sink_rows(run_dir: Path) -> int:
+def sink_rows(run_dir: Path, start: int = 0, end: int | None = None) -> int:
     total = 0
-    for path in run_dir.glob("sink-q*.csv"):
-        total += sum(1 for line in path.read_text(encoding="utf-8", errors="ignore").splitlines() if line.strip())
+    paths = (run_dir / f"sink-q{i}.csv" for i in range(start, end)) if end is not None else run_dir.glob("sink-q*.csv")
+    for path in paths:
+        if path.exists():
+            with path.open(encoding="utf-8", errors="ignore") as handle:
+                total += sum(bool(line.strip()) for line in handle)
     return total
 
 
-def start_servers(queues: int, servers: dict[int, int], run_dir: Path) -> tuple[list[subprocess.Popen], list[Path]]:
+def start_servers(queues: int, servers: dict[int, int], run_dir: Path, start: int = 0) -> tuple[list[subprocess.Popen], list[Path]]:
     processes: list[subprocess.Popen] = []
     logs: list[Path] = []
-    for index in range(queues):
+    for index in range(start, start + queues):
         qid = f"q{index}"
         log_path = run_dir / f"sf-{qid}.log"
         args = [
@@ -210,9 +235,10 @@ def start_queues(
     servers: dict[int, int],
     qsize: int,
     run_dir: Path,
+    start: int = 0,
 ) -> list[subprocess.Popen]:
     processes: list[subprocess.Popen] = []
-    for index in range(queues):
+    for index in range(start, start + queues):
         qid = f"q{index}"
         args = [
             sys.executable,
@@ -250,6 +276,8 @@ def run_scenario(
     queues: int,
     jobs_per_queue: int,
     wait_sec: float,
+    batch_size: int = 0,
+    backend: str = "grpc",
 ) -> dict:
     run_dir = runs / name
     if run_dir.exists():
@@ -265,19 +293,41 @@ def run_scenario(
         for index in range(queues):
             writer.writerow([f"q{index}", qsize, servers[index]])
 
-    server_procs: list[subprocess.Popen] = []
-    queue_procs: list[subprocess.Popen] = []
-    try:
-        server_procs, _logs = start_servers(queues, servers, run_dir)
-        queue_procs = start_queues(queues, servers, qsize, run_dir)
-        slowest = max(1, min(servers.values()))
-        drain_for = 90 + (jobs_per_queue * wait_sec / slowest) * 5
-        deadline = time.time() + drain_for
-        while time.time() < deadline and sink_rows(run_dir) < jobs:
-            time.sleep(0.4)
-        time.sleep(0.8)
-    finally:
-        stop(queue_procs + server_procs)
+    if backend == "grpc-shared":
+        from grpc_shared import run_grpc_shared
+        run_grpc_shared(run_dir, servers, qsize, jobs_per_queue, wait_sec)
+    elif backend == "shared":
+        from shared_queues import run_shared_queues
+        run_shared_queues(run_dir, servers, qsize, jobs_per_queue, wait_sec)
+    else:
+        # Existing gRPC/process mode is retained unchanged.
+        # batch_size=0 means the original, fully simultaneous experiment.
+        # A positive batch_size caps live process pairs, but does NOT measure
+        # globally simultaneous queues; results must be labeled accordingly.
+        step = batch_size or queues
+        for start in range(0, queues, step):
+            end = min(start + step, queues)
+            server_procs: list[subprocess.Popen] = []
+            queue_procs: list[subprocess.Popen] = []
+            try:
+                server_procs, _logs = start_servers(end - start, servers, run_dir, start)
+                queue_procs = start_queues(end - start, servers, qsize, run_dir, start)
+                slowest = max(1, min(servers[i] for i in range(start, end)))
+                drain_for = 90 + (jobs_per_queue * wait_sec / slowest) * 5
+                deadline = time.time() + drain_for
+                expected = (end - start) * jobs_per_queue
+                while time.time() < deadline and sink_rows(run_dir, start, end) < expected:
+                    if all(proc.poll() is not None for proc in queue_procs):
+                        # Workers finished; allow any in-flight server requests to drain.
+                        pass
+                    time.sleep(0.4)
+                time.sleep(0.8)
+                actual = sink_rows(run_dir, start, end)
+                print(f"  batch queues {start}-{end - 1}: {actual}/{expected} delivered", flush=True)
+                if actual < expected:
+                    raise RuntimeError(f"{name}: batch {start}-{end - 1} delivered {actual}/{expected}\n{err_tail(run_dir)}")
+            finally:
+                stop(queue_procs + server_procs)
 
     delivered = sink_rows(run_dir)
     if delivered < jobs:
@@ -315,6 +365,8 @@ def run_scenario(
         "wait_sec": wait_sec,
         "delivered": delivered,
         "run_dir": run_dir,
+        "batch_size": batch_size,
+        "backend": backend,
     }
 
 
@@ -382,7 +434,17 @@ def write_six_plots(scenario: dict, results: Path) -> None:
 
     def panel(column: str, ylabel: str, filename: str) -> None:
         figure, axis = plt.subplots(figsize=(8, 4.5))
+        # Plot a representative subset at very large queue counts to keep
+        # Matplotlib from spending minutes rendering thousands of line objects.
+        # All queues are still included in the simulation and metric calculations.
+        plotted_ids = {0}
+        if scenario["queues"] <= 64:
+            plotted_ids.update(range(scenario["queues"]))
+        else:
+            plotted_ids.update(round(i * (scenario["queues"] - 1) / 31) for i in range(32))
         for qid, frame in quse.groupby("queue-sys-id"):
+            if int(qid) not in plotted_ids:
+                continue
             highlight = int(qid) == 0
             axis.plot(
                 frame["time-step"],
@@ -395,7 +457,8 @@ def write_six_plots(scenario: dict, results: Path) -> None:
             )
         axis.set_xlabel("milliseconds from first event")
         axis.set_ylabel(ylabel)
-        axis.set_title(f"{title} {ylabel} ({scenario['queues']} queues)")
+        note = f"; {len(plotted_ids)} shown" if scenario["queues"] > 64 else ""
+        axis.set_title(f"{title} {ylabel} ({scenario['queues']} queues{note})")
         axis.legend(frameon=False)
         figure.tight_layout()
         figure.savefig(out / filename, dpi=120)
@@ -486,8 +549,10 @@ def write_summary(rows: list[dict], results: Path) -> None:
         "# Medium wait-job sanity check",
         "",
         f"{first['queues']} independent queue systems. Each job is one wait of {first['wait_sec']:.3f}s.",
+        (f"WARNING: sequential batches of {first['batch_size']} queues. These are NOT {first['queues']} simultaneous queues; throughput, timing and saturation are not equivalent to the full concurrent run." if first["batch_size"] else "All queues run simultaneously."),
         f"Each scenario offers {first['jobs']} jobs "
         f"({first['jobs'] // first['queues']} per queue), queue depth {first['qsize']}.",
+        ("Backend: shared asyncio (logical queues and service slots; no gRPC transport overhead)." if first.get("backend") == "shared" else ("Backend: shared-process gRPC." if first.get("backend") == "grpc-shared" else "Backend: original gRPC subprocesses.")),
         "Servers are the resource under test. Time in the plots is milliseconds from the first event.",
         "",
         "| scenario | server factor | servers | per queue | delivered | dropped | mean latency (ms) | peak utilization | peak saturation |",
@@ -529,6 +594,9 @@ def write_summary(rows: list[dict], results: Path) -> None:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run the medium wait-job sanity check.")
+    parser.add_argument("--backend", choices=("grpc", "grpc-shared", "shared"), default="grpc", help="grpc-shared: concurrent logical queues using real gRPC in a shared process; grpc: original separate subprocesses; shared: no-gRPC asyncio.")
+    parser.add_argument("--batch-size", type=int, default=0, help="Run at most N queues simultaneously (0=original full concurrency). Batching changes experiment semantics.")
+    parser.add_argument("--png-only", action="store_true", help="Delete raw run directories and ancillary tool outputs after all graphs and summary succeed.")
     parser.add_argument("--only", default="", help="Comma-separated scenario names (default: all seven)")
     parser.add_argument("--queues", type=int, default=QUEUE_COUNT)
     parser.add_argument("--jobs-per-queue", type=int, default=JOBS_PER_QUEUE)
@@ -536,13 +604,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--runs", type=Path, default=HERE / "runs")
     parser.add_argument("--results", type=Path, default=HERE / "results")
     args = parser.parse_args(argv)
-    if args.queues < 1 or args.jobs_per_queue < 1 or args.wait < 0:
+    if args.queues < 1 or args.jobs_per_queue < 1 or args.wait < 0 or args.batch_size < 0:
         raise SystemExit("queues, jobs-per-queue, and wait must be positive")
     wanted = {name.strip() for name in args.only.split(",") if name.strip()}
     chosen = [item for item in SCENARIOS if not wanted or item[0] in wanted]
     if len(chosen) != (len(wanted) or len(SCENARIOS)):
         known = ", ".join(name for name, _ in SCENARIOS)
         raise SystemExit(f"unknown scenario in --only. Known: {known}")
+    if args.backend in ("shared", "grpc-shared") and args.batch_size:
+        parser.error("--batch-size is only supported with --backend grpc")
     rows = []
     for name, factor in chosen:
         print(
@@ -557,6 +627,8 @@ def main(argv: list[str] | None = None) -> int:
             args.queues,
             args.jobs_per_queue,
             args.wait,
+            args.batch_size,
+            args.backend,
         )
         write_six_plots(scenario, args.results)
         print(
@@ -568,6 +640,16 @@ def main(argv: list[str] | None = None) -> int:
         )
         rows.append(scenario)
     write_summary(rows, args.results)
+    if args.png_only:
+        for item in rows:
+            shutil.rmtree(item["run_dir"])
+            tools_dir = args.results / item["name"] / "tools"
+            if tools_dir.exists():
+                shutil.rmtree(tools_dir)
+            longest_log = args.results / item["name"] / "longest-jobs.log"
+            if longest_log.exists():
+                longest_log.unlink()
+        print("Removed raw scenario files; kept PNG plots and summary.")
     print(f"summary: {args.results / 'summary.md'}")
     return 0
 
