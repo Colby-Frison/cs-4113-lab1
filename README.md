@@ -11,35 +11,41 @@ The short version of the lab: figure out what is a job, what is a queue, and wha
 
 ## Who did what
 
-| Person        | Focus                                                                                                 |
-| ------------- | ----------------------------------------------------------------------------------------------------- |
-| **Colby**     | Manager - ranked **matchmaking** (`implementation/obj-b.matchmaking/`).                              |
-| **Jhan Paul** | **Food delivery** kitchen and courier queues (`obj-b.food-delivery`, branch `obj-b/food-delivery`). |
-| **Ana**       | Tech lead - **Customer support ticketing** (`obj-b.ticketing`, branches `obj-b/ticketing` / `ana-testing`).       |
-| **Taylor**    | **Smart-lock firmware scanning** (`obj-b` lock/scanner work, branch `obj-b-lock-app`).                |
-| **Felix**     | **Packet / firewall routing** apps (branches `obj-b/packets`, `obj-b/firewall`).                      |
+| Person        | Focus                                                                 |
+| ------------- | --------------------------------------------------------------------- |
+| **Colby**     | Manager — ranked **matchmaking** (implementation/obj-b.matchmaking/) |
+| **Jhan Paul** | **Food delivery** kitchen and courier queues (implementation/obj-b.food-delivery/) |
+| **Ana**       | Tech lead — **Customer support ticketing** (implementation/obj-b.ticketing/) |
+| **Taylor**    | **Smart-lock firmware scanning** (implementation/obj-b/smart-lock/) |
+| **Felix**     | **Packet / firewall routing** (implementation/obj-b.packets/, implementation/obj-b.firewall/) |
 
-Shared Objective A lives under `implementation/obj-a/` (queues, server functions, workload generator, analysis tools, wait-job sanity checks). Course template code is in `example_code/` and we leave it alone.
+Shared Objective A lives under implementation/obj-a/ (queues, server functions, workload generator, analysis tools, wait-job sanity checks). Course template code is in example_code/ and we leave it alone.
 
 Tech lead tasks were split up amongst members to distribute the work instead of dropping it all onto one person. Split of work can be seen on the tasksheet.
 
-## How the work is organized
+## Layout
 
-Not everything is merged to `main`. Each app mostly lives on its own branch so people could finish studies without stepping on each other. A full hand-in is a **git bundle of all branches**.
+This tree combines the Objective A framework with every Objective B application and its study plots on one branch.
 
-Useful entry points once you check out the right branch:
+Useful entry points:
 
-- `implementation/obj-a/README.md` — framework and tools  
-- `implementation/obj-b.../README.md` — that member’s casting and how to run it  
-- Study notes and plots sit with each app’s `studies/` (or analysis folders on that branch)
+- implementation/obj-a/README.md — framework and tools
+- implementation/obj-b.matchmaking/README.md — matchmaking casting and studies
+- implementation/obj-b.food-delivery/README.md — food delivery casting and studies
+- implementation/obj-b.ticketing/README.md — ticketing casting and studies
+- implementation/obj-b/smart-lock/README.md — smart-lock casting and studies
+- implementation/obj-b.packets/README.md / implementation/obj-b.firewall/README.md — packet and firewall casting
+- Study notes and plots sit with each app under studies/ or nalysis/
+
+Generated run logs and tool CSVs are gitignored; figures and summary.md files stay.
 
 ## Meeting / sync
 
-We use class lab time as the main sync, and chat outside class when something is blocked. Day-to-day work is async on GitLab branches; the manager keeps the shared Obj A / tech-lead pieces moving so domain studies can run.
+We use class lab time as the main sync, and chat outside class when something is blocked.
 
 ## Deliverables (for graders)
 
-- Code: this repo / the all-branches git bundle  
-- Write-up: final report (LaTeX)  
-- Talk: ~15 min presentation (casting + sensitivity, not a poster)  
+- Code: this repository
+- Write-up: final report (LaTeX)
+- Talk: ~15 min presentation (casting + sensitivity, not a poster)
 - Tasksheet / team assessment: submitted separately per course instructions

@@ -14,8 +14,12 @@ compile_commands.json
 implementation/obj-b.matchmaking/studies/remote/_tmp_*.sh
 implementation/obj-b.matchmaking/studies/*/remote-run.log
 
-# Generated logs
+# Generated logs and study dumps
 *.log
+**/results/**/tools/*.csv
+**/results/**/tools/*.log
+implementation/obj-b.ticketing/analysis/sensitivity/*_results.csv
+implementation/obj-b.ticketing/analysis/sensitivity/*_resolved.csv
 
 # Generated ticketing data
 implementation/obj-b.ticketing/*.csv
@@ -30,15 +34,20 @@ implementation/obj-b.ticketing/analysis/large_run/
 *.tgz
 *.tar.gz
 
-# Smart-lock local corpora and run outputs
+# Smart-lock local corpora; keep figures under runs/
 firmware-source
 homekey-firmware
-implementation/obj-b/smart-lock/runs/**
-!implementation/obj-b/smart-lock/runs/**/
-!implementation/obj-b/smart-lock/runs/**/outputs/**.png
+**/runs/**
+!**/runs/**/
+!**/runs/**/*.png
+!**/runs/**/*.svg
+!**/runs/**/*.md
 
 # Keep study notes and figures under analysis/; drop other generated blobs
 /analysis/**
 !/analysis/**/
 !/analysis/**/*.png
 !/analysis/**/*.md
+!/analysis/**/*.py
+!/analysis/**/*.json
+!/analysis/**/.gitignore
