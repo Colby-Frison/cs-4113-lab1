@@ -1,7 +1,7 @@
 # Lab 1: Queuing Lab Part II
 
 CS-4/5113 — Distributed Operating Systems, Fall 2026.  
-**Group 5:** Colby Frison (manager), Jhan Paul Mackey, Felix Werner, Ana Moron Cervantes, Taylor Wise.
+**Group 2:** Colby Frison (manager), Jhan Paul Mackey, Felix Werner, Ana Moron Cervantes, Taylor Wise.
 
 ## What this repo is
 
