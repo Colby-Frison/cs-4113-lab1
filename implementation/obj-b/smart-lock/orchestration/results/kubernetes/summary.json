@@ -1,0 +1,12 @@
+{
+  "source_jobs": 180,
+  "completed": 180,
+  "dropped": 0,
+  "analysis_errors": 0,
+  "queues": 6,
+  "transport": "grpc",
+  "elapsed_seconds": 4.088850447908044,
+  "unique_candidates": 1,
+  "physical_hardware_connected": false,
+  "unexpected_unlocks": 0
+}

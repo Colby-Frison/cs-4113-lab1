@@ -2,6 +2,7 @@
 
 # Python
 .venv/
+venv/
 __pycache__/
 *.py[cod]
 output/
@@ -28,3 +29,16 @@ implementation/obj-b.ticketing/analysis/large_run/
 # Archives for copying code and results to and from Sooner
 *.tgz
 *.tar.gz
+
+# Smart-lock local corpora and run outputs
+firmware-source
+homekey-firmware
+implementation/obj-b/smart-lock/runs/**
+!implementation/obj-b/smart-lock/runs/**/
+!implementation/obj-b/smart-lock/runs/**/outputs/**.png
+
+# Keep study notes and figures under analysis/; drop other generated blobs
+/analysis/**
+!/analysis/**/
+!/analysis/**/*.png
+!/analysis/**/*.md

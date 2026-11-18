@@ -1,0 +1,17 @@
+
+syntax = "proto3";
+
+package scanner;
+
+service Scanner {
+  rpc Scan(ScanRequest) returns (ScanResponse);
+}
+
+message ScanRequest {
+  string source = 1;
+}
+
+message ScanResponse {
+  bool vulnerable = 1;
+  string finding = 2;
+}

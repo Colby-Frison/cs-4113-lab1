@@ -73,6 +73,48 @@ class AdmitTests(unittest.TestCase):
         QUEUE.worker_grpc_sender(buffer, parse_dial("127.0.0.1:9,1", caller="queue"), "q0", submit)
         self.assertEqual(event_kinds(messages), [])
 
+import tempfile
+from pathlib import Path
+
+
+class QueueExecutionTests(unittest.TestCase):
+
+    def test_complete_queue_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            infile = Path(tmp) / "input.csv"
+            outfile = Path(tmp) / "output.csv"
+
+            job = _job("j0")
+            infile.write_text(job.raw_line + "\n")
+
+            result = QUEUE.main([
+                "--qid", "q0",
+                "--qsize", "10",
+                "--infile", str(infile),
+                "--outfile", str(outfile),
+            ])
+
+            self.assertEqual(result, 0)
+            self.assertEqual(
+                outfile.read_text().strip(),
+                job.raw_line,
+            )
+
+    def test_invalid_queue_size(self):
+        with self.assertRaises(SystemExit):
+            QUEUE.main([
+                "--qsize", "0",
+                "-i", "input.csv",
+                "-o", "output.csv",
+            ])
+
+    def test_missing_input(self):
+        with self.assertRaises(SystemExit):
+            QUEUE.main(["-o", "output.csv"])
+
+    def test_missing_output(self):
+        with self.assertRaises(SystemExit):
+            QUEUE.main(["-i", "input.csv"])
 
 if __name__ == "__main__":
     unittest.main()

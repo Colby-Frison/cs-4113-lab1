@@ -1,0 +1,286 @@
+{
+  "name": "homekey-grpc",
+  "services": {
+    "function-q0": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50052"
+      ],
+      "command": [
+        "function",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q0",
+        "--stage",
+        "Prepare",
+        "--slots",
+        "1"
+      ]
+    },
+    "queue-q0": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50051"
+      ],
+      "command": [
+        "queue",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q0",
+        "--edges",
+        "[\"q1\", \"q2\"]",
+        "--capacity",
+        "100000",
+        "--slots",
+        "1"
+      ]
+    },
+    "function-q1": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50052"
+      ],
+      "command": [
+        "function",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q1",
+        "--stage",
+        "Scan",
+        "--slots",
+        "1"
+      ]
+    },
+    "queue-q1": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50051"
+      ],
+      "command": [
+        "queue",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q1",
+        "--edges",
+        "[\"q3\"]",
+        "--capacity",
+        "100000",
+        "--slots",
+        "1"
+      ]
+    },
+    "function-q2": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50052"
+      ],
+      "command": [
+        "function",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q2",
+        "--stage",
+        "Scan",
+        "--slots",
+        "1"
+      ]
+    },
+    "queue-q2": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50051"
+      ],
+      "command": [
+        "queue",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q2",
+        "--edges",
+        "[\"q3\"]",
+        "--capacity",
+        "100000",
+        "--slots",
+        "1"
+      ]
+    },
+    "function-q3": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50052"
+      ],
+      "command": [
+        "function",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q3",
+        "--stage",
+        "Review",
+        "--slots",
+        "1"
+      ]
+    },
+    "queue-q3": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50051"
+      ],
+      "command": [
+        "queue",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q3",
+        "--edges",
+        "[\"q4\"]",
+        "--capacity",
+        "100000",
+        "--slots",
+        "1"
+      ]
+    },
+    "function-q4": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50052"
+      ],
+      "command": [
+        "function",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q4",
+        "--stage",
+        "Verify",
+        "--slots",
+        "1"
+      ]
+    },
+    "queue-q4": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50051"
+      ],
+      "command": [
+        "queue",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q4",
+        "--edges",
+        "[\"q5\"]",
+        "--capacity",
+        "100000",
+        "--slots",
+        "1"
+      ]
+    },
+    "function-q5": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50052"
+      ],
+      "command": [
+        "function",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q5",
+        "--stage",
+        "Report",
+        "--slots",
+        "1"
+      ]
+    },
+    "queue-q5": {
+      "image": "homekey-objective-c:latest",
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "expose": [
+        "50051"
+      ],
+      "command": [
+        "queue",
+        "--transport",
+        "grpc",
+        "--queue",
+        "q5",
+        "--edges",
+        "[]",
+        "--capacity",
+        "100000",
+        "--slots",
+        "1"
+      ]
+    },
+    "producer": {
+      "image": "homekey-objective-c:latest",
+      "profiles": [
+        "run"
+      ],
+      "volumes": [
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/inputs:/work/inputs:ro",
+        "/home/student/lab1/implementation/obj-b/smart-lock/orchestration/data/grpc-small/outputs:/work/outputs"
+      ],
+      "command": [
+        "producer",
+        "--transport",
+        "grpc",
+        "--timeout",
+        "900"
+      ]
+    }
+  }
+}
