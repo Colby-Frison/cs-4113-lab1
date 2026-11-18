@@ -1,0 +1,25 @@
+{
+  "description": "Two-queue food-delivery C++/gRPC sensitivity study",
+  "seeds": [1, 2, 3],
+  "representative_seed": 1,
+  "bin_seconds": 0.5,
+  "baseline": {
+    "kitchen_workers": 20,
+    "couriers": 20,
+    "kitchen_capacity": 64,
+    "pickup_capacity": 64,
+    "count": 1000,
+    "arrival_mean": 0.004,
+    "time_scale": 2.0,
+    "seed": 1
+  },
+  "scenarios": [
+    {"name": "baseline", "couriers": 20, "change_percent": 0},
+    {"name": "couriers-plus25", "couriers": 25, "change_percent": 25},
+    {"name": "couriers-plus50", "couriers": 30, "change_percent": 50},
+    {"name": "couriers-plus100", "couriers": 40, "change_percent": 100},
+    {"name": "couriers-minus10", "couriers": 18, "change_percent": -10},
+    {"name": "couriers-minus20", "couriers": 16, "change_percent": -20},
+    {"name": "couriers-minus30", "couriers": 14, "change_percent": -30}
+  ]
+}

@@ -78,9 +78,10 @@ def task_start(
     tid: int,
     wait_seconds: float,
     now: float | None = None,
+    *, wait_precision: int = 6,
 ) -> str:
     """Sleep for this task is about to start."""
-    return format_event(job_id, qid, "TASK-START", f'{tid} "{format_wait(wait_seconds)}"', now)
+    return format_event(job_id, qid, "TASK-START", f'{tid} "{format_wait(wait_seconds, precision=wait_precision)}"', now)
 
 
 def task_end(
@@ -89,9 +90,10 @@ def task_end(
     tid: int,
     wait_seconds: float,
     now: float | None = None,
+    *, wait_precision: int = 6,
 ) -> str:
     """Sleep for this task finished. Lab 0 calls this TASK-END."""
-    return format_event(job_id, qid, "TASK-END", f'{tid} "{format_wait(wait_seconds)}"', now)
+    return format_event(job_id, qid, "TASK-END", f'{tid} "{format_wait(wait_seconds, precision=wait_precision)}"', now)
 
 
 def error_queue_full(job_id: str, qid: str, now: float | None = None) -> str:

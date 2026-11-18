@@ -55,17 +55,17 @@ class Job:
     raw_line: str
 
 
-def format_wait(seconds: float) -> str:
+def format_wait(seconds: float, *, precision: int = 6) -> str:
     """Wait token used inside a task and inside TASK-START / TASK-END."""
-    return f"W {seconds:.6f}"
+    return f"W {seconds:.{precision}f}"
 
 
-def format_job_line(job_id: str, arrival_time: float, tasks: Iterable[Task]) -> str:
+def format_job_line(job_id: str, arrival_time: float, tasks: Iterable[Task], *, wait_precision: int = 6) -> str:
     """Serialize one job. The Tasks field uses Lab 0 doubled quotes."""
     task_list = tuple(tasks)
     if not task_list:
         raise ValueError("a job needs at least one wait task")
-    encoded_tasks = [f"{task.tid}: {format_wait(task.wait_seconds)}" for task in task_list]
+    encoded_tasks = [f"{task.tid}: {format_wait(task.wait_seconds, precision=wait_precision)}" for task in task_list]
     buffer = io.StringIO()
     writer = csv.writer(buffer, lineterminator="")
     writer.writerow([job_id, f"{arrival_time:.3f}", json.dumps(encoded_tasks)])

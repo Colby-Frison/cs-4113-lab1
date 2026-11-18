@@ -4,27 +4,22 @@
 .venv/
 __pycache__/
 *.py[cod]
+output/
 
-<<<<<<< HEAD
 .cursor
 .vscode/
 compile_commands.json
 implementation/obj-b.matchmaking/studies/remote/_tmp_*.sh
 implementation/obj-b.matchmaking/studies/*/remote-run.log
-=======
+
 # Generated logs
 *.log
 
 # Generated ticketing data
 implementation/obj-b.ticketing/*.csv
 
-# Local editor settings
-.vscode/
-.cursor
-
 # Backup files
 implementation/obj-b.ticketing/server-monolith/server_func_backup.py
 
 # Generated analysis files
 implementation/obj-b.ticketing/analysis/large_run/
->>>>>>> obj-b/ticketing

@@ -1,0 +1,65 @@
+{
+  "title": "Very-large study",
+  "description": "2000 queues: 1500 restaurant kitchens, 500 regional courier pools; two C++ hosts; one seed",
+  "seeds": [
+    1
+  ],
+  "representative_seed": 1,
+  "bin_seconds": 1,
+  "accessory_sample_ms": 1000,
+  "max_acceptable_p95_lag_seconds": 0.01,
+  "layout": {
+    "regions": 500,
+    "restaurant_shares": [
+      0.5,
+      0.3,
+      0.2
+    ],
+    "region_weights": [
+      3,
+      2.5,
+      2,
+      1.5,
+      1
+    ],
+    "kitchen_workers": 2,
+    "couriers": 4
+  },
+  "baseline": {
+    "kitchen_capacity": 32,
+    "pickup_capacity": 64,
+    "count": 100000,
+    "arrival_mean": 5e-05,
+    "time_scale": 20
+  },
+  "scenarios": [
+    {
+      "name": "baseline",
+      "change_percent": 0
+    },
+    {
+      "name": "couriers-plus25",
+      "change_percent": 25
+    },
+    {
+      "name": "couriers-plus50",
+      "change_percent": 50
+    },
+    {
+      "name": "couriers-plus100",
+      "change_percent": 100
+    },
+    {
+      "name": "couriers-minus10",
+      "change_percent": -10
+    },
+    {
+      "name": "couriers-minus20",
+      "change_percent": -20
+    },
+    {
+      "name": "couriers-minus30",
+      "change_percent": -30
+    }
+  ]
+}

@@ -51,9 +51,9 @@ def _message(line: str) -> tuple[str, str] | None:
     if len(parts) != 4:
         return None
     component = parts[1]
-    if component.startswith("Q_"):
+    if component == "Q" or component.startswith("Q_"):
         who = "Q"
-    elif component.startswith("sv_"):
+    elif component == "sv" or component.startswith("sv_"):
         who = "sv"
     else:
         return None

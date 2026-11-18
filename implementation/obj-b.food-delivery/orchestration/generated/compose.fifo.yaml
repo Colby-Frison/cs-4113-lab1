@@ -1,0 +1,295 @@
+{
+  "name": "food-delivery-fifo",
+  "services": {
+    "init": {
+      "image": "food-delivery:local",
+      "command": [
+        "init"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no"
+    },
+    "q0": {
+      "image": "food-delivery:local",
+      "command": [
+        "queue",
+        "--name",
+        "q0"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "test",
+          "-f",
+          "/data/run/q0.ready"
+        ],
+        "interval": "1s",
+        "timeout": "1s",
+        "retries": 30
+      }
+    },
+    "q1": {
+      "image": "food-delivery:local",
+      "command": [
+        "queue",
+        "--name",
+        "q1"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "test",
+          "-f",
+          "/data/run/q1.ready"
+        ],
+        "interval": "1s",
+        "timeout": "1s",
+        "retries": 30
+      }
+    },
+    "kitchen-0": {
+      "image": "food-delivery:local",
+      "command": [
+        "server",
+        "--name",
+        "kitchen-0"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "test",
+          "-f",
+          "/data/run/kitchen-0.ready"
+        ],
+        "interval": "1s",
+        "timeout": "1s",
+        "retries": 30
+      }
+    },
+    "kitchen-1": {
+      "image": "food-delivery:local",
+      "command": [
+        "server",
+        "--name",
+        "kitchen-1"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "test",
+          "-f",
+          "/data/run/kitchen-1.ready"
+        ],
+        "interval": "1s",
+        "timeout": "1s",
+        "retries": 30
+      }
+    },
+    "courier-0": {
+      "image": "food-delivery:local",
+      "command": [
+        "server",
+        "--name",
+        "courier-0"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "test",
+          "-f",
+          "/data/run/courier-0.ready"
+        ],
+        "interval": "1s",
+        "timeout": "1s",
+        "retries": 30
+      }
+    },
+    "courier-1": {
+      "image": "food-delivery:local",
+      "command": [
+        "server",
+        "--name",
+        "courier-1"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "test",
+          "-f",
+          "/data/run/courier-1.ready"
+        ],
+        "interval": "1s",
+        "timeout": "1s",
+        "retries": 30
+      }
+    },
+    "courier-2": {
+      "image": "food-delivery:local",
+      "command": [
+        "server",
+        "--name",
+        "courier-2"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        }
+      },
+      "healthcheck": {
+        "test": [
+          "CMD",
+          "test",
+          "-f",
+          "/data/run/courier-2.ready"
+        ],
+        "interval": "1s",
+        "timeout": "1s",
+        "retries": 30
+      }
+    },
+    "generator": {
+      "image": "food-delivery:local",
+      "command": [
+        "generator"
+      ],
+      "environment": {
+        "FOOD_CONFIG": "{\"kitchen_workers\": 2, \"couriers\": 3, \"kitchen_capacity\": 16, \"pickup_capacity\": 16, \"count\": 100, \"arrival_mean\": 0.04, \"time_scale\": 1.0, \"seed\": 1}",
+        "FOOD_TRANSPORT": "fifo"
+      },
+      "volumes": [
+        "../runs/fifo:/data",
+        "ipc:/ipc"
+      ],
+      "restart": "no",
+      "depends_on": {
+        "init": {
+          "condition": "service_completed_successfully"
+        },
+        "q0": {
+          "condition": "service_healthy"
+        },
+        "q1": {
+          "condition": "service_healthy"
+        },
+        "kitchen-0": {
+          "condition": "service_healthy"
+        },
+        "kitchen-1": {
+          "condition": "service_healthy"
+        },
+        "courier-0": {
+          "condition": "service_healthy"
+        },
+        "courier-1": {
+          "condition": "service_healthy"
+        },
+        "courier-2": {
+          "condition": "service_healthy"
+        }
+      }
+    }
+  },
+  "volumes": {
+    "ipc": {}
+  }
+}
