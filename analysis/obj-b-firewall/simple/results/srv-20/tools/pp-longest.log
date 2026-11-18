@@ -1,0 +1,29 @@
+6215                                     q5 p5-125 ARRIVE-VIA gen-q5.fifo
+6223                                     q5 p5-125 ENTERS-SERVER 0
+                                         q5 p5-125 TASK-START 0 "W 0.005000"
+6228                                     q5 p5-125 TASK-END 0 "W 0.005000"
+                                         q5 p5-125 TASK-START 1 "W 0.015000"
+6243                                     q5 p5-125 TASK-END 1 "W 0.015000"
+                                         q5 p5-125 TASK-START 2 "W 0.132223"
+6375                                     q5 p5-125 TASK-END 2 "W 0.132223"
+6385                                     q5 p5-125 EXITS-SERVER 0
+6387 q2 p5-125 ARRIVE-VIA q5
+6388                                     q5 p5-125 DEPART-VIA q2
+6854 q2 p5-125 ENTERS-SERVER 0
+     q2 p5-125 TASK-START 0 "W 0.005000"
+6859 q2 p5-125 TASK-END 0 "W 0.005000"
+     q2 p5-125 TASK-START 1 "W 0.015000"
+6874 q2 p5-125 TASK-END 1 "W 0.015000"
+     q2 p5-125 TASK-START 2 "W 0.132223"
+7006 q2 p5-125 TASK-END 2 "W 0.132223"
+7017 q2 p5-125 EXITS-SERVER 0
+7018 q2 p5-125 DEPART-VIA q6                                                 q6 p5-125 ARRIVE-VIA q2
+7092                                                                         q6 p5-125 ENTERS-SERVER 0
+                                                                             q6 p5-125 TASK-START 0 "W 0.005000"
+7097                                                                         q6 p5-125 TASK-END 0 "W 0.005000"
+                                                                             q6 p5-125 TASK-START 1 "W 0.015000"
+7113                                                                         q6 p5-125 TASK-END 1 "W 0.015000"
+                                                                             q6 p5-125 TASK-START 2 "W 0.132223"
+7245                                                                         q6 p5-125 TASK-END 2 "W 0.132223"
+7255                                                                         q6 p5-125 EXITS-SERVER 0
+                                                                             q6 p5-125 DEPART-VIA sink-q6.csv

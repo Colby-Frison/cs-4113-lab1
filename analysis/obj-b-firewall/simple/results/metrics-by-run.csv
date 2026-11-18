@@ -1,0 +1,8 @@
+set,traffic_seed,server,total_servers,sent,delivered,denied,dropped,routing_faults,unaccounted,loss_percent,offered_per_second,delivered_per_second,mean_latency_ms,median_latency_ms,p90_latency_ms
+base,1,python,20,5000,4437,517,46,0,0,1.026,56.729,50.228,275.77,251,507
+srv-10,1,python,18,5000,4435,517,48,0,0,1.071,56.741,50.217,324.466,285,587
+srv-20,1,python,16,5000,4411,517,72,0,0,1.606,56.791,49.986,386.763,345,694
+srv-30,1,python,14,5000,3330,425,1245,0,0,27.213,56.776,37.66,541.63,521.5,946
+srv+25,1,python,25,5000,4480,520,0,0,0,0.0,56.739,50.75,231.617,175.0,429
+srv+50,1,python,30,5000,4480,520,0,0,0,0.0,56.732,50.744,223.817,167.0,407
+srv+100,1,python,40,5000,4480,520,0,0,0,0.0,56.746,50.755,210.701,151.0,348

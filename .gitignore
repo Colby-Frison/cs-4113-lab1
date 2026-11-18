@@ -8,6 +8,7 @@ output/
 
 .cursor
 .vscode/
+.idea
 compile_commands.json
 implementation/obj-b.matchmaking/studies/remote/_tmp_*.sh
 implementation/obj-b.matchmaking/studies/*/remote-run.log
@@ -23,3 +24,7 @@ implementation/obj-b.ticketing/server-monolith/server_func_backup.py
 
 # Generated analysis files
 implementation/obj-b.ticketing/analysis/large_run/
+
+# Archives for copying code and results to and from Sooner
+*.tgz
+*.tar.gz

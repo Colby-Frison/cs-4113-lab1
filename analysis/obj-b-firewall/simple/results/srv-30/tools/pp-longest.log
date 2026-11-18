@@ -1,0 +1,19 @@
+79799                                      q6 p6-1527 ARRIVE-VIA gen-q6.fifo
+80787                                      q6 p6-1527 ENTERS-SERVER 0
+                                           q6 p6-1527 TASK-START 0 "W 0.005000"
+80792                                      q6 p6-1527 TASK-END 0 "W 0.005000"
+                                           q6 p6-1527 TASK-START 1 "W 0.015000"
+80807                                      q6 p6-1527 TASK-END 1 "W 0.015000"
+80808                                      q6 p6-1527 TASK-START 2 "W 0.050774"
+80858                                      q6 p6-1527 TASK-END 2 "W 0.050774"
+80869                                      q6 p6-1527 EXITS-SERVER 0
+80870 q2 p6-1527 ARRIVE-VIA q6             q6 p6-1527 DEPART-VIA q2
+80901 q2 p6-1527 ENTERS-SERVER 0
+      q2 p6-1527 TASK-START 0 "W 0.005000"
+80906 q2 p6-1527 TASK-END 0 "W 0.005000"
+80907 q2 p6-1527 TASK-START 1 "W 0.015000"
+80922 q2 p6-1527 TASK-END 1 "W 0.015000"
+      q2 p6-1527 TASK-START 2 "W 0.050774"
+80973 q2 p6-1527 TASK-END 2 "W 0.050774"
+80983 q2 p6-1527 EXITS-SERVER 0
+      q2 p6-1527 DEPART-VIA sink-q2.csv

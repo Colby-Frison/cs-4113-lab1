@@ -1,0 +1,11 @@
+Sys ID,Queue Max Size,Num. Servers,Server Function,Server Function Rate,Source,Sink,Edges in,Edges out
+q0,8,1,wait,1,,,
+q1,12,2,wait,1,,,
+q2,12,2,wait,1,,,
+q3,8,1,wait,1,,,
+q4,12,2,wait,1,,,
+q5,12,2,wait,1,,,
+q6,8,1,wait,1,,,
+q7,8,1,wait,1,,,
+q8,8,1,wait,1,,,
+q9,8,1,wait,1,,,

@@ -1,0 +1,30 @@
+39656                                                                         q5 p5-902 ARRIVE-VIA gen-q5.fifo
+39785                                                                         q5 p5-902 ENTERS-SERVER 0
+                                                                              q5 p5-902 TASK-START 0 "W 0.005000"
+39790                                                                         q5 p5-902 TASK-END 0 "W 0.005000"
+                                                                              q5 p5-902 TASK-START 1 "W 0.015000"
+39805                                                                         q5 p5-902 TASK-END 1 "W 0.015000"
+                                                                              q5 p5-902 TASK-START 2 "W 0.132223"
+39938                                                                         q5 p5-902 TASK-END 2 "W 0.132223"
+                                                                              q5 p5-902 EXITS-SERVER 0
+39939                                     q1 p5-902 ARRIVE-VIA q5
+39940                                                                         q5 p5-902 DEPART-VIA q1
+40350                                     q1 p5-902 ENTERS-SERVER 0
+                                          q1 p5-902 TASK-START 0 "W 0.005000"
+40356                                     q1 p5-902 TASK-END 0 "W 0.005000"
+                                          q1 p5-902 TASK-START 1 "W 0.015000"
+40371                                     q1 p5-902 TASK-END 1 "W 0.015000"
+                                          q1 p5-902 TASK-START 2 "W 0.132223"
+40503                                     q1 p5-902 TASK-END 2 "W 0.132223"
+                                          q1 p5-902 EXITS-SERVER 0
+40504 q0 p5-902 ARRIVE-VIA q1
+40505                                     q1 p5-902 DEPART-VIA q0
+40507 q0 p5-902 ENTERS-SERVER 0
+      q0 p5-902 TASK-START 0 "W 0.005000"
+40512 q0 p5-902 TASK-END 0 "W 0.005000"
+      q0 p5-902 TASK-START 1 "W 0.015000"
+40527 q0 p5-902 TASK-END 1 "W 0.015000"
+      q0 p5-902 TASK-START 2 "W 0.132223"
+40660 q0 p5-902 TASK-END 2 "W 0.132223"
+      q0 p5-902 EXITS-SERVER 0
+      q0 p5-902 DEPART-VIA sink-q0.csv

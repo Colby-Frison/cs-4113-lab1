@@ -1,0 +1,10 @@
+# Raw run logs, and the large tool outputs that results keep for small models.
+runs/
+*/results/**/events.log
+*/results/**/pp-events.log
+*/results/**/qmet.csv
+*/results/**/q0-qmet.csv
+*/results/**/quse.csv
+*/results/**/quse-plotted.csv
+*/results/**/emetrics.csv
+*/results/**/sysmetrics.csv

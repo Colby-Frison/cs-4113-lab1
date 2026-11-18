@@ -16,6 +16,7 @@ from __future__ import annotations
 import logging
 import threading
 from concurrent import futures
+from dataclasses import replace
 from typing import Callable
 
 import grpc
@@ -132,7 +133,20 @@ def submit_job(
 
 
 def job_from_message(message) -> Job:
-    """Prefer the CSV row. Fall back to the structured fields."""
+    """Prefer the CSV row for the job, and the message for the packet header.
+
+    The row keeps the starting TTL for the whole path, so the current header
+    has to come from the message.
+    """
+    return replace(
+        _job_body(message),
+        dst_ip=message.dst_ip,
+        ttl=message.ttl,
+        next_hop=message.next_hop,
+    )
+
+
+def _job_body(message) -> Job:
     if message.raw_line:
         try:
             return parse_job_line(message.raw_line)
@@ -151,6 +165,9 @@ def _request(job: Job, source_edge: str, dest_qid: str = ""):
         arrival_time=job.arrival_time,
         raw_line=job.raw_line,
         tasks=[job_pb2.Task(tid=task.tid, wait_seconds=task.wait_seconds) for task in job.tasks],
+        dst_ip=job.dst_ip,
+        ttl=job.ttl,
+        next_hop=job.next_hop,
     )
     return job_pb2.SubmitJobRequest(job=message, source_edge=source_edge, dest_qid=dest_qid)
 
