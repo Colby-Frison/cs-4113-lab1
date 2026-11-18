@@ -1,0 +1,35 @@
+services:
+  queue:
+    image: ticketing-app
+    ports:
+      - "50061:50051"
+    command:
+      - python
+      - /app/obj-a/queue/queue.py
+      - --ingrpc
+      - 0.0.0.0:50051,4
+      - --outgrpc
+      - server:50052,4,server
+      - --qsize
+      - "70"
+      - --logfile
+      - /app/data/queue.log
+    volumes:
+      - ticketing-data:/app/data
+
+  server:
+    image: ticketing-app
+    command:
+      - python
+      - /app/obj-b.ticketing/server-monolith/server_func.py
+      - --ingrpc
+      - 0.0.0.0:50052,4
+      - -o
+      - /app/data/resolved.csv
+      - --logfile
+      - /app/data/server.log
+    volumes:
+      - ticketing-data:/app/data
+
+volumes:
+  ticketing-data:

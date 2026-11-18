@@ -1,0 +1,1119 @@
+2026-11-11 23:21:49,063 - sv_pid1@cbaca34c80eb - INFO - Started
+2026-11-11 23:21:49,063 - sv_pid1@cbaca34c80eb - INFO - qid q0 server-id 0
+2026-11-11 23:21:49,166 - sv_pid1@cbaca34c80eb - INFO - gRPC listen 0.0.0.0:50052 workers 4
+2026-11-11 23:26:24,462 - sv_pid1@cbaca34c80eb - INFO - 1794439584.463 T0001_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,463 - sv_pid1@cbaca34c80eb - INFO - 1794439584.463 T0001_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,464 - sv_pid1@cbaca34c80eb - INFO - 1794439584.464 T0003_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,464 - sv_pid1@cbaca34c80eb - INFO - 1794439584.464 T0003_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,464 - sv_pid1@cbaca34c80eb - INFO - 1794439584.464 T0002_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,464 - sv_pid1@cbaca34c80eb - INFO - 1794439584.464 T0002_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,464 - sv_pid1@cbaca34c80eb - INFO - 1794439584.465 T0000_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,464 - sv_pid1@cbaca34c80eb - INFO - 1794439584.465 T0000_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,473 - sv_pid1@cbaca34c80eb - INFO - 1794439584.473 T0001_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,473 - sv_pid1@cbaca34c80eb - INFO - 1794439584.474 T0001_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,474 - sv_pid1@cbaca34c80eb - INFO - 1794439584.474 T0003_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,474 - sv_pid1@cbaca34c80eb - INFO - 1794439584.474 T0003_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,474 - sv_pid1@cbaca34c80eb - INFO - 1794439584.475 T0002_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,474 - sv_pid1@cbaca34c80eb - INFO - 1794439584.475 T0002_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,474 - sv_pid1@cbaca34c80eb - INFO - 1794439584.475 T0000_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,474 - sv_pid1@cbaca34c80eb - INFO - 1794439584.475 T0000_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,493 - sv_pid1@cbaca34c80eb - INFO - 1794439584.494 T0001_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,493 - sv_pid1@cbaca34c80eb - INFO - 1794439584.494 T0001_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,494 - sv_pid1@cbaca34c80eb - INFO - 1794439584.494 T0003_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,494 - sv_pid1@cbaca34c80eb - INFO - 1794439584.494 T0003_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,494 - sv_pid1@cbaca34c80eb - INFO - 1794439584.495 T0002_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,494 - sv_pid1@cbaca34c80eb - INFO - 1794439584.495 T0002_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,494 - sv_pid1@cbaca34c80eb - INFO - 1794439584.495 T0000_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,494 - sv_pid1@cbaca34c80eb - INFO - 1794439584.495 T0000_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,503 - sv_pid1@cbaca34c80eb - INFO - 1794439584.504 T0001_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,503 - sv_pid1@cbaca34c80eb - INFO - 1794439584.504 T0001_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,503 - sv_pid1@cbaca34c80eb - INFO - 1794439584.504 T0001_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,504 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0003_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,504 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0003_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,504 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0003_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,504 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0002_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,504 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0002_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,504 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0002_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,505 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0000_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,505 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0000_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,505 - sv_pid1@cbaca34c80eb - INFO - 1794439584.505 T0000_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,507 - sv_pid1@cbaca34c80eb - INFO - 1794439584.507 T0004_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,507 - sv_pid1@cbaca34c80eb - INFO - 1794439584.507 T0004_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,507 - sv_pid1@cbaca34c80eb - INFO - 1794439584.508 T0005_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,507 - sv_pid1@cbaca34c80eb - INFO - 1794439584.508 T0005_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,507 - sv_pid1@cbaca34c80eb - INFO - 1794439584.508 T0006_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,507 - sv_pid1@cbaca34c80eb - INFO - 1794439584.508 T0006_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,508 - sv_pid1@cbaca34c80eb - INFO - 1794439584.508 T0007_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,508 - sv_pid1@cbaca34c80eb - INFO - 1794439584.508 T0007_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,517 - sv_pid1@cbaca34c80eb - INFO - 1794439584.517 T0004_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,517 - sv_pid1@cbaca34c80eb - INFO - 1794439584.517 T0004_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,517 - sv_pid1@cbaca34c80eb - INFO - 1794439584.518 T0005_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,517 - sv_pid1@cbaca34c80eb - INFO - 1794439584.518 T0005_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,518 - sv_pid1@cbaca34c80eb - INFO - 1794439584.518 T0006_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,518 - sv_pid1@cbaca34c80eb - INFO - 1794439584.518 T0006_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,518 - sv_pid1@cbaca34c80eb - INFO - 1794439584.518 T0007_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,518 - sv_pid1@cbaca34c80eb - INFO - 1794439584.518 T0007_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,537 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0004_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,537 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0004_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,537 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0005_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,537 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0005_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,538 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0006_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,538 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0006_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,538 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0007_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,538 - sv_pid1@cbaca34c80eb - INFO - 1794439584.538 T0007_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,547 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0004_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,547 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0004_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,547 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0004_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0005_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0005_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0005_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0006_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0006_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.548 T0006_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.549 T0007_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.549 T0007_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,548 - sv_pid1@cbaca34c80eb - INFO - 1794439584.549 T0007_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,550 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0008_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,550 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0008_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,550 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0009_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,550 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0009_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,551 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0010_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,551 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0010_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,551 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0011_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,551 - sv_pid1@cbaca34c80eb - INFO - 1794439584.551 T0011_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,560 - sv_pid1@cbaca34c80eb - INFO - 1794439584.561 T0008_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,561 - sv_pid1@cbaca34c80eb - INFO - 1794439584.561 T0008_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,561 - sv_pid1@cbaca34c80eb - INFO - 1794439584.561 T0009_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,561 - sv_pid1@cbaca34c80eb - INFO - 1794439584.561 T0009_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,561 - sv_pid1@cbaca34c80eb - INFO - 1794439584.561 T0010_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,561 - sv_pid1@cbaca34c80eb - INFO - 1794439584.562 T0010_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,561 - sv_pid1@cbaca34c80eb - INFO - 1794439584.562 T0011_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,561 - sv_pid1@cbaca34c80eb - INFO - 1794439584.562 T0011_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.581 T0008_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.581 T0008_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.581 T0009_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.581 T0009_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.582 T0010_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.582 T0010_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.582 T0011_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,581 - sv_pid1@cbaca34c80eb - INFO - 1794439584.582 T0011_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.591 T0008_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.591 T0008_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.591 T0008_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.591 T0009_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.591 T0009_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.592 T0009_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.592 T0010_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.592 T0010_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.592 T0010_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.592 T0011_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,591 - sv_pid1@cbaca34c80eb - INFO - 1794439584.592 T0011_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,592 - sv_pid1@cbaca34c80eb - INFO - 1794439584.592 T0011_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.594 T0015_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.594 T0015_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.594 T0012_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.594 T0012_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.595 T0014_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.595 T0014_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.595 T0013_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,594 - sv_pid1@cbaca34c80eb - INFO - 1794439584.595 T0013_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.604 T0015_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.604 T0015_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.605 T0012_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.605 T0012_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.605 T0014_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.605 T0014_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.605 T0013_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,604 - sv_pid1@cbaca34c80eb - INFO - 1794439584.605 T0013_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0015_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0015_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0012_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0012_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0014_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0014_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0013_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,624 - sv_pid1@cbaca34c80eb - INFO - 1794439584.625 T0013_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,634 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0015_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,634 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0015_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,634 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0015_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,634 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0014_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,634 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0014_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,634 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0014_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,634 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0012_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,635 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0012_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,635 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0012_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,635 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0013_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,635 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0013_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,635 - sv_pid1@cbaca34c80eb - INFO - 1794439584.635 T0013_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0016_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0016_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0018_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0018_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0017_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0017_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0019_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,637 - sv_pid1@cbaca34c80eb - INFO - 1794439584.638 T0019_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,647 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0016_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,647 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0016_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,647 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0018_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,647 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0018_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,648 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0017_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,648 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0017_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,648 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0019_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,648 - sv_pid1@cbaca34c80eb - INFO - 1794439584.648 T0019_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,667 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0016_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,667 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0016_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,667 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0018_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,667 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0018_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,668 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0017_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,668 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0017_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,668 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0019_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,668 - sv_pid1@cbaca34c80eb - INFO - 1794439584.668 T0019_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0016_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0016_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0018_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0018_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0016_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0018_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0017_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0017_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.678 T0019_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.679 T0017_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.679 T0019_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,678 - sv_pid1@cbaca34c80eb - INFO - 1794439584.679 T0019_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,680 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0020_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,680 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0020_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,680 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0021_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,680 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0021_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,681 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0022_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,681 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0022_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,681 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0023_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,681 - sv_pid1@cbaca34c80eb - INFO - 1794439584.681 T0023_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0020_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0020_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0021_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0021_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0022_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0022_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0023_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,691 - sv_pid1@cbaca34c80eb - INFO - 1794439584.691 T0023_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.711 T0020_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.711 T0021_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.711 T0020_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.711 T0021_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.712 T0022_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.712 T0022_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.712 T0023_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,711 - sv_pid1@cbaca34c80eb - INFO - 1794439584.712 T0023_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,721 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0021_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0022_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0021_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0023_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0022_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0020_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0021_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0023_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0022_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0020_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0023_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,722 - sv_pid1@cbaca34c80eb - INFO - 1794439584.722 T0020_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,724 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0027_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,725 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0027_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,725 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0024_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,725 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0024_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,725 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0026_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,725 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0026_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,725 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0025_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,725 - sv_pid1@cbaca34c80eb - INFO - 1794439584.725 T0025_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,735 - sv_pid1@cbaca34c80eb - INFO - 1794439584.735 T0027_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,735 - sv_pid1@cbaca34c80eb - INFO - 1794439584.735 T0027_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,735 - sv_pid1@cbaca34c80eb - INFO - 1794439584.736 T0024_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,735 - sv_pid1@cbaca34c80eb - INFO - 1794439584.736 T0024_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,735 - sv_pid1@cbaca34c80eb - INFO - 1794439584.736 T0026_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,735 - sv_pid1@cbaca34c80eb - INFO - 1794439584.736 T0026_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,736 - sv_pid1@cbaca34c80eb - INFO - 1794439584.737 T0025_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,736 - sv_pid1@cbaca34c80eb - INFO - 1794439584.737 T0025_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,757 - sv_pid1@cbaca34c80eb - INFO - 1794439584.758 T0024_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,757 - sv_pid1@cbaca34c80eb - INFO - 1794439584.758 T0024_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,759 - sv_pid1@cbaca34c80eb - INFO - 1794439584.759 T0027_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,759 - sv_pid1@cbaca34c80eb - INFO - 1794439584.759 T0027_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,759 - sv_pid1@cbaca34c80eb - INFO - 1794439584.760 T0026_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,759 - sv_pid1@cbaca34c80eb - INFO - 1794439584.760 T0026_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,759 - sv_pid1@cbaca34c80eb - INFO - 1794439584.760 T0025_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,759 - sv_pid1@cbaca34c80eb - INFO - 1794439584.760 T0025_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.769 T0024_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.769 T0024_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.769 T0024_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0027_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0027_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0027_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0025_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0025_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0025_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,769 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0026_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,770 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0026_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,770 - sv_pid1@cbaca34c80eb - INFO - 1794439584.770 T0026_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.772 T0028_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.772 T0028_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.773 T0030_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.773 T0030_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.773 T0031_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.773 T0031_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.773 T0029_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,772 - sv_pid1@cbaca34c80eb - INFO - 1794439584.773 T0029_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,782 - sv_pid1@cbaca34c80eb - INFO - 1794439584.783 T0028_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,782 - sv_pid1@cbaca34c80eb - INFO - 1794439584.783 T0028_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,782 - sv_pid1@cbaca34c80eb - INFO - 1794439584.783 T0029_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,782 - sv_pid1@cbaca34c80eb - INFO - 1794439584.783 T0029_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,784 - sv_pid1@cbaca34c80eb - INFO - 1794439584.784 T0030_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,784 - sv_pid1@cbaca34c80eb - INFO - 1794439584.784 T0030_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,784 - sv_pid1@cbaca34c80eb - INFO - 1794439584.784 T0031_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,784 - sv_pid1@cbaca34c80eb - INFO - 1794439584.784 T0031_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,804 - sv_pid1@cbaca34c80eb - INFO - 1794439584.805 T0028_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,805 - sv_pid1@cbaca34c80eb - INFO - 1794439584.805 T0028_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,805 - sv_pid1@cbaca34c80eb - INFO - 1794439584.805 T0030_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,805 - sv_pid1@cbaca34c80eb - INFO - 1794439584.805 T0030_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,805 - sv_pid1@cbaca34c80eb - INFO - 1794439584.805 T0031_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,805 - sv_pid1@cbaca34c80eb - INFO - 1794439584.805 T0031_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,805 - sv_pid1@cbaca34c80eb - INFO - 1794439584.806 T0029_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,805 - sv_pid1@cbaca34c80eb - INFO - 1794439584.806 T0029_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.815 T0030_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0030_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0028_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0030_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0028_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0028_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0031_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0031_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,815 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0031_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,816 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0029_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,816 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0029_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,816 - sv_pid1@cbaca34c80eb - INFO - 1794439584.816 T0029_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,818 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0032_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,818 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0032_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,818 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0034_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,818 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0034_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,818 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0035_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,818 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0035_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,818 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0033_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,819 - sv_pid1@cbaca34c80eb - INFO - 1794439584.819 T0033_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.829 T0032_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.829 T0032_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.829 T0034_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.829 T0034_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.830 T0033_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.830 T0033_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.830 T0035_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,829 - sv_pid1@cbaca34c80eb - INFO - 1794439584.830 T0035_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,849 - sv_pid1@cbaca34c80eb - INFO - 1794439584.850 T0033_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,850 - sv_pid1@cbaca34c80eb - INFO - 1794439584.850 T0033_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,849 - sv_pid1@cbaca34c80eb - INFO - 1794439584.850 T0034_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,850 - sv_pid1@cbaca34c80eb - INFO - 1794439584.850 T0034_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,850 - sv_pid1@cbaca34c80eb - INFO - 1794439584.850 T0035_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,850 - sv_pid1@cbaca34c80eb - INFO - 1794439584.850 T0035_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,853 - sv_pid1@cbaca34c80eb - INFO - 1794439584.854 T0032_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,853 - sv_pid1@cbaca34c80eb - INFO - 1794439584.854 T0032_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.860 T0033_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.860 T0033_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.860 T0033_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.860 T0034_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.860 T0034_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.860 T0034_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.861 T0035_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.861 T0035_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,860 - sv_pid1@cbaca34c80eb - INFO - 1794439584.861 T0035_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,862 - sv_pid1@cbaca34c80eb - INFO - 1794439584.863 T0036_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,862 - sv_pid1@cbaca34c80eb - INFO - 1794439584.863 T0036_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,863 - sv_pid1@cbaca34c80eb - INFO - 1794439584.863 T0037_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,863 - sv_pid1@cbaca34c80eb - INFO - 1794439584.863 T0037_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,863 - sv_pid1@cbaca34c80eb - INFO - 1794439584.863 T0038_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,863 - sv_pid1@cbaca34c80eb - INFO - 1794439584.863 T0038_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,863 - sv_pid1@cbaca34c80eb - INFO - 1794439584.864 T0032_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,864 - sv_pid1@cbaca34c80eb - INFO - 1794439584.864 T0032_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,864 - sv_pid1@cbaca34c80eb - INFO - 1794439584.864 T0032_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,866 - sv_pid1@cbaca34c80eb - INFO - 1794439584.866 T0039_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,866 - sv_pid1@cbaca34c80eb - INFO - 1794439584.866 T0039_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,873 - sv_pid1@cbaca34c80eb - INFO - 1794439584.873 T0036_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,873 - sv_pid1@cbaca34c80eb - INFO - 1794439584.873 T0036_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,873 - sv_pid1@cbaca34c80eb - INFO - 1794439584.873 T0038_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,873 - sv_pid1@cbaca34c80eb - INFO - 1794439584.873 T0038_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,873 - sv_pid1@cbaca34c80eb - INFO - 1794439584.874 T0037_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,873 - sv_pid1@cbaca34c80eb - INFO - 1794439584.874 T0037_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,876 - sv_pid1@cbaca34c80eb - INFO - 1794439584.876 T0039_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,876 - sv_pid1@cbaca34c80eb - INFO - 1794439584.876 T0039_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,894 - sv_pid1@cbaca34c80eb - INFO - 1794439584.894 T0037_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,894 - sv_pid1@cbaca34c80eb - INFO - 1794439584.894 T0037_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,896 - sv_pid1@cbaca34c80eb - INFO - 1794439584.896 T0038_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,896 - sv_pid1@cbaca34c80eb - INFO - 1794439584.896 T0038_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,896 - sv_pid1@cbaca34c80eb - INFO - 1794439584.897 T0036_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,896 - sv_pid1@cbaca34c80eb - INFO - 1794439584.897 T0036_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,896 - sv_pid1@cbaca34c80eb - INFO - 1794439584.897 T0039_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,896 - sv_pid1@cbaca34c80eb - INFO - 1794439584.897 T0039_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,904 - sv_pid1@cbaca34c80eb - INFO - 1794439584.905 T0037_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,904 - sv_pid1@cbaca34c80eb - INFO - 1794439584.905 T0037_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,904 - sv_pid1@cbaca34c80eb - INFO - 1794439584.905 T0037_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,906 - sv_pid1@cbaca34c80eb - INFO - 1794439584.907 T0038_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,906 - sv_pid1@cbaca34c80eb - INFO - 1794439584.907 T0038_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,906 - sv_pid1@cbaca34c80eb - INFO - 1794439584.907 T0038_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,907 - sv_pid1@cbaca34c80eb - INFO - 1794439584.907 T0036_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,907 - sv_pid1@cbaca34c80eb - INFO - 1794439584.907 T0036_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,907 - sv_pid1@cbaca34c80eb - INFO - 1794439584.907 T0039_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,907 - sv_pid1@cbaca34c80eb - INFO - 1794439584.908 T0039_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,907 - sv_pid1@cbaca34c80eb - INFO - 1794439584.908 T0039_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,907 - sv_pid1@cbaca34c80eb - INFO - 1794439584.908 T0036_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,908 - sv_pid1@cbaca34c80eb - INFO - 1794439584.909 T0040_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,908 - sv_pid1@cbaca34c80eb - INFO - 1794439584.909 T0040_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,909 - sv_pid1@cbaca34c80eb - INFO - 1794439584.910 T0041_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,909 - sv_pid1@cbaca34c80eb - INFO - 1794439584.910 T0041_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,910 - sv_pid1@cbaca34c80eb - INFO - 1794439584.910 T0042_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,910 - sv_pid1@cbaca34c80eb - INFO - 1794439584.910 T0042_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,910 - sv_pid1@cbaca34c80eb - INFO - 1794439584.910 T0043_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,910 - sv_pid1@cbaca34c80eb - INFO - 1794439584.910 T0043_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,919 - sv_pid1@cbaca34c80eb - INFO - 1794439584.920 T0040_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,919 - sv_pid1@cbaca34c80eb - INFO - 1794439584.920 T0040_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,919 - sv_pid1@cbaca34c80eb - INFO - 1794439584.920 T0041_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,919 - sv_pid1@cbaca34c80eb - INFO - 1794439584.920 T0041_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,920 - sv_pid1@cbaca34c80eb - INFO - 1794439584.920 T0042_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,920 - sv_pid1@cbaca34c80eb - INFO - 1794439584.920 T0042_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,920 - sv_pid1@cbaca34c80eb - INFO - 1794439584.921 T0043_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,920 - sv_pid1@cbaca34c80eb - INFO - 1794439584.921 T0043_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,940 - sv_pid1@cbaca34c80eb - INFO - 1794439584.940 T0040_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,940 - sv_pid1@cbaca34c80eb - INFO - 1794439584.940 T0040_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,940 - sv_pid1@cbaca34c80eb - INFO - 1794439584.941 T0043_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,940 - sv_pid1@cbaca34c80eb - INFO - 1794439584.941 T0043_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,942 - sv_pid1@cbaca34c80eb - INFO - 1794439584.943 T0042_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,942 - sv_pid1@cbaca34c80eb - INFO - 1794439584.943 T0042_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,943 - sv_pid1@cbaca34c80eb - INFO - 1794439584.944 T0041_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,943 - sv_pid1@cbaca34c80eb - INFO - 1794439584.944 T0041_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.952 T0040_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.952 T0040_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.953 T0040_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.953 T0043_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.953 T0043_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.953 T0043_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.953 T0042_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,952 - sv_pid1@cbaca34c80eb - INFO - 1794439584.953 T0042_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,953 - sv_pid1@cbaca34c80eb - INFO - 1794439584.953 T0042_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,953 - sv_pid1@cbaca34c80eb - INFO - 1794439584.954 T0041_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,953 - sv_pid1@cbaca34c80eb - INFO - 1794439584.954 T0041_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,953 - sv_pid1@cbaca34c80eb - INFO - 1794439584.954 T0041_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,956 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0046_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,956 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0046_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,956 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0045_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,956 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0045_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,957 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0044_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,957 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0044_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,957 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0047_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:24,957 - sv_pid1@cbaca34c80eb - INFO - 1794439584.957 T0047_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.967 T0046_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.967 T0046_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.967 T0045_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.968 T0045_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.968 T0044_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.968 T0044_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.968 T0047_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:24,967 - sv_pid1@cbaca34c80eb - INFO - 1794439584.968 T0047_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:24,988 - sv_pid1@cbaca34c80eb - INFO - 1794439584.989 T0045_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,988 - sv_pid1@cbaca34c80eb - INFO - 1794439584.989 T0046_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,988 - sv_pid1@cbaca34c80eb - INFO - 1794439584.989 T0046_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,988 - sv_pid1@cbaca34c80eb - INFO - 1794439584.989 T0047_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,989 - sv_pid1@cbaca34c80eb - INFO - 1794439584.989 T0047_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,988 - sv_pid1@cbaca34c80eb - INFO - 1794439584.989 T0045_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,991 - sv_pid1@cbaca34c80eb - INFO - 1794439584.991 T0044_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:24,991 - sv_pid1@cbaca34c80eb - INFO - 1794439584.991 T0044_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:24,999 - sv_pid1@cbaca34c80eb - INFO - 1794439584.999 T0046_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,999 - sv_pid1@cbaca34c80eb - INFO - 1794439584.999 T0046_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:24,999 - sv_pid1@cbaca34c80eb - INFO - 1794439584.999 T0046_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:24,999 - sv_pid1@cbaca34c80eb - INFO - 1794439585.000 T0047_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:24,999 - sv_pid1@cbaca34c80eb - INFO - 1794439585.000 T0047_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,000 - sv_pid1@cbaca34c80eb - INFO - 1794439585.000 T0047_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,000 - sv_pid1@cbaca34c80eb - INFO - 1794439585.001 T0045_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,001 - sv_pid1@cbaca34c80eb - INFO - 1794439585.001 T0045_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,001 - sv_pid1@cbaca34c80eb - INFO - 1794439585.001 T0045_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,001 - sv_pid1@cbaca34c80eb - INFO - 1794439585.002 T0044_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,001 - sv_pid1@cbaca34c80eb - INFO - 1794439585.002 T0044_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,001 - sv_pid1@cbaca34c80eb - INFO - 1794439585.002 T0044_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.005 T0048_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.005 T0048_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.005 T0049_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.006 T0049_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.006 T0051_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.006 T0051_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.006 T0050_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,005 - sv_pid1@cbaca34c80eb - INFO - 1794439585.006 T0050_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.016 T0048_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.016 T0048_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.016 T0050_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.016 T0050_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.016 T0049_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.017 T0049_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.017 T0051_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,016 - sv_pid1@cbaca34c80eb - INFO - 1794439585.017 T0051_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,036 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0050_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,036 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0049_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,036 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0048_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,037 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0051_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,037 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0050_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,037 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0049_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,037 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0048_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,037 - sv_pid1@cbaca34c80eb - INFO - 1794439585.037 T0051_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,048 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0048_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,048 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0048_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,048 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0048_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,048 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0051_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,048 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0051_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,049 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0051_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,049 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0050_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,049 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0050_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,049 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0050_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,049 - sv_pid1@cbaca34c80eb - INFO - 1794439585.049 T0049_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,049 - sv_pid1@cbaca34c80eb - INFO - 1794439585.050 T0049_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,049 - sv_pid1@cbaca34c80eb - INFO - 1794439585.050 T0049_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,053 - sv_pid1@cbaca34c80eb - INFO - 1794439585.054 T0052_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,054 - sv_pid1@cbaca34c80eb - INFO - 1794439585.054 T0053_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,054 - sv_pid1@cbaca34c80eb - INFO - 1794439585.054 T0055_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,054 - sv_pid1@cbaca34c80eb - INFO - 1794439585.054 T0054_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,054 - sv_pid1@cbaca34c80eb - INFO - 1794439585.054 T0052_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,054 - sv_pid1@cbaca34c80eb - INFO - 1794439585.054 T0053_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,054 - sv_pid1@cbaca34c80eb - INFO - 1794439585.054 T0055_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,054 - sv_pid1@cbaca34c80eb - INFO - 1794439585.055 T0054_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,065 - sv_pid1@cbaca34c80eb - INFO - 1794439585.065 T0052_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,065 - sv_pid1@cbaca34c80eb - INFO - 1794439585.065 T0055_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,065 - sv_pid1@cbaca34c80eb - INFO - 1794439585.065 T0054_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,065 - sv_pid1@cbaca34c80eb - INFO - 1794439585.065 T0052_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,065 - sv_pid1@cbaca34c80eb - INFO - 1794439585.065 T0055_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,065 - sv_pid1@cbaca34c80eb - INFO - 1794439585.065 T0054_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,066 - sv_pid1@cbaca34c80eb - INFO - 1794439585.066 T0053_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,066 - sv_pid1@cbaca34c80eb - INFO - 1794439585.067 T0053_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,085 - sv_pid1@cbaca34c80eb - INFO - 1794439585.086 T0054_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,085 - sv_pid1@cbaca34c80eb - INFO - 1794439585.086 T0054_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,087 - sv_pid1@cbaca34c80eb - INFO - 1794439585.087 T0052_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,087 - sv_pid1@cbaca34c80eb - INFO - 1794439585.088 T0052_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,088 - sv_pid1@cbaca34c80eb - INFO - 1794439585.088 T0053_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,088 - sv_pid1@cbaca34c80eb - INFO - 1794439585.088 T0053_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,088 - sv_pid1@cbaca34c80eb - INFO - 1794439585.088 T0055_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,088 - sv_pid1@cbaca34c80eb - INFO - 1794439585.088 T0055_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,097 - sv_pid1@cbaca34c80eb - INFO - 1794439585.098 T0054_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.098 T0054_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.098 T0054_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.098 T0052_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.098 T0052_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.098 T0052_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.099 T0053_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.099 T0053_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.099 T0053_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.099 T0055_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.099 T0055_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,098 - sv_pid1@cbaca34c80eb - INFO - 1794439585.099 T0055_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,102 - sv_pid1@cbaca34c80eb - INFO - 1794439585.102 T0057_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,102 - sv_pid1@cbaca34c80eb - INFO - 1794439585.103 T0057_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,102 - sv_pid1@cbaca34c80eb - INFO - 1794439585.103 T0056_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,102 - sv_pid1@cbaca34c80eb - INFO - 1794439585.103 T0056_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,103 - sv_pid1@cbaca34c80eb - INFO - 1794439585.103 T0058_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,103 - sv_pid1@cbaca34c80eb - INFO - 1794439585.103 T0058_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,103 - sv_pid1@cbaca34c80eb - INFO - 1794439585.103 T0059_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,103 - sv_pid1@cbaca34c80eb - INFO - 1794439585.103 T0059_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.113 T0057_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.113 T0057_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.113 T0056_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.113 T0056_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.113 T0058_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.114 T0058_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.114 T0059_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,113 - sv_pid1@cbaca34c80eb - INFO - 1794439585.114 T0059_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,134 - sv_pid1@cbaca34c80eb - INFO - 1794439585.135 T0058_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,134 - sv_pid1@cbaca34c80eb - INFO - 1794439585.135 T0058_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,135 - sv_pid1@cbaca34c80eb - INFO - 1794439585.136 T0059_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,135 - sv_pid1@cbaca34c80eb - INFO - 1794439585.136 T0059_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,136 - sv_pid1@cbaca34c80eb - INFO - 1794439585.136 T0057_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,136 - sv_pid1@cbaca34c80eb - INFO - 1794439585.136 T0057_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,136 - sv_pid1@cbaca34c80eb - INFO - 1794439585.136 T0056_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,136 - sv_pid1@cbaca34c80eb - INFO - 1794439585.136 T0056_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,145 - sv_pid1@cbaca34c80eb - INFO - 1794439585.145 T0058_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,145 - sv_pid1@cbaca34c80eb - INFO - 1794439585.146 T0058_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,145 - sv_pid1@cbaca34c80eb - INFO - 1794439585.146 T0058_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,146 - sv_pid1@cbaca34c80eb - INFO - 1794439585.146 T0057_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,146 - sv_pid1@cbaca34c80eb - INFO - 1794439585.147 T0057_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,146 - sv_pid1@cbaca34c80eb - INFO - 1794439585.147 T0057_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,147 - sv_pid1@cbaca34c80eb - INFO - 1794439585.147 T0056_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,147 - sv_pid1@cbaca34c80eb - INFO - 1794439585.147 T0056_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,147 - sv_pid1@cbaca34c80eb - INFO - 1794439585.147 T0056_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,147 - sv_pid1@cbaca34c80eb - INFO - 1794439585.148 T0059_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,147 - sv_pid1@cbaca34c80eb - INFO - 1794439585.148 T0059_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,148 - sv_pid1@cbaca34c80eb - INFO - 1794439585.148 T0059_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,152 - sv_pid1@cbaca34c80eb - INFO - 1794439585.153 T0063_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,152 - sv_pid1@cbaca34c80eb - INFO - 1794439585.153 T0063_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,153 - sv_pid1@cbaca34c80eb - INFO - 1794439585.153 T0060_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,153 - sv_pid1@cbaca34c80eb - INFO - 1794439585.153 T0060_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,153 - sv_pid1@cbaca34c80eb - INFO - 1794439585.153 T0062_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,153 - sv_pid1@cbaca34c80eb - INFO - 1794439585.153 T0062_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,153 - sv_pid1@cbaca34c80eb - INFO - 1794439585.154 T0061_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,153 - sv_pid1@cbaca34c80eb - INFO - 1794439585.154 T0061_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,163 - sv_pid1@cbaca34c80eb - INFO - 1794439585.164 T0060_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,163 - sv_pid1@cbaca34c80eb - INFO - 1794439585.164 T0060_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,163 - sv_pid1@cbaca34c80eb - INFO - 1794439585.164 T0062_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,163 - sv_pid1@cbaca34c80eb - INFO - 1794439585.164 T0062_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,165 - sv_pid1@cbaca34c80eb - INFO - 1794439585.165 T0061_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,165 - sv_pid1@cbaca34c80eb - INFO - 1794439585.165 T0061_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,165 - sv_pid1@cbaca34c80eb - INFO - 1794439585.165 T0063_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,165 - sv_pid1@cbaca34c80eb - INFO - 1794439585.165 T0063_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,186 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0062_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,186 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0061_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,187 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0062_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,187 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0060_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,187 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0063_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,187 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0061_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,187 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0060_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,187 - sv_pid1@cbaca34c80eb - INFO - 1794439585.187 T0063_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,197 - sv_pid1@cbaca34c80eb - INFO - 1794439585.198 T0062_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,198 - sv_pid1@cbaca34c80eb - INFO - 1794439585.198 T0062_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,198 - sv_pid1@cbaca34c80eb - INFO - 1794439585.198 T0062_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,200 - sv_pid1@cbaca34c80eb - INFO - 1794439585.201 T0060_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,200 - sv_pid1@cbaca34c80eb - INFO - 1794439585.201 T0060_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,200 - sv_pid1@cbaca34c80eb - INFO - 1794439585.201 T0060_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,201 - sv_pid1@cbaca34c80eb - INFO - 1794439585.201 T0063_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,201 - sv_pid1@cbaca34c80eb - INFO - 1794439585.201 T0063_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,201 - sv_pid1@cbaca34c80eb - INFO - 1794439585.201 T0063_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,201 - sv_pid1@cbaca34c80eb - INFO - 1794439585.201 T0061_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,201 - sv_pid1@cbaca34c80eb - INFO - 1794439585.202 T0061_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,201 - sv_pid1@cbaca34c80eb - INFO - 1794439585.202 T0061_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.218 T0067_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.218 T0067_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.219 T0065_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.219 T0065_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.219 T0066_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.219 T0066_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.219 T0064_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,218 - sv_pid1@cbaca34c80eb - INFO - 1794439585.219 T0064_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,228 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0065_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,228 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0067_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,228 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0065_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,228 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0067_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,229 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0066_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,229 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0064_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,229 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0066_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,229 - sv_pid1@cbaca34c80eb - INFO - 1794439585.229 T0064_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.250 T0066_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.251 T0066_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.251 T0065_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.251 T0065_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.251 T0067_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.251 T0067_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.251 T0064_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,250 - sv_pid1@cbaca34c80eb - INFO - 1794439585.251 T0064_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,261 - sv_pid1@cbaca34c80eb - INFO - 1794439585.261 T0067_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,261 - sv_pid1@cbaca34c80eb - INFO - 1794439585.261 T0067_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,261 - sv_pid1@cbaca34c80eb - INFO - 1794439585.261 T0067_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,261 - sv_pid1@cbaca34c80eb - INFO - 1794439585.262 T0064_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,262 - sv_pid1@cbaca34c80eb - INFO - 1794439585.262 T0064_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,262 - sv_pid1@cbaca34c80eb - INFO - 1794439585.262 T0064_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,262 - sv_pid1@cbaca34c80eb - INFO - 1794439585.262 T0066_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,262 - sv_pid1@cbaca34c80eb - INFO - 1794439585.263 T0066_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,262 - sv_pid1@cbaca34c80eb - INFO - 1794439585.263 T0066_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,261 - sv_pid1@cbaca34c80eb - INFO - 1794439585.262 T0065_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,263 - sv_pid1@cbaca34c80eb - INFO - 1794439585.263 T0065_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,263 - sv_pid1@cbaca34c80eb - INFO - 1794439585.263 T0065_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,272 - sv_pid1@cbaca34c80eb - INFO - 1794439585.273 T0071_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,272 - sv_pid1@cbaca34c80eb - INFO - 1794439585.273 T0071_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,273 - sv_pid1@cbaca34c80eb - INFO - 1794439585.273 T0069_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,273 - sv_pid1@cbaca34c80eb - INFO - 1794439585.273 T0069_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,273 - sv_pid1@cbaca34c80eb - INFO - 1794439585.273 T0068_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,273 - sv_pid1@cbaca34c80eb - INFO - 1794439585.273 T0068_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,273 - sv_pid1@cbaca34c80eb - INFO - 1794439585.273 T0070_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,273 - sv_pid1@cbaca34c80eb - INFO - 1794439585.274 T0070_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,284 - sv_pid1@cbaca34c80eb - INFO - 1794439585.284 T0069_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,284 - sv_pid1@cbaca34c80eb - INFO - 1794439585.284 T0069_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,284 - sv_pid1@cbaca34c80eb - INFO - 1794439585.284 T0071_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,284 - sv_pid1@cbaca34c80eb - INFO - 1794439585.284 T0071_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,284 - sv_pid1@cbaca34c80eb - INFO - 1794439585.284 T0068_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,284 - sv_pid1@cbaca34c80eb - INFO - 1794439585.285 T0068_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,285 - sv_pid1@cbaca34c80eb - INFO - 1794439585.286 T0070_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,285 - sv_pid1@cbaca34c80eb - INFO - 1794439585.286 T0070_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,304 - sv_pid1@cbaca34c80eb - INFO - 1794439585.305 T0068_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,305 - sv_pid1@cbaca34c80eb - INFO - 1794439585.305 T0071_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,305 - sv_pid1@cbaca34c80eb - INFO - 1794439585.305 T0069_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,305 - sv_pid1@cbaca34c80eb - INFO - 1794439585.305 T0068_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,305 - sv_pid1@cbaca34c80eb - INFO - 1794439585.305 T0071_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,305 - sv_pid1@cbaca34c80eb - INFO - 1794439585.305 T0069_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,309 - sv_pid1@cbaca34c80eb - INFO - 1794439585.310 T0070_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,309 - sv_pid1@cbaca34c80eb - INFO - 1794439585.310 T0070_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,321 - sv_pid1@cbaca34c80eb - INFO - 1794439585.320 T0069_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,321 - sv_pid1@cbaca34c80eb - INFO - 1794439585.321 T0069_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,321 - sv_pid1@cbaca34c80eb - INFO - 1794439585.322 T0069_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,322 - sv_pid1@cbaca34c80eb - INFO - 1794439585.323 T0070_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,322 - sv_pid1@cbaca34c80eb - INFO - 1794439585.323 T0070_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,322 - sv_pid1@cbaca34c80eb - INFO - 1794439585.323 T0070_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,330 - sv_pid1@cbaca34c80eb - INFO - 1794439585.323 T0071_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,330 - sv_pid1@cbaca34c80eb - INFO - 1794439585.330 T0071_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,330 - sv_pid1@cbaca34c80eb - INFO - 1794439585.331 T0071_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,332 - sv_pid1@cbaca34c80eb - INFO - 1794439585.332 T0068_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,332 - sv_pid1@cbaca34c80eb - INFO - 1794439585.332 T0068_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,332 - sv_pid1@cbaca34c80eb - INFO - 1794439585.332 T0068_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.336 T0072_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.336 T0072_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.336 T0075_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.336 T0075_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.336 T0074_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.337 T0074_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.337 T0073_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,336 - sv_pid1@cbaca34c80eb - INFO - 1794439585.337 T0073_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,346 - sv_pid1@cbaca34c80eb - INFO - 1794439585.347 T0073_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,346 - sv_pid1@cbaca34c80eb - INFO - 1794439585.347 T0073_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,346 - sv_pid1@cbaca34c80eb - INFO - 1794439585.347 T0072_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,346 - sv_pid1@cbaca34c80eb - INFO - 1794439585.347 T0072_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,347 - sv_pid1@cbaca34c80eb - INFO - 1794439585.347 T0074_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,347 - sv_pid1@cbaca34c80eb - INFO - 1794439585.347 T0074_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,347 - sv_pid1@cbaca34c80eb - INFO - 1794439585.348 T0075_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,348 - sv_pid1@cbaca34c80eb - INFO - 1794439585.348 T0075_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,368 - sv_pid1@cbaca34c80eb - INFO - 1794439585.368 T0072_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,368 - sv_pid1@cbaca34c80eb - INFO - 1794439585.369 T0072_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,369 - sv_pid1@cbaca34c80eb - INFO - 1794439585.370 T0075_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,369 - sv_pid1@cbaca34c80eb - INFO - 1794439585.370 T0074_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,369 - sv_pid1@cbaca34c80eb - INFO - 1794439585.370 T0073_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,369 - sv_pid1@cbaca34c80eb - INFO - 1794439585.370 T0075_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,370 - sv_pid1@cbaca34c80eb - INFO - 1794439585.370 T0074_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,370 - sv_pid1@cbaca34c80eb - INFO - 1794439585.370 T0073_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,381 - sv_pid1@cbaca34c80eb - INFO - 1794439585.381 T0075_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,381 - sv_pid1@cbaca34c80eb - INFO - 1794439585.381 T0072_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,381 - sv_pid1@cbaca34c80eb - INFO - 1794439585.382 T0075_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,381 - sv_pid1@cbaca34c80eb - INFO - 1794439585.382 T0072_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,381 - sv_pid1@cbaca34c80eb - INFO - 1794439585.382 T0072_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,381 - sv_pid1@cbaca34c80eb - INFO - 1794439585.382 T0075_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,382 - sv_pid1@cbaca34c80eb - INFO - 1794439585.382 T0074_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,382 - sv_pid1@cbaca34c80eb - INFO - 1794439585.383 T0074_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,382 - sv_pid1@cbaca34c80eb - INFO - 1794439585.383 T0074_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,382 - sv_pid1@cbaca34c80eb - INFO - 1794439585.382 T0073_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,383 - sv_pid1@cbaca34c80eb - INFO - 1794439585.383 T0073_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,383 - sv_pid1@cbaca34c80eb - INFO - 1794439585.383 T0073_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,404 - sv_pid1@cbaca34c80eb - INFO - 1794439585.404 T0076_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,404 - sv_pid1@cbaca34c80eb - INFO - 1794439585.404 T0076_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,404 - sv_pid1@cbaca34c80eb - INFO - 1794439585.405 T0077_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,404 - sv_pid1@cbaca34c80eb - INFO - 1794439585.405 T0077_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,405 - sv_pid1@cbaca34c80eb - INFO - 1794439585.405 T0079_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,405 - sv_pid1@cbaca34c80eb - INFO - 1794439585.405 T0079_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,405 - sv_pid1@cbaca34c80eb - INFO - 1794439585.405 T0078_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,405 - sv_pid1@cbaca34c80eb - INFO - 1794439585.405 T0078_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,415 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0076_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,415 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0076_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,415 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0079_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,415 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0079_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,416 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0077_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,416 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0077_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,416 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0078_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,416 - sv_pid1@cbaca34c80eb - INFO - 1794439585.416 T0078_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,435 - sv_pid1@cbaca34c80eb - INFO - 1794439585.436 T0076_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,436 - sv_pid1@cbaca34c80eb - INFO - 1794439585.436 T0076_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,439 - sv_pid1@cbaca34c80eb - INFO - 1794439585.439 T0077_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,439 - sv_pid1@cbaca34c80eb - INFO - 1794439585.439 T0077_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,439 - sv_pid1@cbaca34c80eb - INFO - 1794439585.439 T0079_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,439 - sv_pid1@cbaca34c80eb - INFO - 1794439585.439 T0079_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,439 - sv_pid1@cbaca34c80eb - INFO - 1794439585.440 T0078_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,439 - sv_pid1@cbaca34c80eb - INFO - 1794439585.440 T0078_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,446 - sv_pid1@cbaca34c80eb - INFO - 1794439585.446 T0076_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,446 - sv_pid1@cbaca34c80eb - INFO - 1794439585.447 T0076_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,446 - sv_pid1@cbaca34c80eb - INFO - 1794439585.447 T0076_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,450 - sv_pid1@cbaca34c80eb - INFO - 1794439585.450 T0077_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,450 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0077_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,450 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0077_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,450 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0078_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,451 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0078_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,451 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0078_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,450 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0079_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,451 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0079_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,451 - sv_pid1@cbaca34c80eb - INFO - 1794439585.451 T0079_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,452 - sv_pid1@cbaca34c80eb - INFO - 1794439585.453 T0080_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,452 - sv_pid1@cbaca34c80eb - INFO - 1794439585.453 T0080_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,454 - sv_pid1@cbaca34c80eb - INFO - 1794439585.454 T0081_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,454 - sv_pid1@cbaca34c80eb - INFO - 1794439585.454 T0081_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,454 - sv_pid1@cbaca34c80eb - INFO - 1794439585.455 T0082_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,454 - sv_pid1@cbaca34c80eb - INFO - 1794439585.455 T0082_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,454 - sv_pid1@cbaca34c80eb - INFO - 1794439585.455 T0083_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,454 - sv_pid1@cbaca34c80eb - INFO - 1794439585.455 T0083_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,464 - sv_pid1@cbaca34c80eb - INFO - 1794439585.464 T0080_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,464 - sv_pid1@cbaca34c80eb - INFO - 1794439585.464 T0080_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,465 - sv_pid1@cbaca34c80eb - INFO - 1794439585.465 T0082_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,465 - sv_pid1@cbaca34c80eb - INFO - 1794439585.465 T0082_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,465 - sv_pid1@cbaca34c80eb - INFO - 1794439585.466 T0081_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,465 - sv_pid1@cbaca34c80eb - INFO - 1794439585.466 T0081_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,465 - sv_pid1@cbaca34c80eb - INFO - 1794439585.466 T0083_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,466 - sv_pid1@cbaca34c80eb - INFO - 1794439585.466 T0083_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,485 - sv_pid1@cbaca34c80eb - INFO - 1794439585.485 T0080_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,485 - sv_pid1@cbaca34c80eb - INFO - 1794439585.485 T0080_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,486 - sv_pid1@cbaca34c80eb - INFO - 1794439585.486 T0082_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,486 - sv_pid1@cbaca34c80eb - INFO - 1794439585.486 T0082_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,486 - sv_pid1@cbaca34c80eb - INFO - 1794439585.486 T0083_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,486 - sv_pid1@cbaca34c80eb - INFO - 1794439585.486 T0083_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,487 - sv_pid1@cbaca34c80eb - INFO - 1794439585.487 T0081_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,487 - sv_pid1@cbaca34c80eb - INFO - 1794439585.487 T0081_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,495 - sv_pid1@cbaca34c80eb - INFO - 1794439585.496 T0080_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,495 - sv_pid1@cbaca34c80eb - INFO - 1794439585.496 T0080_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,495 - sv_pid1@cbaca34c80eb - INFO - 1794439585.496 T0080_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,496 - sv_pid1@cbaca34c80eb - INFO - 1794439585.496 T0082_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,496 - sv_pid1@cbaca34c80eb - INFO - 1794439585.496 T0082_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,496 - sv_pid1@cbaca34c80eb - INFO - 1794439585.496 T0082_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,496 - sv_pid1@cbaca34c80eb - INFO - 1794439585.497 T0083_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,496 - sv_pid1@cbaca34c80eb - INFO - 1794439585.497 T0083_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,496 - sv_pid1@cbaca34c80eb - INFO - 1794439585.497 T0083_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,497 - sv_pid1@cbaca34c80eb - INFO - 1794439585.497 T0081_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,497 - sv_pid1@cbaca34c80eb - INFO - 1794439585.497 T0081_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,497 - sv_pid1@cbaca34c80eb - INFO - 1794439585.497 T0081_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.499 T0086_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.499 T0086_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.500 T0084_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.500 T0084_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.500 T0087_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.500 T0087_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.500 T0085_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,499 - sv_pid1@cbaca34c80eb - INFO - 1794439585.500 T0085_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,509 - sv_pid1@cbaca34c80eb - INFO - 1794439585.510 T0086_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,509 - sv_pid1@cbaca34c80eb - INFO - 1794439585.510 T0086_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,509 - sv_pid1@cbaca34c80eb - INFO - 1794439585.510 T0084_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,510 - sv_pid1@cbaca34c80eb - INFO - 1794439585.510 T0084_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,510 - sv_pid1@cbaca34c80eb - INFO - 1794439585.510 T0087_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,510 - sv_pid1@cbaca34c80eb - INFO - 1794439585.510 T0087_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,511 - sv_pid1@cbaca34c80eb - INFO - 1794439585.511 T0085_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,511 - sv_pid1@cbaca34c80eb - INFO - 1794439585.511 T0085_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,531 - sv_pid1@cbaca34c80eb - INFO - 1794439585.531 T0084_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,531 - sv_pid1@cbaca34c80eb - INFO - 1794439585.532 T0084_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,531 - sv_pid1@cbaca34c80eb - INFO - 1794439585.532 T0086_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,531 - sv_pid1@cbaca34c80eb - INFO - 1794439585.532 T0086_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,532 - sv_pid1@cbaca34c80eb - INFO - 1794439585.532 T0085_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,532 - sv_pid1@cbaca34c80eb - INFO - 1794439585.532 T0085_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,535 - sv_pid1@cbaca34c80eb - INFO - 1794439585.535 T0087_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,535 - sv_pid1@cbaca34c80eb - INFO - 1794439585.535 T0087_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,542 - sv_pid1@cbaca34c80eb - INFO - 1794439585.542 T0086_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,542 - sv_pid1@cbaca34c80eb - INFO - 1794439585.542 T0086_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,542 - sv_pid1@cbaca34c80eb - INFO - 1794439585.543 T0086_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,542 - sv_pid1@cbaca34c80eb - INFO - 1794439585.543 T0084_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,543 - sv_pid1@cbaca34c80eb - INFO - 1794439585.543 T0084_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,543 - sv_pid1@cbaca34c80eb - INFO - 1794439585.543 T0084_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,543 - sv_pid1@cbaca34c80eb - INFO - 1794439585.544 T0085_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,543 - sv_pid1@cbaca34c80eb - INFO - 1794439585.544 T0085_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,543 - sv_pid1@cbaca34c80eb - INFO - 1794439585.544 T0085_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,545 - sv_pid1@cbaca34c80eb - INFO - 1794439585.545 T0087_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,545 - sv_pid1@cbaca34c80eb - INFO - 1794439585.546 T0087_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,545 - sv_pid1@cbaca34c80eb - INFO - 1794439585.546 T0087_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,546 - sv_pid1@cbaca34c80eb - INFO - 1794439585.547 T0090_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,546 - sv_pid1@cbaca34c80eb - INFO - 1794439585.547 T0090_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,547 - sv_pid1@cbaca34c80eb - INFO - 1794439585.547 T0089_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,547 - sv_pid1@cbaca34c80eb - INFO - 1794439585.547 T0089_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,547 - sv_pid1@cbaca34c80eb - INFO - 1794439585.547 T0088_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,547 - sv_pid1@cbaca34c80eb - INFO - 1794439585.547 T0088_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,549 - sv_pid1@cbaca34c80eb - INFO - 1794439585.550 T0091_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,549 - sv_pid1@cbaca34c80eb - INFO - 1794439585.550 T0091_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,557 - sv_pid1@cbaca34c80eb - INFO - 1794439585.557 T0090_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,557 - sv_pid1@cbaca34c80eb - INFO - 1794439585.557 T0090_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,557 - sv_pid1@cbaca34c80eb - INFO - 1794439585.558 T0088_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,557 - sv_pid1@cbaca34c80eb - INFO - 1794439585.558 T0088_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,559 - sv_pid1@cbaca34c80eb - INFO - 1794439585.559 T0089_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,559 - sv_pid1@cbaca34c80eb - INFO - 1794439585.559 T0089_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,560 - sv_pid1@cbaca34c80eb - INFO - 1794439585.561 T0091_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,560 - sv_pid1@cbaca34c80eb - INFO - 1794439585.561 T0091_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,579 - sv_pid1@cbaca34c80eb - INFO - 1794439585.580 T0090_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,579 - sv_pid1@cbaca34c80eb - INFO - 1794439585.580 T0088_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,580 - sv_pid1@cbaca34c80eb - INFO - 1794439585.580 T0088_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,579 - sv_pid1@cbaca34c80eb - INFO - 1794439585.580 T0090_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,579 - sv_pid1@cbaca34c80eb - INFO - 1794439585.580 T0089_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,580 - sv_pid1@cbaca34c80eb - INFO - 1794439585.580 T0089_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,583 - sv_pid1@cbaca34c80eb - INFO - 1794439585.584 T0091_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,583 - sv_pid1@cbaca34c80eb - INFO - 1794439585.584 T0091_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,590 - sv_pid1@cbaca34c80eb - INFO - 1794439585.590 T0090_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,590 - sv_pid1@cbaca34c80eb - INFO - 1794439585.590 T0090_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,590 - sv_pid1@cbaca34c80eb - INFO - 1794439585.590 T0090_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,590 - sv_pid1@cbaca34c80eb - INFO - 1794439585.591 T0088_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,590 - sv_pid1@cbaca34c80eb - INFO - 1794439585.591 T0088_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,591 - sv_pid1@cbaca34c80eb - INFO - 1794439585.591 T0089_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,591 - sv_pid1@cbaca34c80eb - INFO - 1794439585.591 T0089_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,591 - sv_pid1@cbaca34c80eb - INFO - 1794439585.591 T0088_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,591 - sv_pid1@cbaca34c80eb - INFO - 1794439585.591 T0089_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,594 - sv_pid1@cbaca34c80eb - INFO - 1794439585.594 T0091_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,594 - sv_pid1@cbaca34c80eb - INFO - 1794439585.594 T0091_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,594 - sv_pid1@cbaca34c80eb - INFO - 1794439585.594 T0091_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,599 - sv_pid1@cbaca34c80eb - INFO - 1794439585.600 T0093_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,600 - sv_pid1@cbaca34c80eb - INFO - 1794439585.600 T0093_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,600 - sv_pid1@cbaca34c80eb - INFO - 1794439585.600 T0094_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,600 - sv_pid1@cbaca34c80eb - INFO - 1794439585.600 T0094_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,600 - sv_pid1@cbaca34c80eb - INFO - 1794439585.600 T0095_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,600 - sv_pid1@cbaca34c80eb - INFO - 1794439585.600 T0095_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,600 - sv_pid1@cbaca34c80eb - INFO - 1794439585.601 T0092_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,600 - sv_pid1@cbaca34c80eb - INFO - 1794439585.601 T0092_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,610 - sv_pid1@cbaca34c80eb - INFO - 1794439585.611 T0093_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,610 - sv_pid1@cbaca34c80eb - INFO - 1794439585.611 T0093_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,611 - sv_pid1@cbaca34c80eb - INFO - 1794439585.611 T0095_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,611 - sv_pid1@cbaca34c80eb - INFO - 1794439585.611 T0095_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,611 - sv_pid1@cbaca34c80eb - INFO - 1794439585.611 T0094_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,611 - sv_pid1@cbaca34c80eb - INFO - 1794439585.611 T0094_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,612 - sv_pid1@cbaca34c80eb - INFO - 1794439585.613 T0092_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,612 - sv_pid1@cbaca34c80eb - INFO - 1794439585.613 T0092_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.633 T0094_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.633 T0094_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.634 T0095_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.634 T0095_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.634 T0092_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.634 T0092_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.634 T0093_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,633 - sv_pid1@cbaca34c80eb - INFO - 1794439585.634 T0093_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,644 - sv_pid1@cbaca34c80eb - INFO - 1794439585.644 T0095_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,644 - sv_pid1@cbaca34c80eb - INFO - 1794439585.644 T0095_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,644 - sv_pid1@cbaca34c80eb - INFO - 1794439585.645 T0095_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.645 T0094_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.645 T0094_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.645 T0094_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.645 T0093_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.645 T0093_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.646 T0093_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.646 T0092_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,645 - sv_pid1@cbaca34c80eb - INFO - 1794439585.646 T0092_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,646 - sv_pid1@cbaca34c80eb - INFO - 1794439585.646 T0092_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,657 - sv_pid1@cbaca34c80eb - INFO - 1794439585.657 T0099_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,657 - sv_pid1@cbaca34c80eb - INFO - 1794439585.658 T0099_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,657 - sv_pid1@cbaca34c80eb - INFO - 1794439585.658 T0098_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,657 - sv_pid1@cbaca34c80eb - INFO - 1794439585.658 T0098_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,658 - sv_pid1@cbaca34c80eb - INFO - 1794439585.658 T0096_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,658 - sv_pid1@cbaca34c80eb - INFO - 1794439585.658 T0096_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,658 - sv_pid1@cbaca34c80eb - INFO - 1794439585.658 T0097_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,658 - sv_pid1@cbaca34c80eb - INFO - 1794439585.658 T0097_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.668 T0099_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.668 T0099_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.669 T0096_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.669 T0096_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.669 T0098_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.669 T0098_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.669 T0097_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,668 - sv_pid1@cbaca34c80eb - INFO - 1794439585.669 T0097_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,689 - sv_pid1@cbaca34c80eb - INFO - 1794439585.689 T0099_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,689 - sv_pid1@cbaca34c80eb - INFO - 1794439585.689 T0099_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,689 - sv_pid1@cbaca34c80eb - INFO - 1794439585.690 T0097_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,690 - sv_pid1@cbaca34c80eb - INFO - 1794439585.690 T0097_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,693 - sv_pid1@cbaca34c80eb - INFO - 1794439585.693 T0098_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,693 - sv_pid1@cbaca34c80eb - INFO - 1794439585.693 T0098_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,693 - sv_pid1@cbaca34c80eb - INFO - 1794439585.694 T0096_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,693 - sv_pid1@cbaca34c80eb - INFO - 1794439585.694 T0096_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,701 - sv_pid1@cbaca34c80eb - INFO - 1794439585.701 T0099_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,701 - sv_pid1@cbaca34c80eb - INFO - 1794439585.701 T0099_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,701 - sv_pid1@cbaca34c80eb - INFO - 1794439585.701 T0099_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,702 - sv_pid1@cbaca34c80eb - INFO - 1794439585.703 T0097_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,702 - sv_pid1@cbaca34c80eb - INFO - 1794439585.703 T0097_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,702 - sv_pid1@cbaca34c80eb - INFO - 1794439585.703 T0097_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,705 - sv_pid1@cbaca34c80eb - INFO - 1794439585.705 T0098_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,705 - sv_pid1@cbaca34c80eb - INFO - 1794439585.705 T0098_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,705 - sv_pid1@cbaca34c80eb - INFO - 1794439585.705 T0098_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,705 - sv_pid1@cbaca34c80eb - INFO - 1794439585.705 T0096_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,705 - sv_pid1@cbaca34c80eb - INFO - 1794439585.705 T0096_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,705 - sv_pid1@cbaca34c80eb - INFO - 1794439585.705 T0096_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,712 - sv_pid1@cbaca34c80eb - INFO - 1794439585.713 T0101_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,712 - sv_pid1@cbaca34c80eb - INFO - 1794439585.713 T0101_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,713 - sv_pid1@cbaca34c80eb - INFO - 1794439585.713 T0100_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,713 - sv_pid1@cbaca34c80eb - INFO - 1794439585.713 T0100_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,713 - sv_pid1@cbaca34c80eb - INFO - 1794439585.713 T0103_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,713 - sv_pid1@cbaca34c80eb - INFO - 1794439585.714 T0103_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,713 - sv_pid1@cbaca34c80eb - INFO - 1794439585.714 T0102_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,713 - sv_pid1@cbaca34c80eb - INFO - 1794439585.714 T0102_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,723 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0100_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,724 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0100_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,724 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0103_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,724 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0103_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,724 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0102_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,724 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0102_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,724 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0101_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,724 - sv_pid1@cbaca34c80eb - INFO - 1794439585.724 T0101_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,746 - sv_pid1@cbaca34c80eb - INFO - 1794439585.746 T0103_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,746 - sv_pid1@cbaca34c80eb - INFO - 1794439585.746 T0103_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,746 - sv_pid1@cbaca34c80eb - INFO - 1794439585.747 T0101_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,746 - sv_pid1@cbaca34c80eb - INFO - 1794439585.747 T0101_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,746 - sv_pid1@cbaca34c80eb - INFO - 1794439585.747 T0102_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,747 - sv_pid1@cbaca34c80eb - INFO - 1794439585.747 T0102_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,746 - sv_pid1@cbaca34c80eb - INFO - 1794439585.747 T0100_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,747 - sv_pid1@cbaca34c80eb - INFO - 1794439585.747 T0100_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,757 - sv_pid1@cbaca34c80eb - INFO - 1794439585.757 T0103_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.758 T0100_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.758 T0100_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.758 T0103_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.758 T0102_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.759 T0102_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.758 T0101_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.759 T0103_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.759 T0102_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,758 - sv_pid1@cbaca34c80eb - INFO - 1794439585.759 T0100_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,759 - sv_pid1@cbaca34c80eb - INFO - 1794439585.759 T0101_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,762 - sv_pid1@cbaca34c80eb - INFO - 1794439585.763 T0101_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,773 - sv_pid1@cbaca34c80eb - INFO - 1794439585.773 T0105_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,773 - sv_pid1@cbaca34c80eb - INFO - 1794439585.774 T0105_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,773 - sv_pid1@cbaca34c80eb - INFO - 1794439585.774 T0104_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,773 - sv_pid1@cbaca34c80eb - INFO - 1794439585.774 T0104_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,774 - sv_pid1@cbaca34c80eb - INFO - 1794439585.774 T0106_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,774 - sv_pid1@cbaca34c80eb - INFO - 1794439585.774 T0106_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,774 - sv_pid1@cbaca34c80eb - INFO - 1794439585.774 T0107_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,774 - sv_pid1@cbaca34c80eb - INFO - 1794439585.774 T0107_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,784 - sv_pid1@cbaca34c80eb - INFO - 1794439585.785 T0104_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,784 - sv_pid1@cbaca34c80eb - INFO - 1794439585.785 T0104_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,784 - sv_pid1@cbaca34c80eb - INFO - 1794439585.785 T0105_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,784 - sv_pid1@cbaca34c80eb - INFO - 1794439585.785 T0105_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,784 - sv_pid1@cbaca34c80eb - INFO - 1794439585.785 T0107_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,784 - sv_pid1@cbaca34c80eb - INFO - 1794439585.785 T0107_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,787 - sv_pid1@cbaca34c80eb - INFO - 1794439585.788 T0106_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,788 - sv_pid1@cbaca34c80eb - INFO - 1794439585.788 T0106_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,805 - sv_pid1@cbaca34c80eb - INFO - 1794439585.805 T0105_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,805 - sv_pid1@cbaca34c80eb - INFO - 1794439585.806 T0105_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,805 - sv_pid1@cbaca34c80eb - INFO - 1794439585.806 T0107_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,806 - sv_pid1@cbaca34c80eb - INFO - 1794439585.806 T0107_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,807 - sv_pid1@cbaca34c80eb - INFO - 1794439585.807 T0104_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,807 - sv_pid1@cbaca34c80eb - INFO - 1794439585.807 T0104_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,808 - sv_pid1@cbaca34c80eb - INFO - 1794439585.809 T0106_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,809 - sv_pid1@cbaca34c80eb - INFO - 1794439585.809 T0106_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,821 - sv_pid1@cbaca34c80eb - INFO - 1794439585.822 T0107_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,822 - sv_pid1@cbaca34c80eb - INFO - 1794439585.823 T0107_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,822 - sv_pid1@cbaca34c80eb - INFO - 1794439585.822 T0105_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,823 - sv_pid1@cbaca34c80eb - INFO - 1794439585.824 T0105_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,823 - sv_pid1@cbaca34c80eb - INFO - 1794439585.824 T0105_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,822 - sv_pid1@cbaca34c80eb - INFO - 1794439585.822 T0106_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,825 - sv_pid1@cbaca34c80eb - INFO - 1794439585.825 T0106_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,825 - sv_pid1@cbaca34c80eb - INFO - 1794439585.825 T0106_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,822 - sv_pid1@cbaca34c80eb - INFO - 1794439585.822 T0104_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,825 - sv_pid1@cbaca34c80eb - INFO - 1794439585.826 T0104_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,825 - sv_pid1@cbaca34c80eb - INFO - 1794439585.826 T0104_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,823 - sv_pid1@cbaca34c80eb - INFO - 1794439585.823 T0107_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,838 - sv_pid1@cbaca34c80eb - INFO - 1794439585.839 T0110_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,838 - sv_pid1@cbaca34c80eb - INFO - 1794439585.839 T0110_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,839 - sv_pid1@cbaca34c80eb - INFO - 1794439585.839 T0108_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,839 - sv_pid1@cbaca34c80eb - INFO - 1794439585.839 T0108_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,839 - sv_pid1@cbaca34c80eb - INFO - 1794439585.839 T0109_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,839 - sv_pid1@cbaca34c80eb - INFO - 1794439585.839 T0109_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,839 - sv_pid1@cbaca34c80eb - INFO - 1794439585.840 T0111_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,839 - sv_pid1@cbaca34c80eb - INFO - 1794439585.840 T0111_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0108_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0108_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0109_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0109_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0111_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0111_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0110_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,850 - sv_pid1@cbaca34c80eb - INFO - 1794439585.850 T0110_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,870 - sv_pid1@cbaca34c80eb - INFO - 1794439585.871 T0108_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,871 - sv_pid1@cbaca34c80eb - INFO - 1794439585.871 T0108_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,871 - sv_pid1@cbaca34c80eb - INFO - 1794439585.872 T0111_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,876 - sv_pid1@cbaca34c80eb - INFO - 1794439585.877 T0111_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,877 - sv_pid1@cbaca34c80eb - INFO - 1794439585.877 T0109_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,877 - sv_pid1@cbaca34c80eb - INFO - 1794439585.877 T0109_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,877 - sv_pid1@cbaca34c80eb - INFO - 1794439585.877 T0110_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,877 - sv_pid1@cbaca34c80eb - INFO - 1794439585.878 T0110_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,882 - sv_pid1@cbaca34c80eb - INFO - 1794439585.883 T0108_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,882 - sv_pid1@cbaca34c80eb - INFO - 1794439585.883 T0108_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,883 - sv_pid1@cbaca34c80eb - INFO - 1794439585.883 T0108_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,898 - sv_pid1@cbaca34c80eb - INFO - 1794439585.899 T0111_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,899 - sv_pid1@cbaca34c80eb - INFO - 1794439585.900 T0111_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,899 - sv_pid1@cbaca34c80eb - INFO - 1794439585.899 T0110_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,899 - sv_pid1@cbaca34c80eb - INFO - 1794439585.900 T0110_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,899 - sv_pid1@cbaca34c80eb - INFO - 1794439585.900 T0109_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,899 - sv_pid1@cbaca34c80eb - INFO - 1794439585.900 T0109_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,899 - sv_pid1@cbaca34c80eb - INFO - 1794439585.900 T0111_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,899 - sv_pid1@cbaca34c80eb - INFO - 1794439585.900 T0110_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,900 - sv_pid1@cbaca34c80eb - INFO - 1794439585.900 T0109_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,901 - sv_pid1@cbaca34c80eb - INFO - 1794439585.901 T0112_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,901 - sv_pid1@cbaca34c80eb - INFO - 1794439585.901 T0112_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,903 - sv_pid1@cbaca34c80eb - INFO - 1794439585.903 T0114_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,903 - sv_pid1@cbaca34c80eb - INFO - 1794439585.903 T0114_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,903 - sv_pid1@cbaca34c80eb - INFO - 1794439585.903 T0113_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,903 - sv_pid1@cbaca34c80eb - INFO - 1794439585.903 T0113_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,903 - sv_pid1@cbaca34c80eb - INFO - 1794439585.903 T0115_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,903 - sv_pid1@cbaca34c80eb - INFO - 1794439585.904 T0115_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,911 - sv_pid1@cbaca34c80eb - INFO - 1794439585.912 T0112_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,912 - sv_pid1@cbaca34c80eb - INFO - 1794439585.912 T0112_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,913 - sv_pid1@cbaca34c80eb - INFO - 1794439585.914 T0113_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,913 - sv_pid1@cbaca34c80eb - INFO - 1794439585.914 T0113_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,914 - sv_pid1@cbaca34c80eb - INFO - 1794439585.915 T0115_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,914 - sv_pid1@cbaca34c80eb - INFO - 1794439585.915 T0115_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,914 - sv_pid1@cbaca34c80eb - INFO - 1794439585.915 T0114_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,914 - sv_pid1@cbaca34c80eb - INFO - 1794439585.915 T0114_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,932 - sv_pid1@cbaca34c80eb - INFO - 1794439585.932 T0112_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,932 - sv_pid1@cbaca34c80eb - INFO - 1794439585.932 T0112_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,934 - sv_pid1@cbaca34c80eb - INFO - 1794439585.935 T0115_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,934 - sv_pid1@cbaca34c80eb - INFO - 1794439585.935 T0115_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,935 - sv_pid1@cbaca34c80eb - INFO - 1794439585.935 T0114_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,935 - sv_pid1@cbaca34c80eb - INFO - 1794439585.935 T0114_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,936 - sv_pid1@cbaca34c80eb - INFO - 1794439585.936 T0113_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,936 - sv_pid1@cbaca34c80eb - INFO - 1794439585.936 T0113_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,943 - sv_pid1@cbaca34c80eb - INFO - 1794439585.943 T0112_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,943 - sv_pid1@cbaca34c80eb - INFO - 1794439585.944 T0112_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,943 - sv_pid1@cbaca34c80eb - INFO - 1794439585.944 T0112_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,945 - sv_pid1@cbaca34c80eb - INFO - 1794439585.945 T0115_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,945 - sv_pid1@cbaca34c80eb - INFO - 1794439585.945 T0115_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,945 - sv_pid1@cbaca34c80eb - INFO - 1794439585.945 T0115_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,945 - sv_pid1@cbaca34c80eb - INFO - 1794439585.946 T0114_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,945 - sv_pid1@cbaca34c80eb - INFO - 1794439585.946 T0114_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,945 - sv_pid1@cbaca34c80eb - INFO - 1794439585.946 T0114_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,946 - sv_pid1@cbaca34c80eb - INFO - 1794439585.947 T0113_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,946 - sv_pid1@cbaca34c80eb - INFO - 1794439585.947 T0113_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,946 - sv_pid1@cbaca34c80eb - INFO - 1794439585.947 T0113_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,948 - sv_pid1@cbaca34c80eb - INFO - 1794439585.948 T0142_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,948 - sv_pid1@cbaca34c80eb - INFO - 1794439585.948 T0142_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,949 - sv_pid1@cbaca34c80eb - INFO - 1794439585.949 T0143_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,949 - sv_pid1@cbaca34c80eb - INFO - 1794439585.950 T0143_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,949 - sv_pid1@cbaca34c80eb - INFO - 1794439585.949 T0144_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,949 - sv_pid1@cbaca34c80eb - INFO - 1794439585.950 T0144_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,950 - sv_pid1@cbaca34c80eb - INFO - 1794439585.950 T0145_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,950 - sv_pid1@cbaca34c80eb - INFO - 1794439585.950 T0145_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,958 - sv_pid1@cbaca34c80eb - INFO - 1794439585.959 T0142_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,958 - sv_pid1@cbaca34c80eb - INFO - 1794439585.959 T0142_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,960 - sv_pid1@cbaca34c80eb - INFO - 1794439585.960 T0144_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,960 - sv_pid1@cbaca34c80eb - INFO - 1794439585.960 T0144_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,960 - sv_pid1@cbaca34c80eb - INFO - 1794439585.960 T0143_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,960 - sv_pid1@cbaca34c80eb - INFO - 1794439585.960 T0143_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,962 - sv_pid1@cbaca34c80eb - INFO - 1794439585.962 T0145_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:25,962 - sv_pid1@cbaca34c80eb - INFO - 1794439585.962 T0145_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:25,981 - sv_pid1@cbaca34c80eb - INFO - 1794439585.981 T0142_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,981 - sv_pid1@cbaca34c80eb - INFO - 1794439585.982 T0142_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,982 - sv_pid1@cbaca34c80eb - INFO - 1794439585.982 T0144_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,982 - sv_pid1@cbaca34c80eb - INFO - 1794439585.982 T0144_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,982 - sv_pid1@cbaca34c80eb - INFO - 1794439585.983 T0145_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,983 - sv_pid1@cbaca34c80eb - INFO - 1794439585.983 T0145_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,983 - sv_pid1@cbaca34c80eb - INFO - 1794439585.983 T0143_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:25,983 - sv_pid1@cbaca34c80eb - INFO - 1794439585.983 T0143_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:25,993 - sv_pid1@cbaca34c80eb - INFO - 1794439585.993 T0142_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,993 - sv_pid1@cbaca34c80eb - INFO - 1794439585.993 T0142_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,993 - sv_pid1@cbaca34c80eb - INFO - 1794439585.993 T0142_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0144_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0144_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0144_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0143_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0143_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0143_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0145_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0145_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:25,994 - sv_pid1@cbaca34c80eb - INFO - 1794439585.994 T0145_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:25,998 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0182_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,998 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0179_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,999 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0179_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,998 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0181_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,999 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0182_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,998 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0180_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-11 23:26:25,999 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0181_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:25,999 - sv_pid1@cbaca34c80eb - INFO - 1794439585.999 T0180_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-11 23:26:26,009 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0180_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:26,009 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0182_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:26,009 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0181_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:26,009 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0180_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:26,010 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0182_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:26,010 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0179_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-11 23:26:26,010 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0181_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:26,010 - sv_pid1@cbaca34c80eb - INFO - 1794439586.010 T0179_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-11 23:26:26,031 - sv_pid1@cbaca34c80eb - INFO - 1794439586.032 T0182_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:26,031 - sv_pid1@cbaca34c80eb - INFO - 1794439586.032 T0182_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:26,033 - sv_pid1@cbaca34c80eb - INFO - 1794439586.033 T0181_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:26,033 - sv_pid1@cbaca34c80eb - INFO - 1794439586.033 T0181_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:26,033 - sv_pid1@cbaca34c80eb - INFO - 1794439586.033 T0180_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:26,033 - sv_pid1@cbaca34c80eb - INFO - 1794439586.033 T0180_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:26,034 - sv_pid1@cbaca34c80eb - INFO - 1794439586.034 T0179_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-11 23:26:26,034 - sv_pid1@cbaca34c80eb - INFO - 1794439586.034 T0179_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-11 23:26:26,042 - sv_pid1@cbaca34c80eb - INFO - 1794439586.042 T0182_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:26,042 - sv_pid1@cbaca34c80eb - INFO - 1794439586.042 T0182_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:26,042 - sv_pid1@cbaca34c80eb - INFO - 1794439586.042 T0182_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:26,043 - sv_pid1@cbaca34c80eb - INFO - 1794439586.043 T0181_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:26,043 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0181_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-11 23:26:26,043 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0181_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:26,043 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0180_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:26,043 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0180_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-11 23:26:26,043 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0180_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-11 23:26:26,044 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0179_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-11 23:26:26,044 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0179_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-11 23:26:26,044 - sv_pid1@cbaca34c80eb - INFO - 1794439586.044 T0179_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv

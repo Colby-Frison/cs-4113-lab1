@@ -1,0 +1,939 @@
+2026-11-12 02:01:47,811 - sv_pid1@393de05229de - INFO - Started
+2026-11-12 02:01:47,811 - sv_pid1@393de05229de - INFO - qid q0 server-id 0
+2026-11-12 02:01:47,857 - sv_pid1@393de05229de - INFO - gRPC listen 0.0.0.0:50052 workers 4
+2026-11-12 02:02:47,042 - sv_pid1@393de05229de - INFO - 1794448967.043 T0001_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,042 - sv_pid1@393de05229de - INFO - 1794448967.043 T0001_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,043 - sv_pid1@393de05229de - INFO - 1794448967.043 T0000_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,043 - sv_pid1@393de05229de - INFO - 1794448967.043 T0000_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,043 - sv_pid1@393de05229de - INFO - 1794448967.043 T0002_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,043 - sv_pid1@393de05229de - INFO - 1794448967.044 T0002_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,044 - sv_pid1@393de05229de - INFO - 1794448967.044 T0003_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,044 - sv_pid1@393de05229de - INFO - 1794448967.044 T0003_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,052 - sv_pid1@393de05229de - INFO - 1794448967.053 T0001_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,053 - sv_pid1@393de05229de - INFO - 1794448967.053 T0001_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,053 - sv_pid1@393de05229de - INFO - 1794448967.053 T0000_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,053 - sv_pid1@393de05229de - INFO - 1794448967.053 T0000_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,053 - sv_pid1@393de05229de - INFO - 1794448967.054 T0002_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,053 - sv_pid1@393de05229de - INFO - 1794448967.054 T0002_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,054 - sv_pid1@393de05229de - INFO - 1794448967.055 T0003_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,054 - sv_pid1@393de05229de - INFO - 1794448967.055 T0003_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,073 - sv_pid1@393de05229de - INFO - 1794448967.073 T0001_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,073 - sv_pid1@393de05229de - INFO - 1794448967.073 T0001_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,073 - sv_pid1@393de05229de - INFO - 1794448967.073 T0000_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,073 - sv_pid1@393de05229de - INFO - 1794448967.073 T0000_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,073 - sv_pid1@393de05229de - INFO - 1794448967.074 T0002_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,073 - sv_pid1@393de05229de - INFO - 1794448967.074 T0002_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,074 - sv_pid1@393de05229de - INFO - 1794448967.075 T0003_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,074 - sv_pid1@393de05229de - INFO - 1794448967.075 T0003_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,083 - sv_pid1@393de05229de - INFO - 1794448967.083 T0001_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,083 - sv_pid1@393de05229de - INFO - 1794448967.083 T0001_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,083 - sv_pid1@393de05229de - INFO - 1794448967.083 T0001_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,083 - sv_pid1@393de05229de - INFO - 1794448967.084 T0000_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,083 - sv_pid1@393de05229de - INFO - 1794448967.084 T0000_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,083 - sv_pid1@393de05229de - INFO - 1794448967.084 T0000_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,084 - sv_pid1@393de05229de - INFO - 1794448967.084 T0002_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,084 - sv_pid1@393de05229de - INFO - 1794448967.084 T0002_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,084 - sv_pid1@393de05229de - INFO - 1794448967.084 T0002_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,084 - sv_pid1@393de05229de - INFO - 1794448967.085 T0003_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,084 - sv_pid1@393de05229de - INFO - 1794448967.085 T0003_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,084 - sv_pid1@393de05229de - INFO - 1794448967.085 T0003_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.086 T0004_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.086 T0004_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.086 T0005_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.086 T0005_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.087 T0006_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.087 T0006_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.087 T0007_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,086 - sv_pid1@393de05229de - INFO - 1794448967.087 T0007_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,096 - sv_pid1@393de05229de - INFO - 1794448967.096 T0004_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,096 - sv_pid1@393de05229de - INFO - 1794448967.096 T0004_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,096 - sv_pid1@393de05229de - INFO - 1794448967.097 T0005_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,096 - sv_pid1@393de05229de - INFO - 1794448967.097 T0005_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,096 - sv_pid1@393de05229de - INFO - 1794448967.097 T0006_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,096 - sv_pid1@393de05229de - INFO - 1794448967.097 T0006_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,097 - sv_pid1@393de05229de - INFO - 1794448967.097 T0007_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,097 - sv_pid1@393de05229de - INFO - 1794448967.097 T0007_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,116 - sv_pid1@393de05229de - INFO - 1794448967.117 T0004_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,116 - sv_pid1@393de05229de - INFO - 1794448967.117 T0004_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,116 - sv_pid1@393de05229de - INFO - 1794448967.117 T0005_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,116 - sv_pid1@393de05229de - INFO - 1794448967.117 T0005_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,116 - sv_pid1@393de05229de - INFO - 1794448967.117 T0006_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,116 - sv_pid1@393de05229de - INFO - 1794448967.117 T0006_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,117 - sv_pid1@393de05229de - INFO - 1794448967.117 T0007_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,117 - sv_pid1@393de05229de - INFO - 1794448967.117 T0007_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,126 - sv_pid1@393de05229de - INFO - 1794448967.127 T0004_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,126 - sv_pid1@393de05229de - INFO - 1794448967.127 T0004_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,126 - sv_pid1@393de05229de - INFO - 1794448967.127 T0004_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,126 - sv_pid1@393de05229de - INFO - 1794448967.127 T0005_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,126 - sv_pid1@393de05229de - INFO - 1794448967.127 T0005_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,126 - sv_pid1@393de05229de - INFO - 1794448967.127 T0005_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,127 - sv_pid1@393de05229de - INFO - 1794448967.127 T0006_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,127 - sv_pid1@393de05229de - INFO - 1794448967.127 T0006_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,127 - sv_pid1@393de05229de - INFO - 1794448967.127 T0006_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,127 - sv_pid1@393de05229de - INFO - 1794448967.127 T0007_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,127 - sv_pid1@393de05229de - INFO - 1794448967.127 T0007_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,127 - sv_pid1@393de05229de - INFO - 1794448967.127 T0007_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.129 T0009_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.130 T0009_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.130 T0011_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.130 T0011_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.130 T0008_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.130 T0008_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.130 T0010_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,129 - sv_pid1@393de05229de - INFO - 1794448967.130 T0010_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,139 - sv_pid1@393de05229de - INFO - 1794448967.140 T0009_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,139 - sv_pid1@393de05229de - INFO - 1794448967.140 T0009_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,139 - sv_pid1@393de05229de - INFO - 1794448967.140 T0011_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,139 - sv_pid1@393de05229de - INFO - 1794448967.140 T0011_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,139 - sv_pid1@393de05229de - INFO - 1794448967.140 T0008_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,139 - sv_pid1@393de05229de - INFO - 1794448967.140 T0008_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,140 - sv_pid1@393de05229de - INFO - 1794448967.140 T0010_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,140 - sv_pid1@393de05229de - INFO - 1794448967.140 T0010_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,159 - sv_pid1@393de05229de - INFO - 1794448967.160 T0009_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,159 - sv_pid1@393de05229de - INFO - 1794448967.160 T0009_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,159 - sv_pid1@393de05229de - INFO - 1794448967.160 T0011_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,160 - sv_pid1@393de05229de - INFO - 1794448967.160 T0011_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,160 - sv_pid1@393de05229de - INFO - 1794448967.160 T0008_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,160 - sv_pid1@393de05229de - INFO - 1794448967.160 T0008_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,160 - sv_pid1@393de05229de - INFO - 1794448967.160 T0010_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,160 - sv_pid1@393de05229de - INFO - 1794448967.160 T0010_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,169 - sv_pid1@393de05229de - INFO - 1794448967.170 T0009_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,169 - sv_pid1@393de05229de - INFO - 1794448967.170 T0009_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,169 - sv_pid1@393de05229de - INFO - 1794448967.170 T0009_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.170 T0011_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.170 T0011_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.170 T0008_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.170 T0008_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.170 T0011_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.170 T0010_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.171 T0010_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.170 T0008_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,170 - sv_pid1@393de05229de - INFO - 1794448967.171 T0010_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,172 - sv_pid1@393de05229de - INFO - 1794448967.173 T0012_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,172 - sv_pid1@393de05229de - INFO - 1794448967.173 T0012_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,173 - sv_pid1@393de05229de - INFO - 1794448967.173 T0013_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,173 - sv_pid1@393de05229de - INFO - 1794448967.173 T0013_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,173 - sv_pid1@393de05229de - INFO - 1794448967.173 T0015_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,173 - sv_pid1@393de05229de - INFO - 1794448967.173 T0015_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,173 - sv_pid1@393de05229de - INFO - 1794448967.173 T0014_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,173 - sv_pid1@393de05229de - INFO - 1794448967.173 T0014_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0012_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0012_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0013_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0013_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0015_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0015_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0014_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,183 - sv_pid1@393de05229de - INFO - 1794448967.183 T0014_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.203 T0012_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.203 T0012_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.203 T0013_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.203 T0013_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.203 T0015_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.203 T0015_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.204 T0014_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,203 - sv_pid1@393de05229de - INFO - 1794448967.204 T0014_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.213 T0012_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.213 T0012_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.213 T0012_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0013_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0013_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0013_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0015_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0015_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0015_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0014_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0014_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,213 - sv_pid1@393de05229de - INFO - 1794448967.214 T0014_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.216 T0017_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.216 T0017_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.216 T0016_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.216 T0016_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.216 T0018_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.216 T0018_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.217 T0019_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,216 - sv_pid1@393de05229de - INFO - 1794448967.217 T0019_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.226 T0017_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.226 T0017_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.226 T0016_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.226 T0016_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.226 T0018_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.226 T0018_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.227 T0019_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,226 - sv_pid1@393de05229de - INFO - 1794448967.227 T0019_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.246 T0017_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.246 T0017_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.247 T0016_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.247 T0016_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.247 T0018_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.247 T0018_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.247 T0019_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,246 - sv_pid1@393de05229de - INFO - 1794448967.247 T0019_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,256 - sv_pid1@393de05229de - INFO - 1794448967.257 T0017_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,256 - sv_pid1@393de05229de - INFO - 1794448967.257 T0017_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,256 - sv_pid1@393de05229de - INFO - 1794448967.257 T0017_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,256 - sv_pid1@393de05229de - INFO - 1794448967.257 T0016_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,256 - sv_pid1@393de05229de - INFO - 1794448967.257 T0016_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,256 - sv_pid1@393de05229de - INFO - 1794448967.257 T0016_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,257 - sv_pid1@393de05229de - INFO - 1794448967.257 T0019_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,257 - sv_pid1@393de05229de - INFO - 1794448967.257 T0019_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,257 - sv_pid1@393de05229de - INFO - 1794448967.257 T0019_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,257 - sv_pid1@393de05229de - INFO - 1794448967.257 T0018_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,257 - sv_pid1@393de05229de - INFO - 1794448967.257 T0018_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,257 - sv_pid1@393de05229de - INFO - 1794448967.257 T0018_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,259 - sv_pid1@393de05229de - INFO - 1794448967.260 T0020_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,259 - sv_pid1@393de05229de - INFO - 1794448967.260 T0020_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,259 - sv_pid1@393de05229de - INFO - 1794448967.260 T0021_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,259 - sv_pid1@393de05229de - INFO - 1794448967.260 T0021_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,259 - sv_pid1@393de05229de - INFO - 1794448967.260 T0022_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,259 - sv_pid1@393de05229de - INFO - 1794448967.260 T0022_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,260 - sv_pid1@393de05229de - INFO - 1794448967.260 T0023_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,260 - sv_pid1@393de05229de - INFO - 1794448967.260 T0023_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,269 - sv_pid1@393de05229de - INFO - 1794448967.270 T0020_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,269 - sv_pid1@393de05229de - INFO - 1794448967.270 T0020_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,269 - sv_pid1@393de05229de - INFO - 1794448967.270 T0021_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,269 - sv_pid1@393de05229de - INFO - 1794448967.270 T0021_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,270 - sv_pid1@393de05229de - INFO - 1794448967.270 T0022_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,270 - sv_pid1@393de05229de - INFO - 1794448967.270 T0022_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,270 - sv_pid1@393de05229de - INFO - 1794448967.270 T0023_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,270 - sv_pid1@393de05229de - INFO - 1794448967.270 T0023_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,289 - sv_pid1@393de05229de - INFO - 1794448967.290 T0021_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,289 - sv_pid1@393de05229de - INFO - 1794448967.290 T0020_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,289 - sv_pid1@393de05229de - INFO - 1794448967.290 T0021_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,290 - sv_pid1@393de05229de - INFO - 1794448967.290 T0020_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,290 - sv_pid1@393de05229de - INFO - 1794448967.290 T0023_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,290 - sv_pid1@393de05229de - INFO - 1794448967.290 T0023_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,290 - sv_pid1@393de05229de - INFO - 1794448967.291 T0022_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,290 - sv_pid1@393de05229de - INFO - 1794448967.291 T0022_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.300 T0020_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.300 T0020_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.300 T0021_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.300 T0020_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.300 T0021_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.300 T0021_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.300 T0023_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.301 T0023_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.301 T0023_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.301 T0022_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.301 T0022_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,300 - sv_pid1@393de05229de - INFO - 1794448967.301 T0022_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,303 - sv_pid1@393de05229de - INFO - 1794448967.304 T0026_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,303 - sv_pid1@393de05229de - INFO - 1794448967.304 T0026_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,303 - sv_pid1@393de05229de - INFO - 1794448967.304 T0024_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,304 - sv_pid1@393de05229de - INFO - 1794448967.304 T0024_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,304 - sv_pid1@393de05229de - INFO - 1794448967.304 T0025_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,304 - sv_pid1@393de05229de - INFO - 1794448967.304 T0025_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,304 - sv_pid1@393de05229de - INFO - 1794448967.304 T0027_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,304 - sv_pid1@393de05229de - INFO - 1794448967.304 T0027_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,314 - sv_pid1@393de05229de - INFO - 1794448967.315 T0027_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,314 - sv_pid1@393de05229de - INFO - 1794448967.315 T0027_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,314 - sv_pid1@393de05229de - INFO - 1794448967.315 T0024_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,314 - sv_pid1@393de05229de - INFO - 1794448967.315 T0024_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,315 - sv_pid1@393de05229de - INFO - 1794448967.316 T0025_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,315 - sv_pid1@393de05229de - INFO - 1794448967.316 T0025_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,316 - sv_pid1@393de05229de - INFO - 1794448967.316 T0026_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,316 - sv_pid1@393de05229de - INFO - 1794448967.316 T0026_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,335 - sv_pid1@393de05229de - INFO - 1794448967.336 T0024_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,335 - sv_pid1@393de05229de - INFO - 1794448967.336 T0027_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,335 - sv_pid1@393de05229de - INFO - 1794448967.336 T0024_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,335 - sv_pid1@393de05229de - INFO - 1794448967.336 T0027_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,336 - sv_pid1@393de05229de - INFO - 1794448967.336 T0025_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,336 - sv_pid1@393de05229de - INFO - 1794448967.336 T0025_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,339 - sv_pid1@393de05229de - INFO - 1794448967.339 T0026_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,339 - sv_pid1@393de05229de - INFO - 1794448967.339 T0026_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0027_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0024_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0027_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0024_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0027_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0024_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0025_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0025_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,346 - sv_pid1@393de05229de - INFO - 1794448967.346 T0025_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,348 - sv_pid1@393de05229de - INFO - 1794448967.349 T0030_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,348 - sv_pid1@393de05229de - INFO - 1794448967.349 T0029_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,349 - sv_pid1@393de05229de - INFO - 1794448967.349 T0030_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,349 - sv_pid1@393de05229de - INFO - 1794448967.349 T0028_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,349 - sv_pid1@393de05229de - INFO - 1794448967.349 T0029_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,349 - sv_pid1@393de05229de - INFO - 1794448967.349 T0028_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,349 - sv_pid1@393de05229de - INFO - 1794448967.349 T0026_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,349 - sv_pid1@393de05229de - INFO - 1794448967.350 T0026_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,349 - sv_pid1@393de05229de - INFO - 1794448967.350 T0026_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,351 - sv_pid1@393de05229de - INFO - 1794448967.351 T0031_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,351 - sv_pid1@393de05229de - INFO - 1794448967.351 T0031_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,359 - sv_pid1@393de05229de - INFO - 1794448967.360 T0030_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,359 - sv_pid1@393de05229de - INFO - 1794448967.360 T0030_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,359 - sv_pid1@393de05229de - INFO - 1794448967.360 T0028_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,359 - sv_pid1@393de05229de - INFO - 1794448967.360 T0028_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,360 - sv_pid1@393de05229de - INFO - 1794448967.361 T0029_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,360 - sv_pid1@393de05229de - INFO - 1794448967.361 T0029_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,361 - sv_pid1@393de05229de - INFO - 1794448967.362 T0031_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,361 - sv_pid1@393de05229de - INFO - 1794448967.362 T0031_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,381 - sv_pid1@393de05229de - INFO - 1794448967.381 T0028_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,381 - sv_pid1@393de05229de - INFO - 1794448967.381 T0028_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,381 - sv_pid1@393de05229de - INFO - 1794448967.382 T0031_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,381 - sv_pid1@393de05229de - INFO - 1794448967.382 T0031_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,381 - sv_pid1@393de05229de - INFO - 1794448967.382 T0029_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,381 - sv_pid1@393de05229de - INFO - 1794448967.382 T0029_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,382 - sv_pid1@393de05229de - INFO - 1794448967.382 T0030_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,382 - sv_pid1@393de05229de - INFO - 1794448967.382 T0030_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0028_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0028_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0028_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0031_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0031_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0029_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0029_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0031_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.392 T0029_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.393 T0030_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.393 T0030_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,392 - sv_pid1@393de05229de - INFO - 1794448967.393 T0030_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.395 T0032_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.395 T0032_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.396 T0035_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.396 T0035_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.396 T0034_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.396 T0034_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.396 T0033_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,395 - sv_pid1@393de05229de - INFO - 1794448967.396 T0033_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,405 - sv_pid1@393de05229de - INFO - 1794448967.406 T0032_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,405 - sv_pid1@393de05229de - INFO - 1794448967.406 T0032_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,405 - sv_pid1@393de05229de - INFO - 1794448967.406 T0034_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,405 - sv_pid1@393de05229de - INFO - 1794448967.406 T0034_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,405 - sv_pid1@393de05229de - INFO - 1794448967.406 T0035_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,405 - sv_pid1@393de05229de - INFO - 1794448967.406 T0035_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,406 - sv_pid1@393de05229de - INFO - 1794448967.406 T0033_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,406 - sv_pid1@393de05229de - INFO - 1794448967.406 T0033_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,425 - sv_pid1@393de05229de - INFO - 1794448967.426 T0032_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,425 - sv_pid1@393de05229de - INFO - 1794448967.426 T0032_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,426 - sv_pid1@393de05229de - INFO - 1794448967.427 T0033_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,426 - sv_pid1@393de05229de - INFO - 1794448967.427 T0033_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,426 - sv_pid1@393de05229de - INFO - 1794448967.427 T0034_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,426 - sv_pid1@393de05229de - INFO - 1794448967.427 T0034_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,427 - sv_pid1@393de05229de - INFO - 1794448967.428 T0035_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,427 - sv_pid1@393de05229de - INFO - 1794448967.428 T0035_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,436 - sv_pid1@393de05229de - INFO - 1794448967.436 T0032_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,436 - sv_pid1@393de05229de - INFO - 1794448967.436 T0032_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,436 - sv_pid1@393de05229de - INFO - 1794448967.436 T0032_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,436 - sv_pid1@393de05229de - INFO - 1794448967.437 T0033_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,436 - sv_pid1@393de05229de - INFO - 1794448967.437 T0033_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,436 - sv_pid1@393de05229de - INFO - 1794448967.437 T0033_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,436 - sv_pid1@393de05229de - INFO - 1794448967.437 T0034_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,437 - sv_pid1@393de05229de - INFO - 1794448967.437 T0034_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,437 - sv_pid1@393de05229de - INFO - 1794448967.437 T0034_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,438 - sv_pid1@393de05229de - INFO - 1794448967.438 T0035_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,438 - sv_pid1@393de05229de - INFO - 1794448967.438 T0035_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,438 - sv_pid1@393de05229de - INFO - 1794448967.438 T0035_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,439 - sv_pid1@393de05229de - INFO - 1794448967.439 T0036_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,439 - sv_pid1@393de05229de - INFO - 1794448967.439 T0036_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,439 - sv_pid1@393de05229de - INFO - 1794448967.439 T0037_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,439 - sv_pid1@393de05229de - INFO - 1794448967.439 T0037_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,439 - sv_pid1@393de05229de - INFO - 1794448967.440 T0038_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,439 - sv_pid1@393de05229de - INFO - 1794448967.440 T0038_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,440 - sv_pid1@393de05229de - INFO - 1794448967.440 T0039_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,440 - sv_pid1@393de05229de - INFO - 1794448967.440 T0039_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,449 - sv_pid1@393de05229de - INFO - 1794448967.449 T0036_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,449 - sv_pid1@393de05229de - INFO - 1794448967.449 T0036_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,449 - sv_pid1@393de05229de - INFO - 1794448967.450 T0037_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,449 - sv_pid1@393de05229de - INFO - 1794448967.450 T0037_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,450 - sv_pid1@393de05229de - INFO - 1794448967.451 T0038_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,450 - sv_pid1@393de05229de - INFO - 1794448967.451 T0038_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,451 - sv_pid1@393de05229de - INFO - 1794448967.451 T0039_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,451 - sv_pid1@393de05229de - INFO - 1794448967.451 T0039_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,469 - sv_pid1@393de05229de - INFO - 1794448967.470 T0036_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,470 - sv_pid1@393de05229de - INFO - 1794448967.470 T0036_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,470 - sv_pid1@393de05229de - INFO - 1794448967.471 T0037_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,470 - sv_pid1@393de05229de - INFO - 1794448967.471 T0037_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,473 - sv_pid1@393de05229de - INFO - 1794448967.474 T0038_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,473 - sv_pid1@393de05229de - INFO - 1794448967.474 T0038_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,475 - sv_pid1@393de05229de - INFO - 1794448967.476 T0039_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,475 - sv_pid1@393de05229de - INFO - 1794448967.476 T0039_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,480 - sv_pid1@393de05229de - INFO - 1794448967.481 T0036_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,480 - sv_pid1@393de05229de - INFO - 1794448967.481 T0036_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,480 - sv_pid1@393de05229de - INFO - 1794448967.481 T0036_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,481 - sv_pid1@393de05229de - INFO - 1794448967.481 T0037_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,481 - sv_pid1@393de05229de - INFO - 1794448967.481 T0037_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,481 - sv_pid1@393de05229de - INFO - 1794448967.482 T0037_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,483 - sv_pid1@393de05229de - INFO - 1794448967.484 T0038_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,483 - sv_pid1@393de05229de - INFO - 1794448967.484 T0038_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,483 - sv_pid1@393de05229de - INFO - 1794448967.484 T0038_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,484 - sv_pid1@393de05229de - INFO - 1794448967.484 T0040_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,484 - sv_pid1@393de05229de - INFO - 1794448967.484 T0040_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,484 - sv_pid1@393de05229de - INFO - 1794448967.484 T0041_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,484 - sv_pid1@393de05229de - INFO - 1794448967.484 T0041_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,485 - sv_pid1@393de05229de - INFO - 1794448967.486 T0039_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,485 - sv_pid1@393de05229de - INFO - 1794448967.486 T0039_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,485 - sv_pid1@393de05229de - INFO - 1794448967.486 T0039_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,486 - sv_pid1@393de05229de - INFO - 1794448967.486 T0042_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,486 - sv_pid1@393de05229de - INFO - 1794448967.486 T0042_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,488 - sv_pid1@393de05229de - INFO - 1794448967.489 T0043_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,488 - sv_pid1@393de05229de - INFO - 1794448967.489 T0043_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,495 - sv_pid1@393de05229de - INFO - 1794448967.495 T0040_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,495 - sv_pid1@393de05229de - INFO - 1794448967.495 T0040_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,495 - sv_pid1@393de05229de - INFO - 1794448967.495 T0041_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,495 - sv_pid1@393de05229de - INFO - 1794448967.495 T0041_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,496 - sv_pid1@393de05229de - INFO - 1794448967.497 T0042_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,496 - sv_pid1@393de05229de - INFO - 1794448967.497 T0042_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,499 - sv_pid1@393de05229de - INFO - 1794448967.499 T0043_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,499 - sv_pid1@393de05229de - INFO - 1794448967.499 T0043_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,515 - sv_pid1@393de05229de - INFO - 1794448967.516 T0041_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,516 - sv_pid1@393de05229de - INFO - 1794448967.516 T0041_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,518 - sv_pid1@393de05229de - INFO - 1794448967.519 T0040_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,518 - sv_pid1@393de05229de - INFO - 1794448967.519 T0040_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,518 - sv_pid1@393de05229de - INFO - 1794448967.519 T0042_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,518 - sv_pid1@393de05229de - INFO - 1794448967.519 T0042_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,519 - sv_pid1@393de05229de - INFO - 1794448967.520 T0043_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,519 - sv_pid1@393de05229de - INFO - 1794448967.520 T0043_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,526 - sv_pid1@393de05229de - INFO - 1794448967.527 T0041_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,526 - sv_pid1@393de05229de - INFO - 1794448967.527 T0041_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,526 - sv_pid1@393de05229de - INFO - 1794448967.527 T0041_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,529 - sv_pid1@393de05229de - INFO - 1794448967.529 T0040_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,529 - sv_pid1@393de05229de - INFO - 1794448967.529 T0040_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,529 - sv_pid1@393de05229de - INFO - 1794448967.529 T0040_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,529 - sv_pid1@393de05229de - INFO - 1794448967.529 T0042_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,529 - sv_pid1@393de05229de - INFO - 1794448967.529 T0042_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,529 - sv_pid1@393de05229de - INFO - 1794448967.529 T0042_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,530 - sv_pid1@393de05229de - INFO - 1794448967.530 T0043_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,530 - sv_pid1@393de05229de - INFO - 1794448967.530 T0043_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,530 - sv_pid1@393de05229de - INFO - 1794448967.530 T0043_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,531 - sv_pid1@393de05229de - INFO - 1794448967.531 T0044_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,531 - sv_pid1@393de05229de - INFO - 1794448967.532 T0044_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,533 - sv_pid1@393de05229de - INFO - 1794448967.533 T0045_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,533 - sv_pid1@393de05229de - INFO - 1794448967.533 T0045_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,534 - sv_pid1@393de05229de - INFO - 1794448967.535 T0047_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,534 - sv_pid1@393de05229de - INFO - 1794448967.535 T0047_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,535 - sv_pid1@393de05229de - INFO - 1794448967.535 T0046_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,535 - sv_pid1@393de05229de - INFO - 1794448967.535 T0046_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,542 - sv_pid1@393de05229de - INFO - 1794448967.542 T0044_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,542 - sv_pid1@393de05229de - INFO - 1794448967.542 T0044_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,543 - sv_pid1@393de05229de - INFO - 1794448967.544 T0045_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,543 - sv_pid1@393de05229de - INFO - 1794448967.544 T0045_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,545 - sv_pid1@393de05229de - INFO - 1794448967.546 T0047_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,545 - sv_pid1@393de05229de - INFO - 1794448967.546 T0047_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,545 - sv_pid1@393de05229de - INFO - 1794448967.546 T0046_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,545 - sv_pid1@393de05229de - INFO - 1794448967.546 T0046_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,564 - sv_pid1@393de05229de - INFO - 1794448967.564 T0044_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,564 - sv_pid1@393de05229de - INFO - 1794448967.564 T0044_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,564 - sv_pid1@393de05229de - INFO - 1794448967.565 T0045_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,564 - sv_pid1@393de05229de - INFO - 1794448967.565 T0045_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,565 - sv_pid1@393de05229de - INFO - 1794448967.566 T0047_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,566 - sv_pid1@393de05229de - INFO - 1794448967.566 T0047_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,566 - sv_pid1@393de05229de - INFO - 1794448967.566 T0046_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,566 - sv_pid1@393de05229de - INFO - 1794448967.566 T0046_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,575 - sv_pid1@393de05229de - INFO - 1794448967.575 T0044_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,575 - sv_pid1@393de05229de - INFO - 1794448967.576 T0044_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,575 - sv_pid1@393de05229de - INFO - 1794448967.576 T0044_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.576 T0045_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.576 T0045_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.576 T0045_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.576 T0047_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.576 T0047_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.576 T0047_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.577 T0046_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.577 T0046_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,576 - sv_pid1@393de05229de - INFO - 1794448967.577 T0046_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,581 - sv_pid1@393de05229de - INFO - 1794448967.581 T0049_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,581 - sv_pid1@393de05229de - INFO - 1794448967.582 T0050_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,581 - sv_pid1@393de05229de - INFO - 1794448967.582 T0049_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,581 - sv_pid1@393de05229de - INFO - 1794448967.582 T0051_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,581 - sv_pid1@393de05229de - INFO - 1794448967.582 T0048_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,582 - sv_pid1@393de05229de - INFO - 1794448967.582 T0050_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,582 - sv_pid1@393de05229de - INFO - 1794448967.582 T0051_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,582 - sv_pid1@393de05229de - INFO - 1794448967.582 T0048_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,592 - sv_pid1@393de05229de - INFO - 1794448967.592 T0049_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,592 - sv_pid1@393de05229de - INFO - 1794448967.593 T0050_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,592 - sv_pid1@393de05229de - INFO - 1794448967.593 T0049_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,592 - sv_pid1@393de05229de - INFO - 1794448967.593 T0051_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,593 - sv_pid1@393de05229de - INFO - 1794448967.593 T0051_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,592 - sv_pid1@393de05229de - INFO - 1794448967.593 T0050_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,592 - sv_pid1@393de05229de - INFO - 1794448967.593 T0048_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,593 - sv_pid1@393de05229de - INFO - 1794448967.593 T0048_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,613 - sv_pid1@393de05229de - INFO - 1794448967.614 T0048_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,614 - sv_pid1@393de05229de - INFO - 1794448967.614 T0051_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,614 - sv_pid1@393de05229de - INFO - 1794448967.614 T0049_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,614 - sv_pid1@393de05229de - INFO - 1794448967.614 T0048_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,614 - sv_pid1@393de05229de - INFO - 1794448967.614 T0051_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,614 - sv_pid1@393de05229de - INFO - 1794448967.615 T0049_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,614 - sv_pid1@393de05229de - INFO - 1794448967.615 T0050_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,614 - sv_pid1@393de05229de - INFO - 1794448967.615 T0050_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,625 - sv_pid1@393de05229de - INFO - 1794448967.625 T0051_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,625 - sv_pid1@393de05229de - INFO - 1794448967.626 T0051_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,625 - sv_pid1@393de05229de - INFO - 1794448967.626 T0051_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,625 - sv_pid1@393de05229de - INFO - 1794448967.626 T0049_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,625 - sv_pid1@393de05229de - INFO - 1794448967.626 T0049_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,626 - sv_pid1@393de05229de - INFO - 1794448967.626 T0049_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,626 - sv_pid1@393de05229de - INFO - 1794448967.626 T0050_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,626 - sv_pid1@393de05229de - INFO - 1794448967.626 T0050_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,626 - sv_pid1@393de05229de - INFO - 1794448967.626 T0050_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,626 - sv_pid1@393de05229de - INFO - 1794448967.626 T0048_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,626 - sv_pid1@393de05229de - INFO - 1794448967.627 T0048_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,626 - sv_pid1@393de05229de - INFO - 1794448967.627 T0048_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,631 - sv_pid1@393de05229de - INFO - 1794448967.631 T0053_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,631 - sv_pid1@393de05229de - INFO - 1794448967.632 T0053_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,631 - sv_pid1@393de05229de - INFO - 1794448967.632 T0055_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,631 - sv_pid1@393de05229de - INFO - 1794448967.632 T0055_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,631 - sv_pid1@393de05229de - INFO - 1794448967.632 T0054_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,631 - sv_pid1@393de05229de - INFO - 1794448967.632 T0054_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,632 - sv_pid1@393de05229de - INFO - 1794448967.632 T0052_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,632 - sv_pid1@393de05229de - INFO - 1794448967.632 T0052_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.642 T0053_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.643 T0053_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.643 T0054_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.643 T0054_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.643 T0055_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.643 T0055_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.643 T0052_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,642 - sv_pid1@393de05229de - INFO - 1794448967.643 T0052_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,664 - sv_pid1@393de05229de - INFO - 1794448967.665 T0055_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,664 - sv_pid1@393de05229de - INFO - 1794448967.665 T0054_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,665 - sv_pid1@393de05229de - INFO - 1794448967.665 T0054_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,665 - sv_pid1@393de05229de - INFO - 1794448967.665 T0052_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,664 - sv_pid1@393de05229de - INFO - 1794448967.665 T0053_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,665 - sv_pid1@393de05229de - INFO - 1794448967.665 T0055_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,665 - sv_pid1@393de05229de - INFO - 1794448967.665 T0052_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,665 - sv_pid1@393de05229de - INFO - 1794448967.665 T0053_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,675 - sv_pid1@393de05229de - INFO - 1794448967.676 T0053_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,676 - sv_pid1@393de05229de - INFO - 1794448967.676 T0053_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,676 - sv_pid1@393de05229de - INFO - 1794448967.676 T0053_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,676 - sv_pid1@393de05229de - INFO - 1794448967.676 T0055_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,676 - sv_pid1@393de05229de - INFO - 1794448967.677 T0055_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,676 - sv_pid1@393de05229de - INFO - 1794448967.677 T0055_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,677 - sv_pid1@393de05229de - INFO - 1794448967.677 T0054_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,677 - sv_pid1@393de05229de - INFO - 1794448967.677 T0054_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,677 - sv_pid1@393de05229de - INFO - 1794448967.677 T0054_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,677 - sv_pid1@393de05229de - INFO - 1794448967.677 T0052_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,677 - sv_pid1@393de05229de - INFO - 1794448967.677 T0052_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,677 - sv_pid1@393de05229de - INFO - 1794448967.678 T0052_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,684 - sv_pid1@393de05229de - INFO - 1794448967.684 T0056_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,684 - sv_pid1@393de05229de - INFO - 1794448967.685 T0056_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,684 - sv_pid1@393de05229de - INFO - 1794448967.685 T0059_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,684 - sv_pid1@393de05229de - INFO - 1794448967.685 T0059_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,684 - sv_pid1@393de05229de - INFO - 1794448967.685 T0058_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,685 - sv_pid1@393de05229de - INFO - 1794448967.685 T0058_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,685 - sv_pid1@393de05229de - INFO - 1794448967.685 T0057_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,685 - sv_pid1@393de05229de - INFO - 1794448967.685 T0057_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,694 - sv_pid1@393de05229de - INFO - 1794448967.695 T0056_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,695 - sv_pid1@393de05229de - INFO - 1794448967.695 T0056_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,695 - sv_pid1@393de05229de - INFO - 1794448967.695 T0059_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,695 - sv_pid1@393de05229de - INFO - 1794448967.695 T0059_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,695 - sv_pid1@393de05229de - INFO - 1794448967.695 T0058_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,695 - sv_pid1@393de05229de - INFO - 1794448967.695 T0058_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,697 - sv_pid1@393de05229de - INFO - 1794448967.697 T0057_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,697 - sv_pid1@393de05229de - INFO - 1794448967.697 T0057_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,715 - sv_pid1@393de05229de - INFO - 1794448967.716 T0056_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,716 - sv_pid1@393de05229de - INFO - 1794448967.716 T0056_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,716 - sv_pid1@393de05229de - INFO - 1794448967.716 T0058_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,716 - sv_pid1@393de05229de - INFO - 1794448967.716 T0058_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,716 - sv_pid1@393de05229de - INFO - 1794448967.717 T0059_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,716 - sv_pid1@393de05229de - INFO - 1794448967.717 T0059_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,717 - sv_pid1@393de05229de - INFO - 1794448967.718 T0057_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,717 - sv_pid1@393de05229de - INFO - 1794448967.718 T0057_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,726 - sv_pid1@393de05229de - INFO - 1794448967.727 T0056_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,726 - sv_pid1@393de05229de - INFO - 1794448967.727 T0056_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,726 - sv_pid1@393de05229de - INFO - 1794448967.727 T0056_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,727 - sv_pid1@393de05229de - INFO - 1794448967.727 T0059_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,727 - sv_pid1@393de05229de - INFO - 1794448967.727 T0059_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,727 - sv_pid1@393de05229de - INFO - 1794448967.727 T0059_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,727 - sv_pid1@393de05229de - INFO - 1794448967.728 T0058_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,727 - sv_pid1@393de05229de - INFO - 1794448967.728 T0058_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,727 - sv_pid1@393de05229de - INFO - 1794448967.728 T0058_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,727 - sv_pid1@393de05229de - INFO - 1794448967.728 T0057_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,728 - sv_pid1@393de05229de - INFO - 1794448967.728 T0057_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,728 - sv_pid1@393de05229de - INFO - 1794448967.728 T0057_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,731 - sv_pid1@393de05229de - INFO - 1794448967.732 T0063_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,732 - sv_pid1@393de05229de - INFO - 1794448967.732 T0062_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,732 - sv_pid1@393de05229de - INFO - 1794448967.732 T0062_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,732 - sv_pid1@393de05229de - INFO - 1794448967.732 T0063_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,732 - sv_pid1@393de05229de - INFO - 1794448967.732 T0061_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,732 - sv_pid1@393de05229de - INFO - 1794448967.732 T0060_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,732 - sv_pid1@393de05229de - INFO - 1794448967.733 T0061_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,732 - sv_pid1@393de05229de - INFO - 1794448967.733 T0060_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,742 - sv_pid1@393de05229de - INFO - 1794448967.743 T0063_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,743 - sv_pid1@393de05229de - INFO - 1794448967.743 T0063_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,743 - sv_pid1@393de05229de - INFO - 1794448967.743 T0061_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,743 - sv_pid1@393de05229de - INFO - 1794448967.743 T0061_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,743 - sv_pid1@393de05229de - INFO - 1794448967.743 T0060_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,743 - sv_pid1@393de05229de - INFO - 1794448967.743 T0060_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,743 - sv_pid1@393de05229de - INFO - 1794448967.743 T0062_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,743 - sv_pid1@393de05229de - INFO - 1794448967.743 T0062_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,763 - sv_pid1@393de05229de - INFO - 1794448967.763 T0060_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,763 - sv_pid1@393de05229de - INFO - 1794448967.764 T0060_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,763 - sv_pid1@393de05229de - INFO - 1794448967.764 T0061_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,763 - sv_pid1@393de05229de - INFO - 1794448967.764 T0061_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,763 - sv_pid1@393de05229de - INFO - 1794448967.764 T0062_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,763 - sv_pid1@393de05229de - INFO - 1794448967.764 T0062_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,764 - sv_pid1@393de05229de - INFO - 1794448967.764 T0063_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,764 - sv_pid1@393de05229de - INFO - 1794448967.764 T0063_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,773 - sv_pid1@393de05229de - INFO - 1794448967.774 T0061_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0061_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0061_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0063_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0063_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0063_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0062_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0062_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0060_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0060_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.774 T0062_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,774 - sv_pid1@393de05229de - INFO - 1794448967.775 T0060_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.777 T0065_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.777 T0065_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.778 T0064_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.778 T0064_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.778 T0066_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.778 T0066_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.778 T0067_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,777 - sv_pid1@393de05229de - INFO - 1794448967.778 T0067_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,787 - sv_pid1@393de05229de - INFO - 1794448967.788 T0065_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,787 - sv_pid1@393de05229de - INFO - 1794448967.788 T0065_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,788 - sv_pid1@393de05229de - INFO - 1794448967.788 T0067_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,788 - sv_pid1@393de05229de - INFO - 1794448967.788 T0067_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,788 - sv_pid1@393de05229de - INFO - 1794448967.788 T0064_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,788 - sv_pid1@393de05229de - INFO - 1794448967.788 T0064_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,789 - sv_pid1@393de05229de - INFO - 1794448967.790 T0066_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,790 - sv_pid1@393de05229de - INFO - 1794448967.790 T0066_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,808 - sv_pid1@393de05229de - INFO - 1794448967.808 T0064_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,808 - sv_pid1@393de05229de - INFO - 1794448967.809 T0067_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,808 - sv_pid1@393de05229de - INFO - 1794448967.809 T0064_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,808 - sv_pid1@393de05229de - INFO - 1794448967.809 T0067_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,810 - sv_pid1@393de05229de - INFO - 1794448967.810 T0066_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,810 - sv_pid1@393de05229de - INFO - 1794448967.810 T0066_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,811 - sv_pid1@393de05229de - INFO - 1794448967.811 T0065_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,811 - sv_pid1@393de05229de - INFO - 1794448967.811 T0065_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,819 - sv_pid1@393de05229de - INFO - 1794448967.820 T0064_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,820 - sv_pid1@393de05229de - INFO - 1794448967.820 T0064_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,820 - sv_pid1@393de05229de - INFO - 1794448967.820 T0064_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,821 - sv_pid1@393de05229de - INFO - 1794448967.821 T0067_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,821 - sv_pid1@393de05229de - INFO - 1794448967.821 T0067_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,821 - sv_pid1@393de05229de - INFO - 1794448967.821 T0067_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,822 - sv_pid1@393de05229de - INFO - 1794448967.822 T0066_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,822 - sv_pid1@393de05229de - INFO - 1794448967.822 T0066_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,822 - sv_pid1@393de05229de - INFO - 1794448967.822 T0066_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,822 - sv_pid1@393de05229de - INFO - 1794448967.823 T0065_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,823 - sv_pid1@393de05229de - INFO - 1794448967.823 T0065_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,823 - sv_pid1@393de05229de - INFO - 1794448967.823 T0065_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,827 - sv_pid1@393de05229de - INFO - 1794448967.827 T0071_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,827 - sv_pid1@393de05229de - INFO - 1794448967.827 T0071_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,827 - sv_pid1@393de05229de - INFO - 1794448967.828 T0068_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,827 - sv_pid1@393de05229de - INFO - 1794448967.828 T0068_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,828 - sv_pid1@393de05229de - INFO - 1794448967.828 T0070_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,828 - sv_pid1@393de05229de - INFO - 1794448967.828 T0070_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,828 - sv_pid1@393de05229de - INFO - 1794448967.828 T0069_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,828 - sv_pid1@393de05229de - INFO - 1794448967.829 T0069_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,840 - sv_pid1@393de05229de - INFO - 1794448967.840 T0071_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,840 - sv_pid1@393de05229de - INFO - 1794448967.840 T0071_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,840 - sv_pid1@393de05229de - INFO - 1794448967.841 T0068_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,840 - sv_pid1@393de05229de - INFO - 1794448967.841 T0068_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,840 - sv_pid1@393de05229de - INFO - 1794448967.841 T0069_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,840 - sv_pid1@393de05229de - INFO - 1794448967.841 T0070_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,841 - sv_pid1@393de05229de - INFO - 1794448967.841 T0070_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,840 - sv_pid1@393de05229de - INFO - 1794448967.841 T0069_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,862 - sv_pid1@393de05229de - INFO - 1794448967.862 T0071_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,862 - sv_pid1@393de05229de - INFO - 1794448967.862 T0071_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,863 - sv_pid1@393de05229de - INFO - 1794448967.863 T0070_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,863 - sv_pid1@393de05229de - INFO - 1794448967.863 T0070_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,864 - sv_pid1@393de05229de - INFO - 1794448967.865 T0068_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,864 - sv_pid1@393de05229de - INFO - 1794448967.865 T0068_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,865 - sv_pid1@393de05229de - INFO - 1794448967.865 T0069_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,865 - sv_pid1@393de05229de - INFO - 1794448967.865 T0069_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.877 T0070_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.878 T0071_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.878 T0071_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.878 T0068_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.878 T0068_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.878 T0069_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,878 - sv_pid1@393de05229de - INFO - 1794448967.878 T0069_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.878 T0071_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,877 - sv_pid1@393de05229de - INFO - 1794448967.878 T0070_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,878 - sv_pid1@393de05229de - INFO - 1794448967.878 T0068_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,878 - sv_pid1@393de05229de - INFO - 1794448967.878 T0069_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,878 - sv_pid1@393de05229de - INFO - 1794448967.879 T0070_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,882 - sv_pid1@393de05229de - INFO - 1794448967.883 T0072_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,882 - sv_pid1@393de05229de - INFO - 1794448967.883 T0072_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,882 - sv_pid1@393de05229de - INFO - 1794448967.883 T0075_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,882 - sv_pid1@393de05229de - INFO - 1794448967.883 T0073_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,883 - sv_pid1@393de05229de - INFO - 1794448967.883 T0075_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,883 - sv_pid1@393de05229de - INFO - 1794448967.883 T0074_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,883 - sv_pid1@393de05229de - INFO - 1794448967.883 T0073_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,883 - sv_pid1@393de05229de - INFO - 1794448967.883 T0074_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,893 - sv_pid1@393de05229de - INFO - 1794448967.893 T0072_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,893 - sv_pid1@393de05229de - INFO - 1794448967.893 T0072_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,893 - sv_pid1@393de05229de - INFO - 1794448967.894 T0075_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,893 - sv_pid1@393de05229de - INFO - 1794448967.894 T0075_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,893 - sv_pid1@393de05229de - INFO - 1794448967.894 T0074_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,893 - sv_pid1@393de05229de - INFO - 1794448967.894 T0074_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,893 - sv_pid1@393de05229de - INFO - 1794448967.894 T0073_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,894 - sv_pid1@393de05229de - INFO - 1794448967.894 T0073_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,914 - sv_pid1@393de05229de - INFO - 1794448967.914 T0072_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,914 - sv_pid1@393de05229de - INFO - 1794448967.915 T0073_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,914 - sv_pid1@393de05229de - INFO - 1794448967.915 T0075_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,914 - sv_pid1@393de05229de - INFO - 1794448967.915 T0072_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,914 - sv_pid1@393de05229de - INFO - 1794448967.915 T0073_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,914 - sv_pid1@393de05229de - INFO - 1794448967.915 T0075_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,917 - sv_pid1@393de05229de - INFO - 1794448967.918 T0074_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,918 - sv_pid1@393de05229de - INFO - 1794448967.918 T0074_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,938 - sv_pid1@393de05229de - INFO - 1794448967.938 T0073_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,938 - sv_pid1@393de05229de - INFO - 1794448967.938 T0073_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,938 - sv_pid1@393de05229de - INFO - 1794448967.938 T0073_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,938 - sv_pid1@393de05229de - INFO - 1794448967.939 T0075_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,938 - sv_pid1@393de05229de - INFO - 1794448967.939 T0075_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,938 - sv_pid1@393de05229de - INFO - 1794448967.939 T0075_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,939 - sv_pid1@393de05229de - INFO - 1794448967.939 T0072_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,939 - sv_pid1@393de05229de - INFO - 1794448967.939 T0072_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,939 - sv_pid1@393de05229de - INFO - 1794448967.939 T0072_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,939 - sv_pid1@393de05229de - INFO - 1794448967.939 T0074_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,939 - sv_pid1@393de05229de - INFO - 1794448967.939 T0074_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,939 - sv_pid1@393de05229de - INFO - 1794448967.939 T0074_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.945 T0079_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.946 T0079_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.946 T0076_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.946 T0076_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.946 T0077_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.945 T0078_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.946 T0078_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,945 - sv_pid1@393de05229de - INFO - 1794448967.946 T0077_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.956 T0077_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.957 T0077_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.957 T0079_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.957 T0079_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.957 T0076_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.957 T0076_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.957 T0078_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:47,956 - sv_pid1@393de05229de - INFO - 1794448967.957 T0078_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.977 T0079_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.977 T0079_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.977 T0078_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.977 T0078_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.977 T0077_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.978 T0077_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.978 T0076_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:47,977 - sv_pid1@393de05229de - INFO - 1794448967.978 T0076_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:47,987 - sv_pid1@393de05229de - INFO - 1794448967.988 T0078_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,987 - sv_pid1@393de05229de - INFO - 1794448967.988 T0078_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,987 - sv_pid1@393de05229de - INFO - 1794448967.988 T0078_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,988 - sv_pid1@393de05229de - INFO - 1794448967.988 T0076_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,988 - sv_pid1@393de05229de - INFO - 1794448967.988 T0076_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,988 - sv_pid1@393de05229de - INFO - 1794448967.988 T0076_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,988 - sv_pid1@393de05229de - INFO - 1794448967.988 T0077_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,988 - sv_pid1@393de05229de - INFO - 1794448967.988 T0077_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,988 - sv_pid1@393de05229de - INFO - 1794448967.988 T0077_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,988 - sv_pid1@393de05229de - INFO - 1794448967.989 T0079_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:47,989 - sv_pid1@393de05229de - INFO - 1794448967.989 T0079_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:47,989 - sv_pid1@393de05229de - INFO - 1794448967.989 T0079_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:47,994 - sv_pid1@393de05229de - INFO - 1794448967.994 T0080_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,994 - sv_pid1@393de05229de - INFO - 1794448967.995 T0081_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,994 - sv_pid1@393de05229de - INFO - 1794448967.995 T0083_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,994 - sv_pid1@393de05229de - INFO - 1794448967.995 T0082_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:47,994 - sv_pid1@393de05229de - INFO - 1794448967.995 T0080_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,995 - sv_pid1@393de05229de - INFO - 1794448967.995 T0081_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,995 - sv_pid1@393de05229de - INFO - 1794448967.995 T0083_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:47,995 - sv_pid1@393de05229de - INFO - 1794448967.995 T0082_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,005 - sv_pid1@393de05229de - INFO - 1794448968.006 T0080_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,006 - sv_pid1@393de05229de - INFO - 1794448968.006 T0080_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,006 - sv_pid1@393de05229de - INFO - 1794448968.006 T0083_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,006 - sv_pid1@393de05229de - INFO - 1794448968.006 T0083_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,006 - sv_pid1@393de05229de - INFO - 1794448968.007 T0082_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,006 - sv_pid1@393de05229de - INFO - 1794448968.007 T0082_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,006 - sv_pid1@393de05229de - INFO - 1794448968.007 T0081_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,006 - sv_pid1@393de05229de - INFO - 1794448968.007 T0081_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.028 T0081_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.028 T0081_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.029 T0082_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.029 T0082_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.029 T0080_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.029 T0080_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.029 T0083_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,028 - sv_pid1@393de05229de - INFO - 1794448968.029 T0083_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.039 T0080_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.039 T0083_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.039 T0080_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.039 T0083_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.039 T0080_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.039 T0083_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.040 T0082_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.040 T0082_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.040 T0081_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.040 T0081_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,039 - sv_pid1@393de05229de - INFO - 1794448968.040 T0082_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,040 - sv_pid1@393de05229de - INFO - 1794448968.040 T0081_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,045 - sv_pid1@393de05229de - INFO - 1794448968.045 T0085_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,045 - sv_pid1@393de05229de - INFO - 1794448968.045 T0085_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,046 - sv_pid1@393de05229de - INFO - 1794448968.046 T0084_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,046 - sv_pid1@393de05229de - INFO - 1794448968.046 T0084_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,046 - sv_pid1@393de05229de - INFO - 1794448968.047 T0086_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,046 - sv_pid1@393de05229de - INFO - 1794448968.047 T0086_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,046 - sv_pid1@393de05229de - INFO - 1794448968.047 T0087_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,046 - sv_pid1@393de05229de - INFO - 1794448968.047 T0087_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,056 - sv_pid1@393de05229de - INFO - 1794448968.057 T0084_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,056 - sv_pid1@393de05229de - INFO - 1794448968.057 T0084_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,056 - sv_pid1@393de05229de - INFO - 1794448968.057 T0087_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,056 - sv_pid1@393de05229de - INFO - 1794448968.057 T0087_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,056 - sv_pid1@393de05229de - INFO - 1794448968.057 T0086_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,056 - sv_pid1@393de05229de - INFO - 1794448968.057 T0086_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,057 - sv_pid1@393de05229de - INFO - 1794448968.058 T0085_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,057 - sv_pid1@393de05229de - INFO - 1794448968.058 T0085_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,077 - sv_pid1@393de05229de - INFO - 1794448968.077 T0084_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,077 - sv_pid1@393de05229de - INFO - 1794448968.077 T0084_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,077 - sv_pid1@393de05229de - INFO - 1794448968.077 T0086_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,077 - sv_pid1@393de05229de - INFO - 1794448968.078 T0086_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,078 - sv_pid1@393de05229de - INFO - 1794448968.078 T0085_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,078 - sv_pid1@393de05229de - INFO - 1794448968.078 T0085_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,078 - sv_pid1@393de05229de - INFO - 1794448968.078 T0087_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,078 - sv_pid1@393de05229de - INFO - 1794448968.078 T0087_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0084_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0086_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0087_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0085_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0084_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0086_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0087_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.089 T0085_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.090 T0084_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.090 T0086_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.090 T0087_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,089 - sv_pid1@393de05229de - INFO - 1794448968.090 T0085_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.095 T0091_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.095 T0091_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.096 T0090_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.096 T0090_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.096 T0089_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.096 T0089_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.096 T0088_i_need_help_with_my_order IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,095 - sv_pid1@393de05229de - INFO - 1794448968.096 T0088_i_need_help_with_my_order IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,105 - sv_pid1@393de05229de - INFO - 1794448968.105 T0091_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,105 - sv_pid1@393de05229de - INFO - 1794448968.106 T0090_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,105 - sv_pid1@393de05229de - INFO - 1794448968.106 T0091_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,105 - sv_pid1@393de05229de - INFO - 1794448968.106 T0090_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,106 - sv_pid1@393de05229de - INFO - 1794448968.106 T0088_i_need_help_with_my_order IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,106 - sv_pid1@393de05229de - INFO - 1794448968.106 T0088_i_need_help_with_my_order IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,106 - sv_pid1@393de05229de - INFO - 1794448968.107 T0089_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,106 - sv_pid1@393de05229de - INFO - 1794448968.107 T0089_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,126 - sv_pid1@393de05229de - INFO - 1794448968.126 T0091_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,126 - sv_pid1@393de05229de - INFO - 1794448968.126 T0091_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,126 - sv_pid1@393de05229de - INFO - 1794448968.127 T0088_i_need_help_with_my_order IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,126 - sv_pid1@393de05229de - INFO - 1794448968.127 T0088_i_need_help_with_my_order IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,128 - sv_pid1@393de05229de - INFO - 1794448968.128 T0089_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,128 - sv_pid1@393de05229de - INFO - 1794448968.128 T0089_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,128 - sv_pid1@393de05229de - INFO - 1794448968.128 T0090_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,128 - sv_pid1@393de05229de - INFO - 1794448968.128 T0090_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,138 - sv_pid1@393de05229de - INFO - 1794448968.138 T0089_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,138 - sv_pid1@393de05229de - INFO - 1794448968.139 T0089_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,138 - sv_pid1@393de05229de - INFO - 1794448968.139 T0089_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,139 - sv_pid1@393de05229de - INFO - 1794448968.139 T0088_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,139 - sv_pid1@393de05229de - INFO - 1794448968.139 T0088_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,139 - sv_pid1@393de05229de - INFO - 1794448968.139 T0091_i_need_help_with_my_order IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,139 - sv_pid1@393de05229de - INFO - 1794448968.140 T0091_i_need_help_with_my_order IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,139 - sv_pid1@393de05229de - INFO - 1794448968.140 T0091_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,139 - sv_pid1@393de05229de - INFO - 1794448968.139 T0088_i_need_help_with_my_order IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,139 - sv_pid1@393de05229de - INFO - 1794448968.139 T0090_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,140 - sv_pid1@393de05229de - INFO - 1794448968.141 T0090_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,140 - sv_pid1@393de05229de - INFO - 1794448968.141 T0090_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,149 - sv_pid1@393de05229de - INFO - 1794448968.149 T0112_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,149 - sv_pid1@393de05229de - INFO - 1794448968.149 T0112_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,149 - sv_pid1@393de05229de - INFO - 1794448968.150 T0114_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,149 - sv_pid1@393de05229de - INFO - 1794448968.150 T0114_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,149 - sv_pid1@393de05229de - INFO - 1794448968.150 T0113_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,149 - sv_pid1@393de05229de - INFO - 1794448968.150 T0113_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,150 - sv_pid1@393de05229de - INFO - 1794448968.150 T0111_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,150 - sv_pid1@393de05229de - INFO - 1794448968.150 T0111_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,160 - sv_pid1@393de05229de - INFO - 1794448968.161 T0111_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,161 - sv_pid1@393de05229de - INFO - 1794448968.161 T0111_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,160 - sv_pid1@393de05229de - INFO - 1794448968.161 T0114_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,161 - sv_pid1@393de05229de - INFO - 1794448968.161 T0112_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,161 - sv_pid1@393de05229de - INFO - 1794448968.161 T0112_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,161 - sv_pid1@393de05229de - INFO - 1794448968.161 T0114_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,161 - sv_pid1@393de05229de - INFO - 1794448968.161 T0113_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,161 - sv_pid1@393de05229de - INFO - 1794448968.161 T0113_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,181 - sv_pid1@393de05229de - INFO - 1794448968.181 T0111_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,181 - sv_pid1@393de05229de - INFO - 1794448968.182 T0111_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,184 - sv_pid1@393de05229de - INFO - 1794448968.185 T0113_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,185 - sv_pid1@393de05229de - INFO - 1794448968.185 T0112_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,185 - sv_pid1@393de05229de - INFO - 1794448968.185 T0112_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,185 - sv_pid1@393de05229de - INFO - 1794448968.185 T0114_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,185 - sv_pid1@393de05229de - INFO - 1794448968.185 T0113_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,185 - sv_pid1@393de05229de - INFO - 1794448968.186 T0114_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,192 - sv_pid1@393de05229de - INFO - 1794448968.192 T0111_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,192 - sv_pid1@393de05229de - INFO - 1794448968.193 T0111_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,192 - sv_pid1@393de05229de - INFO - 1794448968.193 T0111_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,195 - sv_pid1@393de05229de - INFO - 1794448968.196 T0112_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,195 - sv_pid1@393de05229de - INFO - 1794448968.196 T0112_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,196 - sv_pid1@393de05229de - INFO - 1794448968.196 T0112_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,196 - sv_pid1@393de05229de - INFO - 1794448968.196 T0114_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,196 - sv_pid1@393de05229de - INFO - 1794448968.197 T0114_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,196 - sv_pid1@393de05229de - INFO - 1794448968.197 T0114_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,196 - sv_pid1@393de05229de - INFO - 1794448968.197 T0113_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,196 - sv_pid1@393de05229de - INFO - 1794448968.197 T0113_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,197 - sv_pid1@393de05229de - INFO - 1794448968.197 T0113_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,199 - sv_pid1@393de05229de - INFO - 1794448968.200 T0148_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,199 - sv_pid1@393de05229de - INFO - 1794448968.200 T0148_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,203 - sv_pid1@393de05229de - INFO - 1794448968.203 T0150_i_cannot_login_to_my_account IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,203 - sv_pid1@393de05229de - INFO - 1794448968.203 T0150_i_cannot_login_to_my_account IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,203 - sv_pid1@393de05229de - INFO - 1794448968.203 T0151_my_payment_was_declined IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,203 - sv_pid1@393de05229de - INFO - 1794448968.204 T0151_my_payment_was_declined IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,203 - sv_pid1@393de05229de - INFO - 1794448968.203 T0149_my_application_is_not_working IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,203 - sv_pid1@393de05229de - INFO - 1794448968.204 T0149_my_application_is_not_working IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,210 - sv_pid1@393de05229de - INFO - 1794448968.210 T0148_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,210 - sv_pid1@393de05229de - INFO - 1794448968.211 T0148_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,215 - sv_pid1@393de05229de - INFO - 1794448968.216 T0149_my_application_is_not_working IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,215 - sv_pid1@393de05229de - INFO - 1794448968.216 T0149_my_application_is_not_working IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,216 - sv_pid1@393de05229de - INFO - 1794448968.216 T0151_my_payment_was_declined IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,216 - sv_pid1@393de05229de - INFO - 1794448968.216 T0151_my_payment_was_declined IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,216 - sv_pid1@393de05229de - INFO - 1794448968.216 T0150_i_cannot_login_to_my_account IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,216 - sv_pid1@393de05229de - INFO - 1794448968.216 T0150_i_cannot_login_to_my_account IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,233 - sv_pid1@393de05229de - INFO - 1794448968.233 T0148_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,233 - sv_pid1@393de05229de - INFO - 1794448968.234 T0148_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,236 - sv_pid1@393de05229de - INFO - 1794448968.237 T0149_my_application_is_not_working IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,237 - sv_pid1@393de05229de - INFO - 1794448968.237 T0149_my_application_is_not_working IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,237 - sv_pid1@393de05229de - INFO - 1794448968.237 T0151_my_payment_was_declined IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,237 - sv_pid1@393de05229de - INFO - 1794448968.237 T0151_my_payment_was_declined IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,239 - sv_pid1@393de05229de - INFO - 1794448968.240 T0150_i_cannot_login_to_my_account IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,240 - sv_pid1@393de05229de - INFO - 1794448968.240 T0150_i_cannot_login_to_my_account IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,243 - sv_pid1@393de05229de - INFO - 1794448968.244 T0148_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,243 - sv_pid1@393de05229de - INFO - 1794448968.244 T0148_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,244 - sv_pid1@393de05229de - INFO - 1794448968.244 T0148_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,249 - sv_pid1@393de05229de - INFO - 1794448968.250 T0149_my_application_is_not_working IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,249 - sv_pid1@393de05229de - INFO - 1794448968.250 T0149_my_application_is_not_working IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,249 - sv_pid1@393de05229de - INFO - 1794448968.250 T0149_my_application_is_not_working IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,250 - sv_pid1@393de05229de - INFO - 1794448968.250 T0151_my_payment_was_declined IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,250 - sv_pid1@393de05229de - INFO - 1794448968.251 T0151_my_payment_was_declined IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,250 - sv_pid1@393de05229de - INFO - 1794448968.251 T0151_my_payment_was_declined IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,258 - sv_pid1@393de05229de - INFO - 1794448968.258 T0150_i_cannot_login_to_my_account IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,258 - sv_pid1@393de05229de - INFO - 1794448968.258 T0150_i_cannot_login_to_my_account IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,258 - sv_pid1@393de05229de - INFO - 1794448968.258 T0150_i_cannot_login_to_my_account IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.262 T0186_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.262 T0186_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.262 T0185_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.262 T0185_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.263 T0187_i_have_a_billing_problem IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.263 T0187_i_have_a_billing_problem IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.263 T0188_i_forgot_my_password IN q0 ENTERS-SERVER 0
+2026-11-12 02:02:48,262 - sv_pid1@393de05229de - INFO - 1794448968.263 T0188_i_forgot_my_password IN q0 TASK-START 1 "W 0.010000"
+2026-11-12 02:02:48,272 - sv_pid1@393de05229de - INFO - 1794448968.272 T0186_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,272 - sv_pid1@393de05229de - INFO - 1794448968.273 T0186_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,273 - sv_pid1@393de05229de - INFO - 1794448968.273 T0188_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,273 - sv_pid1@393de05229de - INFO - 1794448968.273 T0188_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,273 - sv_pid1@393de05229de - INFO - 1794448968.273 T0187_i_have_a_billing_problem IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,273 - sv_pid1@393de05229de - INFO - 1794448968.273 T0187_i_have_a_billing_problem IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,273 - sv_pid1@393de05229de - INFO - 1794448968.274 T0185_i_forgot_my_password IN q0 TASK-END 1 "W 0.010000"
+2026-11-12 02:02:48,273 - sv_pid1@393de05229de - INFO - 1794448968.274 T0185_i_forgot_my_password IN q0 TASK-START 2 "W 0.020000"
+2026-11-12 02:02:48,294 - sv_pid1@393de05229de - INFO - 1794448968.294 T0186_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,294 - sv_pid1@393de05229de - INFO - 1794448968.294 T0186_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,294 - sv_pid1@393de05229de - INFO - 1794448968.295 T0187_i_have_a_billing_problem IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,294 - sv_pid1@393de05229de - INFO - 1794448968.295 T0187_i_have_a_billing_problem IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,294 - sv_pid1@393de05229de - INFO - 1794448968.295 T0188_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,295 - sv_pid1@393de05229de - INFO - 1794448968.295 T0188_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,295 - sv_pid1@393de05229de - INFO - 1794448968.296 T0185_i_forgot_my_password IN q0 TASK-END 2 "W 0.020000"
+2026-11-12 02:02:48,295 - sv_pid1@393de05229de - INFO - 1794448968.296 T0185_i_forgot_my_password IN q0 TASK-START 3 "W 0.010000"
+2026-11-12 02:02:48,308 - sv_pid1@393de05229de - INFO - 1794448968.309 T0186_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.309 T0186_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.309 T0187_i_have_a_billing_problem IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.309 T0187_i_have_a_billing_problem IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.309 T0188_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.310 T0188_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.310 T0185_i_forgot_my_password IN q0 TASK-END 3 "W 0.010000"
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.310 T0185_i_forgot_my_password IN q0 EXITS-SERVER 0
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.310 T0187_i_have_a_billing_problem IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,309 - sv_pid1@393de05229de - INFO - 1794448968.310 T0186_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,314 - sv_pid1@393de05229de - INFO - 1794448968.314 T0188_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
+2026-11-12 02:02:48,314 - sv_pid1@393de05229de - INFO - 1794448968.315 T0185_i_forgot_my_password IN q0 DEPART-VIA resolved.csv
